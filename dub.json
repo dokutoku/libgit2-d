@@ -5,6 +5,7 @@
 		"dokutoku"
 	],
 	"description": "D bindings for libgit2",
+	"homepage": "https://gitlab.com/dokutoku/libgit2-d",
 	"copyright": "Copyright © 2019, dokutoku",
 	"targetType": "sourceLibrary",
 	"license": "GPL-2.0(Linking Exception)"
