@@ -192,7 +192,7 @@ enum git_index_stage_t
  *
  * Since there is no ODB or working directory behind this index,
  * any Index methods which rely on these (e.g. index_add_bypath)
- * will fail with the GIT_ERROR error code.
+ * will fail with the git_error_code.GIT_ERROR error code.
  *
  * If you need to access the index of an actual repository,
  * use the `git_repository_index` wrapper.
@@ -249,7 +249,7 @@ int git_index_caps(const (libgit2_d.types.git_index)* index);
 /**
  * Set index capabilities flags.
  *
- * If you pass `GIT_INDEX_CAPABILITY_FROM_OWNER` for the caps, then
+ * If you pass `git_index_capability_t.GIT_INDEX_CAPABILITY_FROM_OWNER` for the caps, then
  * capabilities will be read from the config of the owner object,
  * looking at `core.ignorecase`, `core.filemode`, `core.symlinks`.
  *
@@ -367,7 +367,7 @@ int git_index_read_tree(libgit2_d.types.git_index* index, const (libgit2_d.types
  *
  * @param out_ Pointer where to store the OID of the written tree
  * @param index Index to write
- * @return 0 on success, GIT_EUNMERGED when the index is not clean
+ * @return 0 on success, git_error_code.GIT_EUNMERGED when the index is not clean
  * or an error code
  */
 //GIT_EXTERN
@@ -385,7 +385,7 @@ int git_index_write_tree(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_index*
  * @param out_ Pointer where to store OID of the the written tree
  * @param index Index to write
  * @param repo Repository where to write the tree
- * @return 0 on success, GIT_EUNMERGED when the index is not clean
+ * @return 0 on success, git_error_code.GIT_EUNMERGED when the index is not clean
  * or an error code
  */
 //GIT_EXTERN
@@ -541,7 +541,7 @@ int git_index_iterator_new(libgit2_d.types.git_index_iterator** iterator_out, li
  *
  * @param out Pointer to store the index entry in
  * @param iterator The iterator
- * @return 0, GIT_ITEROVER on iteration completion or an error code
+ * @return 0, git_error_code.GIT_ITEROVER on iteration completion or an error code
  */
 //GIT_EXTERN
 int git_index_iterator_next(const (.git_index_entry)** out_, libgit2_d.types.git_index_iterator* iterator);
@@ -643,20 +643,20 @@ int git_index_remove_bypath(libgit2_d.types.git_index* index, const (char)* path
  * be matched against files in the repository's working directory.  Each
  * file that matches will be added to the index (either updating an
  * existing entry or adding a new entry).  You can disable glob expansion
- * and force exact matching with the `GIT_INDEX_ADD_DISABLE_PATHSPEC_MATCH`
+ * and force exact matching with the `git_index_add_option_t.GIT_INDEX_ADD_DISABLE_PATHSPEC_MATCH`
  * flag.
  *
  * Files that are ignored will be skipped (unlike `git_index_add_bypath`).
  * If a file is already tracked in the index, then it *will* be updated
- * even if it is ignored.  Pass the `GIT_INDEX_ADD_FORCE` flag to skip
+ * even if it is ignored.  Pass the `git_index_add_option_t.GIT_INDEX_ADD_FORCE` flag to skip
  * the checking of ignore rules.
  *
  * To emulate `git add -A` and generate an error if the pathspec contains
  * the exact path of an ignored file (when not using FORCE), add the
- * `GIT_INDEX_ADD_CHECK_PATHSPEC` flag.  This checks that each entry
+ * `git_index_add_option_t.GIT_INDEX_ADD_CHECK_PATHSPEC` flag.  This checks that each entry
  * in the `pathspec` that is an exact match to a filename on disk is
  * either not ignored or already in the index.  If this check fails, the
- * function will return GIT_EINVALIDSPEC.
+ * function will return git_error_code.GIT_EINVALIDSPEC.
  *
  * To emulate `git add -A` with the "dry-run" option, just use a callback
  * function that always returns a positive value.  See below for details.
@@ -735,7 +735,7 @@ int git_index_update_all(libgit2_d.types.git_index* index, const (libgit2_d.stra
  * (optional)
  * @param index an existing index object
  * @param path path to search
- * @return a zero-based position in the index if found; GIT_ENOTFOUND otherwise
+ * @return a zero-based position in the index if found; git_error_code.GIT_ENOTFOUND otherwise
  */
 //GIT_EXTERN
 int git_index_find(size_t* at_pos, libgit2_d.types.git_index* index, const (char)* path);
@@ -843,7 +843,7 @@ int git_index_conflict_iterator_new(libgit2_d.types.git_index_conflict_iterator*
  * @param ancestor_out Pointer to store the ancestor side of the conflict
  * @param our_out Pointer to store our side of the conflict
  * @param their_out Pointer to store their side of the conflict
- * @return 0 (no error), GIT_ITEROVER (iteration is done) or an error code
+ * @return 0 (no error), git_error_code.GIT_ITEROVER (iteration is done) or an error code
  *         (negative value)
  */
 //GIT_EXTERN

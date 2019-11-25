@@ -60,7 +60,7 @@ struct git_proxy_options
 	 * This will be called if the remote host requires
 	 * authentication in order to connect to it.
 	 *
-	 * Returning GIT_PASSTHROUGH will make libgit2 behave as
+	 * Returning git_error_code.GIT_PASSTHROUGH will make libgit2 behave as
 	 * though this field isn't set.
 	 */
 	libgit2_d.cred.git_cred_acquire_cb credentials;

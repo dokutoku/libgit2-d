@@ -48,7 +48,7 @@ enum git_hashsig_option_t
 /**
  * Compute a similarity signature for a text buffer
  *
- * If you have passed the option GIT_HASHSIG_IGNORE_WHITESPACE, then the
+ * If you have passed the option git_hashsig_option_t.GIT_HASHSIG_IGNORE_WHITESPACE, then the
  * whitespace will be removed from the buffer while it is being processed,
  * modifying the buffer in place. Sorry about that!
  *
@@ -56,8 +56,8 @@ enum git_hashsig_option_t
  * @param buf The input buffer.
  * @param buflen The input buffer size.
  * @param opts The signature computation options (see above).
- * @return 0 on success, GIT_EBUFS if the buffer doesn't contain enough data to
- * compute a valid signature (unless GIT_HASHSIG_ALLOW_SMALL_FILES is set), or
+ * @return 0 on success, git_error_code.GIT_EBUFS if the buffer doesn't contain enough data to
+ * compute a valid signature (unless git_hashsig_option_t.GIT_HASHSIG_ALLOW_SMALL_FILES is set), or
  * error code.
  */
 //GIT_EXTERN
@@ -72,8 +72,8 @@ int git_hashsig_create(.git_hashsig** out_, const (char)* buf, size_t buflen, .g
  * @param out_ The computed similarity signature.
  * @param path The path to the input file.
  * @param opts The signature computation options (see above).
- * @return 0 on success, GIT_EBUFS if the buffer doesn't contain enough data to
- * compute a valid signature (unless GIT_HASHSIG_ALLOW_SMALL_FILES is set), or
+ * @return 0 on success, git_error_code.GIT_EBUFS if the buffer doesn't contain enough data to
+ * compute a valid signature (unless git_hashsig_option_t.GIT_HASHSIG_ALLOW_SMALL_FILES is set), or
  * error code.
  */
 //GIT_EXTERN

@@ -154,7 +154,7 @@ const (char)* git_tag_message(const (libgit2_d.types.git_tag)* tag);
  * @param oid Pointer where to store the OID of the
  * newly created tag. If the tag already exists, this parameter
  * will be the oid of the existing tag, and the function will
- * return a GIT_EEXISTS error code.
+ * return a git_error_code.GIT_EEXISTS error code.
  *
  * @param repo Repository where to store the tag
  *
@@ -172,7 +172,7 @@ const (char)* git_tag_message(const (libgit2_d.types.git_tag)* tag);
  *
  * @param force Overwrite existing references
  *
- * @return 0 on success, GIT_EINVALIDSPEC or an error code
+ * @return 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code
  *	A tag object is written to the ODB, and a proper reference
  *	is written in the /refs/tags folder, pointing to it
  */
@@ -230,7 +230,7 @@ int git_tag_create_from_buffer(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_r
  * @param oid Pointer where to store the OID of the provided
  * target object. If the tag already exists, this parameter
  * will be filled with the oid of the existing pointed object
- * and the function will return a GIT_EEXISTS error code.
+ * and the function will return a git_error_code.GIT_EEXISTS error code.
  *
  * @param repo Repository where to store the lightweight tag
  *
@@ -243,7 +243,7 @@ int git_tag_create_from_buffer(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_r
  *
  * @param force Overwrite existing references
  *
- * @return 0 on success, GIT_EINVALIDSPEC or an error code
+ * @return 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code
  *	A proper reference is written in the /refs/tags folder,
  * pointing to the provided target object
  */
@@ -261,7 +261,7 @@ int git_tag_create_lightweight(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_r
  * @param tag_name Name of the tag to be deleted;
  * this name is validated for consistency.
  *
- * @return 0 on success, GIT_EINVALIDSPEC or an error code
+ * @return 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code
  */
 //GIT_EXTERN
 int git_tag_delete(libgit2_d.types.git_repository* repo, const (char)* tag_name);

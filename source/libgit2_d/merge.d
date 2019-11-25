@@ -91,7 +91,7 @@ enum git_merge_flag_t
 	/**
 	 * If a conflict occurs, exit immediately instead of attempting to
 	 * continue resolving conflicts.  The merge operation will fail with
-	 * GIT_EMERGECONFLICT and no index will be returned.
+	 * git_error_code.GIT_EMERGECONFLICT and no index will be returned.
 	 */
 	GIT_MERGE_FAIL_ON_CONFLICT = (1 << 1),
 
@@ -287,7 +287,7 @@ struct git_merge_options
 
 	/**
 	 * Similarity to consider a file renamed (default 50).  If
-	 * `GIT_MERGE_FIND_RENAMES` is enabled, added files will be compared
+	 * `git_merge_flag_t.GIT_MERGE_FIND_RENAMES` is enabled, added files will be compared
 	 * with deleted files to determine their similarity.  Files that are
 	 * more similar than the rename threshold (percentage-wise) will be
 	 * treated as a rename.
@@ -453,7 +453,7 @@ int git_merge_analysis_for_ref(.git_merge_analysis_t* analysis_out, .git_merge_p
  * @param repo the repository where the commits exist
  * @param one one of the commits
  * @param two the other commit
- * @return 0 on success, GIT_ENOTFOUND if not found or error code
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND if not found or error code
  */
 //GIT_EXTERN
 int git_merge_base(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* one, const (libgit2_d.oid.git_oid)* two);
@@ -465,7 +465,7 @@ int git_merge_base(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* 
  * @param repo the repository where the commits exist
  * @param one one of the commits
  * @param two the other commit
- * @return 0 on success, GIT_ENOTFOUND if not found or error code
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND if not found or error code
  */
 //GIT_EXTERN
 int git_merge_bases(libgit2_d.oidarray.git_oidarray* out_, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* one, const (libgit2_d.oid.git_oid)* two);
@@ -477,7 +477,7 @@ int git_merge_bases(libgit2_d.oidarray.git_oidarray* out_, libgit2_d.types.git_r
  * @param repo the repository where the commits exist
  * @param length The number of commits in the provided `input_array`
  * @param input_array oids of the commits
- * @return Zero on success; GIT_ENOTFOUND or -1 on failure.
+ * @return Zero on success; git_error_code.GIT_ENOTFOUND or -1 on failure.
  */
 //GIT_EXTERN
 int git_merge_base_many(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, size_t length, const libgit2_d.oid.git_oid[] input_array);
@@ -489,7 +489,7 @@ int git_merge_base_many(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_reposit
  * @param repo the repository where the commits exist
  * @param length The number of commits in the provided `input_array`
  * @param input_array oids of the commits
- * @return Zero on success; GIT_ENOTFOUND or -1 on failure.
+ * @return Zero on success; git_error_code.GIT_ENOTFOUND or -1 on failure.
  */
 //GIT_EXTERN
 int git_merge_bases_many(libgit2_d.oidarray.git_oidarray* out_, libgit2_d.types.git_repository* repo, size_t length, const libgit2_d.oid.git_oid[] input_array);
@@ -501,7 +501,7 @@ int git_merge_bases_many(libgit2_d.oidarray.git_oidarray* out_, libgit2_d.types.
  * @param repo the repository where the commits exist
  * @param length The number of commits in the provided `input_array`
  * @param input_array oids of the commits
- * @return Zero on success; GIT_ENOTFOUND or -1 on failure.
+ * @return Zero on success; git_error_code.GIT_ENOTFOUND or -1 on failure.
  */
 //GIT_EXTERN
 int git_merge_base_octopus(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, size_t length, const libgit2_d.oid.git_oid[] input_array);

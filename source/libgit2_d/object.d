@@ -31,7 +31,7 @@ public:
  *
  * The 'type' parameter must match the type of the object
  * in the odb; the method will fail otherwise.
- * The special value 'GIT_OBJECT_ANY' may be passed to let
+ * The special value 'git_object_t.GIT_OBJECT_ANY' may be passed to let
  * the method guess the object's type.
  *
  * @param object pointer to the looked-up object
@@ -60,7 +60,7 @@ int git_object_lookup(libgit2_d.types.git_object** object, libgit2_d.types.git_r
  *
  * The 'type' parameter must match the type of the object
  * in the odb; the method will fail otherwise.
- * The special value 'GIT_OBJECT_ANY' may be passed to let
+ * The special value 'git_object_t.GIT_OBJECT_ANY' may be passed to let
  * the method guess the object's type.
  *
  * @param object_out pointer where to store the looked-up object
@@ -187,16 +187,16 @@ int git_object_typeisloose(libgit2_d.types.git_object_t type);
  * Recursively peel an object until an object of the specified type is met.
  *
  * If the query cannot be satisfied due to the object model,
- * GIT_EINVALIDSPEC will be returned (e.g. trying to peel a blob to a
+ * git_error_code.GIT_EINVALIDSPEC will be returned (e.g. trying to peel a blob to a
  * tree).
  *
- * If you pass `GIT_OBJECT_ANY` as the target type, then the object will
+ * If you pass `git_object_t.GIT_OBJECT_ANY` as the target type, then the object will
  * be peeled until the type changes. A tag will be peeled until the
  * referenced object is no longer a tag, and a commit will be peeled
- * to a tree. Any other object type will return GIT_EINVALIDSPEC.
+ * to a tree. Any other object type will return git_error_code.GIT_EINVALIDSPEC.
  *
  * If peeling a tag we discover an object which cannot be peeled to
- * the target type due to the object model, GIT_EPEEL will be
+ * the target type due to the object model, git_error_code.GIT_EPEEL will be
  * returned.
  *
  * You must free the returned object.
@@ -204,7 +204,7 @@ int git_object_typeisloose(libgit2_d.types.git_object_t type);
  * @param peeled Pointer to the peeled git_object
  * @param object The object to be processed
  * @param target_type The type of the requested object (a GIT_OBJECT_ value)
- * @return 0 on success, GIT_EINVALIDSPEC, GIT_EPEEL, or an error code
+ * @return 0 on success, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EPEEL, or an error code
  */
 //GIT_EXTERN
 int git_object_peel(libgit2_d.types.git_object** peeled, const (libgit2_d.types.git_object)* object, libgit2_d.types.git_object_t target_type);

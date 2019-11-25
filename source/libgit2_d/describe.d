@@ -48,7 +48,7 @@ struct git_describe_options
 	/**< default: 10 */
 	uint max_candidates_tags;
 
-	/**< default: GIT_DESCRIBE_DEFAULT */
+	/**< default: git_describe_strategy_t.GIT_DESCRIBE_DEFAULT */
 	uint describe_strategy;
 
 	const (char)* pattern;

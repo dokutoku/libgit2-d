@@ -188,7 +188,7 @@ struct git_status_options
 	/**
 	 * The `pathspec` is an array of path patterns to match (using
 	 * fnmatch-style matching), or just an array of paths to match exactly if
-	 * `GIT_STATUS_OPT_DISABLE_PATHSPEC_MATCH` is specified in the flags.
+	 * `git_status_opt_t.GIT_STATUS_OPT_DISABLE_PATHSPEC_MATCH` is specified in the flags.
 	 */
 	libgit2_d.strarray.git_strarray pathspec;
 
@@ -294,12 +294,12 @@ int git_status_foreach_ext(libgit2_d.types.git_repository* repo, const (.git_sta
  *
  * This tries to get status for the filename that you give.  If no files
  * match that name (in either the HEAD, index, or working directory), this
- * returns GIT_ENOTFOUND.
+ * returns git_error_code.GIT_ENOTFOUND.
  *
  * If the name matches multiple files (for example, if the `path` names a
  * directory or if running on a case- insensitive filesystem and yet the
  * HEAD has two entries that both match the path), then this returns
- * GIT_EAMBIGUOUS because it cannot give correct results.
+ * git_error_code.GIT_EAMBIGUOUS because it cannot give correct results.
  *
  * This does not do any sort of rename detection.  Renames require a set of
  * targets and because of the path filtering, there is not enough
@@ -311,8 +311,8 @@ int git_status_foreach_ext(libgit2_d.types.git_repository* repo, const (.git_sta
  * @param repo A repository object
  * @param path The exact path to retrieve status for relative to the
  * repository working directory
- * @return 0 on success, GIT_ENOTFOUND if the file is not found in the HEAD,
- *      index, and work tree, GIT_EAMBIGUOUS if `path` matches multiple files
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND if the file is not found in the HEAD,
+ *      index, and work tree, git_error_code.GIT_EAMBIGUOUS if `path` matches multiple files
  *      or if it refers to a folder, and -1 on other errors.
  */
 //GIT_EXTERN

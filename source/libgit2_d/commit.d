@@ -287,7 +287,7 @@ const (libgit2_d.oid.git_oid)* git_commit_parent_id(const (libgit2_d.types.git_c
  * @param ancestor Pointer where to store the ancestor commit
  * @param commit a previously loaded commit.
  * @param n the requested generation
- * @return 0 on success; GIT_ENOTFOUND if no matching ancestor exists
+ * @return 0 on success; git_error_code.GIT_ENOTFOUND if no matching ancestor exists
  * or an error code
  */
 //GIT_EXTERN
@@ -300,7 +300,7 @@ int git_commit_nth_gen_ancestor(libgit2_d.types.git_commit** ancestor, const (li
  * overwritten
  * @param commit the commit to look in
  * @param field the header field to return
- * @return 0 on succeess, GIT_ENOTFOUND if the field does not exist,
+ * @return 0 on succeess, git_error_code.GIT_ENOTFOUND if the field does not exist,
  * or an error code
  */
 //GIT_EXTERN
@@ -310,8 +310,8 @@ int git_commit_header_field(libgit2_d.buffer.git_buf* out_, const (libgit2_d.typ
  * Extract the signature from a commit
  *
  * If the id is not for a commit, the error class will be
- * `GIT_ERROR_INVALID`. If the commit does not have a signature, the
- * error class will be `GIT_ERROR_OBJECT`.
+ * `git_error_t.GIT_ERROR_INVALID`. If the commit does not have a signature, the
+ * error class will be `git_error_t.GIT_ERROR_OBJECT`.
  *
  * @param signature the signature block; existing content will be
  * overwritten
@@ -321,7 +321,7 @@ int git_commit_header_field(libgit2_d.buffer.git_buf* out_, const (libgit2_d.typ
  * @param commit_id the commit from which to extract the data
  * @param field the name of the header field containing the signature
  * block; pass `null` to extract the default 'gpgsig'
- * @return 0 on success, GIT_ENOTFOUND if the id is not for a commit
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND if the id is not for a commit
  * or the commit does not have a signature.
  */
 //GIT_EXTERN
@@ -495,9 +495,9 @@ int git_commit_dup(libgit2_d.types.git_commit** out_, libgit2_d.types.git_commit
  * details.
  *
  * When the callback:
- * - returns GIT_PASSTHROUGH, no signature will be added to the commit.
+ * - returns git_error_code.GIT_PASSTHROUGH, no signature will be added to the commit.
  * - returns < 0, commit creation will be aborted.
- * - returns GIT_OK, the signature parameter is expected to be filled.
+ * - returns git_error_code.GIT_OK, the signature parameter is expected to be filled.
  */
 alias git_commit_signing_cb = int function(libgit2_d.buffer.git_buf* signature, libgit2_d.buffer.git_buf* signature_field, const (char)* commit_content, void* payload);
 

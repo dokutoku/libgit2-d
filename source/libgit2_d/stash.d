@@ -64,7 +64,7 @@ enum git_stash_flags
  *
  * @param flags Flags to control the stashing process. (see GIT_STASH_* above)
  *
- * @return 0 on success, GIT_ENOTFOUND where there's nothing to stash,
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND where there's nothing to stash,
  * or error code.
  */
 //GIT_EXTERN
@@ -174,26 +174,26 @@ int git_stash_apply_options_init(.git_stash_apply_options* opts, uint version_);
  * Apply a single stashed state from the stash list.
  *
  * If local changes in the working directory conflict with changes in the
- * stash then GIT_EMERGECONFLICT will be returned.  In this case, the index
+ * stash then git_error_code.GIT_EMERGECONFLICT will be returned.  In this case, the index
  * will always remain unmodified and all files in the working directory will
  * remain unmodified.  However, if you are restoring untracked files or
  * ignored files and there is a conflict when applying the modified files,
  * then those files will remain in the working directory.
  *
- * If passing the GIT_STASH_APPLY_REINSTATE_INDEX flag and there would be
+ * If passing the git_stash_apply_flags.GIT_STASH_APPLY_REINSTATE_INDEX flag and there would be
  * conflicts when reinstating the index, the function will return
- * GIT_EMERGECONFLICT and both the working directory and index will be left
+ * git_error_code.GIT_EMERGECONFLICT and both the working directory and index will be left
  * unmodified.
  *
- * Note that a minimum checkout strategy of `GIT_CHECKOUT_SAFE` is implied.
+ * Note that a minimum checkout strategy of `git_checkout_strategy_t.GIT_CHECKOUT_SAFE` is implied.
  *
  * @param repo The owning repository.
  * @param index The position within the stash list. 0 points to the
  *              most recent stashed state.
  * @param options Optional options to control how stashes are applied.
  *
- * @return 0 on success, GIT_ENOTFOUND if there's no stashed state for the
- *         given index, GIT_EMERGECONFLICT if changes exist in the working
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND if there's no stashed state for the
+ *         given index, git_error_code.GIT_EMERGECONFLICT if changes exist in the working
  *         directory, or an error code
  */
 //GIT_EXTERN
@@ -237,7 +237,7 @@ int git_stash_foreach(libgit2_d.types.git_repository* repo, .git_stash_cb callba
  * @param index The position within the stash list. 0 points to the
  * most recent stashed state.
  *
- * @return 0 on success, GIT_ENOTFOUND if there's no stashed state for the given
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND if there's no stashed state for the given
  * index, or error code.
  */
 //GIT_EXTERN
@@ -252,7 +252,7 @@ int git_stash_drop(libgit2_d.types.git_repository* repo, size_t index);
  *              most recent stashed state.
  * @param options Optional options to control how stashes are applied.
  *
- * @return 0 on success, GIT_ENOTFOUND if there's no stashed state for the given
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND if there's no stashed state for the given
  * index, or error code. (see git_stash_apply() above for details)
  */
 //GIT_EXTERN

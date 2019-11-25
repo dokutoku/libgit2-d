@@ -100,7 +100,7 @@ void git_odb_free(libgit2_d.types.git_odb* db);
  * @param id identity of the object to read.
  * @return
  * - 0 if the object was read;
- * - GIT_ENOTFOUND if the object is not in the database.
+ * - git_error_code.GIT_ENOTFOUND if the object is not in the database.
  */
 //GIT_EXTERN
 int git_odb_read(libgit2_d.types.git_odb_object** out_, libgit2_d.types.git_odb* db, const (libgit2_d.oid.git_oid)* id);
@@ -129,8 +129,8 @@ int git_odb_read(libgit2_d.types.git_odb_object** out_, libgit2_d.types.git_odb*
  * @param len the length of the prefix
  * @return
  * - 0 if the object was read;
- * - GIT_ENOTFOUND if the object is not in the database.
- * - GIT_EAMBIGUOUS if the prefix is ambiguous (several objects match the
+ * - git_error_code.GIT_ENOTFOUND if the object is not in the database.
+ * - git_error_code.GIT_EAMBIGUOUS if the prefix is ambiguous (several objects match the
  * prefix)
  */
 //GIT_EXTERN
@@ -152,7 +152,7 @@ int git_odb_read_prefix(libgit2_d.types.git_odb_object** out_, libgit2_d.types.g
  * @param id identity of the object to read.
  * @return
  * - 0 if the object was read;
- * - GIT_ENOTFOUND if the object is not in the database.
+ * - git_error_code.GIT_ENOTFOUND if the object is not in the database.
  */
 //GIT_EXTERN
 int git_odb_read_header(size_t* len_out, libgit2_d.types.git_object_t* type_out, libgit2_d.types.git_odb* db, const (libgit2_d.oid.git_oid)* id);
@@ -177,7 +177,7 @@ int git_odb_exists(libgit2_d.types.git_odb* db, const (libgit2_d.oid.git_oid)* i
  * @param db The database to be searched for the given object.
  * @param short_id A prefix of the id of the object to read.
  * @param len The length of the prefix.
- * @return 0 if found, GIT_ENOTFOUND if not found, GIT_EAMBIGUOUS if multiple
+ * @return 0 if found, git_error_code.GIT_ENOTFOUND if not found, git_error_code.GIT_EAMBIGUOUS if multiple
  *         matches were found, other value < 0 if there was a read error.
  */
 //GIT_EXTERN
@@ -200,7 +200,7 @@ struct git_odb_expand_id
 
 	/**
 	 * The (optional) type of the object to search for; leave as `0` or set
-	 * to `GIT_OBJECT_ANY` to query for any object matching the ID.
+	 * to `git_object_t.GIT_OBJECT_ANY` to query for any object matching the ID.
 	 */
 	libgit2_d.types.git_object_t type;
 }
@@ -290,7 +290,7 @@ int git_odb_write(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_odb* odb, con
  * The type and final length of the object must be specified
  * when opening the stream.
  *
- * The returned stream will be of type `GIT_STREAM_WRONLY`, and it
+ * The returned stream will be of type `git_odb_stream_t.GIT_STREAM_WRONLY`, and it
  * won't be effective until `git_odb_stream_finalize_write` is called
  * and returns without an error
  *
@@ -363,7 +363,7 @@ void git_odb_stream_free(libgit2_d.types.git_odb_stream* stream);
  * It's recommended to use `git_odb_read` instead, which is
  * assured to work on all backends.
  *
- * The returned stream will be of type `GIT_STREAM_RDONLY` and
+ * The returned stream will be of type `git_odb_stream_t.GIT_STREAM_RDONLY` and
  * will have the following methods:
  *
  *		- stream->read: read `n` bytes from the stream
@@ -560,7 +560,7 @@ size_t git_odb_num_backends(libgit2_d.types.git_odb* odb);
  * @param out_ output pointer to ODB backend at pos
  * @param odb object database
  * @param pos index into object database backend list
- * @return 0 on success; GIT_ENOTFOUND if pos is invalid; other errors < 0
+ * @return 0 on success; git_error_code.GIT_ENOTFOUND if pos is invalid; other errors < 0
  */
 //GIT_EXTERN
 int git_odb_get_backend(libgit2_d.types.git_odb_backend** out_, libgit2_d.types.git_odb* odb, size_t pos);

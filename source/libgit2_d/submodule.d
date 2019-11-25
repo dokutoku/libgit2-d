@@ -159,8 +159,8 @@ struct git_submodule_update_options
 	/**
 	 * These options are passed to the checkout step. To disable
 	 * checkout, set the `checkout_strategy` to
-	 * `GIT_CHECKOUT_NONE`. Generally you will want the use
-	 * GIT_CHECKOUT_SAFE to update files in the working
+	 * `git_checkout_strategy_t.GIT_CHECKOUT_NONE`. Generally you will want the use
+	 * git_checkout_strategy_t.GIT_CHECKOUT_SAFE to update files in the working
 	 * directory.
 	 */
 	libgit2_d.checkout.git_checkout_options checkout_opts;
@@ -250,20 +250,20 @@ int git_submodule_update(libgit2_d.types.git_submodule* submodule, int init, .gi
  * - The submodule is not mentioned in the HEAD, the index, and the config,
  *   but does "exist" in the working directory (i.e. there is a subdirectory
  *   that appears to be a Git repository).  In this case, this function
- *   returns GIT_EEXISTS to indicate a sub-repository exists but not in a
+ *   returns git_error_code.GIT_EEXISTS to indicate a sub-repository exists but not in a
  *   state where a git_submodule can be instantiated.
  * - The submodule is not mentioned in the HEAD, index, or config and the
  *   working directory doesn't contain a value git repo at that path.
  *   There may or may not be anything else at that path, but nothing that
- *   looks like a submodule.  In this case, this returns GIT_ENOTFOUND.
+ *   looks like a submodule.  In this case, this returns git_error_code.GIT_ENOTFOUND.
  *
  * You must call `git_submodule_free` when done with the submodule.
  *
  * @param out_ Output ptr to submodule; pass null to just get return code
  * @param repo The parent repository
  * @param name The name of or path to the submodule; trailing slashes okay
- * @return 0 on success, GIT_ENOTFOUND if submodule does not exist,
- *         GIT_EEXISTS if a repository is found in working directory only,
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND if submodule does not exist,
+ *         git_error_code.GIT_EEXISTS if a repository is found in working directory only,
  *         -1 on other errors.
  */
 //GIT_EXTERN
@@ -287,7 +287,7 @@ void git_submodule_free(libgit2_d.types.git_submodule* submodule);
  * submodules but are not tracked, the diff API will generate a diff record
  * for workdir items that look like submodules but are not tracked, showing
  * them as added in the workdir.  Also, the status API will treat the entire
- * subdirectory of a contained git repo as a single GIT_STATUS_WT_NEW item.
+ * subdirectory of a contained git repo as a single git_status_t.GIT_STATUS_WT_NEW item.
  *
  * @param repo The repository
  * @param callback Function to be called with the name of each submodule.
@@ -321,7 +321,7 @@ int git_submodule_foreach(libgit2_d.types.git_repository* repo, .git_submodule_c
  * @param path Path at which the submodule should be created
  * @param use_gitlink Should workdir contain a gitlink to the repo in
  *        .git/modules vs. repo directly in workdir.
- * @return 0 on success, GIT_EEXISTS if submodule already exists,
+ * @return 0 on success, git_error_code.GIT_EEXISTS if submodule already exists,
  *         -1 on other errors.
  */
 //GIT_EXTERN
@@ -498,16 +498,16 @@ const (libgit2_d.oid.git_oid)* git_submodule_wd_id(libgit2_d.types.git_submodule
  * These values control the behavior of `git_submodule_status()` for this
  * submodule.  There are four ignore values:
  *
- *  - **GIT_SUBMODULE_IGNORE_NONE** will consider any change to the contents
+ *  - **git_submodule_ignore_t.GIT_SUBMODULE_IGNORE_NONE** will consider any change to the contents
  *    of the submodule from a clean checkout to be dirty, including the
  *    addition of untracked files.  This is the default if unspecified.
- *  - **GIT_SUBMODULE_IGNORE_UNTRACKED** examines the contents of the
+ *  - **git_submodule_ignore_t.GIT_SUBMODULE_IGNORE_UNTRACKED** examines the contents of the
  *    working tree (i.e. call `git_status_foreach()` on the submodule) but
  *    UNTRACKED files will not count as making the submodule dirty.
- *  - **GIT_SUBMODULE_IGNORE_DIRTY** means to only check if the HEAD of the
+ *  - **git_submodule_ignore_t.GIT_SUBMODULE_IGNORE_DIRTY** means to only check if the HEAD of the
  *    submodule has moved for status.  This is fast since it does not need to
  *    scan the working tree of the submodule at all.
- *  - **GIT_SUBMODULE_IGNORE_ALL** means not to open the submodule repo.
+ *  - **git_submodule_ignore_t.GIT_SUBMODULE_IGNORE_ALL** means not to open the submodule repo.
  *    The working directory will be consider clean so long as there is a
  *    checked out version present.
  *
@@ -677,7 +677,7 @@ int git_submodule_status(uint* status, libgit2_d.types.git_repository* repo, con
  *
  * This is a bit like a very lightweight version of `git_submodule_status`.
  * It just returns a made of the first four submodule status values (i.e.
- * the ones like GIT_SUBMODULE_STATUS_IN_HEAD, etc) that tell you where the
+ * the ones like git_submodule_status_t.GIT_SUBMODULE_STATUS_IN_HEAD, etc) that tell you where the
  * submodule data comes from (i.e. the HEAD commit, gitmodules file, etc.).
  * This can be useful if you want to know if the submodule is present in the
  * working directory at this point in time, etc.

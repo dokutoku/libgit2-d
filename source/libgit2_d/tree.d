@@ -139,7 +139,7 @@ const (libgit2_d.types.git_tree_entry)* git_tree_entry_byid(const (libgit2_d.typ
  * @param out_ Pointer where to store the tree entry
  * @param root Previously loaded tree which is the root of the relative path
  * @param path Path to the contained entry
- * @return 0 on success; GIT_ENOTFOUND if the path does not exist
+ * @return 0 on success; git_error_code.GIT_ENOTFOUND if the path does not exist
  */
 //GIT_EXTERN
 int git_tree_entry_bypath(libgit2_d.types.git_tree_entry** out_, const (libgit2_d.types.git_tree)* root, const (char)* path);
@@ -319,7 +319,7 @@ const (libgit2_d.types.git_tree_entry)* git_treebuilder_get(libgit2_d.types.git_
  * By default the entry that you are inserting will be checked for
  * validity; that it exists in the object database and is of the
  * correct type.  If you do not want this behavior, set the
- * `GIT_OPT_ENABLE_STRICT_OBJECT_CREATION` library option to false.
+ * `git_libgit2_opt_t.GIT_OPT_ENABLE_STRICT_OBJECT_CREATION` library option to false.
  *
  * @param out_ Pointer to store the entry (optional)
  * @param bld Tree builder

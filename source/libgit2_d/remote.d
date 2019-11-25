@@ -38,7 +38,7 @@ public:
  * @param repo the repository in which to create the remote
  * @param name the remote's name
  * @param url the remote's url
- * @return 0, GIT_EINVALIDSPEC, GIT_EEXISTS or an error code
+ * @return 0, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code
  */
 //GIT_EXTERN
 int git_remote_create(libgit2_d.types.git_remote** out_, libgit2_d.types.git_repository* repo, const (char)* name, const (char)* url);
@@ -128,7 +128,7 @@ int git_remote_create_options_init(.git_remote_create_options* opts, uint versio
  * @param out the resulting remote
  * @param url the remote's url
  * @param opts the remote creation options
- * @return 0, GIT_EINVALIDSPEC, GIT_EEXISTS or an error code
+ * @return 0, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code
  */
 //GIT_EXTERN
 int git_remote_create_with_opts(libgit2_d.types.git_remote** out_, const (char)* url, const (.git_remote_create_options)* opts);
@@ -142,7 +142,7 @@ int git_remote_create_with_opts(libgit2_d.types.git_remote** out_, const (char)*
  * @param name the remote's name
  * @param url the remote's url
  * @param fetch the remote fetch value
- * @return 0, GIT_EINVALIDSPEC, GIT_EEXISTS or an error code
+ * @return 0, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code
  */
 //GIT_EXTERN
 int git_remote_create_with_fetchspec(libgit2_d.types.git_remote** out_, libgit2_d.types.git_repository* repo, const (char)* name, const (char)* url, const (char)* fetch);
@@ -187,7 +187,7 @@ int git_remote_create_detached(libgit2_d.types.git_remote** out_, const (char)* 
  * @param out_ pointer to the new remote object
  * @param repo the associated repository
  * @param name the remote's name
- * @return 0, GIT_ENOTFOUND, GIT_EINVALIDSPEC or an error code
+ * @return 0, git_error_code.GIT_ENOTFOUND, git_error_code.GIT_EINVALIDSPEC or an error code
  */
 //GIT_EXTERN
 int git_remote_lookup(libgit2_d.types.git_remote** out_, libgit2_d.types.git_repository* repo, const (char)* name);
@@ -284,7 +284,7 @@ int git_remote_set_pushurl(libgit2_d.types.git_repository* repo, const (char)* r
  * @param repo the repository in which to change the configuration
  * @param remote the name of the remote to change
  * @param refspec the new fetch refspec
- * @return 0, GIT_EINVALIDSPEC if refspec is invalid or an error value
+ * @return 0, git_error_code.GIT_EINVALIDSPEC if refspec is invalid or an error value
  */
 //GIT_EXTERN
 int git_remote_add_fetch(libgit2_d.types.git_repository* repo, const (char)* remote, const (char)* refspec);
@@ -310,7 +310,7 @@ int git_remote_get_fetch_refspecs(libgit2_d.strarray.git_strarray* array, const 
  * @param repo the repository in which to change the configuration
  * @param remote the name of the remote to change
  * @param refspec the new push refspec
- * @return 0, GIT_EINVALIDSPEC if refspec is invalid or an error value
+ * @return 0, git_error_code.GIT_EINVALIDSPEC if refspec is invalid or an error value
  */
 //GIT_EXTERN
 int git_remote_add_push(libgit2_d.types.git_repository* repo, const (char)* remote, const (char)* refspec);
@@ -354,8 +354,8 @@ const (libgit2_d.types.git_refspec)* git_remote_get_refspec(const (libgit2_d.typ
  * starts up a specific binary which can only do the one or the other.
  *
  * @param remote the remote to connect to
- * @param direction GIT_DIRECTION_FETCH if you want to fetch or
- * GIT_DIRECTION_PUSH if you want to push
+ * @param direction git_direction.GIT_DIRECTION_FETCH if you want to fetch or
+ * git_direction.GIT_DIRECTION_PUSH if you want to push
  * @param callbacks the callbacks to use for this connection
  * @param proxy_opts proxy settings
  * @param custom_headers extra HTTP headers to use in this connection
@@ -507,14 +507,14 @@ alias git_push_update_reference_cb = int function(const (char)* refname, const (
 /**
  * Callback to resolve URLs before connecting to remote
  *
- * If you return GIT_PASSTHROUGH, you don't need to write anything to
+ * If you return git_error_code.GIT_PASSTHROUGH, you don't need to write anything to
  * url_resolved.
  *
  * @param url_resolved The buffer to write the resolved URL to
  * @param url The URL to resolve
- * @param direction GIT_DIRECTION_FETCH or GIT_DIRECTION_PUSH
+ * @param direction git_direction.GIT_DIRECTION_FETCH or git_direction.GIT_DIRECTION_PUSH
  * @param payload Payload provided by the caller
- * @return 0 on success, GIT_PASSTHROUGH or an error
+ * @return 0 on success, git_error_code.GIT_PASSTHROUGH or an error
  */
 alias git_url_resolve_cb = int function(libgit2_d.buffer.git_buf* url_resolved, const (char)* url, int direction, void* payload);
 
@@ -546,7 +546,7 @@ struct git_remote_callbacks
 	 * This will be called if the remote host requires
 	 * authentication in order to connect to it.
 	 *
-	 * Returning GIT_PASSTHROUGH will make libgit2 behave as
+	 * Returning git_error_code.GIT_PASSTHROUGH will make libgit2 behave as
 	 * though this field isn't set.
 	 */
 	libgit2_d.cred.git_cred_acquire_cb credentials;
@@ -985,7 +985,7 @@ int git_remote_prune_refs(const (libgit2_d.types.git_remote)* remote);
  * @param repo the repository in which to rename
  * @param name the current name of the remote
  * @param new_name the new name the remote should bear
- * @return 0, GIT_EINVALIDSPEC, GIT_EEXISTS or an error code
+ * @return 0, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code
  */
 //GIT_EXTERN
 int git_remote_rename(libgit2_d.strarray.git_strarray* problems, libgit2_d.types.git_repository* repo, const (char)* name, const (char)* new_name);
@@ -1025,7 +1025,7 @@ int git_remote_delete(libgit2_d.types.git_repository* repo, const (char)* name);
  *
  * @param out_ the buffern in which to store the reference name
  * @param remote the remote
- * @return 0, GIT_ENOTFOUND if the remote does not have any references
+ * @return 0, git_error_code.GIT_ENOTFOUND if the remote does not have any references
  * or none of them point to HEAD's commit, or an error message.
  */
 //GIT_EXTERN

@@ -224,7 +224,7 @@ int git_revwalk_hide_ref(libgit2_d.types.git_revwalk* walk, const (char)* refnam
  * @param out_ Pointer where to store the oid of the next commit
  * @param walk the walker to pop the commit from.
  * @return 0 if the next commit was found;
- *	GIT_ITEROVER if there are no commits left to iterate
+ *	git_error_code.GIT_ITEROVER if there are no commits left to iterate
  */
 //GIT_EXTERN
 int git_revwalk_next(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_revwalk* walk);

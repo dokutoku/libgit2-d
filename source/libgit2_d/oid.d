@@ -265,7 +265,7 @@ struct git_oid_shorten;
  * memory-efficient.
  *
  * Attempting to add more than those OIDs will result in a
- * GIT_ERROR_INVALID error
+ * git_error_t.GIT_ERROR_INVALID error
  *
  * @param os a `git_oid_shorten` instance
  * @param text_id an OID in text form

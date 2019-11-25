@@ -74,7 +74,7 @@ int git_reflog_append(libgit2_d.types.git_reflog* reflog, const (libgit2_d.oid.g
  * @param repo the repository
  * @param old_name the old name of the reference
  * @param name the new name of the reference
- * @return 0 on success, GIT_EINVALIDSPEC or an error code
+ * @return 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code
  */
 //GIT_EXTERN
 int git_reflog_rename(libgit2_d.types.git_repository* repo, const (char)* old_name, const (char)* name);
@@ -126,7 +126,7 @@ const (libgit2_d.types.git_reflog_entry)* git_reflog_entry_byindex(const (libgit
  *
  * @param rewrite_previous_entry 1 to rewrite the history; 0 otherwise.
  *
- * @return 0 on success, GIT_ENOTFOUND if the entry doesn't exist
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND if the entry doesn't exist
  * or an error code.
  */
 //GIT_EXTERN

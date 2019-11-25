@@ -44,7 +44,7 @@ public:
  *
  * @param force Overwrite existing branch.
  *
- * @return 0, GIT_EINVALIDSPEC or an error code.
+ * @return 0, git_error_code.GIT_EINVALIDSPEC or an error code.
  * A proper reference is written in the refs/heads namespace
  * pointing to the provided target commit.
  */
@@ -87,8 +87,8 @@ struct git_branch_iterator;
  * @param out_ the iterator
  * @param repo Repository where to find the branches.
  * @param list_flags Filtering flags for the branch
- * listing. Valid values are GIT_BRANCH_LOCAL, GIT_BRANCH_REMOTE
- * or GIT_BRANCH_ALL.
+ * listing. Valid values are git_branch_t.GIT_BRANCH_LOCAL, git_branch_t.GIT_BRANCH_REMOTE
+ * or git_branch_t.GIT_BRANCH_ALL.
  *
  * @return 0 on success  or an error code
  */
@@ -101,7 +101,7 @@ int git_branch_iterator_new(.git_branch_iterator** out_, libgit2_d.types.git_rep
  * @param out_ the reference
  * @param out_type the type of branch (local or remote-tracking)
  * @param iter the branch iterator
- * @return 0 on success, GIT_ITEROVER if there are no more branches or an error
+ * @return 0 on success, git_error_code.GIT_ITEROVER if there are no more branches or an error
  * code.
  */
 //GIT_EXTERN
@@ -128,7 +128,7 @@ void git_branch_iterator_free(.git_branch_iterator* iter);
  *
  * @param force Overwrite existing branch.
  *
- * @return 0 on success, GIT_EINVALIDSPEC or an error code.
+ * @return 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code.
  */
 //GIT_EXTERN
 int git_branch_move(libgit2_d.types.git_reference** out_, libgit2_d.types.git_reference* branch, const (char)* new_branch_name, int force);
@@ -149,10 +149,10 @@ int git_branch_move(libgit2_d.types.git_reference** out_, libgit2_d.types.git_re
  * this name is validated for consistency.
  *
  * @param branch_type Type of the considered branch. This should
- * be valued with either GIT_BRANCH_LOCAL or GIT_BRANCH_REMOTE.
+ * be valued with either git_branch_t.GIT_BRANCH_LOCAL or git_branch_t.GIT_BRANCH_REMOTE.
  *
- * @return 0 on success; GIT_ENOTFOUND when no matching branch
- * exists, GIT_EINVALIDSPEC, otherwise an error code.
+ * @return 0 on success; git_error_code.GIT_ENOTFOUND when no matching branch
+ * exists, git_error_code.GIT_EINVALIDSPEC, otherwise an error code.
  */
 //GIT_EXTERN
 int git_branch_lookup(libgit2_d.types.git_reference** out_, libgit2_d.types.git_repository* repo, const (char)* branch_name, libgit2_d.types.git_branch_t branch_type);
@@ -184,7 +184,7 @@ int git_branch_name(const (char)** out_, const (libgit2_d.types.git_reference)* 
  *
  * @param branch Current underlying reference of the branch.
  *
- * @return 0 on success; GIT_ENOTFOUND when no remote tracking
+ * @return 0 on success; git_error_code.GIT_ENOTFOUND when no remote tracking
  * reference exists, otherwise an error code.
  */
 //GIT_EXTERN
@@ -214,7 +214,7 @@ int git_branch_set_upstream(libgit2_d.types.git_reference* branch, const (char)*
  *
  * @param refname reference name of the local branch.
  *
- * @return 0, GIT_ENOTFOUND when no remote tracking reference exists,
+ * @return 0, git_error_code.GIT_ENOTFOUND when no remote tracking reference exists,
  *     otherwise an error code.
  */
 //GIT_EXTERN
@@ -253,9 +253,9 @@ int git_branch_is_checked_out(const (libgit2_d.types.git_reference)* branch);
  *
  * @param canonical_branch_name name of the remote tracking branch.
  *
- * @return 0, GIT_ENOTFOUND
+ * @return 0, git_error_code.GIT_ENOTFOUND
  *     when no remote matching remote was found,
- *     GIT_EAMBIGUOUS when the branch maps to several remotes,
+ *     git_error_code.GIT_EAMBIGUOUS when the branch maps to several remotes,
  *     otherwise an error code.
  */
 //GIT_EXTERN

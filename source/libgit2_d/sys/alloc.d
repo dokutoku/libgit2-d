@@ -16,7 +16,7 @@ package(libgit2_d):
  *
  * Setting the pointers of this structure allows the developer to implement
  * custom memory allocators. The global memory allocator can be set by using
- * "GIT_OPT_SET_ALLOCATOR" with the `git_libgit2_opts` function. Keep in mind
+ * "git_libgit2_opt_t.GIT_OPT_SET_ALLOCATOR" with the `git_libgit2_opts` function. Keep in mind
  * that all fields need to be set to a proper function.
  */
 struct git_allocator

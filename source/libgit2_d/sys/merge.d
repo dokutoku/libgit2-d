@@ -94,9 +94,9 @@ alias git_merge_driver_shutdown_fn = void function(.git_merge_driver* self);
  * merge.  If it can successfully perform a merge, it should populate
  * `path_out` with a pointer to the filename to accept, `mode_out` with
  * the resultant mode, and `merged_out` with the buffer of the merged file
- * and then return 0.  If the driver returns `GIT_PASSTHROUGH`, then the
+ * and then return 0.  If the driver returns `git_error_code.GIT_PASSTHROUGH`, then the
  * default merge driver should instead be run.  It can also return
- * `GIT_EMERGECONFLICT` if the driver is not able to produce a merge result,
+ * `git_error_code.GIT_EMERGECONFLICT` if the driver is not able to produce a merge result,
  * and the file will remain conflicted.  Any other errors will fail and
  * return to the caller.
  *
@@ -127,9 +127,9 @@ struct git_merge_driver
 
 	/**
 	 * Called to merge the contents of a conflict.  If this function
-	 * returns `GIT_PASSTHROUGH` then the default (`text`) merge driver
+	 * returns `git_error_code.GIT_PASSTHROUGH` then the default (`text`) merge driver
 	 * will instead be invoked.  If this function returns
-	 * `GIT_EMERGECONFLICT` then the file will remain conflicted.
+	 * `git_error_code.GIT_EMERGECONFLICT` then the file will remain conflicted.
 	 */
 	.git_merge_driver_apply_fn apply;
 }
@@ -148,7 +148,7 @@ enum GIT_MERGE_DRIVER_VERSION = 1;
  * shutdown).
  *
  * @param name The name of this driver to match an attribute.  Attempting
- * 			to register with an in-use name will return GIT_EEXISTS.
+ * 			to register with an in-use name will return git_error_code.GIT_EEXISTS.
  * @param driver The merge driver definition.  This pointer will be stored
  *			as is by libgit2 so it must be a durable allocation
  *(either static or on the heap).

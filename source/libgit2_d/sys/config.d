@@ -131,7 +131,7 @@ int git_config_init_backend(.git_config_backend* backend, uint version_);
  *  conditional includes
  * @param force if a config file already exists for the given
  *  priority level, replace it
- * @return 0 on success, GIT_EEXISTS when adding more than one file
+ * @return 0 on success, git_error_code.GIT_EEXISTS when adding more than one file
  *  for a given priority level (and force_replace set to 0), or error code
  */
 //GIT_EXTERN

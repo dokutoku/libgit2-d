@@ -69,8 +69,8 @@ struct git_rebase_options
 	/**
 	 * Options to control how files are written during `git_rebase_init`,
 	 * `git_rebase_next` and `git_rebase_abort`.  Note that a minimum
-	 * strategy of `GIT_CHECKOUT_SAFE` is defaulted in `init` and `next`,
-	 * and a minimum strategy of `GIT_CHECKOUT_FORCE` is defaulted in
+	 * strategy of `git_checkout_strategy_t.GIT_CHECKOUT_SAFE` is defaulted in `init` and `next`,
+	 * and a minimum strategy of `git_checkout_strategy_t.GIT_CHECKOUT_FORCE` is defaulted in
 	 * `abort` to match git semantics.
 	 */
 	libgit2_d.checkout.git_checkout_options checkout_options;
@@ -78,7 +78,7 @@ struct git_rebase_options
 	/**
 	 * If provided, this will be called with the commit content, allowing
 	 * a signature to be added to the rebase commit. Can be skipped with
-	 * GIT_PASSTHROUGH. If GIT_PASSTHROUGH is returned, a commit will be made
+	 * git_error_code.GIT_PASSTHROUGH. If git_error_code.GIT_PASSTHROUGH is returned, a commit will be made
 	 * without a signature.
 	 * This field is only used when performing git_rebase_commit.
 	 */
@@ -171,13 +171,13 @@ struct git_rebase_operation
 
 	/**
 	 * The commit ID being cherry-picked.  This will be populated for
-	 * all operations except those of type `GIT_REBASE_OPERATION_EXEC`.
+	 * all operations except those of type `git_rebase_operation_t.GIT_REBASE_OPERATION_EXEC`.
 	 */
 	const libgit2_d.oid.git_oid id;
 
 	/**
 	 * The executable the user has requested be run.  This will only
-	 * be populated for operations of type `GIT_REBASE_OPERATION_EXEC`.
+	 * be populated for operations of type `git_rebase_operation_t.GIT_REBASE_OPERATION_EXEC`.
 	 */
 	const (char)* exec;
 }
@@ -293,7 +293,7 @@ size_t git_rebase_operation_current(libgit2_d.types.git_rebase* rebase);
 /**
  * Performs the next rebase operation and returns the information about it.
  * If the operation is one that applies a patch (which is any operation except
- * GIT_REBASE_OPERATION_EXEC) then the patch will be applied and the index and
+ * git_rebase_operation_t.GIT_REBASE_OPERATION_EXEC) then the patch will be applied and the index and
  * working directory will be updated with the changes.  If there are conflicts,
  * you will need to address those before committing the changes.
  *
@@ -336,8 +336,8 @@ int git_rebase_inmemory_index(libgit2_d.types.git_index** index, libgit2_d.types
  *        null to indicate that "UTF-8" is to be used.
  * @param message The message for this commit, or null to use the message
  *        from the original commit.
- * @return Zero on success, GIT_EUNMERGED if there are unmerged changes in
- *        the index, GIT_EAPPLIED if the current commit has already
+ * @return Zero on success, git_error_code.GIT_EUNMERGED if there are unmerged changes in
+ *        the index, git_error_code.GIT_EAPPLIED if the current commit has already
  *        been applied to the upstream and there is nothing to commit,
  *        -1 on failure.
  */
@@ -349,7 +349,7 @@ int git_rebase_commit(libgit2_d.oid.git_oid* id, libgit2_d.types.git_rebase* reb
  * and working directory to their state before rebase began.
  *
  * @param rebase The rebase that is in-progress
- * @return Zero on success; GIT_ENOTFOUND if a rebase is not in progress,
+ * @return Zero on success; git_error_code.GIT_ENOTFOUND if a rebase is not in progress,
  *         -1 on other errors.
  */
 //GIT_EXTERN

@@ -34,7 +34,7 @@ public:
  * @param repo the repository to look up the reference
  * @param name the long name for the reference (e.g. HEAD, refs/heads/master,
  * refs/tags/v0.1.0, ...)
- * @return 0 on success, GIT_ENOTFOUND, GIT_EINVALIDSPEC or an error code.
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND, git_error_code.GIT_EINVALIDSPEC or an error code.
  */
 //GIT_EXTERN
 int git_reference_lookup(libgit2_d.types.git_reference** out_, libgit2_d.types.git_repository* repo, const (char)* name);
@@ -53,7 +53,7 @@ int git_reference_lookup(libgit2_d.types.git_reference** out_, libgit2_d.types.g
  * @param repo The repository in which to look up the reference
  * @param name The long name for the reference (e.g. HEAD, refs/heads/master,
  * refs/tags/v0.1.0, ...)
- * @return 0 on success, GIT_ENOTFOUND, GIT_EINVALIDSPEC or an error code.
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND, git_error_code.GIT_EINVALIDSPEC or an error code.
  */
 //GIT_EXTERN
 int git_reference_name_to_id(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, const (char)* name);
@@ -98,7 +98,7 @@ int git_reference_dwim(libgit2_d.types.git_reference** out_, libgit2_d.types.git
  * not belong in the standard set (HEAD, branches and remote-tracking
  * branches) and it does not have a reflog.
  *
- * It will return GIT_EMODIFIED if the reference's value at the time
+ * It will return git_error_code.GIT_EMODIFIED if the reference's value at the time
  * of updating does not match the one passed through `current_value`
  * (i.e. if the ref has changed since the user read it).
  *
@@ -109,7 +109,7 @@ int git_reference_dwim(libgit2_d.types.git_reference** out_, libgit2_d.types.git
  * @param force Overwrite existing references
  * @param current_value The expected value of the reference when updating
  * @param log_message The one line long message to be appended to the reflog
- * @return 0 on success, GIT_EEXISTS, GIT_EINVALIDSPEC, GIT_EMODIFIED or an
+ * @return 0 on success, git_error_code.GIT_EEXISTS, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EMODIFIED or an
  * error code
  */
 //GIT_EXTERN
@@ -147,7 +147,7 @@ int git_reference_symbolic_create_matching(libgit2_d.types.git_reference** out_,
  * @param target The target of the reference
  * @param force Overwrite existing references
  * @param log_message The one line long message to be appended to the reflog
- * @return 0 on success, GIT_EEXISTS, GIT_EINVALIDSPEC or an error code
+ * @return 0 on success, git_error_code.GIT_EEXISTS, git_error_code.GIT_EINVALIDSPEC or an error code
  */
 //GIT_EXTERN
 int git_reference_symbolic_create(libgit2_d.types.git_reference** out_, libgit2_d.types.git_repository* repo, const (char)* name, const (char)* target, int force, const (char)* log_message);
@@ -185,7 +185,7 @@ int git_reference_symbolic_create(libgit2_d.types.git_reference** out_, libgit2_
  * @param id The object id pointed to by the reference.
  * @param force Overwrite existing references
  * @param log_message The one line long message to be appended to the reflog
- * @return 0 on success, GIT_EEXISTS, GIT_EINVALIDSPEC or an error code
+ * @return 0 on success, git_error_code.GIT_EEXISTS, git_error_code.GIT_EINVALIDSPEC or an error code
  */
 //GIT_EXTERN
 int git_reference_create(libgit2_d.types.git_reference** out_, libgit2_d.types.git_repository* repo, const (char)* name, const (libgit2_d.oid.git_oid)* id, int force, const (char)* log_message);
@@ -217,7 +217,7 @@ int git_reference_create(libgit2_d.types.git_reference** out_, libgit2_d.types.g
  * not belong in the standard set (HEAD, branches and remote-tracking
  * branches) and and it does not have a reflog.
  *
- * It will return GIT_EMODIFIED if the reference's value at the time
+ * It will return git_error_code.GIT_EMODIFIED if the reference's value at the time
  * of updating does not match the one passed through `current_id`
  * (i.e. if the ref has changed since the user read it).
  *
@@ -228,8 +228,8 @@ int git_reference_create(libgit2_d.types.git_reference** out_, libgit2_d.types.g
  * @param force Overwrite existing references
  * @param current_id The expected value of the reference at the time of update
  * @param log_message The one line long message to be appended to the reflog
- * @return 0 on success, GIT_EMODIFIED if the value of the reference
- * has changed, GIT_EEXISTS, GIT_EINVALIDSPEC or an error code
+ * @return 0 on success, git_error_code.GIT_EMODIFIED if the value of the reference
+ * has changed, git_error_code.GIT_EEXISTS, git_error_code.GIT_EINVALIDSPEC or an error code
  */
 //GIT_EXTERN
 int git_reference_create_matching(libgit2_d.types.git_reference** out_, libgit2_d.types.git_repository* repo, const (char)* name, const (libgit2_d.oid.git_oid)* id, int force, const (libgit2_d.oid.git_oid)* current_id, const (char)* log_message);
@@ -276,7 +276,7 @@ const (char)* git_reference_symbolic_target(const (libgit2_d.types.git_reference
 /**
  * Get the type of a reference.
  *
- * Either direct (GIT_REFERENCE_DIRECT) or symbolic (GIT_REFERENCE_SYMBOLIC)
+ * Either direct (git_reference_t.GIT_REFERENCE_DIRECT) or symbolic (git_reference_t.GIT_REFERENCE_SYMBOLIC)
  *
  * @param ref_ The reference
  * @return the type
@@ -341,7 +341,7 @@ libgit2_d.types.git_repository* git_reference_owner(const (libgit2_d.types.git_r
  * @param ref_ The reference
  * @param target The new target for the reference
  * @param log_message The one line long message to be appended to the reflog
- * @return 0 on success, GIT_EINVALIDSPEC or an error code
+ * @return 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code
  */
 //GIT_EXTERN
 int git_reference_symbolic_set_target(libgit2_d.types.git_reference** out_, libgit2_d.types.git_reference* ref_, const (char)* target, const (char)* log_message);
@@ -357,7 +357,7 @@ int git_reference_symbolic_set_target(libgit2_d.types.git_reference** out_, libg
  * @param ref_ The reference
  * @param id The new target OID for the reference
  * @param log_message The one line long message to be appended to the reflog
- * @return 0 on success, GIT_EMODIFIED if the value of the reference
+ * @return 0 on success, git_error_code.GIT_EMODIFIED if the value of the reference
  * has changed since it was read, or an error code
  */
 //GIT_EXTERN
@@ -383,7 +383,7 @@ int git_reference_set_target(libgit2_d.types.git_reference** out_, libgit2_d.typ
  * @param new_name The new name for the reference
  * @param force Overwrite an existing reference
  * @param log_message The one line long message to be appended to the reflog
- * @return 0 on success, GIT_EINVALIDSPEC, GIT_EEXISTS or an error code
+ * @return 0 on success, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code
  *
  */
 //GIT_EXTERN
@@ -400,7 +400,7 @@ int git_reference_rename(libgit2_d.types.git_reference** new_ref, libgit2_d.type
  * from the time it was looked up.
  *
  * @param ref_ The reference to remove
- * @return 0, GIT_EMODIFIED or an error code
+ * @return 0, git_error_code.GIT_EMODIFIED or an error code
  */
 //GIT_EXTERN
 int git_reference_delete(libgit2_d.types.git_reference* ref_);
@@ -546,7 +546,7 @@ int git_reference_iterator_glob_new(libgit2_d.types.git_reference_iterator** out
  *
  * @param out_ pointer in which to store the reference
  * @param iter the iterator
- * @return 0, GIT_ITEROVER if there are no more; or an error code
+ * @return 0, git_error_code.GIT_ITEROVER if there are no more; or an error code
  */
 //GIT_EXTERN
 int git_reference_next(libgit2_d.types.git_reference** out_, libgit2_d.types.git_reference_iterator* iter);
@@ -560,7 +560,7 @@ int git_reference_next(libgit2_d.types.git_reference** out_, libgit2_d.types.git
  *
  * @param out_ pointer in which to store the string
  * @param iter the iterator
- * @return 0, GIT_ITEROVER if there are no more; or an error code
+ * @return 0, git_error_code.GIT_ITEROVER if there are no more; or an error code
  */
 //GIT_EXTERN
 int git_reference_next_name(const (char)** out_, libgit2_d.types.git_reference_iterator* iter);
@@ -589,7 +589,7 @@ void git_reference_iterator_free(libgit2_d.types.git_reference_iterator* iter);
  * @param glob Pattern to match (fnmatch-style) against reference name.
  * @param callback Function which will be called for every listed ref
  * @param payload Additional data to pass to the callback
- * @return 0 on success, GIT_EUSER on non-zero callback, or error code
+ * @return 0 on success, git_error_code.GIT_EUSER on non-zero callback, or error code
  */
 //GIT_EXTERN
 int git_reference_foreach_glob(libgit2_d.types.git_repository* repo, const (char)* glob, git_reference_foreach_name_cb callback, void* payload);
@@ -714,7 +714,7 @@ enum git_reference_format_t
  * @param name Reference name to be checked.
  * @param flags Flags to constrain name validation rules - see the
  *              GIT_REFERENCE_FORMAT constants above.
- * @return 0 on success, GIT_EBUFS if buffer is too small, GIT_EINVALIDSPEC
+ * @return 0 on success, git_error_code.GIT_EBUFS if buffer is too small, git_error_code.GIT_EINVALIDSPEC
  * or an error code.
  */
 //GIT_EXTERN
@@ -726,14 +726,14 @@ int git_reference_normalize_name(char* buffer_out, size_t buffer_size, const (ch
  * The retrieved `peeled` object is owned by the repository
  * and should be closed with the `git_object_free` method.
  *
- * If you pass `GIT_OBJECT_ANY` as the target type, then the object
+ * If you pass `git_object_t.GIT_OBJECT_ANY` as the target type, then the object
  * will be peeled until a non-tag object is met.
  *
  * @param out_ Pointer to the peeled git_object
  * @param ref_ The reference to be processed
- * @param type The type of the requested object (GIT_OBJECT_COMMIT,
- * GIT_OBJECT_TAG, GIT_OBJECT_TREE, GIT_OBJECT_BLOB or GIT_OBJECT_ANY).
- * @return 0 on success, GIT_EAMBIGUOUS, GIT_ENOTFOUND or an error code
+ * @param type The type of the requested object (git_object_t.GIT_OBJECT_COMMIT,
+ * git_object_t.GIT_OBJECT_TAG, git_object_t.GIT_OBJECT_TREE, git_object_t.GIT_OBJECT_BLOB or git_object_t.GIT_OBJECT_ANY).
+ * @return 0 on success, git_error_code.GIT_EAMBIGUOUS, git_error_code.GIT_ENOTFOUND or an error code
  */
 //GIT_EXTERN
 int git_reference_peel(libgit2_d.types.git_object** out_, const (libgit2_d.types.git_reference)* ref_, libgit2_d.types.git_object_t type);

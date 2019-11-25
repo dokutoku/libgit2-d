@@ -79,7 +79,7 @@ struct git_transport
 	 * Negotiate a fetch with the remote repository.
 	 *
 	 * This function may be called after a successful call to `connect()`,
-	 * when the direction is GIT_DIRECTION_FETCH. The function performs a
+	 * when the direction is git_direction.GIT_DIRECTION_FETCH. The function performs a
 	 * negotiation to calculate the `wants` list for the fetch.
 	 */
 	int function(.git_transport* transport, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_remote_head)* /+ const +/ * refs, size_t count) negotiate_fetch;
@@ -88,7 +88,7 @@ struct git_transport
 	 * Start downloading the packfile from the remote repository.
 	 *
 	 * This function may be called after a successful call to
-	 * negotiate_fetch(), when the direction is GIT_DIRECTION_FETCH.
+	 * negotiate_fetch(), when the direction is git_direction.GIT_DIRECTION_FETCH.
 	 */
 	int function(.git_transport* transport, libgit2_d.types.git_repository* repo, libgit2_d.indexer.git_indexer_progress* stats, libgit2_d.indexer.git_indexer_progress_cb progress_cb, void* progress_payload) download_pack;
 
@@ -253,7 +253,7 @@ int git_transport_smart(.git_transport** out_, libgit2_d.types.git_remote* owner
  * @param cert the certificate to pass to the caller
  * @param valid whether we believe the certificate is valid
  * @param hostname the hostname we connected to
- * @return the return value of the callback: 0 for no error, GIT_PASSTHROUGH
+ * @return the return value of the callback: 0 for no error, git_error_code.GIT_PASSTHROUGH
  *         to indicate that there is no callback registered (or the callback
  *         refused to validate the certificate and callers should behave as
  *         if no callback was set), or < 0 for an error
@@ -268,7 +268,7 @@ int git_transport_smart_certificate_check(.git_transport* transport, libgit2_d.t
  * @param transport a smart transport
  * @param user the user we saw on the url (if any)
  * @param methods available methods for authentication
- * @return the return value of the callback: 0 for no error, GIT_PASSTHROUGH
+ * @return the return value of the callback: 0 for no error, git_error_code.GIT_PASSTHROUGH
  *         to indicate that there is no callback registered (or the callback
  *         refused to provide credentials and callers should behave as if no
  *         callback was set), or < 0 for an error

@@ -103,18 +103,18 @@ struct git_cert_hostkey
 
 	/**
 	 * A hostkey type from libssh2, either
-	 * `GIT_CERT_SSH_MD5` or `GIT_CERT_SSH_SHA1`
+	 * `git_cert_ssh_t.GIT_CERT_SSH_MD5` or `git_cert_ssh_t.GIT_CERT_SSH_SHA1`
 	 */
 	.git_cert_ssh_t type;
 
 	/**
-	 * Hostkey hash. If type has `GIT_CERT_SSH_MD5` set, this will
+	 * Hostkey hash. If type has `git_cert_ssh_t.GIT_CERT_SSH_MD5` set, this will
 	 * have the MD5 hash of the hostkey.
 	 */
 	ubyte[16] hash_md5;
 
 	/**
-	 * Hostkey hash. If type has `GIT_CERT_SSH_SHA1` set, this will
+	 * Hostkey hash. If type has `git_cert_ssh_t.GIT_CERT_SSH_SHA1` set, this will
 	 * have the SHA-1 hash of the hostkey.
 	 */
 	ubyte[20] hash_sha1;

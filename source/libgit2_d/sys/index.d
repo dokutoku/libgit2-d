@@ -112,7 +112,7 @@ size_t git_index_reuc_entrycount(libgit2_d.types.git_index* index);
  * (optional)
  * @param index an existing index object
  * @param path path to search
- * @return 0 if found, < 0 otherwise (GIT_ENOTFOUND)
+ * @return 0 if found, < 0 otherwise (git_error_code.GIT_ENOTFOUND)
  */
 //GIT_EXTERN
 int git_index_reuc_find(size_t* at_pos, libgit2_d.types.git_index* index, const (char)* path);

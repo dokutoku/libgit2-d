@@ -82,7 +82,7 @@ void git_note_iterator_free(.git_note_iterator* it);
  * @param annotated_id id of the git object being annotated
  * @param it pointer to the iterator
  *
- * @return 0 (no error), GIT_ITEROVER (iteration is done) or an error code
+ * @return 0 (no error), git_error_code.GIT_ITEROVER (iteration is done) or an error code
  *         (negative value)
  */
 //GIT_EXTERN

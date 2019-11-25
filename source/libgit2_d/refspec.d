@@ -81,7 +81,7 @@ int git_refspec_force(const (libgit2_d.types.git_refspec)* refspec);
  * Get the refspec's direction.
  *
  * @param spec refspec
- * @return GIT_DIRECTION_FETCH or GIT_DIRECTION_PUSH
+ * @return git_direction.GIT_DIRECTION_FETCH or git_direction.GIT_DIRECTION_PUSH
  */
 //GIT_EXTERN
 libgit2_d.net.git_direction git_refspec_direction(const (libgit2_d.types.git_refspec)* spec);
@@ -112,7 +112,7 @@ int git_refspec_dst_matches(const (libgit2_d.types.git_refspec)* refspec, const 
  * @param out_ where to store the target name
  * @param spec the refspec
  * @param name the name of the reference to transform
- * @return 0, GIT_EBUFS or another error
+ * @return 0, git_error_code.GIT_EBUFS or another error
  */
 //GIT_EXTERN
 int git_refspec_transform(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types.git_refspec)* spec, const (char)* name);
@@ -124,7 +124,7 @@ int git_refspec_transform(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types
  * @param out_ where to store the source reference name
  * @param spec the refspec
  * @param name the name of the reference to transform
- * @return 0, GIT_EBUFS or another error
+ * @return 0, git_error_code.GIT_EBUFS or another error
  */
 //GIT_EXTERN
 int git_refspec_rtransform(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types.git_refspec)* spec, const (char)* name);

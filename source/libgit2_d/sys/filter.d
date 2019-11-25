@@ -119,7 +119,7 @@ ushort git_filter_source_filemode(const (.git_filter_source)* src);
 
 /**
  * Get the OID of the source
- * If the OID is unknown (often the case with GIT_FILTER_CLEAN) then
+ * If the OID is unknown (often the case with git_filter_mode_t.GIT_FILTER_CLEAN) then
  * this will return null.
  */
 //GIT_EXTERN
@@ -169,7 +169,7 @@ alias git_filter_shutdown_fn = void function(.git_filter* self);
  * if filtering is needed for a given source.
  *
  * It should return 0 if the filter should be applied (i.e. success),
- * GIT_PASSTHROUGH if the filter should not be applied, or an error code
+ * git_error_code.GIT_PASSTHROUGH if the filter should not be applied, or an error code
  * to fail out of the filter processing pipeline and return to the caller.
  *
  * The `attr_values` will be set to the values of any attributes given in
@@ -190,7 +190,7 @@ alias git_filter_check_fn = int function(.git_filter* self, void** payload, /* p
  *
  * Specified as `filter.apply`, this is the callback that actually filters
  * data.  If it successfully writes the output, it should return 0.  Like
- * `check`, it can return GIT_PASSTHROUGH to indicate that the filter
+ * `check`, it can return git_error_code.GIT_PASSTHROUGH to indicate that the filter
  * doesn't want to run.  Other error codes will stop filter processing and
  * return to the caller.
  *
@@ -244,7 +244,7 @@ struct git_filter
 
 	/**
 	 * Called to determine whether the filter should be invoked for a
-	 * given file.  If this function returns `GIT_PASSTHROUGH` then the
+	 * given file.  If this function returns `git_error_code.GIT_PASSTHROUGH` then the
 	 * `apply` function will not be invoked and the contents will be passed
 	 * through unmodified.
 	 */
@@ -252,7 +252,7 @@ struct git_filter
 
 	/**
 	 * Called to actually apply the filter to file contents.  If this
-	 * function returns `GIT_PASSTHROUGH` then the contents will be passed
+	 * function returns `git_error_code.GIT_PASSTHROUGH` then the contents will be passed
 	 * through unmodified.
 	 */
 	.git_filter_apply_fn apply;
@@ -313,7 +313,7 @@ int git_filter_init(.git_filter* filter, uint version_);
  * the filters (i.e. during application setup or shutdown).
  *
  * @param name A name by which the filter can be referenced.  Attempting
- * 			to register with an in-use name will return GIT_EEXISTS.
+ * 			to register with an in-use name will return git_error_code.GIT_EEXISTS.
  * @param filter The filter definition.  This pointer will be stored as is
  * 			by libgit2 so it must be a durable allocation (either
  * static or on the heap).

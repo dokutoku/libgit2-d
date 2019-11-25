@@ -115,16 +115,16 @@ enum git_feature_t
  *
  * @return A combination of GIT_FEATURE_* values.
  *
- * - GIT_FEATURE_THREADS
+ * - git_feature_t.GIT_FEATURE_THREADS
  *   Libgit2 was compiled with thread support. Note that thread support is
  *   still to be seen as a 'work in progress' - basic object lookups are
  *   believed to be threadsafe, but other operations may not be.
  *
- * - GIT_FEATURE_HTTPS
+ * - git_feature_t.GIT_FEATURE_HTTPS
  *   Libgit2 supports the https:// protocol. This requires the openssl
  *   library to be found when compiling libgit2.
  *
- * - GIT_FEATURE_SSH
+ * - git_feature_t.GIT_FEATURE_SSH
  *   Libgit2 supports the SSH protocol for network operations. This requires
  *   the libssh2 library to be found when compiling libgit2
  */

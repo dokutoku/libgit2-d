@@ -64,7 +64,7 @@ enum git_clone_local_t
  * @param name the remote's name
  * @param url the remote's url
  * @param payload an opaque payload
- * @return 0, GIT_EINVALIDSPEC, GIT_EEXISTS or an error code
+ * @return 0, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code
  */
 alias git_remote_create_cb = int function(libgit2_d.types.git_remote** out_, libgit2_d.types.git_repository* repo, const (char)* name, const (char)* url, void* payload);
 
@@ -98,7 +98,7 @@ struct git_clone_options
 	/**
 	 * These options are passed to the checkout step. To disable
 	 * checkout, set the `checkout_strategy` to
-	 * `GIT_CHECKOUT_NONE`.
+	 * `git_checkout_strategy_t.GIT_CHECKOUT_NONE`.
 	 */
 	libgit2_d.checkout.git_checkout_options checkout_opts;
 

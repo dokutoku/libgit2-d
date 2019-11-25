@@ -32,7 +32,7 @@ struct git_cred_userpass_payload
 /**
  * Stock callback usable as a git_cred_acquire_cb.  This calls
  * git_cred_userpass_plaintext_new unless the protocol has not specified
- * `GIT_CREDTYPE_USERPASS_PLAINTEXT` as an allowed type.
+ * `git_credtype_t.GIT_CREDTYPE_USERPASS_PLAINTEXT` as an allowed type.
  *
  * @param cred The newly created credential object.
  * @param url The resource for which we are demanding a credential.

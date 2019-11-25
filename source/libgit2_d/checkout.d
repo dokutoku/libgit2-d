@@ -305,7 +305,7 @@ struct git_checkout_options
 	 * patterns, those will be used to filter which paths should be taken into
 	 * account.
 	 *
-	 * Use GIT_CHECKOUT_DISABLE_PATHSPEC_MATCH to treat as a simple list.
+	 * Use git_checkout_strategy_t.GIT_CHECKOUT_DISABLE_PATHSPEC_MATCH to treat as a simple list.
 	 */
 	libgit2_d.strarray.git_strarray paths;
 
@@ -387,7 +387,7 @@ int git_checkout_options_init(.git_checkout_options* opts, uint version_);
  *
  * @param repo repository to check out (must be non-bare)
  * @param opts specifies checkout options (may be null)
- * @return 0 on success, GIT_EUNBORNBRANCH if HEAD points to a non
+ * @return 0 on success, git_error_code.GIT_EUNBORNBRANCH if HEAD points to a non
  *         existing branch, non-zero value returned by `notify_cb`, or
  *         other error code < 0 (use git_error_last for error details)
  */

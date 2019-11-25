@@ -56,12 +56,12 @@ int git_signature_now(libgit2_d.types.git_signature** out_, const (char)* name, 
  *
  * This looks up the user.name and user.email from the configuration and
  * uses the current time as the timestamp, and creates a new signature
- * based on that information.  It will return GIT_ENOTFOUND if either the
+ * based on that information.  It will return git_error_code.GIT_ENOTFOUND if either the
  * user.name or user.email are not set.
  *
  * @param out_ new signature
  * @param repo repository pointer
- * @return 0 on success, GIT_ENOTFOUND if config is missing, or error code
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND if config is missing, or error code
  */
 //GIT_EXTERN
 int git_signature_default(libgit2_d.types.git_signature** out_, libgit2_d.types.git_repository* repo);

@@ -161,7 +161,7 @@ int git_patch_line_stats(size_t* total_context, size_t* total_additions, size_t*
  * @param lines_in_hunk Output count of total lines in this hunk
  * @param patch Input pointer to patch object
  * @param hunk_idx Input index of hunk to get information about
- * @return 0 on success, GIT_ENOTFOUND if hunk_idx out of range, <0 on error
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND if hunk_idx out of range, <0 on error
  */
 //GIT_EXTERN
 int git_patch_get_hunk(const (libgit2_d.diff.git_diff_hunk)** out_, size_t* lines_in_hunk, .git_patch* patch, size_t hunk_idx);
@@ -171,7 +171,7 @@ int git_patch_get_hunk(const (libgit2_d.diff.git_diff_hunk)** out_, size_t* line
  *
  * @param patch The git_patch object
  * @param hunk_idx Index of the hunk
- * @return Number of lines in hunk or GIT_ENOTFOUND if invalid hunk index
+ * @return Number of lines in hunk or git_error_code.GIT_ENOTFOUND if invalid hunk index
  */
 //GIT_EXTERN
 int git_patch_num_lines_in_hunk(const (.git_patch)* patch, size_t hunk_idx);

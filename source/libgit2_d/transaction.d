@@ -59,7 +59,7 @@ int git_transaction_lock_ref(libgit2_d.types.git_transaction* tx, const (char)* 
  * @param sig signature to use in the reflog; pass null to read the identity
  * from the config
  * @param msg message to use in the reflog
- * @return 0, GIT_ENOTFOUND if the reference is not among the locked ones, or an
+ * @return 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an
  * error code
  */
 //GIT_EXTERN
@@ -77,7 +77,7 @@ int git_transaction_set_target(libgit2_d.types.git_transaction* tx, const (char)
  * @param sig signature to use in the reflog; pass null to read the identity
  * from the config
  * @param msg message to use in the reflog
- * @return 0, GIT_ENOTFOUND if the reference is not among the locked ones, or an
+ * @return 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an
  * error code
  */
 //GIT_EXTERN
@@ -92,7 +92,7 @@ int git_transaction_set_symbolic_target(libgit2_d.types.git_transaction* tx, con
  * @param tx the transaction
  * @param refname the reference whose reflog to set
  * @param reflog the reflog as it should be written out
- * @return 0, GIT_ENOTFOUND if the reference is not among the locked ones, or an
+ * @return 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an
  * error code
  */
 //GIT_EXTERN
@@ -103,7 +103,7 @@ int git_transaction_set_reflog(libgit2_d.types.git_transaction* tx, const (char)
  *
  * @param tx the transaction
  * @param refname the reference to remove
- * @return 0, GIT_ENOTFOUND if the reference is not among the locked ones, or an
+ * @return 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an
  * error code
  */
 //GIT_EXTERN

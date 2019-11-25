@@ -157,12 +157,12 @@ enum git_repository_open_flag_t
  * @param path Path to open as git repository.  If the flags
  *        permit "searching", then this can be a path to a subdirectory
  *        inside the working directory of the repository. May be null if
- *        flags is GIT_REPOSITORY_OPEN_FROM_ENV.
+ *        flags is git_repository_open_flag_t.GIT_REPOSITORY_OPEN_FROM_ENV.
  * @param flags A combination of the GIT_REPOSITORY_OPEN flags above.
  * @param ceiling_dirs A GIT_PATH_LIST_SEPARATOR delimited list of path
  *        prefixes at which the search for a containing repository should
  *        terminate.
- * @return 0 on success, GIT_ENOTFOUND if no repository could be found,
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND if no repository could be found,
  *        or -1 if there was a repository but open failed for some reason
  *        (such as repo corruption or system errors).
  */
@@ -224,7 +224,7 @@ int git_repository_init(libgit2_d.types.git_repository** out_, const (char)* pat
  * when initializing a new repo.  Details of individual values are:
  *
  * * BARE   - Create a bare repository with no working directory.
- * * NO_REINIT - Return an GIT_EEXISTS error if the repo_path appears to
+ * * NO_REINIT - Return an git_error_code.GIT_EEXISTS error if the repo_path appears to
  *        already be an git repository.
  * * NO_DOTGIT_DIR - Normally a "/.git/" will be appended to the repo
  *        path for non-bare repos (if it is not already there), but
@@ -290,7 +290,7 @@ enum git_repository_init_mode_t
  *        created here linking to the repo_path.
  * * description - If set, this will be used to initialize the "description"
  *        file in the repository, instead of using the template content.
- * * template_path - When GIT_REPOSITORY_INIT_EXTERNAL_TEMPLATE is set,
+ * * template_path - When git_repository_init_flag_t.GIT_REPOSITORY_INIT_EXTERNAL_TEMPLATE is set,
  *        this contains the path to use for the template directory.  If
  *        this is null, the config or default directory options will be
  *        used instead.
@@ -369,8 +369,8 @@ int git_repository_init_ext(libgit2_d.types.git_repository** out_, const (char)*
  * @param out_ pointer to the reference which will be retrieved
  * @param repo a repository object
  *
- * @return 0 on success, GIT_EUNBORNBRANCH when HEAD points to a non existing
- * branch, GIT_ENOTFOUND when HEAD is missing; an error code otherwise
+ * @return 0 on success, git_error_code.GIT_EUNBORNBRANCH when HEAD points to a non existing
+ * branch, git_error_code.GIT_ENOTFOUND when HEAD is missing; an error code otherwise
  */
 //GIT_EXTERN
 int git_repository_head(libgit2_d.types.git_reference** out_, libgit2_d.types.git_repository* repo);
@@ -468,12 +468,12 @@ enum git_repository_item_t
  * item. It will thereby honor things like the repository's
  * common directory, gitdir, etc. In case a file path cannot
  * exist for a given item (e.g. the working directory of a bare
- * repository), GIT_ENOTFOUND is returned.
+ * repository), git_error_code.GIT_ENOTFOUND is returned.
  *
  * @param out_ Buffer to store the path at
  * @param repo Repository to get path for
  * @param item The repository item for which to retrieve the path
- * @return 0, GIT_ENOTFOUND if the path cannot exist or an error code
+ * @return 0, git_error_code.GIT_ENOTFOUND if the path cannot exist or an error code
  */
 //GIT_EXTERN
 int git_repository_item_path(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types.git_repository)* repo, .git_repository_item_t item);
@@ -651,7 +651,7 @@ int git_repository_index(libgit2_d.types.git_index** out_, libgit2_d.types.git_r
  *
  * @param out_ git_buf to write data into
  * @param repo Repository to read prepared message from
- * @return 0, GIT_ENOTFOUND if no message exists or an error code
+ * @return 0, git_error_code.GIT_ENOTFOUND if no message exists or an error code
  */
 //GIT_EXTERN
 int git_repository_message(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_repository* repo);
@@ -696,7 +696,7 @@ alias git_repository_fetchhead_foreach_cb = int function(const (char)* ref_name,
  * @param repo A repository object
  * @param callback Callback function
  * @param payload Pointer to callback data (optional)
- * @return 0 on success, non-zero callback return value, GIT_ENOTFOUND if
+ * @return 0 on success, non-zero callback return value, git_error_code.GIT_ENOTFOUND if
  *         there is no FETCH_HEAD file, or other error code.
  */
 //GIT_EXTERN
@@ -722,7 +722,7 @@ alias git_repository_mergehead_foreach_cb = int function(const (libgit2_d.oid.gi
  * @param repo A repository object
  * @param callback Callback function
  * @param payload Pointer to callback data (optional)
- * @return 0 on success, non-zero callback return value, GIT_ENOTFOUND if
+ * @return 0 on success, non-zero callback return value, git_error_code.GIT_ENOTFOUND if
  *         there is no MERGE_HEAD file, or other error code.
  */
 //GIT_EXTERN
@@ -744,7 +744,7 @@ int git_repository_mergehead_foreach(libgit2_d.types.git_repository* repo, .git_
  * @param repo Repository pointer
  * @param path Path to file on disk whose contents should be hashed. If the
  *             repository is not null, this can be a relative path.
- * @param type The object type to hash as (e.g. GIT_OBJECT_BLOB)
+ * @param type The object type to hash as (e.g. git_object_t.GIT_OBJECT_BLOB)
  * @param as_path The path to use to look up filtering rules. If this is
  *             null, then the `path` parameter will be used instead. If
  *             this is passed as the empty string, then no filters will be
@@ -779,7 +779,7 @@ int git_repository_set_head(libgit2_d.types.git_repository* repo, const (char)* 
  * Make the repository HEAD directly point to the Commit.
  *
  * If the provided committish cannot be found in the repository, the HEAD
- * is unaltered and GIT_ENOTFOUND is returned.
+ * is unaltered and git_error_code.GIT_ENOTFOUND is returned.
  *
  * If the provided commitish cannot be peeled into a commit, the HEAD
  * is unaltered and -1 is returned.
@@ -823,7 +823,7 @@ int git_repository_set_head_detached_from_annotated(libgit2_d.types.git_reposito
  * Otherwise, the HEAD will be detached and point to the peeled Commit.
  *
  * @param repo Repository pointer
- * @return 0 on success, GIT_EUNBORNBRANCH when HEAD points to a non existing
+ * @return 0 on success, git_error_code.GIT_EUNBORNBRANCH when HEAD points to a non existing
  * branch or an error code
  */
 //GIT_EXTERN

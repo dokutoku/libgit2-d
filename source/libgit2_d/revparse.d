@@ -33,7 +33,7 @@ public:
  * @param out_ pointer to output object
  * @param repo the repository to search in
  * @param spec the textual specification for an object
- * @return 0 on success, GIT_ENOTFOUND, GIT_EAMBIGUOUS, GIT_EINVALIDSPEC or an
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND, git_error_code.GIT_EAMBIGUOUS, git_error_code.GIT_EINVALIDSPEC or an
  * error code
  */
 //GIT_EXTERN
@@ -57,7 +57,7 @@ int git_revparse_single(libgit2_d.types.git_object** out_, libgit2_d.types.git_r
  * @param reference_out pointer to output reference or null
  * @param repo the repository to search in
  * @param spec the textual specification for an object
- * @return 0 on success, GIT_ENOTFOUND, GIT_EAMBIGUOUS, GIT_EINVALIDSPEC
+ * @return 0 on success, git_error_code.GIT_ENOTFOUND, git_error_code.GIT_EAMBIGUOUS, git_error_code.GIT_EINVALIDSPEC
  * or an error code
  */
 //GIT_EXTERN
@@ -101,7 +101,7 @@ struct git_revspec
  *	              the result of the rev-parse will be stored
  * @param repo the repository to search in
  * @param spec the rev-parse spec to parse
- * @return 0 on success, GIT_INVALIDSPEC, GIT_ENOTFOUND, GIT_EAMBIGUOUS or an
+ * @return 0 on success, GIT_INVALIDSPEC, git_error_code.GIT_ENOTFOUND, git_error_code.GIT_EAMBIGUOUS or an
  *error code
  */
 //GIT_EXTERN

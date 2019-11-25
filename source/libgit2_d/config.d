@@ -243,9 +243,9 @@ int git_config_new(libgit2_d.types.git_config** out_);
  * @param force replace config file at the given priority level
  * @param repo optional repository to allow parsing of
  *  conditional includes
- * @return 0 on success, GIT_EEXISTS when adding more than one file
+ * @return 0 on success, git_error_code.GIT_EEXISTS when adding more than one file
  *  for a given priority level (and force_replace set to 0),
- *  GIT_ENOTFOUND when the file doesn't exist or error code
+ *  git_error_code.GIT_ENOTFOUND when the file doesn't exist or error code
  */
 //GIT_EXTERN
 int git_config_add_file_ondisk(libgit2_d.types.git_config* cfg, const (char)* path, .git_config_level_t level, const (libgit2_d.types.git_repository)* repo, int force);
@@ -278,7 +278,7 @@ int git_config_open_ondisk(libgit2_d.types.git_config** out_, const (char)* path
  * @param out_ The configuration instance to create
  * @param parent Multi-level config to search for the given level
  * @param level Configuration level to search for
- * @return 0, GIT_ENOTFOUND if the passed level cannot be found in the
+ * @return 0, git_error_code.GIT_ENOTFOUND if the passed level cannot be found in the
  * multi-level parent config, or an error code
  */
 //GIT_EXTERN
@@ -483,7 +483,7 @@ int git_config_multivar_iterator_new(.git_config_iterator** out_, const (libgit2
  *
  * @param entry pointer to store the entry
  * @param iter the iterator
- * @return 0 or an error code. GIT_ITEROVER if the iteration has completed
+ * @return 0 or an error code. git_error_code.GIT_ITEROVER if the iteration has completed
  */
 //GIT_EXTERN
 int git_config_next(.git_config_entry** entry, .git_config_iterator* iter);
