@@ -7,7 +7,6 @@
 module libgit2_d.signature;
 
 
-private static import libgit2_d.common;
 private static import libgit2_d.types;
 
 /**
@@ -19,6 +18,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Create a new action signature.
@@ -31,8 +31,8 @@ nothrow @nogc:
  * @param out_ new signature, in case of error null
  * @param name name of the person
  * @param email email of the person
- * @param time time when the action happened
- * @param offset timezone offset in minutes for the time
+ * @param time time (in seconds from epoch) when the action happened
+ * @param offset timezone offset (in minutes) for the time
  * @return 0 or an error code
  */
 //GIT_EXTERN

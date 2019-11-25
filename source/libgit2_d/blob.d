@@ -8,8 +8,6 @@ module libgit2_d.blob;
 
 
 private static import libgit2_d.buffer;
-private static import libgit2_d.common;
-private static import libgit2_d.object;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
@@ -22,6 +20,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Lookup a blob object from a repository.
@@ -105,6 +104,59 @@ const (void)* git_blob_rawcontent(const (libgit2_d.types.git_blob)* blob);
 libgit2_d.types.git_off_t git_blob_rawsize(const (libgit2_d.types.git_blob)* blob);
 
 /**
+ * Flags to control the functionality of `git_blob_filter`.
+ */
+enum git_blob_filter_flag_t
+{
+	/**
+	 * When set, filters will not be applied to binary files.
+	 */
+	GIT_BLOB_FILTER_CHECK_FOR_BINARY = 1 << 0,
+
+	/**
+	 * When set, filters will not load configuration from the
+	 * system-wide `gitattributes` in `/etc` (or system equivalent).
+	 */
+	GIT_BLOB_FILTER_NO_SYSTEM_ATTRIBUTES = 1 << 1,
+
+	/**
+	 * When set, filters will be loaded from a `.gitattributes` file
+	 * in the HEAD commit.
+	 */
+	GIT_BLOB_FILTER_ATTTRIBUTES_FROM_HEAD = 1 << 2,
+}
+
+/**
+ * The options used when applying filter options to a file.
+ */
+struct git_blob_filter_options
+{
+	int version_;
+
+	/**
+	 * Flags to control the filtering process, see `git_blob_filter_flag_t` above
+	 */
+	uint flags;
+}
+
+enum GIT_BLOB_FILTER_OPTIONS_VERSION = 1;
+
+pragma(inline, true)
+pure nothrow @safe @nogc
+.git_blob_filter_options GIT_BLOB_FILTER_OPTIONS_INIT()
+
+	do
+	{
+		.git_blob_filter_options OUTPUT =
+		{
+			version_: .GIT_BLOB_FILTER_OPTIONS_VERSION,
+			flags: .git_blob_filter_flag_t.GIT_BLOB_FILTER_CHECK_FOR_BINARY,
+		};
+
+		return OUTPUT;
+	}
+
+/**
  * Get a buffer with the filtered content of a blob.
  *
  * This applies filters as if the blob was being checked out to the
@@ -113,22 +165,21 @@ libgit2_d.types.git_off_t git_blob_rawsize(const (libgit2_d.types.git_blob)* blo
  * attributes set for the blob and the content detected in it.
  *
  * The output is written into a `git_buf` which the caller must free
- * when done (via `git_buf_free`).
+ * when done (via `git_buf_dispose`).
  *
  * If no filters need to be applied, then the `out` buffer will just
  * be populated with a pointer to the raw content of the blob.  In
  * that case, be careful to *not* free the blob until done with the
  * buffer or copy it into memory you own.
  *
- * @param out_ The git_buf to be filled in
+ * @param out The git_buf to be filled in
  * @param blob Pointer to the blob
  * @param as_path Path used for file attribute lookups, etc.
- * @param check_for_binary_data Should this test if blob content contains
- *        NUL bytes / looks like binary data before applying filters?
+ * @param opts Options to use for filtering the blob
  * @return 0 on success or an error code
  */
 //GIT_EXTERN
-int git_blob_filtered_content(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_blob* blob, const (char)* as_path, int check_for_binary_data);
+int git_blob_filter(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_blob* blob, const (char)* as_path, .git_blob_filter_options* opts);
 
 /**
  * Read a file from the working folder of a repository
@@ -142,7 +193,7 @@ int git_blob_filtered_content(libgit2_d.buffer.git_buf* out_, libgit2_d.types.gi
  * @return 0 or an error code
  */
 //GIT_EXTERN
-int git_blob_create_fromworkdir(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* relative_path);
+int git_blob_create_from_workdir(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* relative_path);
 
 /**
  * Read a file from the filesystem and write its content
@@ -155,7 +206,7 @@ int git_blob_create_fromworkdir(libgit2_d.oid.git_oid* id, libgit2_d.types.git_r
  * @return 0 or an error code
  */
 //GIT_EXTERN
-int git_blob_create_fromdisk(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* path);
+int git_blob_create_from_disk(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* path);
 
 /**
  * Create a stream to write a new blob into the object db
@@ -163,27 +214,27 @@ int git_blob_create_fromdisk(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repo
  * This function may need to buffer the data on disk and will in
  * general not be the right choice if you know the size of the data
  * to write. If you have data in memory, use
- * `git_blob_create_frombuffer()`. If you do not, but know the size of
+ * `git_blob_create_from_buffer()`. If you do not, but know the size of
  * the contents (and don't want/need to perform filtering), use
  * `git_odb_open_wstream()`.
  *
  * Don't close this stream yourself but pass it to
- * `git_blob_create_fromstream_commit()` to commit the write to the
+ * `git_blob_create_from_stream_commit()` to commit the write to the
  * object db and get the object id.
  *
  * If the `hintpath` parameter is filled, it will be used to determine
  * what git filters should be applied to the object before it is written
  * to the object database.
  *
- * @param out_ the stream into which to write
+ * @param out the stream into which to write
  * @param repo Repository where the blob will be written.
  *        This repository can be bare or not.
- * @param hintpath If not null, will be used to select data filters
+ * @param hintpath If not NULL, will be used to select data filters
  *        to apply onto the content of the blob to be created.
  * @return 0 or error code
  */
 //GIT_EXTERN
-int git_blob_create_fromstream(libgit2_d.types.git_writestream** out_, libgit2_d.types.git_repository* repo, const (char)* hintpath);
+int git_blob_create_from_stream(libgit2_d.types.git_writestream** out_, libgit2_d.types.git_repository* repo, const (char)* hintpath);
 
 /**
  * Close the stream and write the blob to the object db
@@ -195,7 +246,7 @@ int git_blob_create_fromstream(libgit2_d.types.git_writestream** out_, libgit2_d
  * @return 0 or an error code
  */
 //GIT_EXTERN
-int git_blob_create_fromstream_commit(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_writestream* stream);
+int git_blob_create_from_stream_commit(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_writestream* stream);
 
 /**
  * Write an in-memory buffer to the ODB as a blob
@@ -207,7 +258,7 @@ int git_blob_create_fromstream_commit(libgit2_d.oid.git_oid* out_, libgit2_d.typ
  * @return 0 or an error code
  */
 //GIT_EXTERN
-int git_blob_create_frombuffer(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (void)* buffer, size_t len);
+int git_blob_create_from_buffer(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (void)* buffer, size_t len);
 
 /**
  * Determine if the blob content is most certainly binary or not.

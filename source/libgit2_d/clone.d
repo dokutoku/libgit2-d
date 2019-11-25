@@ -8,10 +8,7 @@ module libgit2_d.clone;
 
 
 private static import libgit2_d.checkout;
-private static import libgit2_d.common;
-private static import libgit2_d.indexer;
 private static import libgit2_d.remote;
-private static import libgit2_d.transport;
 private static import libgit2_d.types;
 
 /**
@@ -23,6 +20,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Options for bypassing the git-aware transport on clone. Bypassing
@@ -90,9 +88,8 @@ alias git_repository_create_cb = int function(libgit2_d.types.git_repository** o
 /**
  * Clone options structure
  *
- * Use the GIT_CLONE_OPTIONS_INIT to get the default settings, like this:
- *
- *		git_clone_options opts = GIT_CLONE_OPTIONS_INIT;
+ * Initialize with `GIT_CLONE_OPTIONS_INIT`. Alternatively, you can
+ * use `git_clone_options_init`.
  */
 struct git_clone_options
 {
@@ -183,15 +180,17 @@ pure nothrow @safe @nogc
 	}
 
 /**
- * Initializes a `git_clone_options` with default values. Equivalent to
- * creating an instance with GIT_CLONE_OPTIONS_INIT.
+ * Initialize git_clone_options structure
  *
- * @param opts The `git_clone_options` struct to initialize
- * @param version_ Version of struct; pass `GIT_CLONE_OPTIONS_VERSION`
+ * Initializes a `git_clone_options` with default values. Equivalent to creating
+ * an instance with GIT_CLONE_OPTIONS_INIT.
+ *
+ * @param opts The `git_clone_options` struct to initialize.
+ * @param version The struct version; pass `GIT_CLONE_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_clone_init_options(.git_clone_options* opts, uint version_);
+int git_clone_options_init(.git_clone_options* opts, uint version_);
 
 /**
  * Clone a remote repository.
@@ -207,7 +206,7 @@ int git_clone_init_options(.git_clone_options* opts, uint version_);
  *        function works as though GIT_OPTIONS_INIT were passed.
  * @return 0 on success, any non-zero return value from a callback
  *         function, or a negative value to indicate an error (use
- *         `giterr_last` for a detailed error message)
+ *         `git_error_last` for a detailed error message)
  */
 //GIT_EXTERN
 int git_clone(libgit2_d.types.git_repository** out_, const (char)* url, const (char)* local_path, const (.git_clone_options)* options);

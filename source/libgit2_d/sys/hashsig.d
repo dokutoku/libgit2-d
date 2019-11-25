@@ -7,10 +7,9 @@
 module libgit2_d.sys.hashsig;
 
 
-private static import libgit2_d.common;
-
 extern (C):
 nothrow @nogc:
+package(libgit2_d):
 
 /**
  * Similarity signature of arbitrary text content based on line hashes

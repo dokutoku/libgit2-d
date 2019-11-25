@@ -7,7 +7,8 @@
 module libgit2_d.status;
 
 
-private static import libgit2_d.common;
+private static import libgit2_d.diff;
+private static import libgit2_d.strarray;
 private static import libgit2_d.types;
 
 /**
@@ -19,6 +20,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Status flags for a single file.
@@ -161,28 +163,39 @@ enum GIT_STATUS_OPT_DEFAULTS = .git_status_opt_t.GIT_STATUS_OPT_INCLUDE_IGNORED 
 /**
  * Options to control how `git_status_foreach_ext()` will issue callbacks.
  *
- * This structure is set so that zeroing it out will give you relatively
- * sane defaults.
- *
- * The `show` value is one of the `git_status_show_t` constants that
- * control which files to scan and in what order.
- *
- * The `flags` value is an OR'ed combination of the `git_status_opt_t`
- * values above.
- *
- * The `pathspec` is an array of path patterns to match (using
- * fnmatch-style matching), or just an array of paths to match exactly if
- * `GIT_STATUS_OPT_DISABLE_PATHSPEC_MATCH` is specified in the flags.
- *
- * The `baseline` is the tree to be used for comparison to the working directory
- * and index; defaults to HEAD.
+ * Initialize with `GIT_STATUS_OPTIONS_INIT`. Alternatively, you can
+ * use `git_status_options_init`.
  */
 struct git_status_options
 {
+	/**
+	 * The version
+	 */
 	uint version_;
+
+	/**
+	 * The `show` value is one of the `git_status_show_t` constants that
+	 * control which files to scan and in what order.
+	 */
 	.git_status_show_t show;
+
+	/**
+	 * The `flags` value is an OR'ed combination of the `git_status_opt_t`
+	 * values above.
+	 */
 	uint flags;
+
+	/**
+	 * The `pathspec` is an array of path patterns to match (using
+	 * fnmatch-style matching), or just an array of paths to match exactly if
+	 * `GIT_STATUS_OPT_DISABLE_PATHSPEC_MATCH` is specified in the flags.
+	 */
 	libgit2_d.strarray.git_strarray pathspec;
+
+	/**
+	 * The `baseline` is the tree to be used for comparison to the working directory
+	 * and index; defaults to HEAD.
+	 */
 	libgit2_d.types.git_tree* baseline;
 }
 
@@ -203,15 +216,17 @@ pure nothrow @safe @nogc
 	}
 
 /**
- * Initializes a `git_status_options` with default values. Equivalent to
- * creating an instance with GIT_STATUS_OPTIONS_INIT.
+ * Initialize git_status_options structure
  *
- * @param opts The `git_status_options` instance to initialize.
- * @param version_ Version of struct; pass `GIT_STATUS_OPTIONS_VERSION`
+ * Initializes a `git_status_options` with default values. Equivalent to
+ * creating an instance with `GIT_STATUS_OPTIONS_INIT`.
+ *
+ * @param opts The `git_status_options` struct to initialize.
+ * @param version The struct version; pass `GIT_STATUS_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_status_init_options(.git_status_options* opts, uint version_);
+int git_status_options_init(.git_status_options* opts, uint version_);
 
 /**
  * A status entry, providing the differences between the file as it exists

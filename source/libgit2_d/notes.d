@@ -7,7 +7,9 @@
 module libgit2_d.notes;
 
 
+private static import libgit2_d.buffer;
 private static import libgit2_d.oid;
+private static import libgit2_d.types;
 
 /**
  * @file git2/notes.h
@@ -18,6 +20,7 @@ private static import libgit2_d.oid;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Callback for git_note_foreach.

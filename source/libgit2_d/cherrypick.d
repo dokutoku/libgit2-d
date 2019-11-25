@@ -7,10 +7,9 @@
 module libgit2_d.cherrypick;
 
 
-private static import libgit2_d.common;
+private static import libgit2_d.checkout;
 private static import libgit2_d.merge;
 private static import libgit2_d.types;
-private static import libgit2_d.checkout;
 
 /**
  * @file git2/cherrypick.h
@@ -21,6 +20,7 @@ private static import libgit2_d.checkout;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Cherry-pick options
@@ -59,15 +59,17 @@ pure nothrow @safe @nogc
 	}
 
 /**
- * Initializes a `git_cherrypick_options` with default values. Equivalent to
- * creating an instance with GIT_CHERRYPICK_OPTIONS_INIT.
+ * Initialize git_cherrypick_options structure
  *
- * @param opts the `git_cherrypick_options` struct to initialize
- * @param version_ Version of struct; pass `GIT_CHERRYPICK_OPTIONS_VERSION`
+ * Initializes a `git_cherrypick_options` with default values. Equivalent to creating
+ * an instance with GIT_CHERRYPICK_OPTIONS_INIT.
+ *
+ * @param opts The `git_cherrypick_options` struct to initialize.
+ * @param version The struct version; pass `GIT_CHERRYPICK_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_cherrypick_init_options(.git_cherrypick_options* opts, uint version_);
+int git_cherrypick_options_init(.git_cherrypick_options* opts, uint version_);
 
 /**
  * Cherry-picks the given commit against the given "our" commit, producing an

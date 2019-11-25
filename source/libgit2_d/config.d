@@ -8,9 +8,8 @@ module libgit2_d.config;
 
 
 private static import libgit2_d.buffer;
-private static import libgit2_d.common;
-private static import libgit2_d.types;
 private static import libgit2_d.sys.config;
+private static import libgit2_d.types;
 
 /**
  * @file git2/config.h
@@ -21,6 +20,7 @@ private static import libgit2_d.sys.config;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Priority level of a config file.
@@ -76,6 +76,11 @@ struct git_config_entry
 	/**< String value of the entry */
 	const (char)* value;
 
+	/**
+	 * Depth of includes where this variable was found
+	 */
+	uint include_depth;
+
 	/**< Which config file this was found in */
 	.git_config_level_t level;
 
@@ -92,25 +97,36 @@ struct git_config_entry
 //GIT_EXTERN
 void git_config_entry_free(.git_config_entry*);
 
-alias git_config_foreach_cb = int function(const (.git_config_entry)*, void*);
+/**
+ * A config enumeration callback
+ *
+ * @param entry the entry currently being enumerated
+ * @param payload a user-specified pointer
+ */
+alias git_config_foreach_cb = int function(const (.git_config_entry)*, void* payload);
+
+/**
+ * An opaque structure for a configuration iterator
+ */
+alias git_config_iterator = libgit2_d.sys.config.git_config_iterator;
 
 /**
  * Config var type
  */
-enum git_cvar_t
+enum git_configmap_t
 {
-	GIT_CVAR_FALSE = 0,
-	GIT_CVAR_TRUE = 1,
-	GIT_CVAR_INT32,
-	GIT_CVAR_STRING,
+	GIT_CONFIGMAP_FALSE = 0,
+	GIT_CONFIGMAP_TRUE = 1,
+	GIT_CONFIGMAP_INT32,
+	GIT_CONFIGMAP_STRING,
 }
 
 /**
  * Mapping from config variables to values.
  */
-struct git_cvar_map
+struct git_configmap
 {
-	.git_cvar_t cvar_type;
+	.git_configmap_t cvar_type;
 	const (char)* str_match;
 	int map_value;
 }
@@ -272,7 +288,7 @@ int git_config_open_level(libgit2_d.types.git_config** out_, const (libgit2_d.ty
  * Open the global/XDG configuration file according to git's rules
  *
  * Git allows you to store your global configuration at
- * `$HOME/.config` or `$XDG_CONFIG_HOME/git/config`. For backwards
+ * `$HOME/.gitconfig` or `$XDG_CONFIG_HOME/git/config`. For backwards
  * compatability, the XDG file shouldn't be used unless the use has
  * created it explicitly. With this function you'll open the correct
  * one to write to.
@@ -457,7 +473,7 @@ int git_config_get_multivar_foreach(const (libgit2_d.types.git_config)* cfg, con
  * interested in. Use null to indicate all
  */
 //GIT_EXTERN
-int git_config_multivar_iterator_new(libgit2_d.sys.config.git_config_iterator** out_, const (libgit2_d.types.git_config)* cfg, const (char)* name, const (char)* regexp);
+int git_config_multivar_iterator_new(.git_config_iterator** out_, const (libgit2_d.types.git_config)* cfg, const (char)* name, const (char)* regexp);
 
 /**
  * Return the current entry and advance the iterator
@@ -470,7 +486,7 @@ int git_config_multivar_iterator_new(libgit2_d.sys.config.git_config_iterator** 
  * @return 0 or an error code. GIT_ITEROVER if the iteration has completed
  */
 //GIT_EXTERN
-int git_config_next(.git_config_entry** entry, libgit2_d.sys.config.git_config_iterator* iter);
+int git_config_next(.git_config_entry** entry, .git_config_iterator* iter);
 
 /**
  * Free a config iterator
@@ -478,7 +494,7 @@ int git_config_next(.git_config_entry** entry, libgit2_d.sys.config.git_config_i
  * @param iter the iterator to free
  */
 //GIT_EXTERN
-void git_config_iterator_free(libgit2_d.sys.config.git_config_iterator* iter);
+void git_config_iterator_free(.git_config_iterator* iter);
 
 /**
  * Set the value of an integer config variable in the config file
@@ -597,7 +613,7 @@ int git_config_foreach(const (libgit2_d.types.git_config)* cfg, .git_config_fore
  * @param cfg where to ge the variables from
  */
 //GIT_EXTERN
-int git_config_iterator_new(libgit2_d.sys.config.git_config_iterator** out_, const (libgit2_d.types.git_config)* cfg);
+int git_config_iterator_new(.git_config_iterator** out_, const (libgit2_d.types.git_config)* cfg);
 
 /**
  * Iterate over all the config variables whose name matches a pattern
@@ -614,12 +630,12 @@ int git_config_iterator_new(libgit2_d.sys.config.git_config_iterator** out_, con
  * @param regexp regular expression to match the names
  */
 //GIT_EXTERN
-int git_config_iterator_glob_new(libgit2_d.sys.config.git_config_iterator** out_, const (libgit2_d.types.git_config)* cfg, const (char)* regexp);
+int git_config_iterator_glob_new(.git_config_iterator** out_, const (libgit2_d.types.git_config)* cfg, const (char)* regexp);
 
 /**
  * Perform an operation on each config variable matching a regular expression.
  *
- * This behaviors like `git_config_foreach` with an additional filter of a
+ * This behaves like `git_config_foreach` with an additional filter of a
  * regular expression that filters which config keys are passed to the
  * callback.
  *
@@ -648,7 +664,7 @@ int git_config_foreach_match(const (libgit2_d.types.git_config)* cfg, const (cha
  *
  * A mapping array looks as follows:
  *
- *	git_cvar_map[] autocrlf_mapping = {
+ *	git_configmap[] autocrlf_mapping = {
  *		{GIT_CVAR_FALSE, null, GIT_AUTO_CRLF_FALSE},
  *		{GIT_CVAR_TRUE, null, GIT_AUTO_CRLF_TRUE},
  *		{GIT_CVAR_STRING, "input", GIT_AUTO_CRLF_INPUT},
@@ -670,23 +686,23 @@ int git_config_foreach_match(const (libgit2_d.types.git_config)* cfg, const (cha
  * @param out_ place to store the result of the mapping
  * @param cfg config file to get the variables from
  * @param name name of the config variable to lookup
- * @param maps array of `git_cvar_map` objects specifying the possible mappings
+ * @param maps array of `git_configmap` objects specifying the possible mappings
  * @param map_n number of mapping objects in `maps`
  * @return 0 on success, error code otherwise
  */
 //GIT_EXTERN
-int git_config_get_mapped(int* out_, const (libgit2_d.types.git_config)* cfg, const (char)* name, const (.git_cvar_map)* maps, size_t map_n);
+int git_config_get_mapped(int* out_, const (libgit2_d.types.git_config)* cfg, const (char)* name, const (.git_configmap)* maps, size_t map_n);
 
 /**
  * Maps a string value to an integer constant
  *
  * @param out_ place to store the result of the parsing
- * @param maps array of `git_cvar_map` objects specifying the possible mappings
+ * @param maps array of `git_configmap` objects specifying the possible mappings
  * @param map_n number of mapping objects in `maps`
  * @param value value to parse
  */
 //GIT_EXTERN
-int git_config_lookup_map_value(int* out_, const (.git_cvar_map)* maps, size_t map_n, const (char)* value);
+int git_config_lookup_map_value(int* out_, const (.git_configmap)* maps, size_t map_n, const (char)* value);
 
 /**
  * Parse a string value as a bool.
@@ -744,11 +760,11 @@ int git_config_parse_int64(long* out_, const (char)* value);
 int git_config_parse_path(libgit2_d.buffer.git_buf* out_, const (char)* value);
 
 /**
- * Perform an operation on each config variable in given config backend
+ * Perform an operation on each config variable in a given config backend,
  * matching a regular expression.
  *
- * This behaviors like `git_config_foreach_match` except instead of all config
- * entries it just enumerates through the given backend entry.
+ * This behaves like `git_config_foreach_match` except that only config
+ * entries from the given backend entry are enumerated.
  *
  * The regular expression is applied case-sensitively on the normalized form of
  * the variable name: the section and variable parts are lower-cased. The
@@ -760,7 +776,7 @@ int git_config_parse_path(libgit2_d.buffer.git_buf* out_, const (char)* value);
  * @param payload the data to pass to the callback
  */
 //GIT_EXTERN
-int git_config_backend_foreach_match(libgit2_d.sys.config.git_config_backend* backend, const (char)* regexp, .git_config_foreach_cb callback, void* payload);
+int git_config_backend_foreach_match(libgit2_d.types.git_config_backend* backend, const (char)* regexp, .git_config_foreach_cb callback, void* payload);
 
 /**
  * Lock the backend with the highest priority

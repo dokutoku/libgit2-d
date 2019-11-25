@@ -7,7 +7,6 @@
 module libgit2_d.sys.commit;
 
 
-private static import libgit2_d.common;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
@@ -20,6 +19,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+package(libgit2_d):
 
 /**
  * Create new commit in the repository from a list of `git_oid` values.

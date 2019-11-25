@@ -7,8 +7,7 @@
 module libgit2_d.commit;
 
 
-private static import libgit2_d.common;
-private static import libgit2_d.object;
+private static import libgit2_d.buffer;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
@@ -21,6 +20,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Lookup a commit object from a repository.
@@ -187,6 +187,34 @@ const (libgit2_d.types.git_signature)* git_commit_committer(const (libgit2_d.typ
 const (libgit2_d.types.git_signature)* git_commit_author(const (libgit2_d.types.git_commit)* commit);
 
 /**
+ * Get the committer of a commit, using the mailmap to map names and email
+ * addresses to canonical real names and email addresses.
+ *
+ * Call `git_signature_free` to free the signature.
+ *
+ * @param out a pointer to store the resolved signature.
+ * @param commit a previously loaded commit.
+ * @param mailmap the mailmap to resolve with. (may be NULL)
+ * @return 0 or an error code
+ */
+//GIT_EXTERN
+int git_commit_committer_with_mailmap(libgit2_d.types.git_signature** out_, const (libgit2_d.types.git_commit)* commit, const (libgit2_d.types.git_mailmap)* mailmap);
+
+/**
+ * Get the author of a commit, using the mailmap to map names and email
+ * addresses to canonical real names and email addresses.
+ *
+ * Call `git_signature_free` to free the signature.
+ *
+ * @param out a pointer to store the resolved signature.
+ * @param commit a previously loaded commit.
+ * @param mailmap the mailmap to resolve with. (may be NULL)
+ * @return 0 or an error code
+ */
+//GIT_EXTERN
+int git_commit_author_with_mailmap(libgit2_d.types.git_signature** out_, const (libgit2_d.types.git_commit)* commit, const (libgit2_d.types.git_mailmap)* mailmap);
+
+/**
  * Get the full raw text of the commit header.
  *
  * @param commit a previously loaded commit
@@ -282,8 +310,8 @@ int git_commit_header_field(libgit2_d.buffer.git_buf* out_, const (libgit2_d.typ
  * Extract the signature from a commit
  *
  * If the id is not for a commit, the error class will be
- * `GITERR_INVALID`. If the commit does not have a signature, the
- * error class will be `GITERR_OBJECT`.
+ * `GIT_ERROR_INVALID`. If the commit does not have a signature, the
+ * error class will be `GIT_ERROR_OBJECT`.
  *
  * @param signature the signature block; existing content will be
  * overwritten
@@ -432,11 +460,12 @@ int git_commit_create_buffer(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git
  * header field in which to store the signature, attach the signature
  * to the commit and write it into the given repository.
  *
- * @param out_ the resulting commit id
+ * @param out the resulting commit id
  * @param commit_content the content of the unsigned commit object
- * @param signature the signature to add to the commit
+ * @param signature the signature to add to the commit. Leave `NULL`
+ * to create a commit without adding a signature field.
  * @param signature_field which header field should contain this
- * signature. Leave `null` for the default of "gpgsig"
+ * signature. Leave `NULL` for the default of "gpgsig"
  * @return 0 or an error code
  */
 //GIT_EXTERN
@@ -451,5 +480,25 @@ int git_commit_create_with_signature(libgit2_d.oid.git_oid* out_, libgit2_d.type
  */
 //GIT_EXTERN
 int git_commit_dup(libgit2_d.types.git_commit** out_, libgit2_d.types.git_commit* source);
+
+/**
+ * Commit signing callback.
+ *
+ * The callback will be called with the commit content, giving a user an
+ * opportunity to sign the commit content. The signature_field
+ * buf may be left empty to specify the default field "gpgsig".
+ *
+ * Signatures can take the form of any string, and can be created on an arbitrary
+ * header field. Signatures are most commonly used for verifying authorship of a
+ * commit using GPG or a similar cryptographically secure signing algorithm.
+ * See https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work for more
+ * details.
+ *
+ * When the callback:
+ * - returns GIT_PASSTHROUGH, no signature will be added to the commit.
+ * - returns < 0, commit creation will be aborted.
+ * - returns GIT_OK, the signature parameter is expected to be filled.
+ */
+alias git_commit_signing_cb = int function(libgit2_d.buffer.git_buf* signature, libgit2_d.buffer.git_buf* signature_field, const (char)* commit_content, void* payload);
 
 /** @} */

@@ -8,7 +8,6 @@ module libgit2_d.reset;
 
 
 private static import libgit2_d.checkout;
-private static import libgit2_d.common;
 private static import libgit2_d.strarray;
 private static import libgit2_d.types;
 
@@ -20,6 +19,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Kinds of reset operation

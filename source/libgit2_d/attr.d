@@ -7,7 +7,6 @@
 module libgit2_d.attr;
 
 
-private static import libgit2_d.common;
 private static import libgit2_d.types;
 
 /**
@@ -19,6 +18,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 //Linker error
 version (none) {
@@ -35,11 +35,11 @@ version (none) {
 	 */
 	pragma(inline, true)
 	nothrow @nogc
-	bool GIT_ATTR_TRUE(const (char)* attr)
+	bool GIT_ATTR_IS_TRUE(const (char)* attr)
 
 		do
 		{
-			return .git_attr_value(attr) == .git_attr_t.GIT_ATTR_TRUE_T;
+			return .git_attr_value(attr) == .git_attr_t.GIT_ATTR_VALUE_TRUE;
 		}
 
 	/**
@@ -56,11 +56,11 @@ version (none) {
 	 */
 	pragma(inline, true)
 	nothrow @nogc
-	bool GIT_ATTR_FALSE(const (char)* attr)
+	bool GIT_ATTR_IS_FALSE(const (char)* attr)
 
 		do
 		{
-			return .git_attr_value(attr) == .git_attr_t.GIT_ATTR_FALSE_T;
+			return .git_attr_value(attr) == .git_attr_t.GIT_ATTR_VALUE_FALSE;
 		}
 
 	/**
@@ -81,11 +81,11 @@ version (none) {
 	 */
 	pragma(inline, true)
 	nothrow @nogc
-	bool GIT_ATTR_UNSPECIFIED(const (char)* attr)
+	bool GIT_ATTR_IS_UNSPECIFIED(const (char)* attr)
 
 		do
 		{
-			return .git_attr_value(attr) == .git_attr_t.GIT_ATTR_UNSPECIFIED_T;
+			return .git_attr_value(attr) == .git_attr_t.GIT_ATTR_VALUE_UNSPECIFIED;
 		}
 
 	/**
@@ -104,26 +104,26 @@ version (none) {
 
 		do
 		{
-			return .git_attr_value(attr) == .git_attr_t.GIT_ATTR_VALUE_T;
+			return .git_attr_value(attr) == .git_attr_t.GIT_ATTR_VALUE_STRING;
 		}
 }
 
 /**
  * Possible states for an attribute
  */
-enum git_attr_t
+enum git_attr_value_t
 {
 	/**< The attribute has been left unspecified */
-	GIT_ATTR_UNSPECIFIED_T = 0,
+	GIT_ATTR_VALUE_UNSPECIFIED = 0,
 
 	/**< The attribute has been set */
-	GIT_ATTR_TRUE_T,
+	GIT_ATTR_VALUE_TRUE,
 
 	/**< The attribute has been unset */
-	GIT_ATTR_FALSE_T,
+	GIT_ATTR_VALUE_FALSE,
 
 	/**< This attribute has a value */
-	GIT_ATTR_VALUE_T,
+	GIT_ATTR_VALUE_STRING,
 }
 
 /**
@@ -140,7 +140,7 @@ enum git_attr_t
  * @return the value type for the attribute
  */
 //GIT_EXTERN
-.git_attr_t git_attr_value(const (char)* attr);
+.git_attr_value_t git_attr_value(const (char)* attr);
 
 /**
  * Check attribute flags: Reading values from index and working directory.
@@ -160,13 +160,20 @@ enum GIT_ATTR_CHECK_INDEX_THEN_FILE = 1;
 enum GIT_ATTR_CHECK_INDEX_ONLY = 2;
 
 /**
- * Check attribute flags: Using the system attributes file.
+ * Check attribute flags: controlling extended attribute behavior.
  *
  * Normally, attribute checks include looking in the /etc (or system
  * equivalent) directory for a `gitattributes` file.  Passing this
  * flag will cause attribute checks to ignore that file.
+ * equivalent) directory for a `gitattributes` file.  Passing the
+ * `GIT_ATTR_CHECK_NO_SYSTEM` flag will cause attribute checks to
+ * ignore that file.
+ *
+ * Passing the `GIT_ATTR_CHECK_INCLUDE_HEAD` flag will use attributes
+ * from a `.gitattributes` file in the repository at the HEAD revision.
  */
 enum GIT_ATTR_CHECK_NO_SYSTEM = 1 << 2;
+enum GIT_ATTR_CHECK_INCLUDE_HEAD = 1 << 3;
 
 /**
  * Look up the value of one git attribute for path.
@@ -218,6 +225,22 @@ int git_attr_get(const (char)** value_out, libgit2_d.types.git_repository* repo,
 //GIT_EXTERN
 int git_attr_get_many(const (char)** values_out, libgit2_d.types.git_repository* repo, uint flags, const (char)* path, size_t num_attr, const (char)** names);
 
+/**
+ * The callback used with git_attr_foreach.
+ *
+ * This callback will be invoked only once per attribute name, even if there
+ * are multiple rules for a given file. The highest priority rule will be
+ * used.
+ *
+ * @see git_attr_foreach.
+ *
+ * @param name The attribute name.
+ * @param value The attribute value. May be NULL if the attribute is explicitly
+ *              set to UNSPECIFIED using the '!' sign.
+ * @param payload A user-specified pointer.
+ * @return 0 to continue looping, non-zero to stop. This value will be returned
+ *         from git_attr_foreach.
+ */
 alias git_attr_foreach_cb = int function(const (char)* name, const (char)* value, void* payload);
 
 /**
@@ -228,13 +251,8 @@ alias git_attr_foreach_cb = int function(const (char)* name, const (char)* value
  * @param path Path inside the repo to check attributes.  This does not have
  *             to exist, but if it does not, then it will be treated as a
  *             plain file (i.e. not a directory).
- * @param callback Function to invoke on each attribute name and value.  The
- *             value may be null is the attribute is explicitly set to
- *             UNSPECIFIED using the '!' sign.  Callback will be invoked
- *             only once per attribute name, even if there are multiple
- *             rules for a given file.  The highest priority rule will be
- *             used.  Return a non-zero value from this to stop looping.
- *             The value will be returned from `git_attr_foreach`.
+ * @param callback Function to invoke on each attribute name and value.
+ *                 See git_attr_foreach_cb.
  * @param payload Passed on as extra parameter to callback function.
  * @return 0 on success, non-zero callback return value, or error code
  */

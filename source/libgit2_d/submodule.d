@@ -7,12 +7,12 @@
 module libgit2_d.submodule;
 
 
-private static import std.traits;
+private static import libgit2_d.buffer;
 private static import libgit2_d.checkout;
-private static import libgit2_d.common;
 private static import libgit2_d.oid;
 private static import libgit2_d.remote;
 private static import libgit2_d.types;
+private static import std.traits;
 
 /**
  * @file git2/submodule.h
@@ -30,6 +30,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Return codes for submodule status.
@@ -148,10 +149,8 @@ alias git_submodule_cb = int function(libgit2_d.types.git_submodule* sm, const (
 /**
  * Submodule update options structure
  *
- * Use the GIT_SUBMODULE_UPDATE_OPTIONS_INIT to get the default settings,
- * like this:
- *
- * git_submodule_update_options opts = .GIT_SUBMODULE_UPDATE_OPTIONS_INIT;
+ * Initialize with `GIT_SUBMODULE_UPDATE_OPTIONS_INIT`. Alternatively, you can
+ * use `git_submodule_update_options_init`.
  */
 struct git_submodule_update_options
 {
@@ -207,15 +206,17 @@ pure nothrow @safe @nogc
 	}
 
 /**
- * Initializes a `git_submodule_update_options` with default values.
- * Equivalent to creating an instance with GIT_SUBMODULE_UPDATE_OPTIONS_INIT.
+ * Initialize git_submodule_update_options structure
  *
- * @param opts The `git_submodule_update_options` instance to initialize.
- * @param version_ Version of struct; pass `GIT_SUBMODULE_UPDATE_OPTIONS_VERSION`
+ * Initializes a `git_submodule_update_options` with default values. Equivalent to
+ * creating an instance with `GIT_SUBMODULE_UPDATE_OPTIONS_INIT`.
+ *
+ * @param opts The `git_submodule_update_options` struct to initialize.
+ * @param version The struct version; pass `GIT_SUBMODULE_UPDATE_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_submodule_update_init_options(.git_submodule_update_options* opts, uint version_);
+int git_submodule_update_options_init(.git_submodule_update_options* opts, uint version_);
 
 /**
  * Update a submodule. This will clone a missing submodule and
@@ -233,7 +234,7 @@ int git_submodule_update_init_options(.git_submodule_update_options* opts, uint 
  *        function works as though GIT_SUBMODULE_UPDATE_OPTIONS_INIT was passed.
  * @return 0 on success, any non-zero return value from a callback
  *         function, or a negative value to indicate an error (use
- *         `giterr_last` for a detailed error message).
+ *         `git_error_last` for a detailed error message).
  */
 //GIT_EXTERN
 int git_submodule_update(libgit2_d.types.git_submodule* submodule, int init, .git_submodule_update_options* options);
@@ -307,7 +308,8 @@ int git_submodule_foreach(libgit2_d.types.git_repository* repo, .git_submodule_c
  * from the working directory to the new repo.
  *
  * To fully emulate "git submodule add" call this function, then open the
- * submodule repo and perform the clone step as needed.  Lastly, call
+ * submodule repo and perform the clone step as needed (if you don't need
+ * anything custom see `git_submodule_add_clone()`). Lastly, call
  * `git_submodule_add_finalize()` to wrap up adding the new submodule and
  * .gitmodules to the index to be ready to commit.
  *
@@ -324,6 +326,20 @@ int git_submodule_foreach(libgit2_d.types.git_repository* repo, .git_submodule_c
  */
 //GIT_EXTERN
 int git_submodule_add_setup(libgit2_d.types.git_submodule** out_, libgit2_d.types.git_repository* repo, const (char)* url, const (char)* path, int use_gitlink);
+
+/**
+ * Perform the clone step for a newly created submodule.
+ *
+ * This performs the necessary `git_clone` to setup a newly-created submodule.
+ *
+ * @param out The newly created repository object. Optional.
+ * @param submodule The submodule currently waiting for its clone.
+ * @param opts The options to use.
+ *
+ * @return 0 on success, -1 on other errors (see git_clone).
+ */
+//GIT_EXTERN
+int git_submodule_clone(libgit2_d.types.git_repository** out_, libgit2_d.types.git_submodule* submodule, const (.git_submodule_update_options)* opts);
 
 /**
  * Resolve the setup of a new git submodule.

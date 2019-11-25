@@ -7,7 +7,6 @@
 module libgit2_d.sys.refs;
 
 
-private static import libgit2_d.common;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
@@ -20,6 +19,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+package(libgit2_d):
 
 /**
  * Create a new direct reference from an OID.

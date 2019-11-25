@@ -7,10 +7,9 @@
 module libgit2_d.sys.openssl;
 
 
-private static import libgit2_d.common;
-
 extern (C):
 nothrow @nogc:
+package(libgit2_d):
 
 /**
  * Initialize the OpenSSL locks

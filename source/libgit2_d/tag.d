@@ -7,8 +7,6 @@
 module libgit2_d.tag;
 
 
-private static import libgit2_d.common;
-private static import libgit2_d.object;
 private static import libgit2_d.oid;
 private static import libgit2_d.strarray;
 private static import libgit2_d.types;
@@ -22,6 +20,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Lookup a tag object from the repository.
@@ -109,7 +108,7 @@ const (libgit2_d.oid.git_oid)* git_tag_target_id(const (libgit2_d.types.git_tag)
  * @return type of the tagged object
  */
 //GIT_EXTERN
-libgit2_d.types.git_otype git_tag_target_type(const (libgit2_d.types.git_tag)* tag);
+libgit2_d.types.git_object_t git_tag_target_type(const (libgit2_d.types.git_tag)* tag);
 
 /**
  * Get the name of a tag
@@ -216,7 +215,7 @@ int git_tag_annotation_create(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_re
  * @return 0 on success; error code otherwise
  */
 //GIT_EXTERN
-int git_tag_create_frombuffer(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_repository* repo, const (char)* buffer, int force);
+int git_tag_create_from_buffer(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_repository* repo, const (char)* buffer, int force);
 
 /**
  * Create a new lightweight tag pointing at a target object
@@ -304,6 +303,16 @@ int git_tag_list(libgit2_d.strarray.git_strarray* tag_names, libgit2_d.types.git
 //GIT_EXTERN
 int git_tag_list_match(libgit2_d.strarray.git_strarray* tag_names, const (char)* pattern, libgit2_d.types.git_repository* repo);
 
+/**
+ * Callback used to iterate over tag names
+ *
+ * @see git_tag_foreach
+ *
+ * @param name The tag name
+ * @param oid The tag's OID
+ * @param payload Payload passed to git_tag_foreach
+ * @return non-zero to terminate the iteration
+ */
 alias git_tag_foreach_cb = int function(const (char)* name, libgit2_d.oid.git_oid* oid, void* payload);
 
 /**

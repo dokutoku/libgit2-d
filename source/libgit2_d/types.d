@@ -7,8 +7,15 @@
 module libgit2_d.types;
 
 
-private static import libgit2_d.common;
 private static import core.sys.posix.sys.types;
+private static import libgit2_d.cert;
+private static import libgit2_d.net;
+private static import libgit2_d.odb_backend;
+private static import libgit2_d.remote;
+private static import libgit2_d.sys.config;
+private static import libgit2_d.sys.odb_backend;
+private static import libgit2_d.sys.refdb_backend;
+private static import libgit2_d.sys.transport;
 private static import std.conv;
 
 /**
@@ -19,6 +26,7 @@ private static import std.conv;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Cross-platform compatibility types for off_t / time_t
@@ -54,41 +62,42 @@ version (none) {
 	 * app, even though /we/ define _FILE_OFFSET_BITS=64.
 	 */
 	alias git_off_t = long;
+
+	/**
+	 * time in seconds from epoch
+	 */
 	alias git_time_t = long;
 }
 
+//public import libgit2_d.buffer;
+//public import libgit2_d.oid;
+
 /** Basic type (loose or packed) of any Git object. */
-enum git_otype
+enum git_object_t
 {
 	/**< Object can be any of the following */
-	GIT_OBJ_ANY = -2,
+	GIT_OBJECT_ANY = -2,
 
 	/**< Object is invalid. */
-	GIT_OBJ_BAD = -1,
-
-	/**< Reserved for future use. */
-	GIT_OBJ__EXT1 = 0,
+	GIT_OBJECT_INVALID = -1,
 
 	/**< A commit object. */
-	GIT_OBJ_COMMIT = 1,
+	GIT_OBJECT_COMMIT = 1,
 
 	/**< A tree (directory listing) object. */
-	GIT_OBJ_TREE = 2,
+	GIT_OBJECT_TREE = 2,
 
 	/**< A file revision object. */
-	GIT_OBJ_BLOB = 3,
+	GIT_OBJECT_BLOB = 3,
 
 	/**< An annotated tag object. */
-	GIT_OBJ_TAG = 4,
-
-	/**< Reserved for future use. */
-	GIT_OBJ__EXT2 = 5,
+	GIT_OBJECT_TAG = 4,
 
 	/**< A delta, base is given by an offset. */
-	GIT_OBJ_OFS_DELTA = 6,
+	GIT_OBJECT_OFS_DELTA = 6,
 
 	/**< A delta, base is given by object id. */
-	GIT_OBJ_REF_DELTA = 7,
+	GIT_OBJECT_REF_DELTA = 7,
 }
 
 /** An open object database handle. */
@@ -147,6 +156,9 @@ struct git_treebuilder;
 
 /** Memory representation of an index file. */
 struct git_index;
+
+/** An iterator for entries in the index. */
+struct git_index_iterator;
 
 /** An iterator for conflicts in the index. */
 struct git_index_conflict_iterator;
@@ -207,9 +219,6 @@ struct git_transaction;
 /** Annotated commits, the input to merge and rebase. */
 struct git_annotated_commit;
 
-/** Merge result */
-struct git_merge_result;
-
 /** Representation of a status collection */
 struct git_status_list;
 
@@ -217,18 +226,18 @@ struct git_status_list;
 struct git_rebase;
 
 /** Basic type of any Git reference. */
-enum git_ref_t
+enum git_reference_t
 {
 	/**< Invalid reference */
-	GIT_REF_INVALID = 0,
+	GIT_REFERENCE_INVALID = 0,
 
-	/**< A reference which points at an object id */
-	GIT_REF_OID = 1,
+	/**< A reference that points at an object id */
+	GIT_REFERENCE_DIRECT = 1,
 
-	/**< A reference which points at another reference */
-	GIT_REF_SYMBOLIC = 2,
+	/**< A reference that points at another reference */
+	GIT_REFERENCE_SYMBOLIC = 2,
 
-	GIT_REF_LISTALL = GIT_REF_OID | GIT_REF_SYMBOLIC,
+	GIT_REFERENCE_ALL = GIT_REFERENCE_DIRECT | GIT_REFERENCE_SYMBOLIC,
 }
 
 /** Basic type of any Git branch. */
@@ -250,7 +259,7 @@ enum git_filemode_t
 	GIT_FILEMODE_COMMIT = std.conv.octal!(160000),
 }
 
-/*
+/**
  * A refspec specifies the mapping between remote and local reference
  * names when fetch or pushing.
  */
@@ -279,96 +288,9 @@ alias git_remote_head = libgit2_d.net.git_remote_head;
 alias git_remote_callbacks = libgit2_d.remote.git_remote_callbacks;
 
 /**
- * This is passed as the first argument to the callback to allow the
- * user to see the progress.
- *
- * - total_objects: number of objects in the packfile being downloaded
- * - indexed_objects: received objects that have been hashed
- * - received_objects: objects which have been downloaded
- * - local_objects: locally-available objects that have been injected
- *    in order to fix a thin pack.
- * - received-bytes: size of the packfile received up to now
- */
-struct git_transfer_progress
-{
-	uint total_objects;
-	uint indexed_objects;
-	uint received_objects;
-	uint local_objects;
-	uint total_deltas;
-	uint indexed_deltas;
-	size_t received_bytes;
-}
-
-/**
- * Type for progress callbacks during indexing.  Return a value less than zero
- * to cancel the transfer.
- *
- * @param stats Structure containing information about the state of the transfer
- * @param payload Payload provided by caller
- */
-alias git_transfer_progress_cb = int function(const (.git_transfer_progress)* stats, void* payload);
-
-/**
- * Type for messages delivered by the transport.  Return a negative value
- * to cancel the network operation.
- *
- * @param str The message from the transport
- * @param len The length of the message
- * @param payload Payload provided by the caller
- */
-alias git_transport_message_cb = int function(const (char)* str, int len, void* payload);
-
-/**
- * Type of host certificate structure that is passed to the check callback
- */
-enum git_cert_t
-{
-	/**
-	 * No information about the certificate is available. This may
-	 * happen when using curl.
-	 */
-	GIT_CERT_NONE,
-	/**
-	 * The `data` argument to the callback will be a pointer to
-	 * the DER-encoded data.
-	 */
-	GIT_CERT_X509,
-	/**
-	 * The `data` argument to the callback will be a pointer to a
-	 * `git_cert_hostkey` structure.
-	 */
-	GIT_CERT_HOSTKEY_LIBSSH2,
-	/**
-	 * The `data` argument to the callback will be a pointer to a
-	 * `git_strarray` with `name:content` strings containing
-	 * information about the certificate. This is used when using
-	 * curl.
-	 */
-	GIT_CERT_STRARRAY,
-}
-
-/**
  * Parent type for `git_cert_hostkey` and `git_cert_x509`.
  */
-struct git_cert
-{
-	/**
-	 * Type of certificate. A `GIT_CERT_` value.
-	 */
-	.git_cert_t cert_type;
-}
-
-/**
- * Callback for the user's custom certificate checks.
- *
- * @param cert The host certificate
- * @param valid Whether the libgit2 checks (OpenSSL or WinHTTP) think
- * this certificate is valid
- * @param host Hostname of the host libgit2 connected to
- * @param payload Payload provided by the caller
- */
-alias git_transport_certificate_check_cb = int function(.git_cert* cert, int valid, const (char)* host, void* payload);
+alias git_cert = libgit2_d.cert.git_cert;
 
 /**
  * Opaque structure representing a submodule.
@@ -480,5 +402,8 @@ struct git_writestream
 	int function(.git_writestream* stream) close;
 	void function(.git_writestream* stream) free;
 }
+
+/** Representation of .mailmap file state. */
+struct git_mailmap;
 
 /** @} */

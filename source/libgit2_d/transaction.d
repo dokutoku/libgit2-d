@@ -7,7 +7,8 @@
 module libgit2_d.transaction;
 
 
-private static import libgit2_d.common;
+private static import libgit2_d.oid;
+private static import libgit2_d.types;
 
 /**
  * @file git2/transaction.h
@@ -18,6 +19,7 @@ private static import libgit2_d.common;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Create a new transaction object

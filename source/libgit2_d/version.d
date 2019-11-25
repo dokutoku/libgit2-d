@@ -7,10 +7,12 @@
 module libgit2_d.version_;
 
 
-enum LIBGIT2_VERSION = "0.27.9";
+public:
+
+enum LIBGIT2_VERSION = "0.28.0";
 enum LIBGIT2_VER_MAJOR = 0;
-enum LIBGIT2_VER_MINOR = 27;
-enum LIBGIT2_VER_REVISION = 9;
+enum LIBGIT2_VER_MINOR = 28;
+enum LIBGIT2_VER_REVISION = 0;
 enum LIBGIT2_VER_PATCH = 0;
 
-enum LIBGIT2_SOVERSION = 27;
+enum LIBGIT2_SOVERSION = 28;

@@ -7,15 +7,21 @@
 module libgit2_d.sys.merge;
 
 
+private static import libgit2_d.buffer;
+private static import libgit2_d.index;
+private static import libgit2_d.merge;
+private static import libgit2_d.types;
+
 /**
  * @file git2/sys/merge.h
  * @brief Git merge driver backend and plugin routines
- * @defgroup git_backend Git custom backend APIs
+ * @defgroup git_merge Git merge driver APIs
  * @ingroup Git
  * @{
  */
 extern (C):
 nothrow @nogc:
+package(libgit2_d):
 
 /**
  * Look up a merge driver by name

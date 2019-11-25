@@ -7,11 +7,10 @@
 module libgit2_d.repository;
 
 
-private static import std.conv;
 private static import libgit2_d.buffer;
-private static import libgit2_d.common;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
+private static import std.conv;
 
 /**
  * @file git2/repository.h
@@ -22,6 +21,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Open a git repository.
@@ -97,42 +97,55 @@ int git_repository_discover(libgit2_d.buffer.git_buf* out_, const (char)* start_
 
 /**
  * Option flags for `git_repository_open_ext`.
- *
- * * GIT_REPOSITORY_OPEN_NO_SEARCH - Only open the repository if it can be
- *   immediately found in the start_path.  Do not walk up from the
- *   start_path looking at parent directories.
- * * GIT_REPOSITORY_OPEN_CROSS_FS - Unless this flag is set, open will not
- *   continue searching across filesystem boundaries (i.e. when `st_dev`
- *   changes from the `stat` system call).  (E.g. Searching in a user's home
- *   directory "/home/user/source/" will not return "/.git/" as the found
- *   repo if "/" is a different filesystem than "/home".)
- * * GIT_REPOSITORY_OPEN_BARE - Open repository as a bare repo regardless
- *   of core.bare config, and defer loading config file for faster setup.
- *   Unlike `git_repository_open_bare`, this can follow gitlinks.
- * * GIT_REPOSITORY_OPEN_NO_DOTGIT - Do not check for a repository by
- *   appending /.git to the start_path; only open the repository if
- *   start_path itself points to the git directory.
- * * GIT_REPOSITORY_OPEN_FROM_ENV - Find and open a git repository,
- *   respecting the environment variables used by the git command-line
- *   tools. If set, `git_repository_open_ext` will ignore the other
- *   flags and the `ceiling_dirs` argument, and will allow a null `path`
- *   to use `GIT_DIR` or search from the current directory. The search
- *   for a repository will respect $GIT_CEILING_DIRECTORIES and
- *   $GIT_DISCOVERY_ACROSS_FILESYSTEM.  The opened repository will
- *   respect $GIT_INDEX_FILE, $GIT_NAMESPACE, $GIT_OBJECT_DIRECTORY, and
- *   $GIT_ALTERNATE_OBJECT_DIRECTORIES.  In the future, this flag will
- *   also cause `git_repository_open_ext` to respect $GIT_WORK_TREE and
- *   $GIT_COMMON_DIR; currently, `git_repository_open_ext` with this
- *   flag will error out if either $GIT_WORK_TREE or $GIT_COMMON_DIR is
- *   set.
  */
 enum git_repository_open_flag_t
 {
-	GIT_REPOSITORY_OPEN_NO_SEARCH = (1 << 0),
-	GIT_REPOSITORY_OPEN_CROSS_FS = (1 << 1),
-	GIT_REPOSITORY_OPEN_BARE = (1 << 2),
-	GIT_REPOSITORY_OPEN_NO_DOTGIT = (1 << 3),
-	GIT_REPOSITORY_OPEN_FROM_ENV = (1 << 4),
+	/**
+	 * Only open the repository if it can be immediately found in the
+	 * start_path. Do not walk up from the start_path looking at parent
+	 * directories.
+	 */
+	GIT_REPOSITORY_OPEN_NO_SEARCH = 1 << 0,
+
+	/**
+	 * Unless this flag is set, open will not continue searching across
+	 * filesystem boundaries (i.e. when `st_dev` changes from the `stat`
+	 * system call).  For example, searching in a user's home directory at
+	 * "/home/user/source/" will not return "/.git/" as the found repo if
+	 * "/" is a different filesystem than "/home".
+	 */
+	GIT_REPOSITORY_OPEN_CROSS_FS = 1 << 1,
+
+	/**
+	 * Open repository as a bare repo regardless of core.bare config, and
+	 * defer loading config file for faster setup.
+	 * Unlike `git_repository_open_bare`, this can follow gitlinks.
+	 */
+	GIT_REPOSITORY_OPEN_BARE = 1 << 2,
+
+	/**
+	 * Do not check for a repository by appending /.git to the start_path;
+	 * only open the repository if start_path itself points to the git
+	 * directory.
+	 */
+	GIT_REPOSITORY_OPEN_NO_DOTGIT = 1 << 3,
+
+	/**
+	 * Find and open a git repository, respecting the environment variables
+	 * used by the git command-line tools.
+	 * If set, `git_repository_open_ext` will ignore the other flags and
+	 * the `ceiling_dirs` argument, and will allow a NULL `path` to use
+	 * `GIT_DIR` or search from the current directory.
+	 * The search for a repository will respect $GIT_CEILING_DIRECTORIES and
+	 * $GIT_DISCOVERY_ACROSS_FILESYSTEM.  The opened repository will
+	 * respect $GIT_INDEX_FILE, $GIT_NAMESPACE, $GIT_OBJECT_DIRECTORY, and
+	 * $GIT_ALTERNATE_OBJECT_DIRECTORIES.
+	 * In the future, this flag will also cause `git_repository_open_ext`
+	 * to respect $GIT_WORK_TREE and $GIT_COMMON_DIR; currently,
+	 * `git_repository_open_ext` with this flag will error out if either
+	 * $GIT_WORK_TREE or $GIT_COMMON_DIR is set.
+	 */
+	GIT_REPOSITORY_OPEN_FROM_ENV = 1 << 4,
 }
 
 /**
@@ -318,15 +331,17 @@ pure nothrow @safe @nogc
 	}
 
 /**
- * Initializes a `git_repository_init_options` with default values. Equivalent
- * to creating an instance with GIT_REPOSITORY_INIT_OPTIONS_INIT.
+ * Initialize git_repository_init_options structure
  *
- * @param opts the `git_repository_init_options` struct to initialize
- * @param version_ Version of struct; pass `GIT_REPOSITORY_INIT_OPTIONS_VERSION`
+ * Initializes a `git_repository_init_options` with default values. Equivalent to
+ * creating an instance with `GIT_REPOSITORY_INIT_OPTIONS_INIT`.
+ *
+ * @param opts The `git_repository_init_options` struct to initialize.
+ * @param version The struct version; pass `GIT_REPOSITORY_INIT_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_repository_init_init_options(.git_repository_init_options* opts, uint version_);
+int git_repository_init_options_init(.git_repository_init_options* opts, uint version_);
 
 /**
  * Create a new Git repository in the given folder with extended controls.
@@ -384,7 +399,7 @@ int git_repository_head_for_worktree(libgit2_d.types.git_reference** out_, libgi
 //GIT_EXTERN
 int git_repository_head_detached(libgit2_d.types.git_repository* repo);
 
-/*
+/**
  * Check if a worktree's HEAD is detached
  *
  * A worktree's HEAD is detached when it points directly to a
@@ -443,6 +458,7 @@ enum git_repository_item_t
 	GIT_REPOSITORY_ITEM_LOGS,
 	GIT_REPOSITORY_ITEM_MODULES,
 	GIT_REPOSITORY_ITEM_WORKTREES,
+	GIT_REPOSITORY_ITEM__LAST,
 }
 
 /**
@@ -658,6 +674,18 @@ int git_repository_message_remove(libgit2_d.types.git_repository* repo);
 //GIT_EXTERN
 int git_repository_state_cleanup(libgit2_d.types.git_repository* repo);
 
+/**
+ * Callback used to iterate over each FETCH_HEAD entry
+ *
+ * @see git_repository_fetchhead_foreach
+ *
+ * @param ref_name The reference name
+ * @param remote_url The remote URL
+ * @param oid The reference target OID
+ * @param is_merge Was the reference the result of a merge
+ * @param payload Payload passed to git_repository_fetchhead_foreach
+ * @return non-zero to terminate the iteration
+ */
 alias git_repository_fetchhead_foreach_cb = int function(const (char)* ref_name, const (char)* remote_url, const (libgit2_d.oid.git_oid)* oid, uint is_merge, void* payload);
 
 /**
@@ -674,6 +702,15 @@ alias git_repository_fetchhead_foreach_cb = int function(const (char)* ref_name,
 //GIT_EXTERN
 int git_repository_fetchhead_foreach(libgit2_d.types.git_repository* repo, .git_repository_fetchhead_foreach_cb callback, void* payload);
 
+/**
+ * Callback used to iterate over each MERGE_HEAD entry
+ *
+ * @see git_repository_mergehead_foreach
+ *
+ * @param oid The merge OID
+ * @param payload Payload passed to git_repository_mergehead_foreach
+ * @return non-zero to terminate the iteration
+ */
 alias git_repository_mergehead_foreach_cb = int function(const (libgit2_d.oid.git_oid)* oid, void* payload);
 
 /**
@@ -707,7 +744,7 @@ int git_repository_mergehead_foreach(libgit2_d.types.git_repository* repo, .git_
  * @param repo Repository pointer
  * @param path Path to file on disk whose contents should be hashed. If the
  *             repository is not null, this can be a relative path.
- * @param type The object type to hash as (e.g. GIT_OBJ_BLOB)
+ * @param type The object type to hash as (e.g. GIT_OBJECT_BLOB)
  * @param as_path The path to use to look up filtering rules. If this is
  *             null, then the `path` parameter will be used instead. If
  *             this is passed as the empty string, then no filters will be
@@ -715,7 +752,7 @@ int git_repository_mergehead_foreach(libgit2_d.types.git_repository* repo, .git_
  * @return 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_repository_hashfile(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, const (char)* path, libgit2_d.types.git_otype type, const (char)* as_path);
+int git_repository_hashfile(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, const (char)* path, libgit2_d.types.git_object_t type, const (char)* as_path);
 
 /**
  * Make the repository HEAD point to the specified reference.

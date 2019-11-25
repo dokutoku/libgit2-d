@@ -8,8 +8,7 @@ module libgit2_d.filter;
 
 
 private static import libgit2_d.buffer;
-private static import libgit2_d.common;
-private static import libgit2_d.oid;
+private static import libgit2_d.sys.filter;
 private static import libgit2_d.types;
 
 /**
@@ -21,6 +20,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Filters are applied in one of two directions: smudging - which is
@@ -43,7 +43,21 @@ enum git_filter_mode_t
 enum git_filter_flag_t
 {
 	GIT_FILTER_DEFAULT = 0u,
-	GIT_FILTER_ALLOW_UNSAFE = (1u << 0),
+
+	/**
+	 * Don't error for `safecrlf` violations, allow them to continue.
+	 */
+	GIT_FILTER_ALLOW_UNSAFE = 1u << 0,
+
+	/**
+	 * Don't load `/etc/gitattributes` (or the system equivalent)
+	 */
+	GIT_FILTER_NO_SYSTEM_ATTRIBUTES = 1u << 1,
+
+	/**
+	 * Load attributes from `.gitattributes` in the root of HEAD
+	 */
+	GIT_FILTER_ATTRIBUTES_FROM_HEAD = 1u << 2,
 }
 
 /**

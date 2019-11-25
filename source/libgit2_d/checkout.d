@@ -7,8 +7,8 @@
 module libgit2_d.checkout;
 
 
-private static import libgit2_d.common;
 private static import libgit2_d.diff;
+private static import libgit2_d.strarray;
 private static import libgit2_d.types;
 
 /**
@@ -20,6 +20,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Checkout behavior flags
@@ -68,7 +69,7 @@ nothrow @nogc:
  * To emulate `git checkout -f`, use `GIT_CHECKOUT_FORCE`.
  *
  *
- * There are some additional flags to modified the behavior of checkout:
+ * There are some additional flags to modify the behavior of checkout:
  *
  * - GIT_CHECKOUT_ALLOW_CONFLICTS makes SAFE mode apply safe file updates
  *   even if there are conflicts (instead of cancelling the checkout).
@@ -109,10 +110,22 @@ enum git_checkout_strategy_t
 	/**< default is a dry run, no actual updates */
 	GIT_CHECKOUT_NONE = 0,
 
-	/** Allow safe updates that cannot overwrite uncommitted data */
+	/**
+	 * Allow safe updates that cannot overwrite uncommitted data.
+	 * If the uncommitted changes don't conflict with the checked out files,
+	 * the checkout will still proceed, leaving the changes intact.
+	 *
+	 * Mutually exclusive with GIT_CHECKOUT_FORCE.
+	 * GIT_CHECKOUT_FORCE takes precedence over GIT_CHECKOUT_SAFE.
+	 */
 	GIT_CHECKOUT_SAFE = (1u << 0),
 
-	/** Allow all updates to force working directory to look like index */
+	/**
+	 * Allow all updates to force working directory to look like index.
+	 *
+	 * Mutually exclusive with GIT_CHECKOUT_SAFE.
+	 * GIT_CHECKOUT_FORCE takes precedence over GIT_CHECKOUT_SAFE.
+	 */
 	GIT_CHECKOUT_FORCE = (1u << 1),
 
 	/** Allow checkout to recreate missing files */
@@ -218,6 +231,9 @@ enum git_checkout_notify_t
 	GIT_CHECKOUT_NOTIFY_ALL = 0x0FFFFu,
 }
 
+/**
+ * Checkout performance-reporting structure
+ */
 struct git_checkout_perfdata
 {
 	size_t mkdir_calls;
@@ -237,16 +253,15 @@ alias git_checkout_perfdata_cb = void function(const (.git_checkout_perfdata)* p
 /**
  * Checkout options structure
  *
- * Zero out for defaults.  Initialize with `GIT_CHECKOUT_OPTIONS_INIT` macro to
- * correctly set the `version` field.  E.g.
- *
- *		git_checkout_options opts = GIT_CHECKOUT_OPTIONS_INIT;
+ * Initialize with `GIT_CHECKOUT_OPTIONS_INIT`. Alternatively, you can
+ * use `git_checkout_options_init`.
  */
 struct git_checkout_options
 {
+	/**< The version */
 	uint version_;
 
-	/**< default will be a dry run */
+	/**< default will be a safe checkout */
 	uint checkout_strategy;
 
 	/**< don't apply filters like CRLF conversion */
@@ -263,37 +278,50 @@ struct git_checkout_options
 
 	/**< see `git_checkout_notify_t` above */
 	uint notify_flags;
+
+	/**
+	 * Optional callback to get notifications on specific file states.
+	 * @see git_checkout_notify_t
+	 */
 	.git_checkout_notify_cb notify_cb;
+
+	/**
+	 * Payload passed to notify_cb
+	 */
 	void* notify_payload;
 
 	/** Optional callback to notify the consumer of checkout progress. */
 	.git_checkout_progress_cb progress_cb;
+
+	/**
+	 * Payload passed to progress_cb
+	 */
 	void* progress_payload;
 
 	/**
-	 * When not zeroed out, array of fnmatch patterns specifying which
-	 *  paths should be taken into account, otherwise all files.  Use
-	 *  GIT_CHECKOUT_DISABLE_PATHSPEC_MATCH to treat as simple list.
+	 * A list of wildmatch patterns or paths.
+	 *
+	 * By default, all paths are processed. If you pass an array of wildmatch
+	 * patterns, those will be used to filter which paths should be taken into
+	 * account.
+	 *
+	 * Use GIT_CHECKOUT_DISABLE_PATHSPEC_MATCH to treat as a simple list.
 	 */
 	libgit2_d.strarray.git_strarray paths;
 
 	/**
 	 * The expected content of the working directory; defaults to HEAD.
-	 *  If the working directory does not match this baseline information,
-	 *  that will produce a checkout conflict.
+	 *
+	 * If the working directory does not match this baseline information,
+	 * that will produce a checkout conflict.
 	 */
 	libgit2_d.types.git_tree* baseline;
 
 	/**
 	 * Like `baseline` above, though expressed as an index.  This
-	 *  option overrides `baseline`.
-	 */
-	/**
-	 * < expected content of workdir, expressed as an
-	 * index.
+	 * option overrides `baseline`.
 	 */
 	libgit2_d.types.git_index* baseline_index; 
-                                
 
 	/**< alternative checkout path to workdir */
 	const (char)* target_directory;
@@ -309,6 +337,10 @@ struct git_checkout_options
 
 	/** Optional callback to notify the consumer of performance data. */
 	.git_checkout_perfdata_cb perfdata_cb;
+
+	/**
+	 * Payload passed to perfdata_cb
+	 */
 	void* perfdata_payload;
 }
 
@@ -323,21 +355,24 @@ pure nothrow @safe @nogc
 		.git_checkout_options OUTPUT =
 		{
 			version_: .GIT_CHECKOUT_OPTIONS_VERSION,
+			checkout_strategy: .git_checkout_strategy_t.GIT_CHECKOUT_SAFE,
 		};
 
 		return OUTPUT;
 	}
 
 /**
- * Initializes a `git_checkout_options` with default values. Equivalent to
- * creating an instance with GIT_CHECKOUT_OPTIONS_INIT.
+ * Initialize git_checkout_options structure
  *
- * @param opts the `git_checkout_options` struct to initialize.
- * @param version_ Version of struct; pass `GIT_CHECKOUT_OPTIONS_VERSION`
+ * Initializes a `git_checkout_options` with default values. Equivalent to creating
+ * an instance with GIT_CHECKOUT_OPTIONS_INIT.
+ *
+ * @param opts The `git_checkout_options` struct to initialize.
+ * @param version The struct version; pass `GIT_CHECKOUT_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_checkout_init_options(.git_checkout_options* opts, uint version_);
+int git_checkout_options_init(.git_checkout_options* opts, uint version_);
 
 /**
  * Updates files in the index and the working tree to match the content of
@@ -354,7 +389,7 @@ int git_checkout_init_options(.git_checkout_options* opts, uint version_);
  * @param opts specifies checkout options (may be null)
  * @return 0 on success, GIT_EUNBORNBRANCH if HEAD points to a non
  *         existing branch, non-zero value returned by `notify_cb`, or
- *         other error code < 0 (use giterr_last for error details)
+ *         other error code < 0 (use git_error_last for error details)
  */
 //GIT_EXTERN
 int git_checkout_head(libgit2_d.types.git_repository* repo, const (.git_checkout_options)* opts);
@@ -366,7 +401,7 @@ int git_checkout_head(libgit2_d.types.git_repository* repo, const (.git_checkout
  * @param index index to be checked out (or null to use repository index)
  * @param opts specifies checkout options (may be null)
  * @return 0 on success, non-zero return value from `notify_cb`, or error
- *         code < 0 (use giterr_last for error details)
+ *         code < 0 (use git_error_last for error details)
  */
 //GIT_EXTERN
 int git_checkout_index(libgit2_d.types.git_repository* repo, libgit2_d.types.git_index* index, const (.git_checkout_options)* opts);
@@ -380,7 +415,7 @@ int git_checkout_index(libgit2_d.types.git_repository* repo, libgit2_d.types.git
  * the working directory (or null to use HEAD)
  * @param opts specifies checkout options (may be null)
  * @return 0 on success, non-zero return value from `notify_cb`, or error
- *         code < 0 (use giterr_last for error details)
+ *         code < 0 (use git_error_last for error details)
  */
 //GIT_EXTERN
 int git_checkout_tree(libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_object)* treeish, const (.git_checkout_options)* opts);

@@ -7,10 +7,9 @@
 module libgit2_d.global;
 
 
-private static import libgit2_d.common;
-
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Init the global state

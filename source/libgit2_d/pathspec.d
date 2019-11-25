@@ -7,13 +7,13 @@
 module libgit2_d.pathspec;
 
 
-private static import libgit2_d.common;
 private static import libgit2_d.diff;
 private static import libgit2_d.strarray;
 private static import libgit2_d.types;
 
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Compiled pathspec

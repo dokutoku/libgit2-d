@@ -7,15 +7,17 @@
 module libgit2_d.remote;
 
 
-private static import libgit2_d.common;
+private static import libgit2_d.buffer;
+private static import libgit2_d.cert;
+private static import libgit2_d.cred;
 private static import libgit2_d.indexer;
 private static import libgit2_d.net;
+private static import libgit2_d.oid;
 private static import libgit2_d.pack;
 private static import libgit2_d.proxy;
-private static import libgit2_d.refspec;
-private static import libgit2_d.repository;
 private static import libgit2_d.strarray;
 private static import libgit2_d.transport;
+private static import libgit2_d.types;
 
 /**
  * @file git2/remote.h
@@ -26,6 +28,7 @@ private static import libgit2_d.transport;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Add a remote with the default fetch refspec to the repository's
@@ -39,6 +42,96 @@ nothrow @nogc:
  */
 //GIT_EXTERN
 int git_remote_create(libgit2_d.types.git_remote** out_, libgit2_d.types.git_repository* repo, const (char)* name, const (char)* url);
+
+/**
+ * Remote creation options flags
+ */
+enum git_remote_create_flags
+{
+	/**
+	 * Ignore the repository apply.insteadOf configuration
+	 */
+	GIT_REMOTE_CREATE_SKIP_INSTEADOF = 1 << 0,
+
+	/**
+	 * Don't build a fetchspec from the name if none is set
+	 */
+	GIT_REMOTE_CREATE_SKIP_DEFAULT_FETCHSPEC = 1 << 1,
+}
+
+/**
+ * Remote creation options structure
+ *
+ * Initialize with `GIT_REMOTE_CREATE_OPTIONS_INIT`. Alternatively, you can
+ * use `git_remote_create_options_init`.
+ *
+ */
+struct git_remote_create_options
+{
+	uint version_;
+
+	/**
+	 * The repository that should own the remote.
+	 * Setting this to NULL results in a detached remote.
+	 */
+	libgit2_d.types.git_repository* repository;
+
+	/**
+	 * The remote's name.
+	 * Setting this to NULL results in an in-memory/anonymous remote.
+	 */
+	const (char)* name;
+
+	/** The fetchspec the remote should use. */
+	const (char)* fetchspec;
+
+	/** Additional flags for the remote. See git_remote_create_flags. */
+	uint flags;
+}
+
+enum GIT_REMOTE_CREATE_OPTIONS_VERSION = 1;
+
+pragma(inline, true)
+pure nothrow @safe @nogc
+.git_remote_create_options GIT_REMOTE_CREATE_OPTIONS_INIT()
+
+	do
+	{
+		.git_remote_create_options OUTPUT =
+		{
+			version_: GIT_REMOTE_CREATE_OPTIONS_VERSION,
+		};
+
+		return OUTPUT;
+	}
+
+/**
+ * Initialize git_remote_create_options structure
+ *
+ * Initializes a `git_remote_create_options` with default values. Equivalent to
+ * creating an instance with `GIT_REMOTE_CREATE_OPTIONS_INIT`.
+ *
+ * @param opts The `git_remote_create_options` struct to initialize.
+ * @param version The struct version; pass `GIT_REMOTE_CREATE_OPTIONS_VERSION`.
+ * @return Zero on success; -1 on failure.
+ */
+//GIT_EXTERN
+int git_remote_create_options_init(.git_remote_create_options* opts, uint version_);
+
+/**
+ * Create a remote, with options.
+ *
+ * This function allows more fine-grained control over the remote creation.
+ *
+ * Passing NULL as the opts argument will result in a detached remote.
+ *
+ * @param out the resulting remote
+ * @param url the remote's url
+ * @param opts the remote creation options
+ * @return 0, GIT_EINVALIDSPEC, GIT_EEXISTS or an error code
+ */
+//GIT_EXTERN
+int git_remote_create_with_opts(libgit2_d.types.git_remote** out_, const (char)* url, const (.git_remote_create_options)* opts);
 
 /**
  * Add a remote with the provided fetch refspec (or default if null) to the
@@ -292,7 +385,7 @@ int git_remote_connect(libgit2_d.types.git_remote* remote, libgit2_d.net.git_dir
  * @return 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_remote_ls(const (libgit2_d.net.git_remote_head)*** out_, size_t* size, libgit2_d.types.git_remote* remote);
+int git_remote_ls(const (libgit2_d.types.git_remote_head)*** out_, size_t* size, libgit2_d.types.git_remote* remote);
 
 /**
  * Check whether the remote is connected
@@ -354,7 +447,7 @@ int git_remote_list(libgit2_d.strarray.git_strarray* out_, libgit2_d.types.git_r
  * Argument to the completion callback which tells it which operation
  * finished.
  */
-enum git_remote_completion_type
+enum git_remote_completion_t
 {
 	GIT_REMOTE_COMPLETION_DOWNLOAD,
 	GIT_REMOTE_COMPLETION_INDEXING,
@@ -362,7 +455,7 @@ enum git_remote_completion_type
 }
 
 /** Push network progress notification function */
-alias git_push_transfer_progress = int function(uint current, uint total, size_t bytes, void* payload);
+alias git_push_transfer_progress_cb = int function(uint current, uint total, size_t bytes, void* payload);
 
 /**
  * Represents an update which will be performed on the remote during push
@@ -412,6 +505,20 @@ alias git_push_negotiation = int function(const (.git_push_update)** updates, si
 alias git_push_update_reference_cb = int function(const (char)* refname, const (char)* status, void* data);
 
 /**
+ * Callback to resolve URLs before connecting to remote
+ *
+ * If you return GIT_PASSTHROUGH, you don't need to write anything to
+ * url_resolved.
+ *
+ * @param url_resolved The buffer to write the resolved URL to
+ * @param url The URL to resolve
+ * @param direction GIT_DIRECTION_FETCH or GIT_DIRECTION_PUSH
+ * @param payload Payload provided by the caller
+ * @return 0 on success, GIT_PASSTHROUGH or an error
+ */
+alias git_url_resolve_cb = int function(libgit2_d.buffer.git_buf* url_resolved, const (char)* url, int direction, void* payload);
+
+/**
  * The callback settings structure
  *
  * Set the callbacks to be called by the remote when informing the user
@@ -419,19 +526,21 @@ alias git_push_update_reference_cb = int function(const (char)* refname, const (
  */
 struct git_remote_callbacks
 {
+	/**< The version */
 	uint version_;
+
 	/**
 	 * Textual progress from the remote. Text send over the
 	 * progress side-band will be passed to this function (this is
 	 * the 'counting objects' output).
 	 */
-	libgit2_d.types.git_transport_message_cb sideband_progress;
+	libgit2_d.transport.git_transport_message_cb sideband_progress;
 
 	/**
 	 * Completion is called when different parts of the download
 	 * process are done (currently unused).
 	 */
-	int function(.git_remote_completion_type type, void* data) completion;
+	int function(.git_remote_completion_t type, void* data) completion;
 
 	/**
 	 * This will be called if the remote host requires
@@ -440,22 +549,22 @@ struct git_remote_callbacks
 	 * Returning GIT_PASSTHROUGH will make libgit2 behave as
 	 * though this field isn't set.
 	 */
-	libgit2_d.transport.git_cred_acquire_cb credentials;
+	libgit2_d.cred.git_cred_acquire_cb credentials;
 
 	/**
 	 * If cert verification fails, this will be called to let the
 	 * user make the final decision of whether to allow the
-	 * connection to proceed. Returns 1 to allow the connection, 0
-	 * to disallow it or a negative value to indicate an error.
+	 * connection to proceed. Returns 0 to allow the connection
+	 * or a negative value to indicate an error.
 	 */
-	libgit2_d.types.git_transport_certificate_check_cb certificate_check;
+	libgit2_d.cert.git_transport_certificate_check_cb certificate_check;
 
 	/**
 	 * During the download of new data, this will be regularly
 	 * called with the current count of progress done by the
 	 * indexer.
 	 */
-	libgit2_d.types.git_transfer_progress_cb transfer_progress;
+	libgit2_d.indexer.git_indexer_progress_cb transfer_progress;
 
 	/**
 	 * Each time a reference is updated locally, this function
@@ -476,7 +585,7 @@ struct git_remote_callbacks
 	 * inline with pack building operations, so performance may be
 	 * affected.
 	 */
-	.git_push_transfer_progress push_transfer_progress;
+	.git_push_transfer_progress_cb push_transfer_progress;
 
 	/**
 	 * See documentation of git_push_update_reference_cb
@@ -500,6 +609,12 @@ struct git_remote_callbacks
 	 * as the last parameter.
 	 */
 	void* payload;
+
+	/**
+	 * Resolve URL before connecting to remote.
+	 * The returned URL will be used to connect to the remote instead.
+	 */
+	.git_url_resolve_cb resolve_url;
 }
 
 enum GIT_REMOTE_CALLBACKS_VERSION = 1;
@@ -529,6 +644,9 @@ pure nothrow @safe @nogc
 //GIT_EXTERN
 int git_remote_init_callbacks(.git_remote_callbacks* opts, uint version_);
 
+/**
+ * Acceptable prune settings when fetching
+ */
 enum git_fetch_prune_t
 {
 	/**
@@ -641,16 +759,17 @@ pure nothrow @safe @nogc
 	}
 
 /**
- * Initializes a `git_fetch_options` with default values. Equivalent to
- * creating an instance with GIT_FETCH_OPTIONS_INIT.
+ * Initialize git_fetch_options structure
  *
- * @param opts the `git_fetch_options` instance to initialize.
- * @param version_ the version of the struct; you should pass
- *        `GIT_FETCH_OPTIONS_VERSION` here.
+ * Initializes a `git_fetch_options` with default values. Equivalent to
+ * creating an instance with `GIT_FETCH_OPTIONS_INIT`.
+ *
+ * @param opts The `git_fetch_options` struct to initialize.
+ * @param version The struct version; pass `GIT_FETCH_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_fetch_init_options(.git_fetch_options* opts, uint version_);
+int git_fetch_options_init(.git_fetch_options* opts, uint version_);
 
 /**
  * Controls the behavior of a git_push object.
@@ -696,7 +815,7 @@ pure nothrow @safe @nogc
 		.git_push_options OUTPUT =
 		{
 			version_: .GIT_PUSH_OPTIONS_VERSION,
-			pb_parallelism: 0,
+			pb_parallelism: 1,
 			callbacks: .GIT_REMOTE_CALLBACKS_INIT,
 			proxy_opts: libgit2_d.proxy.GIT_PROXY_OPTIONS_INIT,
 		};
@@ -705,16 +824,17 @@ pure nothrow @safe @nogc
 	}
 
 /**
- * Initializes a `git_push_options` with default values. Equivalent to
- * creating an instance with GIT_PUSH_OPTIONS_INIT.
+ * Initialize git_push_options structure
  *
- * @param opts the `git_push_options` instance to initialize.
- * @param version_ the version of the struct; you should pass
- *        `GIT_PUSH_OPTIONS_VERSION` here.
+ * Initializes a `git_push_options` with default values. Equivalent to
+ * creating an instance with `GIT_PUSH_OPTIONS_INIT`.
+ *
+ * @param opts The `git_push_options` struct to initialize.
+ * @param version The struct version; pass `GIT_PUSH_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_push_init_options(.git_push_options* opts, uint version_);
+int git_push_options_init(.git_push_options* opts, uint version_);
 
 /**
  * Download and index the packfile
@@ -815,7 +935,7 @@ int git_remote_push(libgit2_d.types.git_remote* remote, const (libgit2_d.strarra
  * Get the statistics structure that is filled in by the fetch operation.
  */
 //GIT_EXTERN
-const (libgit2_d.types.git_transfer_progress)* git_remote_stats(libgit2_d.types.git_remote* remote);
+const (libgit2_d.indexer.git_indexer_progress)* git_remote_stats(libgit2_d.types.git_remote* remote);
 
 /**
  * Retrieve the tag auto-follow setting

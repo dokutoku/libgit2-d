@@ -7,9 +7,9 @@
 module libgit2_d.stash;
 
 
-private static import libgit2_d.common;
-private static import libgit2_d.types;
 private static import libgit2_d.checkout;
+private static import libgit2_d.oid;
+private static import libgit2_d.types;
 
 /**
  * @file git2/stash.h
@@ -19,6 +19,7 @@ private static import libgit2_d.checkout;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Stash flags
@@ -81,6 +82,9 @@ enum git_stash_apply_flags
 	GIT_STASH_APPLY_REINSTATE_INDEX = (1 << 0),
 }
 
+/**
+ * Stash apply progression states
+ */
 enum git_stash_apply_progress_t
 {
 	GIT_STASH_APPLY_PROGRESS_NONE = 0,
@@ -115,19 +119,17 @@ enum git_stash_apply_progress_t
 alias git_stash_apply_progress_cb = int function(.git_stash_apply_progress_t progress, void* payload);
 
 /**
- * Stash application options structure.
+ * Stash application options structure
  *
- * Initialize with the `GIT_STASH_APPLY_OPTIONS_INIT` macro to set
- * sensible defaults; for example:
- *
- *		git_stash_apply_options opts = GIT_STASH_APPLY_OPTIONS_INIT;
+ * Initialize with `GIT_STASH_APPLY_OPTIONS_INIT`. Alternatively, you can
+ * use `git_stash_apply_options_init`.
  */
 struct git_stash_apply_options
 {
 	uint version_;
 
 	/** See `git_stash_apply_flags_t`, above. */
-	.git_stash_apply_flags flags;
+	uint flags;
 
 	/** Options to use when writing files to the working directory. */
 	libgit2_d.checkout.git_checkout_options checkout_options;
@@ -156,16 +158,17 @@ pure nothrow @safe @nogc
 	}
 
 /**
- * Initializes a `git_stash_apply_options` with default values. Equivalent to
- * creating an instance with GIT_STASH_APPLY_OPTIONS_INIT.
+ * Initialize git_stash_apply_options structure
  *
- * @param opts the `git_stash_apply_options` instance to initialize.
- * @param version_ the version of the struct; you should pass
- *        `GIT_STASH_APPLY_OPTIONS_INIT` here.
+ * Initializes a `git_stash_apply_options` with default values. Equivalent to
+ * creating an instance with `GIT_STASH_APPLY_OPTIONS_INIT`.
+ *
+ * @param opts The `git_stash_apply_options` struct to initialize.
+ * @param version The struct version; pass `GIT_STASH_APPLY_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_stash_apply_init_options(.git_stash_apply_options* opts, uint version_);
+int git_stash_apply_options_init(.git_stash_apply_options* opts, uint version_);
 
 /**
  * Apply a single stashed state from the stash list.

@@ -7,8 +7,10 @@
 module libgit2_d.pack;
 
 
-private static import libgit2_d.common;
+private static import libgit2_d.buffer;
+private static import libgit2_d.indexer;
 private static import libgit2_d.oid;
+private static import libgit2_d.types;
 
 /**
  * @file git2/pack.h
@@ -45,6 +47,7 @@ private static import libgit2_d.oid;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Stages that are reported by the packbuilder progress callback.
@@ -173,7 +176,7 @@ int git_packbuilder_write_buf(libgit2_d.buffer.git_buf* buf, libgit2_d.types.git
  * @return 0 or an error code
  */
 //GIT_EXTERN
-int git_packbuilder_write(libgit2_d.types.git_packbuilder* pb, const (char)* path, uint mode, libgit2_d.types.git_transfer_progress_cb progress_cb, void* progress_cb_payload);
+int git_packbuilder_write(libgit2_d.types.git_packbuilder* pb, const (char)* path, uint mode, libgit2_d.indexer.git_indexer_progress_cb progress_cb, void* progress_cb_payload);
 
 /**
  * Get the packfile's hash
@@ -186,6 +189,16 @@ int git_packbuilder_write(libgit2_d.types.git_packbuilder* pb, const (char)* pat
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_packbuilder_hash(libgit2_d.types.git_packbuilder* pb);
 
+/**
+ * Callback used to iterate over packed objects
+ *
+ * @see git_packbuilder_foreach
+ *
+ * @param buf A pointer to the object's data
+ * @param size The size of the underlying object
+ * @param payload Payload passed to git_packbuilder_foreach
+ * @return non-zero to terminate the iteration
+ */
 alias git_packbuilder_foreach_cb = int function(void* buf, size_t size, void* payload);
 
 /**

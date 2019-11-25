@@ -7,8 +7,8 @@
 module libgit2_d.blame;
 
 
-private static import libgit2_d.common;
 private static import libgit2_d.oid;
+private static import libgit2_d.types;
 
 /**
  * @file git2/blame.h
@@ -54,39 +54,60 @@ enum git_blame_flag_t
 	 * first parents.
 	 */
 	GIT_BLAME_FIRST_PARENT = (1 << 4),
+
+	/**
+	 * Use mailmap file to map author and committer names and email addresses
+	 * to canonical real names and email addresses. The mailmap will be read
+	 * from the working directory, or HEAD in a bare repository.
+	 */
+	GIT_BLAME_USE_MAILMAP = (1 << 5),
 }
 
 /**
  * Blame options structure
  *
- * Use zeros to indicate default settings.  It's easiest to use the
- * `GIT_BLAME_OPTIONS_INIT` macro:
- *     git_blame_options opts = GIT_BLAME_OPTIONS_INIT;
- *
- * - `flags` is a combination of the `git_blame_flag_t` values above.
- * - `min_match_characters` is the lower bound on the number of alphanumeric
- *   characters that must be detected as moving/copying within a file for it to
- *   associate those lines with the parent commit. The default value is 20.
- *   This value only takes effect if any of the `GIT_BLAME_TRACK_COPIES_*`
- *   flags are specified.
- * - `newest_commit` is the id of the newest commit to consider.  The default
- *                   is HEAD.
- * - `oldest_commit` is the id of the oldest commit to consider.  The default
- *                   is the first commit encountered with a null parent.
- *	- `min_line` is the first line in the file to blame.  The default is 1
- *(line numbers start with 1).
- *	- `max_line` is the last line in the file to blame.  The default is the
- *last line of the file.
+ * Initialize with `GIT_BLAME_OPTIONS_INIT`. Alternatively, you can
+ * use `git_blame_options_init`.
  */
 struct git_blame_options
 {
 	uint version_;
 
+	/**
+	 * A combination of `git_blame_flag_t`
+	 */
 	uint flags;
+
+	/**
+	 * The lower bound on the number of alphanumeric
+	 *   characters that must be detected as moving/copying within a file for it to
+	 *   associate those lines with the parent commit. The default value is 20.
+	 *   This value only takes effect if any of the `GIT_BLAME_TRACK_COPIES_*`
+	 *   flags are specified.
+	 */
 	ushort min_match_characters;
+
+	/**
+	 * The id of the newest commit to consider. The default is HEAD.
+	 */
 	libgit2_d.oid.git_oid newest_commit;
+
+	/**
+	 * The id of the oldest commit to consider.
+	 * The default is the first commit encountered with a NULL parent.
+	 */
 	libgit2_d.oid.git_oid oldest_commit;
+
+	/**
+	 * The first line in the file to blame.
+	 * The default is 1 (line numbers start with 1).
+	 */
 	size_t min_line;
+
+	/**
+	 * The last line in the file to blame.
+	 * The default is the last line of the file.
+	 */
 	size_t max_line;
 }
 
@@ -107,15 +128,17 @@ pure nothrow @safe @nogc
 	}
 
 /**
- * Initializes a `git_blame_options` with default values. Equivalent to
- * creating an instance with GIT_BLAME_OPTIONS_INIT.
+ * Initialize git_blame_options structure
  *
- * @param opts The `git_blame_options` struct to initialize
- * @param version Version of struct; pass `GIT_BLAME_OPTIONS_VERSION`
+ * Initializes a `git_blame_options` with default values. Equivalent to creating
+ * an instance with GIT_BLAME_OPTIONS_INIT.
+ *
+ * @param opts The `git_blame_options` struct to initialize.
+ * @param version The struct version; pass `GIT_BLAME_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_blame_init_options(.git_blame_options* opts, uint version_);
+int git_blame_options_init(.git_blame_options* opts, uint version_);
 
 /**
  * Structure that represents a blame hunk.
@@ -125,6 +148,9 @@ int git_blame_init_options(.git_blame_options* opts, uint version_);
  *   changed.
  * - `final_start_line_number` is the 1-based line number where this hunk
  *   begins, in the final version of the file
+ * - `final_signature` is the author of `final_commit_id`. If
+ *   `GIT_BLAME_USE_MAILMAP` has been specified, it will contain the canonical
+ *    real name and email address.
  * - `orig_commit_id` is the OID of the commit where this hunk was found.  This
  *   will usually be the same as `final_commit_id`, except when
  *   `GIT_BLAME_TRACK_COPIES_ANY_COMMIT_COPIES` has been specified.
@@ -133,6 +159,9 @@ int git_blame_init_options(.git_blame_options* opts, uint version_);
  * - `orig_start_line_number` is the 1-based line number where this hunk begins
  *   in the file named by `orig_path` in the commit specified by
  *   `orig_commit_id`.
+ * - `orig_signature` is the author of `orig_commit_id`. If
+ *   `GIT_BLAME_USE_MAILMAP` has been specified, it will contain the canonical
+ *    real name and email address.
  * - `boundary` is 1 iff the hunk has been tracked to a boundary commit (the
  *   root, or the commit specified in git_blame_options.oldest_commit)
  */
@@ -149,10 +178,12 @@ struct git_blame_hunk
 	size_t orig_start_line_number;
 	libgit2_d.types.git_signature* orig_signature;
 
-	char boundary;
+	char boundary = '\0';
 }
 
-/* Opaque structure to hold blame results */
+/**
+ * Opaque structure to hold blame results
+ */
 struct git_blame;
 
 /**
@@ -189,7 +220,7 @@ const (.git_blame_hunk)* git_blame_get_hunk_byline(.git_blame* blame, size_t lin
  * @param path path to file to consider
  * @param options options for the blame operation.  If null, this is treated as
  *                though GIT_BLAME_OPTIONS_INIT were passed.
- * @return 0 on success, or an error code. (use giterr_last for information
+ * @return 0 on success, or an error code. (use git_error_last for information
  *         about the error.)
  */
 //GIT_EXTERN
@@ -209,7 +240,7 @@ int git_blame_file(.git_blame** out_, libgit2_d.types.git_repository* repo, cons
  * output from git_blame_file)
  * @param buffer the (possibly) modified contents of the file
  * @param buffer_len number of valid bytes in the buffer
- * @return 0 on success, or an error code. (use giterr_last for information
+ * @return 0 on success, or an error code. (use git_error_last for information
  *         about the error)
  */
 //GIT_EXTERN

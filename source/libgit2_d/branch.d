@@ -7,8 +7,7 @@
 module libgit2_d.branch;
 
 
-private static import libgit2_d.common;
-private static import libgit2_d.oid;
+private static import libgit2_d.buffer;
 private static import libgit2_d.types;
 
 /**
@@ -20,6 +19,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Create a new branch pointing at a target commit
@@ -262,7 +262,7 @@ int git_branch_is_checked_out(const (libgit2_d.types.git_reference)* branch);
 int git_branch_remote_name(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_repository* repo, const (char)* canonical_branch_name);
 
 /**
- * Retrieve the name fo the upstream remote of a local branch
+ * Retrieve the name of the upstream remote of a local branch
  *
  * @param buf the buffer into which to write the name
  * @param repo the repository in which to look

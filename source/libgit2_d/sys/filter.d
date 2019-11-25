@@ -7,7 +7,10 @@
 module libgit2_d.sys.filter;
 
 
+private static import libgit2_d.buffer;
 private static import libgit2_d.filter;
+private static import libgit2_d.oid;
+private static import libgit2_d.types;
 
 /**
  * @file git2/sys/filter.h
@@ -18,6 +21,7 @@ private static import libgit2_d.filter;
  */
 extern (C):
 nothrow @nogc:
+package(libgit2_d):
 
 /**
  * Look up a filter by name

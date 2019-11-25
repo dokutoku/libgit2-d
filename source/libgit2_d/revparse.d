@@ -7,7 +7,6 @@
 module libgit2_d.revparse;
 
 
-private static import libgit2_d.common;
 private static import libgit2_d.types;
 
 /**
@@ -19,6 +18,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Find a single object, as specified by a revision string.

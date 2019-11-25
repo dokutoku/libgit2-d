@@ -7,7 +7,6 @@
 module libgit2_d.revwalk;
 
 
-private static import libgit2_d.common;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
@@ -20,6 +19,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Flags to specify the sorting which a revwalk should perform.
@@ -27,15 +27,15 @@ nothrow @nogc:
 enum git_sort_t
 {
 	/**
-	 * Sort the output with the same default time-order method from git.
-	 * This is the default sorting for new walkers.
+	 * Sort the output with the same default method from `git`: reverse
+	 * chronological order. This is the default sorting for new walkers.
 	 */
 	GIT_SORT_NONE = 0,
 
 	/**
-	 * Sort the repository contents in topological order (parents before
-	 * children); this sorting mode can be combined with time sorting to
-	 * produce git's "time-order".
+	 * Sort the repository contents in topological order (no parents before
+	 * all of its children are shown); this sorting mode can be combined
+	 * with time sorting to produce `git`'s `--date-order``.
 	 */
 	GIT_SORT_TOPOLOGICAL = 1 << 0,
 
@@ -294,7 +294,7 @@ libgit2_d.types.git_repository* git_revwalk_repository(libgit2_d.types.git_revwa
 alias git_revwalk_hide_cb = int function(const (libgit2_d.oid.git_oid)* commit_id, void* payload);
 
 /**
- * Adds a callback function to hide a commit and its parents
+ * Adds, changes or removes a callback function to hide a commit and its parents
  *
  * @param walk the revision walker
  * @param hide_cb  callback function to hide a commit and its parents

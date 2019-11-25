@@ -7,8 +7,6 @@
 module libgit2_d.strarray;
 
 
-private static import libgit2_d.common;
-
 /**
  * @file git2/strarray.h
  * @brief Git string array routines
@@ -18,6 +16,7 @@ private static import libgit2_d.common;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /** Array of strings */
 struct git_strarray

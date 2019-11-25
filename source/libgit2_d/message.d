@@ -8,7 +8,6 @@ module libgit2_d.message;
 
 
 private static import libgit2_d.buffer;
-private static import libgit2_d.common;
 
 /**
  * @file git2/message.h
@@ -18,6 +17,7 @@ private static import libgit2_d.common;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Clean up excess whitespace and make sure there is a trailing newline in the

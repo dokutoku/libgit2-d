@@ -7,8 +7,7 @@
 module libgit2_d.tree;
 
 
-private static import libgit2_d.common;
-private static import libgit2_d.object;
+private static import libgit2_d.buffer;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
@@ -21,6 +20,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Lookup a tree object from the repository.
@@ -194,7 +194,7 @@ const (libgit2_d.oid.git_oid)* git_tree_entry_id(const (libgit2_d.types.git_tree
  * @return the type of the pointed object
  */
 //GIT_EXTERN
-libgit2_d.types.git_otype git_tree_entry_type(const (libgit2_d.types.git_tree_entry)* entry);
+libgit2_d.types.git_object_t git_tree_entry_type(const (libgit2_d.types.git_tree_entry)* entry);
 
 /**
  * Get the UNIX file attributes of a tree entry
@@ -275,7 +275,7 @@ void git_treebuilder_clear(libgit2_d.types.git_treebuilder* bld);
  * @return the number of entries in the treebuilder
  */
 //GIT_EXTERN
-uint git_treebuilder_entrycount(libgit2_d.types.git_treebuilder* bld);
+size_t git_treebuilder_entrycount(libgit2_d.types.git_treebuilder* bld);
 
 /**
  * Free a tree builder

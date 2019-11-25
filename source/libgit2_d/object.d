@@ -8,7 +8,6 @@ module libgit2_d.object;
 
 
 private static import libgit2_d.buffer;
-private static import libgit2_d.common;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
@@ -21,6 +20,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Lookup a reference to one of the objects in a repository.
@@ -31,7 +31,7 @@ nothrow @nogc:
  *
  * The 'type' parameter must match the type of the object
  * in the odb; the method will fail otherwise.
- * The special value 'GIT_OBJ_ANY' may be passed to let
+ * The special value 'GIT_OBJECT_ANY' may be passed to let
  * the method guess the object's type.
  *
  * @param object pointer to the looked-up object
@@ -41,7 +41,7 @@ nothrow @nogc:
  * @return 0 or an error code
  */
 //GIT_EXTERN
-int git_object_lookup(libgit2_d.types.git_object** object, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id, libgit2_d.types.git_otype type);
+int git_object_lookup(libgit2_d.types.git_object** object, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id, libgit2_d.types.git_object_t type);
 
 /**
  * Lookup a reference to one of the objects in a repository,
@@ -60,7 +60,7 @@ int git_object_lookup(libgit2_d.types.git_object** object, libgit2_d.types.git_r
  *
  * The 'type' parameter must match the type of the object
  * in the odb; the method will fail otherwise.
- * The special value 'GIT_OBJ_ANY' may be passed to let
+ * The special value 'GIT_OBJECT_ANY' may be passed to let
  * the method guess the object's type.
  *
  * @param object_out pointer where to store the looked-up object
@@ -71,7 +71,7 @@ int git_object_lookup(libgit2_d.types.git_object** object, libgit2_d.types.git_r
  * @return 0 or an error code
  */
 //GIT_EXTERN
-int git_object_lookup_prefix(libgit2_d.types.git_object** object_out, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id, size_t len, libgit2_d.types.git_otype type);
+int git_object_lookup_prefix(libgit2_d.types.git_object** object_out, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id, size_t len, libgit2_d.types.git_object_t type);
 
 /**
  * Lookup an object that represents a tree entry.
@@ -84,7 +84,7 @@ int git_object_lookup_prefix(libgit2_d.types.git_object** object_out, libgit2_d.
  * @return 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_object_lookup_bypath(libgit2_d.types.git_object** out_, const (libgit2_d.types.git_object)* treeish, const (char)* path, libgit2_d.types.git_otype type);
+int git_object_lookup_bypath(libgit2_d.types.git_object** out_, const (libgit2_d.types.git_object)* treeish, const (char)* path, libgit2_d.types.git_object_t type);
 
 /**
  * Get the id (SHA1) of a repository object
@@ -117,7 +117,7 @@ int git_object_short_id(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types.g
  * @return the object's type
  */
 //GIT_EXTERN
-libgit2_d.types.git_otype git_object_type(const (libgit2_d.types.git_object)* obj);
+libgit2_d.types.git_object_t git_object_type(const (libgit2_d.types.git_object)* obj);
 
 /**
  * Get the repository that owns this object
@@ -162,41 +162,26 @@ void git_object_free(libgit2_d.types.git_object* object);
  * @return the corresponding string representation.
  */
 //GIT_EXTERN
-const (char)* git_object_type2string(libgit2_d.types.git_otype type);
+const (char)* git_object_type2string(libgit2_d.types.git_object_t type);
 
 /**
- * Convert a string object type representation to it's libgit2_d.types.git_otype.
+ * Convert a string object type representation to it's libgit2_d.types.git_object_t.
  *
  * @param str the string to convert.
- * @return the corresponding libgit2_d.types.git_otype.
+ * @return the corresponding libgit2_d.types.git_object_t.
  */
 //GIT_EXTERN
-libgit2_d.types.git_otype git_object_string2type(const (char)* str);
+libgit2_d.types.git_object_t git_object_string2type(const (char)* str);
 
 /**
- * Determine if the given libgit2_d.types.git_otype is a valid loose object type.
+ * Determine if the given libgit2_d.types.git_object_t is a valid loose object type.
  *
  * @param type object type to test.
  * @return true if the type represents a valid loose object type,
  * false otherwise.
  */
 //GIT_EXTERN
-int git_object_typeisloose(libgit2_d.types.git_otype type);
-
-/**
- * Get the size in bytes for the structure which
- * acts as an in-memory representation of any given
- * object type.
- *
- * For all the core types, this would the equivalent
- * of calling `git_commit.sizeof` if the core types
- * were not opaque on the external API.
- *
- * @param type object type to get its size
- * @return size in bytes of the object
- */
-//GIT_EXTERN
-size_t git_object__size(libgit2_d.types.git_otype type);
+int git_object_typeisloose(libgit2_d.types.git_object_t type);
 
 /**
  * Recursively peel an object until an object of the specified type is met.
@@ -205,7 +190,7 @@ size_t git_object__size(libgit2_d.types.git_otype type);
  * GIT_EINVALIDSPEC will be returned (e.g. trying to peel a blob to a
  * tree).
  *
- * If you pass `GIT_OBJ_ANY` as the target type, then the object will
+ * If you pass `GIT_OBJECT_ANY` as the target type, then the object will
  * be peeled until the type changes. A tag will be peeled until the
  * referenced object is no longer a tag, and a commit will be peeled
  * to a tree. Any other object type will return GIT_EINVALIDSPEC.
@@ -218,11 +203,11 @@ size_t git_object__size(libgit2_d.types.git_otype type);
  *
  * @param peeled Pointer to the peeled git_object
  * @param object The object to be processed
- * @param target_type The type of the requested object (a GIT_OBJ_ value)
+ * @param target_type The type of the requested object (a GIT_OBJECT_ value)
  * @return 0 on success, GIT_EINVALIDSPEC, GIT_EPEEL, or an error code
  */
 //GIT_EXTERN
-int git_object_peel(libgit2_d.types.git_object** peeled, const (libgit2_d.types.git_object)* object, libgit2_d.types.git_otype target_type);
+int git_object_peel(libgit2_d.types.git_object** peeled, const (libgit2_d.types.git_object)* object, libgit2_d.types.git_object_t target_type);
 
 /**
  * Create an in-memory copy of a Git object. The copy must be

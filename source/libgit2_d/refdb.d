@@ -7,9 +7,6 @@
 module libgit2_d.refdb;
 
 
-private static import libgit2_d.common;
-private static import libgit2_d.oid;
-private static import libgit2_d.refs;
 private static import libgit2_d.types;
 
 /**
@@ -21,6 +18,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Create a new reference database with no backends.

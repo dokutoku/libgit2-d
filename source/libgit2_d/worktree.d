@@ -8,7 +8,6 @@ module libgit2_d.worktree;
 
 
 private static import libgit2_d.buffer;
-private static import libgit2_d.common;
 private static import libgit2_d.strarray;
 private static import libgit2_d.types;
 
@@ -21,6 +20,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * List names of linked working trees
@@ -80,12 +80,21 @@ void git_worktree_free(libgit2_d.types.git_worktree* wt);
 //GIT_EXTERN
 int git_worktree_validate(const (libgit2_d.types.git_worktree)* wt);
 
+/**
+ * Worktree add options structure
+ *
+ * Initialize with `GIT_WORKTREE_ADD_OPTIONS_INIT`. Alternatively, you can
+ * use `git_worktree_add_options_init`.
+ */
 struct git_worktree_add_options
 {
 	uint version_;
 
 	/**< lock newly created worktree */
 	int lock;
+
+	/**< reference to use for the new worktree HEAD */
+	libgit2_d.types.git_reference* ref_;
 }
 
 enum GIT_WORKTREE_ADD_OPTIONS_VERSION = 1;
@@ -100,21 +109,24 @@ pure nothrow @safe @nogc
 		{
 			version_: .GIT_WORKTREE_ADD_OPTIONS_VERSION,
 			lock: 0,
+			ref_: null,
 		};
 
 		return OUTPUT;
 	}
 
 /**
- * Initializes a `git_worktree_add_options` with default vaules.
- * Equivalent to creating an instance with
- * GIT_WORKTREE_ADD_OPTIONS_INIT.
+ * Initialize git_worktree_add_options structure
  *
- * @param opts the struct to initialize
- * @param version_ Verison of struct; pass `GIT_WORKTREE_ADD_OPTIONS_VERSION`
+ * Initializes a `git_worktree_add_options` with default values. Equivalent to
+ * creating an instance with `GIT_WORKTREE_ADD_OPTIONS_INIT`.
+ *
+ * @param opts The `git_worktree_add_options` struct to initialize.
+ * @param version The struct version; pass `GIT_WORKTREE_ADD_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
-int git_worktree_add_init_options(.git_worktree_add_options* opts, uint version_);
+//GIT_EXTERN
+int git_worktree_add_options_init(.git_worktree_add_options* opts, uint version_);
 
 /**
  * Add a new working tree
@@ -172,6 +184,26 @@ int git_worktree_unlock(libgit2_d.types.git_worktree* wt);
 int git_worktree_is_locked(libgit2_d.buffer.git_buf* reason, const (libgit2_d.types.git_worktree)* wt);
 
 /**
+ * Retrieve the name of the worktree
+ *
+ * @param wt Worktree to get the name for
+ * @return The worktree's name. The pointer returned is valid for the
+ *  lifetime of the git_worktree
+ */
+//GIT_EXTERN
+const (char)* git_worktree_name(const (libgit2_d.types.git_worktree)* wt);
+
+/**
+ * Retrieve the filesystem path for the worktree
+ *
+ * @param wt Worktree to get the path for
+ * @return The worktree's filesystem path. The pointer returned
+ *  is valid for the lifetime of the git_worktree.
+ */
+//GIT_EXTERN
+const (char)* git_worktree_path(const (libgit2_d.types.git_worktree)* wt);
+
+/**
  * Flags which can be passed to git_worktree_prune to alter its
  * behavior.
  */
@@ -187,6 +219,12 @@ enum git_worktree_prune_t
 	GIT_WORKTREE_PRUNE_WORKING_TREE = 1u << 2,
 }
 
+/**
+ * Worktree prune options structure
+ *
+ * Initialize with `GIT_WORKTREE_PRUNE_OPTIONS_INIT`. Alternatively, you can
+ * use `git_worktree_prune_options_init`.
+ */
 struct git_worktree_prune_options
 {
 	uint version_;
@@ -212,16 +250,17 @@ pure nothrow @safe @nogc
 	}
 
 /**
- * Initializes a `git_worktree_prune_options` with default vaules.
- * Equivalent to creating an instance with
- * GIT_WORKTREE_PRUNE_OPTIONS_INIT.
+ * Initialize git_worktree_prune_options structure
  *
- * @param opts the struct to initialize
- * @param version_ Verison of struct; pass `GIT_WORKTREE_PRUNE_OPTIONS_VERSION`
+ * Initializes a `git_worktree_prune_options` with default values. Equivalent to
+ * creating an instance with `GIT_WORKTREE_PRUNE_OPTIONS_INIT`.
+ *
+ * @param opts The `git_worktree_prune_options` struct to initialize.
+ * @param version The struct version; pass `GIT_WORKTREE_PRUNE_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_worktree_prune_init_options(.git_worktree_prune_options* opts, uint version_);
+int git_worktree_prune_options_init(.git_worktree_prune_options* opts, uint version_);
 
 /**
  * Is the worktree prunable with the given options?

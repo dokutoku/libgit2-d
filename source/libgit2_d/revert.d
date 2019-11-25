@@ -7,10 +7,9 @@
 module libgit2_d.revert;
 
 
-private static import libgit2_d.common;
+private static import libgit2_d.checkout;
 private static import libgit2_d.merge;
 private static import libgit2_d.types;
-private static import libgit2_d.checkout;
 
 /**
  * @file git2/revert.h
@@ -21,6 +20,7 @@ private static import libgit2_d.checkout;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Options for revert
@@ -59,15 +59,17 @@ pure nothrow @safe @nogc
 	}
 
 /**
- * Initializes a `git_revert_options` with default values. Equivalent to
- * creating an instance with GIT_REVERT_OPTIONS_INIT.
+ * Initialize git_revert_options structure
  *
- * @param opts the `git_revert_options` struct to initialize
- * @param version_ Version of struct; pass `GIT_REVERT_OPTIONS_VERSION`
+ * Initializes a `git_revert_options` with default values. Equivalent to
+ * creating an instance with `GIT_REVERT_OPTIONS_INIT`.
+ *
+ * @param opts The `git_revert_options` struct to initialize.
+ * @param version The struct version; pass `GIT_REVERT_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_revert_init_options(.git_revert_options* opts, uint version_);
+int git_revert_options_init(.git_revert_options* opts, uint version_);
 
 /**
  * Reverts the given commit against the given "our" commit, producing an

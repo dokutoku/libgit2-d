@@ -7,9 +7,8 @@
 module libgit2_d.merge;
 
 
-private static import libgit2_d.annotated_commit;
 private static import libgit2_d.checkout;
-private static import libgit2_d.common;
+private static import libgit2_d.diff;
 private static import libgit2_d.index;
 private static import libgit2_d.oid;
 private static import libgit2_d.oidarray;
@@ -24,6 +23,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * The file inputs to `git_merge_file`.  Callers should populate the
@@ -73,7 +73,7 @@ pure nothrow @safe @nogc
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_merge_file_init_input(.git_merge_file_input* opts, uint version_);
+int git_merge_file_input_init(.git_merge_file_input* opts, uint version_);
 
 /**
  * Flags for `git_merge` options.  A combination of these flags can be
@@ -210,7 +210,7 @@ struct git_merge_file_options
 	.git_merge_file_favor_t favor;
 
 	/** see `git_merge_file_flag_t` above */
-	.git_merge_file_flag_t flags;
+	uint flags;
 
 	/**
 	 * The size of conflict markers (eg, "<<<<<<<").  Default is
@@ -236,16 +236,17 @@ pure nothrow @safe @nogc
 	}
 
 /**
- * Initializes a `git_merge_file_options` with default values. Equivalent to
- * creating an instance with GIT_MERGE_FILE_OPTIONS_INIT.
+ * Initialize git_merge_file_options structure
  *
- * @param opts the `git_merge_file_options` instance to initialize.
- * @param version_ the version of the struct; you should pass
- *        `GIT_MERGE_FILE_OPTIONS_VERSION` here.
+ * Initializes a `git_merge_file_options` with default values. Equivalent to
+ * creating an instance with `GIT_MERGE_FILE_OPTIONS_INIT`.
+ *
+ * @param opts The `git_merge_file_options` struct to initialize.
+ * @param version The struct version; pass `GIT_MERGE_FILE_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_merge_file_init_options(.git_merge_file_options* opts, uint version_);
+int git_merge_file_options_init(.git_merge_file_options* opts, uint version_);
 
 /**
  * Information about file-level merging
@@ -282,7 +283,7 @@ struct git_merge_options
 	uint version_;
 
 	/** See `git_merge_flag_t` above */
-	.git_merge_flag_t flags;
+	uint flags;
 
 	/**
 	 * Similarity to consider a file renamed (default 50).  If
@@ -326,7 +327,7 @@ struct git_merge_options
 	.git_merge_file_favor_t file_favor;
 
 	/** see `git_merge_file_flag_t` above */
-	.git_merge_file_flag_t file_flags;
+	uint file_flags;
 }
 
 enum GIT_MERGE_OPTIONS_VERSION = 1;
@@ -347,16 +348,17 @@ pure nothrow @safe @nogc
 	}
 
 /**
- * Initializes a `git_merge_options` with default values. Equivalent to
- * creating an instance with GIT_MERGE_OPTIONS_INIT.
+ * Initialize git_merge_options structure
  *
- * @param opts the `git_merge_options` instance to initialize.
- * @param version_ the version of the struct; you should pass
- *        `GIT_MERGE_OPTIONS_VERSION` here.
+ * Initializes a `git_merge_options` with default values. Equivalent to
+ * creating an instance with `GIT_MERGE_OPTIONS_INIT`.
+ *
+ * @param opts The `git_merge_options` struct to initialize.
+ * @param version The struct version; pass `GIT_MERGE_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_merge_init_options(.git_merge_options* opts, uint version_);
+int git_merge_options_init(.git_merge_options* opts, uint version_);
 
 /**
  * The results of `git_merge_analysis` indicate the merge opportunities.
@@ -429,6 +431,20 @@ enum git_merge_preference_t
  */
 //GIT_EXTERN
 int git_merge_analysis(.git_merge_analysis_t* analysis_out, .git_merge_preference_t* preference_out, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_annotated_commit)** their_heads, size_t their_heads_len);
+
+/**
+ * Analyzes the given branch(es) and determines the opportunities for
+ * merging them into a reference.
+ *
+ * @param analysis_out analysis enumeration that the result is written into
+ * @param repo the repository to merge
+ * @param our_ref the reference to perform the analysis from
+ * @param their_heads the heads to merge into
+ * @param their_heads_len the number of heads to merge
+ * @return 0 on success or error code
+ */
+//GIT_EXTERN
+int git_merge_analysis_for_ref(.git_merge_analysis_t* analysis_out, .git_merge_preference_t* preference_out, libgit2_d.types.git_repository* repo, libgit2_d.types.git_reference* our_ref, const (libgit2_d.types.git_annotated_commit)** their_heads, size_t their_heads_len);
 
 /**
  * Find a merge base between two commits

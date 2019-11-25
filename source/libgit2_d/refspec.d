@@ -8,7 +8,6 @@ module libgit2_d.refspec;
 
 
 private static import libgit2_d.buffer;
-private static import libgit2_d.common;
 private static import libgit2_d.net;
 private static import libgit2_d.types;
 
@@ -21,6 +20,26 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
+
+/**
+ * Parse a given refspec string
+ *
+ * @param refspec a pointer to hold the refspec handle
+ * @param input the refspec string
+ * @param is_fetch is this a refspec for a fetch
+ * @return 0 if the refspec string could be parsed, -1 otherwise
+ */
+//GIT_EXTERN
+int git_refspec_parse(libgit2_d.types.git_refspec** refspec, const (char)* input, int is_fetch);
+
+/**
+ * Free a refspec object which has been created by git_refspec_parse
+ *
+ * @param refspec the refspec object
+ */
+//GIT_EXTERN
+void git_refspec_free(libgit2_d.types.git_refspec* refspec);
 
 /**
  * Get the source specifier

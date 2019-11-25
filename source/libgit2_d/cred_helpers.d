@@ -7,7 +7,7 @@
 module libgit2_d.cred_helpers;
 
 
-private static import libgit2_d.transport;
+private static import libgit2_d.cred;
 
 /**
  * @file git2/cred_helpers.h
@@ -18,6 +18,7 @@ private static import libgit2_d.transport;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Payload for git_cred_stock_userpass_plaintext.
@@ -42,6 +43,6 @@ struct git_cred_userpass_payload
  *        interpreted as a `git_cred_userpass_payload*`.)
  */
 //GIT_EXTERN
-int git_cred_userpass(libgit2_d.transport.git_cred** cred, const (char)* url, const (char)* user_from_url, uint allowed_types, void* payload);
+int git_cred_userpass(libgit2_d.cred.git_cred** cred, const (char)* url, const (char)* user_from_url, uint allowed_types, void* payload);
 
 /** @} */

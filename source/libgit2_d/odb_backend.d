@@ -7,7 +7,8 @@
 module libgit2_d.odb_backend;
 
 
-private static import libgit2_d.common;
+private static import libgit2_d.indexer;
+private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
 /**
@@ -19,6 +20,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /*
  * Constructors for in-box ODB backends.
@@ -33,7 +35,7 @@ nothrow @nogc:
  * @return 0 or an error code
  */
 //GIT_EXTERN
-int git_odb_backend_pack(libgit2_d.sys.odb_backend.git_odb_backend** out_, const (char)* objects_dir);
+int git_odb_backend_pack(libgit2_d.types.git_odb_backend** out_, const (char)* objects_dir);
 
 /**
  * Create a backend for loose objects
@@ -48,7 +50,7 @@ int git_odb_backend_pack(libgit2_d.sys.odb_backend.git_odb_backend** out_, const
  * @return 0 or an error code
  */
 //GIT_EXTERN
-int git_odb_backend_loose(libgit2_d.sys.odb_backend.git_odb_backend** out_, const (char)* objects_dir, int compression_level, int do_fsync, uint dir_mode, uint file_mode);
+int git_odb_backend_loose(libgit2_d.types.git_odb_backend** out_, const (char)* objects_dir, int compression_level, int do_fsync, uint dir_mode, uint file_mode);
 
 /**
  * Create a backend out of a single packfile
@@ -62,7 +64,7 @@ int git_odb_backend_loose(libgit2_d.sys.odb_backend.git_odb_backend** out_, cons
  * @return 0 or an error code
  */
 //GIT_EXTERN
-int git_odb_backend_one_pack(libgit2_d.sys.odb_backend.git_odb_backend** out_, const (char)* index_file);
+int git_odb_backend_one_pack(libgit2_d.types.git_odb_backend** out_, const (char)* index_file);
 
 /** Streaming mode */
 enum git_odb_stream_t
@@ -82,7 +84,7 @@ enum git_odb_stream_t
  */
 struct git_odb_stream
 {
-	libgit2_d.sys.odb_backend.git_odb_backend* backend;
+	libgit2_d.types.git_odb_backend* backend;
 	uint mode;
 	void* hash_ctx;
 
@@ -123,9 +125,9 @@ struct git_odb_stream
 /** A stream to write a pack file to the ODB */
 struct git_odb_writepack
 {
-	libgit2_d.sys.odb_backend.git_odb_backend* backend;
+	libgit2_d.types.git_odb_backend* backend;
 
-	int function(.git_odb_writepack* writepack, const (void)* data, size_t size, libgit2_d.types.git_transfer_progress* stats) append;
-	int function(.git_odb_writepack* writepack, libgit2_d.types.git_transfer_progress* stats) commit;
+	int function(.git_odb_writepack* writepack, const (void)* data, size_t size, libgit2_d.indexer.git_indexer_progress* stats) append;
+	int function(.git_odb_writepack* writepack, libgit2_d.indexer.git_indexer_progress* stats) commit;
 	void function(.git_odb_writepack* writepack) free;
 }

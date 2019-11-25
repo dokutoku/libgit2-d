@@ -7,9 +7,13 @@
 module libgit2_d.sys.transport;
 
 
-private static import libgit2_d.net;
+private static import libgit2_d.cert;
+private static import libgit2_d.cred;
+private static import libgit2_d.indexer;
 private static import libgit2_d.proxy;
 private static import libgit2_d.strarray;
+private static import libgit2_d.sys.cred;
+private static import libgit2_d.transport;
 private static import libgit2_d.types;
 
 /**
@@ -22,6 +26,7 @@ private static import libgit2_d.types;
 
 extern (C):
 nothrow @nogc:
+package(libgit2_d):
 
 /**
  * Flags to pass to transport
@@ -35,59 +40,84 @@ enum git_transport_flags_t
 
 struct git_transport
 {
+	/**
+	 * The struct version
+	 */
 	uint version_;
-	/* Set progress and error callbacks */
-	int function(.git_transport* transport, libgit2_d.types.git_transport_message_cb progress_cb, libgit2_d.types.git_transport_message_cb error_cb, libgit2_d.types.git_transport_certificate_check_cb certificate_check_cb, void* payload) set_callbacks;
 
-	/* Set custom headers for HTTP requests */
+	/**
+	 * Set progress and error callbacks
+	 */
+	int function(.git_transport* transport, libgit2_d.transport.git_transport_message_cb progress_cb, libgit2_d.transport.git_transport_message_cb error_cb, libgit2_d.cert.git_transport_certificate_check_cb certificate_check_cb, void* payload) set_callbacks;
+
+	/**
+	 * Set custom headers for HTTP requests
+	 */
 	int function(.git_transport* transport, const (libgit2_d.strarray.git_strarray)* custom_headers) set_custom_headers;
 
-	/*
+	/**
 	 * Connect the transport to the remote repository, using the given
 	 * direction.
 	 */
-	int function(.git_transport* transport, const (char)* url, libgit2_d.transport.git_cred_acquire_cb cred_acquire_cb, void* cred_acquire_payload, const (libgit2_d.proxy.git_proxy_options)* proxy_opts, int direction, int flags) connect;
+	int function(.git_transport* transport, const (char)* url, libgit2_d.cred.git_cred_acquire_cb cred_acquire_cb, void* cred_acquire_payload, const (libgit2_d.proxy.git_proxy_options)* proxy_opts, int direction, int flags) connect;
 
-	/*
+	/**
+	 * Get the list of available references in the remote repository.
+	 *
 	 * This function may be called after a successful call to
-	 * connect(). The array returned is owned by the transport and
-	 * is guaranteed until the next call of a transport function.
+	 * `connect()`. The array returned is owned by the transport and
+	 * must be kept valid until the next call to one of its functions.
 	 */
-	int function(const (libgit2_d.net.git_remote_head)*** out_, size_t* size, .git_transport* transport) ls;
+	int function(const (libgit2_d.types.git_remote_head)*** out_, size_t* size, .git_transport* transport) ls;
 
-	/* Executes the push whose context is in the git_push object. */
-	int function(.git_transport* transport, libgit2_d.types.git_push* push, const (libgit2_d.remote.git_remote_callbacks)* callbacks) push;
-
-	/*
-	 * This function may be called after a successful call to connect(), when
-	 * the direction is FETCH. The function performs a negotiation to calculate
-	 * the wants list for the fetch.
+	/**
+	 * Executes the push whose context is in the git_push object.
 	 */
-	int function(.git_transport* transport, libgit2_d.types.git_repository* repo, const (libgit2_d.net.git_remote_head)* /+ const +/ * refs, size_t count) negotiate_fetch;
+	int function(.git_transport* transport, libgit2_d.types.git_push* push, const (libgit2_d.types.git_remote_callbacks)* callbacks) push;
 
-	/*
-	 * This function may be called after a successful call to negotiate_fetch(),
-	 * when the direction is FETCH. This function retrieves the pack file for
-	 * the fetch from the remote end.
+	/**
+	 * Negotiate a fetch with the remote repository.
+	 *
+	 * This function may be called after a successful call to `connect()`,
+	 * when the direction is GIT_DIRECTION_FETCH. The function performs a
+	 * negotiation to calculate the `wants` list for the fetch.
 	 */
-	int function(.git_transport* transport, libgit2_d.types.git_repository* repo, libgit2_d.types.git_transfer_progress* stats, libgit2_d.types.git_transfer_progress_cb progress_cb, void* progress_payload) download_pack;
+	int function(.git_transport* transport, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_remote_head)* /+ const +/ * refs, size_t count) negotiate_fetch;
 
-	/* Checks to see if the transport is connected */
+	/**
+	 * Start downloading the packfile from the remote repository.
+	 *
+	 * This function may be called after a successful call to
+	 * negotiate_fetch(), when the direction is GIT_DIRECTION_FETCH.
+	 */
+	int function(.git_transport* transport, libgit2_d.types.git_repository* repo, libgit2_d.indexer.git_indexer_progress* stats, libgit2_d.indexer.git_indexer_progress_cb progress_cb, void* progress_payload) download_pack;
+
+	/**
+	 * Checks to see if the transport is connected
+	 */
 	int function(.git_transport* transport) is_connected;
 
-	/* Reads the flags value previously passed into connect() */
+	/**
+	 * Reads the flags value previously passed into connect()
+	 */
 	int function(.git_transport* transport, int* flags) read_flags;
 
-	/* Cancels any outstanding transport operation */
+	/**
+	 * Cancels any outstanding transport operation
+	 */
 	void function(.git_transport* transport) cancel;
 
-	/*
+	/**
+	 * Close the connection to the remote repository.
+	 *
 	 * This function is the reverse of connect() -- it terminates the
 	 * connection to the remote end.
 	 */
 	int function(.git_transport* transport) close;
 
-	/* Frees/destructs the git_transport object. */
+	/**
+	 * Frees/destructs the git_transport object.
+	 */
 	void function(.git_transport* transport) free;
 }
 
@@ -165,9 +195,12 @@ int git_transport_ssh_with_paths(.git_transport** out_, libgit2_d.types.git_remo
 int git_transport_register(const (char)* prefix, libgit2_d.transport.git_transport_cb cb, void* param);
 
 /**
- *
  * Unregister a custom transport definition which was previously registered
  * with git_transport_register.
+ *
+ * The caller is responsible for synchronizing calls to git_transport_register
+ * and git_transport_unregister with other calls to the library that
+ * instantiate transports.
  *
  * @param prefix From the previous call to git_transport_register
  * @return 0 or an error code
@@ -220,7 +253,10 @@ int git_transport_smart(.git_transport** out_, libgit2_d.types.git_remote* owner
  * @param cert the certificate to pass to the caller
  * @param valid whether we believe the certificate is valid
  * @param hostname the hostname we connected to
- * @return the return value of the callback
+ * @return the return value of the callback: 0 for no error, GIT_PASSTHROUGH
+ *         to indicate that there is no callback registered (or the callback
+ *         refused to validate the certificate and callers should behave as
+ *         if no callback was set), or < 0 for an error
  */
 //GIT_EXTERN
 int git_transport_smart_certificate_check(.git_transport* transport, libgit2_d.types.git_cert* cert, int valid, const (char)* hostname);
@@ -228,14 +264,17 @@ int git_transport_smart_certificate_check(.git_transport* transport, libgit2_d.t
 /**
  * Call the credentials callback for this transport
  *
- * @param out_ the pointer where the creds are to be stored
+ * @param out the pointer where the creds are to be stored
  * @param transport a smart transport
  * @param user the user we saw on the url (if any)
  * @param methods available methods for authentication
- * @return the return value of the callback
+ * @return the return value of the callback: 0 for no error, GIT_PASSTHROUGH
+ *         to indicate that there is no callback registered (or the callback
+ *         refused to provide credentials and callers should behave as if no
+ *         callback was set), or < 0 for an error
  */
 //GIT_EXTERN
-int git_transport_smart_credentials(libgit2_d.transport.git_cred** out_, .git_transport* transport, const (char)* user, int methods);
+int git_transport_smart_credentials(libgit2_d.sys.cred.git_cred** out_, .git_transport* transport, const (char)* user, int methods);
 
 /**
  * Get a copy of the proxy options
@@ -253,25 +292,8 @@ int git_transport_smart_proxy_options(libgit2_d.proxy.git_proxy_options* out_, .
  *** Begin interface for subtransports for the smart transport ***
  */
 
-/*
- * The smart transport knows how to speak the git protocol, but it has no
- * knowledge of how to establish a connection between it and another endpoint,
- * or how to move data back and forth. For this, a subtransport interface is
- * declared, and the smart transport delegates this work to the subtransports.
- * Three subtransports are implemented: git, http, and winhttp. (The http and
- * winhttp transports each implement both http and https.)
- */
-
-/*
- * Subtransports can either be RPC = 0 (persistent connection) or RPC = 1
- * (request/response). The smart transport handles the differences in its own
- * logic. The git subtransport is RPC = 0, while http and winhttp are both
- * RPC = 1.
- */
-
-/*
- * Actions that the smart transport can ask
- * a subtransport to perform
+/**
+ * Actions that the smart transport can ask a subtransport to perform
  */
 enum git_smart_service_t
 {
@@ -281,51 +303,87 @@ enum git_smart_service_t
 	GIT_SERVICE_RECEIVEPACK = 4,
 }
 
-/*
+/**
  * A stream used by the smart transport to read and write data
- * from a subtransport
+ * from a subtransport.
+ *
+ * This provides a customization point in case you need to
+ * support some other communication method.
  */
 struct git_smart_subtransport_stream
 {
-	/* The owning subtransport */
+	/**
+	 * The owning subtransport
+	 */
 	.git_smart_subtransport* subtransport;
 
+	/**
+	 * Read available data from the stream.
+	 *
+	 * The implementation may read less than requested.
+	 */
 	int function(.git_smart_subtransport_stream* stream, char* buffer, size_t buf_size, size_t* bytes_read) read;
 
+	/**
+	 * Write data to the stream
+	 *
+	 * The implementation must write all data or return an error.
+	 */
 	int function(.git_smart_subtransport_stream* stream, const (char)* buffer, size_t len) write;
 
+	/**
+	 * Free the stream
+	 */
 	void function(.git_smart_subtransport_stream* stream) free;
 }
 
-/*
+/**
  * An implementation of a subtransport which carries data for the
  * smart transport
  */
 struct git_smart_subtransport
 {
+	/**
+	 * Setup a subtransport stream for the requested action.
+	 */
 	int function(.git_smart_subtransport_stream** out_, .git_smart_subtransport* transport, const (char)* url, .git_smart_service_t action) action;
 
-	/*
+	/**
+	 * Close the subtransport.
+	 *
 	 * Subtransports are guaranteed a call to close() between
 	 * calls to action(), except for the following two "natural" progressions
-	 * of actions against a constant URL.
+	 * of actions against a constant URL:
 	 *
-	 * 1. UPLOADPACK_LS -> UPLOADPACK
-	 * 2. RECEIVEPACK_LS -> RECEIVEPACK
+	 * - UPLOADPACK_LS -> UPLOADPACK
+	 * - RECEIVEPACK_LS -> RECEIVEPACK
 	 */
 	int function(.git_smart_subtransport* transport) close;
 
+	/**
+	 * Free the subtransport
+	 */
 	void function(.git_smart_subtransport* transport) free;
 }
 
-/* A function which creates a new subtransport for the smart transport */
+/**
+ * A function which creates a new subtransport for the smart transport
+ */
 alias git_smart_subtransport_cb = int function(.git_smart_subtransport** out_, .git_transport* owner, void* param);
 
 /**
  * Definition for a "subtransport"
  *
- * This is used to let the smart protocol code know about the protocol
- * which you are implementing.
+ * The smart transport knows how to speak the git protocol, but it has no
+ * knowledge of how to establish a connection between it and another endpoint,
+ * or how to move data back and forth. For this, a subtransport interface is
+ * declared, and the smart transport delegates this work to the subtransports.
+ *
+ * Three subtransports are provided by libgit2: ssh, git, http(s).
+ *
+ * Subtransports can either be RPC = 0 (persistent connection) or RPC = 1
+ * (request/response). The smart transport handles the differences in its own
+ * logic. The git subtransport is RPC = 0, while http is RPC = 1.
  */
 struct git_smart_subtransport_definition
 {
@@ -339,7 +397,7 @@ struct git_smart_subtransport_definition
 	uint rpc;
 
 	/**
-	 * Param of the callback
+	 * User-specified parameter passed to the callback
 	 */
 	void* param;
 }
@@ -347,11 +405,11 @@ struct git_smart_subtransport_definition
 /* Smart transport subtransports that come with libgit2 */
 
 /**
- * Create an instance of the http subtransport. This subtransport
- * also supports https. On Win32, this subtransport may be implemented
- * using the WinHTTP library.
+ * Create an instance of the http subtransport.
  *
- * @param out_ The newly created subtransport
+ * This subtransport also supports https.
+ *
+ * @param out The newly created subtransport
  * @param owner The smart transport to own this subtransport
  * @return 0 or an error code
  */

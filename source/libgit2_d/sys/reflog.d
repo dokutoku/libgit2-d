@@ -7,12 +7,11 @@
 module libgit2_d.sys.reflog;
 
 
-private static import libgit2_d.common;
-private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
 extern (C):
 nothrow @nogc:
+package(libgit2_d):
 
 //GIT_EXTERN
 libgit2_d.types.git_reflog_entry* git_reflog_entry__alloc();

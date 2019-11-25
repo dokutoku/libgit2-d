@@ -7,7 +7,6 @@
 module libgit2_d.refs;
 
 
-private static import libgit2_d.common;
 private static import libgit2_d.oid;
 private static import libgit2_d.strarray;
 private static import libgit2_d.types;
@@ -21,6 +20,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Lookup a reference by name in a repository.
@@ -276,13 +276,13 @@ const (char)* git_reference_symbolic_target(const (libgit2_d.types.git_reference
 /**
  * Get the type of a reference.
  *
- * Either direct (GIT_REF_OID) or symbolic (GIT_REF_SYMBOLIC)
+ * Either direct (GIT_REFERENCE_DIRECT) or symbolic (GIT_REFERENCE_SYMBOLIC)
  *
  * @param ref_ The reference
  * @return the type
  */
 //GIT_EXTERN
-libgit2_d.types.git_ref_t git_reference_type(const (libgit2_d.types.git_reference)* ref_);
+libgit2_d.types.git_reference_t git_reference_type(const (libgit2_d.types.git_reference)* ref_);
 
 /**
  * Get the full name of a reference.
@@ -432,7 +432,26 @@ int git_reference_remove(libgit2_d.types.git_repository* repo, const (char)* nam
 //GIT_EXTERN
 int git_reference_list(libgit2_d.strarray.git_strarray* array, libgit2_d.types.git_repository* repo);
 
+/**
+ * Callback used to iterate over references
+ *
+ * @see git_reference_foreach
+ *
+ * @param reference The reference object
+ * @param payload Payload passed to git_reference_foreach
+ * @return non-zero to terminate the iteration
+ */
 alias git_reference_foreach_cb = int function(libgit2_d.types.git_reference* reference, void* payload);
+
+/**
+ * Callback used to iterate over reference names
+ *
+ * @see git_reference_foreach_name
+ *
+ * @param name The reference name
+ * @param payload Payload passed to git_reference_foreach_name
+ * @return non-zero to terminate the iteration
+ */
 alias git_reference_foreach_name_cb = int function(const (char)* name, void* payload);
 
 /**
@@ -508,7 +527,7 @@ int git_reference_cmp(const (libgit2_d.types.git_reference)* ref1, const (libgit
  * @return 0 or an error code
  */
 //GIT_EXTERN
-int git_reference_iterator_new(libgit2_d.sys.refdb_backend.git_reference_iterator** out_, libgit2_d.types.git_repository* repo);
+int git_reference_iterator_new(libgit2_d.types.git_reference_iterator** out_, libgit2_d.types.git_repository* repo);
 
 /**
  * Create an iterator for the repo's references that match the
@@ -520,7 +539,7 @@ int git_reference_iterator_new(libgit2_d.sys.refdb_backend.git_reference_iterato
  * @return 0 or an error code
  */
 //GIT_EXTERN
-int git_reference_iterator_glob_new(libgit2_d.sys.refdb_backend.git_reference_iterator** out_, libgit2_d.types.git_repository* repo, const (char)* glob);
+int git_reference_iterator_glob_new(libgit2_d.types.git_reference_iterator** out_, libgit2_d.types.git_repository* repo, const (char)* glob);
 
 /**
  * Get the next reference
@@ -530,7 +549,7 @@ int git_reference_iterator_glob_new(libgit2_d.sys.refdb_backend.git_reference_it
  * @return 0, GIT_ITEROVER if there are no more; or an error code
  */
 //GIT_EXTERN
-int git_reference_next(libgit2_d.types.git_reference** out_, libgit2_d.sys.refdb_backend.git_reference_iterator* iter);
+int git_reference_next(libgit2_d.types.git_reference** out_, libgit2_d.types.git_reference_iterator* iter);
 
 /**
  * Get the next reference's name
@@ -544,7 +563,7 @@ int git_reference_next(libgit2_d.types.git_reference** out_, libgit2_d.sys.refdb
  * @return 0, GIT_ITEROVER if there are no more; or an error code
  */
 //GIT_EXTERN
-int git_reference_next_name(const (char)** out_, libgit2_d.sys.refdb_backend.git_reference_iterator* iter);
+int git_reference_next_name(const (char)** out_, libgit2_d.types.git_reference_iterator* iter);
 
 /**
  * Free the iterator and its associated resources
@@ -552,7 +571,7 @@ int git_reference_next_name(const (char)** out_, libgit2_d.sys.refdb_backend.git
  * @param iter the iterator to free
  */
 //GIT_EXTERN
-void git_reference_iterator_free(libgit2_d.sys.refdb_backend.git_reference_iterator* iter);
+void git_reference_iterator_free(libgit2_d.types.git_reference_iterator* iter);
 
 /**
  * Perform a callback on each reference in the repository whose name
@@ -646,12 +665,12 @@ int git_reference_is_note(const (libgit2_d.types.git_reference)* ref_);
 /**
  * Normalization options for reference lookup
  */
-enum git_reference_normalize_t
+enum git_reference_format_t
 {
 	/**
 	 * No particular normalization.
 	 */
-	GIT_REF_FORMAT_NORMAL = 0u,
+	GIT_REFERENCE_FORMAT_NORMAL = 0u,
 
 	/**
 	 * Control whether one-level refnames are accepted
@@ -659,7 +678,7 @@ enum git_reference_normalize_t
 	 * components). Those are expected to be written only using
 	 * uppercase letters and underscore (FETCH_HEAD, ...)
 	 */
-	GIT_REF_FORMAT_ALLOW_ONELEVEL = (1u << 0),
+	GIT_REFERENCE_FORMAT_ALLOW_ONELEVEL = 1u << 0,
 
 	/**
 	 * Interpret the provided name as a reference pattern for a
@@ -668,14 +687,14 @@ enum git_reference_normalize_t
 	 * in place of a one full pathname component
 	 * (e.g., foo/<star>/bar but not foo/bar<star>).
 	 */
-	GIT_REF_FORMAT_REFSPEC_PATTERN = (1u << 1),
+	GIT_REFERENCE_FORMAT_REFSPEC_PATTERN = 1u << 1,
 
 	/**
 	 * Interpret the name as part of a refspec in shorthand form
 	 * so the `ONELEVEL` naming rules aren't enforced and 'master'
 	 * becomes a valid name.
 	 */
-	GIT_REF_FORMAT_REFSPEC_SHORTHAND = (1u << 2),
+	GIT_REFERENCE_FORMAT_REFSPEC_SHORTHAND = 1u << 2,
 }
 
 /**
@@ -694,7 +713,7 @@ enum git_reference_normalize_t
  * @param buffer_size Size of buffer_out
  * @param name Reference name to be checked.
  * @param flags Flags to constrain name validation rules - see the
- *              GIT_REF_FORMAT constants above.
+ *              GIT_REFERENCE_FORMAT constants above.
  * @return 0 on success, GIT_EBUFS if buffer is too small, GIT_EINVALIDSPEC
  * or an error code.
  */
@@ -707,17 +726,17 @@ int git_reference_normalize_name(char* buffer_out, size_t buffer_size, const (ch
  * The retrieved `peeled` object is owned by the repository
  * and should be closed with the `git_object_free` method.
  *
- * If you pass `GIT_OBJ_ANY` as the target type, then the object
+ * If you pass `GIT_OBJECT_ANY` as the target type, then the object
  * will be peeled until a non-tag object is met.
  *
  * @param out_ Pointer to the peeled git_object
  * @param ref_ The reference to be processed
- * @param type The type of the requested object (GIT_OBJ_COMMIT,
- * GIT_OBJ_TAG, GIT_OBJ_TREE, GIT_OBJ_BLOB or GIT_OBJ_ANY).
+ * @param type The type of the requested object (GIT_OBJECT_COMMIT,
+ * GIT_OBJECT_TAG, GIT_OBJECT_TREE, GIT_OBJECT_BLOB or GIT_OBJECT_ANY).
  * @return 0 on success, GIT_EAMBIGUOUS, GIT_ENOTFOUND or an error code
  */
 //GIT_EXTERN
-int git_reference_peel(libgit2_d.types.git_object** out_, const (libgit2_d.types.git_reference)* ref_, libgit2_d.types.git_otype type);
+int git_reference_peel(libgit2_d.types.git_object** out_, const (libgit2_d.types.git_reference)* ref_, libgit2_d.types.git_object_t type);
 
 /**
  * Ensure the reference name is well-formed.

@@ -8,12 +8,12 @@ module libgit2_d.sys.stream;
 
 
 private static import core.sys.posix.sys.types;
-private static import libgit2_d.common;
 private static import libgit2_d.proxy;
 private static import libgit2_d.types;
 
 extern (C):
 nothrow @nogc:
+package(libgit2_d):
 
 enum GIT_STREAM_VERSION = 1;
 
@@ -47,16 +47,97 @@ struct git_stream
 	void function(.git_stream*) free;
 }
 
-alias git_stream_cb = int function(.git_stream** out_, const (char)* host, const (char)* port);
+struct git_stream_registration
+{
+	/** The `version` field should be set to `GIT_STREAM_VERSION`. */
+	int version_;
+
+	/**
+	 * Called to create a new connection to a given host.
+	 *
+	 * @param out The created stream
+	 * @param host The hostname to connect to; may be a hostname or
+	 *             IP address
+	 * @param port The port to connect to; may be a port number or
+	 *             service name
+	 * @return 0 or an error code
+	 */
+	int function(.git_stream** out_, const (char)* host, const (char)* port) init;
+
+	/**
+	 * Called to create a new connection on top of the given stream.  If
+	 * this is a TLS stream, then this function may be used to proxy a
+	 * TLS stream over an HTTP CONNECT session.  If this is unset, then
+	 * HTTP CONNECT proxies will not be supported.
+	 *
+	 * @param out The created stream
+	 * @param in An existing stream to add TLS to
+	 * @param host The hostname that the stream is connected to,
+	 *             for certificate validation
+	 * @return 0 or an error code
+	 */
+	int function(.git_stream** out_, .git_stream* in_, const (char)* host) wrap;
+}
 
 /**
- * Register a TLS stream constructor for the library to use
+ * The type of stream to register.
+ */
+enum git_stream_t
+{
+	/** A standard (non-TLS) socket. */
+	GIT_STREAM_STANDARD = 1,
+
+	/** A TLS-encrypted socket. */
+	GIT_STREAM_TLS = 2,
+}
+
+/**
+ * Register stream constructors for the library to use
  *
- * If a constructor is already set, it will be overwritten. Pass
- * `null` in order to deregister the current constructor.
+ * If a registration structure is already set, it will be overwritten.
+ * Pass `NULL` in order to deregister the current constructor and return
+ * to the system defaults.
  *
- * @param ctor the constructor to use
+ * The type parameter may be a bitwise AND of types.
+ *
+ * @param type the type or types of stream to register
+ * @param registration the registration data
  * @return 0 or an error code
  */
 //GIT_EXTERN
-int git_stream_register_tls(.git_stream_cb ctor);
+int git_stream_register(.git_stream_t type, .git_stream_registration* registration);
+
+deprecated:
+
+version (GIT_DEPRECATE_HARD) {
+} else {
+	/** @name Deprecated TLS Stream Registration Functions
+	 *
+	 * These functions are retained for backward compatibility.  The newer
+	 * versions of these values should be preferred in all new code.
+	 *
+	 * There is no plan to remove these backward compatibility values at
+	 * this time.
+	 */
+	/**@{*/
+
+	/**
+	 * @deprecated Provide a git_stream_registration to git_stream_register
+	 * @see git_stream_registration
+	 */
+	alias git_stream_cb = int function(.git_stream** out_, const (char)* host, const (char)* port);
+
+	/**
+	 * Register a TLS stream constructor for the library to use.  This stream
+	 * will not support HTTP CONNECT proxies.  This internally calls
+	 * `git_stream_register` and is preserved for backward compatibility.
+	 *
+	 * This function is deprecated, but there is no plan to remove this
+	 * function at this time.
+	 *
+	 * @deprecated Provide a git_stream_registration to git_stream_register
+	 * @see git_stream_register
+	 */
+	//GIT_EXTERN
+	int git_stream_register_tls(.git_stream_cb ctor);
+}

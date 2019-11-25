@@ -7,6 +7,9 @@
 module libgit2_d.sys.index;
 
 
+private static import libgit2_d.oid;
+private static import libgit2_d.types;
+
 /**
  * @file git2/sys/index.h
  * @brief Low-level Git index manipulation routines
@@ -16,6 +19,7 @@ module libgit2_d.sys.index;
  */
 extern (C):
 nothrow @nogc:
+package(libgit2_d):
 
 /** Representation of a rename conflict entry in the index. */
 struct git_index_name_entry

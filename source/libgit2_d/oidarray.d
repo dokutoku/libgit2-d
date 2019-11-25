@@ -7,11 +7,11 @@
 module libgit2_d.oidarray;
 
 
-private static import libgit2_d.common;
 private static import libgit2_d.oid;
 
 extern (C):
 nothrow @nogc:
+public:
 
 /** Array of object ids */
 struct git_oidarray

@@ -7,12 +7,11 @@
 module libgit2_d.rebase;
 
 
-private static import libgit2_d.annotated_commit;
-private static import libgit2_d.common;
+private static import libgit2_d.checkout;
+private static import libgit2_d.commit;
+private static import libgit2_d.merge;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
-private static import libgit2_d.checkout;
-private static import libgit2_d.merge;
 
 /**
  * @file git2/rebase.h
@@ -23,6 +22,7 @@ private static import libgit2_d.merge;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Rebase options
@@ -74,6 +74,21 @@ struct git_rebase_options
 	 * `abort` to match git semantics.
 	 */
 	libgit2_d.checkout.git_checkout_options checkout_options;
+
+	/**
+	 * If provided, this will be called with the commit content, allowing
+	 * a signature to be added to the rebase commit. Can be skipped with
+	 * GIT_PASSTHROUGH. If GIT_PASSTHROUGH is returned, a commit will be made
+	 * without a signature.
+	 * This field is only used when performing git_rebase_commit.
+	 */
+	libgit2_d.commit.git_commit_signing_cb signing_cb;
+
+	/**
+	 * This will be passed to each of the callbacks in this struct
+	 * as the last parameter.
+	 */
+	void* payload;
 }
 
 /**
@@ -134,6 +149,7 @@ pure nothrow @safe @nogc
 			rewrite_notes_ref: null,
 			merge_options: libgit2_d.merge.GIT_MERGE_OPTIONS_INIT,
 			checkout_options: libgit2_d.checkout.GIT_CHECKOUT_OPTIONS_INIT,
+			signing_cb: null,
 		};
 
 		return OUTPUT;
@@ -167,16 +183,17 @@ struct git_rebase_operation
 }
 
 /**
- * Initializes a `git_rebase_options` with default values. Equivalent to
- * creating an instance with GIT_REBASE_OPTIONS_INIT.
+ * Initialize git_rebase_options structure
  *
- * @param opts the `git_rebase_options` instance to initialize.
- * @param version_ the version of the struct; you should pass
- *        `GIT_REBASE_OPTIONS_VERSION` here.
+ * Initializes a `git_rebase_options` with default values. Equivalent to
+ * creating an instance with `GIT_REBASE_OPTIONS_INIT`.
+ *
+ * @param opts The `git_rebase_options` struct to initialize.
+ * @param version The struct version; pass `GIT_REBASE_OPTIONS_VERSION`.
  * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_rebase_init_options(.git_rebase_options* opts, uint version_);
+int git_rebase_options_init(.git_rebase_options* opts, uint version_);
 
 /**
  * Initializes a rebase operation to rebase the changes in `branch`
@@ -209,6 +226,38 @@ int git_rebase_init(libgit2_d.types.git_rebase** out_, libgit2_d.types.git_repos
  */
 //GIT_EXTERN
 int git_rebase_open(libgit2_d.types.git_rebase** out_, libgit2_d.types.git_repository* repo, const (git_rebase_options)* opts);
+
+/**
+ * Gets the original `HEAD` ref name for merge rebases.
+ *
+ * @return The original `HEAD` ref name
+ */
+//GIT_EXTERN
+const (char)* git_rebase_orig_head_name(libgit2_d.types.git_rebase* rebase);
+
+/**
+ * Gets the original `HEAD` id for merge rebases.
+ *
+ * @return The original `HEAD` id
+ */
+//GIT_EXTERN
+const (libgit2_d.oid.git_oid)* git_rebase_orig_head_id(libgit2_d.types.git_rebase* rebase);
+
+/**
+ * Gets the `onto` ref name for merge rebases.
+ *
+ * @return The `onto` ref name
+ */
+//GIT_EXTERN
+const (char)* git_rebase_onto_name(libgit2_d.types.git_rebase* rebase);
+
+/**
+ * Gets the `onto` id for merge rebases.
+ *
+ * @return The `onto` id
+ */
+//GIT_EXTERN
+const (libgit2_d.oid.git_oid)* git_rebase_onto_id(libgit2_d.types.git_rebase* rebase);
 
 /**
  * Gets the count of rebase operations that are to be applied.

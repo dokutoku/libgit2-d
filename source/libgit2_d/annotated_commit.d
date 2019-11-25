@@ -7,8 +7,7 @@
 module libgit2_d.annotated_commit;
 
 
-private static import libgit2_d.common;
-private static import libgit2_d.repository;
+private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
 /**
@@ -20,6 +19,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Creates a `git_annotated_commit` from the given reference.
@@ -93,6 +93,15 @@ int git_annotated_commit_from_revspec(libgit2_d.types.git_annotated_commit** out
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_annotated_commit_id(const (libgit2_d.types.git_annotated_commit)* commit);
+
+/**
+ * Get the refname that the given `git_annotated_commit` refers to.
+ *
+ * @param commit the given annotated commit
+ * @return ref name.
+ */
+//GIT_EXTERN
+const (char)* git_annotated_commit_ref(const (libgit2_d.types.git_annotated_commit)* commit);
 
 /**
  * Frees a `git_annotated_commit`.

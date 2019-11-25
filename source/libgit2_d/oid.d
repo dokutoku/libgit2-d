@@ -7,9 +7,6 @@
 module libgit2_d.oid;
 
 
-private static import libgit2_d.common;
-private static import libgit2_d.types;
-
 /**
  * @file git2/oid.h
  * @brief Git object id routines
@@ -19,6 +16,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /** Size (in bytes) of a raw/binary oid */
 enum GIT_OID_RAWSZ = 20;
@@ -82,7 +80,7 @@ int git_oid_fromstrn(.git_oid* out_, const (char)* str, size_t length);
  * @param raw the raw input bytes to be copied.
  */
 //GIT_EXTERN
-void git_oid_fromraw(.git_oid* out_, const ubyte* raw);
+void git_oid_fromraw(.git_oid* out_, const (ubyte)* raw);
 
 /**
  * Format a git_oid into a hex string.
@@ -227,7 +225,7 @@ int git_oid_strcmp(const (.git_oid)* id, const (char)* str);
  * @return 1 if all zeros, 0 otherwise.
  */
 //GIT_EXTERN
-int git_oid_iszero(const (.git_oid)* id);
+int git_oid_is_zero(const (.git_oid)* id);
 
 /**
  * OID Shortener object
@@ -267,7 +265,7 @@ struct git_oid_shorten;
  * memory-efficient.
  *
  * Attempting to add more than those OIDs will result in a
- * GITERR_INVALID error
+ * GIT_ERROR_INVALID error
  *
  * @param os a `git_oid_shorten` instance
  * @param text_id an OID in text form

@@ -7,10 +7,7 @@
 module libgit2_d.sys.diff;
 
 
-private static import libgit2_d.common;
 private static import libgit2_d.diff;
-private static import libgit2_d.oid;
-private static import libgit2_d.status;
 private static import libgit2_d.types;
 
 /**
@@ -21,6 +18,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+package(libgit2_d):
 
 /**
  * Diff print callback that writes to a git_buf.

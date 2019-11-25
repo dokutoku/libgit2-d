@@ -7,9 +7,7 @@
 module libgit2_d.net;
 
 
-private static import libgit2_d.common;
 private static import libgit2_d.oid;
-private static import libgit2_d.types;
 
 /**
  * @file git2/net.h
@@ -19,6 +17,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 enum GIT_DEFAULT_PORT = "9418";
 
@@ -53,10 +52,5 @@ struct git_remote_head
 	 */
 	char* symref_target;
 }
-
-/**
- * Callback for listing the remote heads
- */
-alias git_headlist_cb = int function(.git_remote_head* rhead, void* payload);
 
 /** @} */

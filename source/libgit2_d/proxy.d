@@ -7,11 +7,12 @@
 module libgit2_d.proxy;
 
 
-private static import libgit2_d.common;
-private static import libgit2_d.transport;
+private static import libgit2_d.cert;
+private static import libgit2_d.cred;
 
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * The type of proxy to use.
@@ -62,15 +63,15 @@ struct git_proxy_options
 	 * Returning GIT_PASSTHROUGH will make libgit2 behave as
 	 * though this field isn't set.
 	 */
-	libgit2_d.transport.git_cred_acquire_cb credentials;
+	libgit2_d.cred.git_cred_acquire_cb credentials;
 
 	/**
 	 * If cert verification fails, this will be called to let the
 	 * user make the final decision of whether to allow the
-	 * connection to proceed. Returns 1 to allow the connection, 0
-	 * to disallow it or a negative value to indicate an error.
+	 * connection to proceed. Returns 0 to allow the connection
+	 * or a negative value to indicate an error.
 	 */
-	libgit2_d.types.git_transport_certificate_check_cb certificate_check;
+	libgit2_d.cert.git_transport_certificate_check_cb certificate_check;
 
 	/**
 	 * Payload to be provided to the credentials and certificate
@@ -96,10 +97,14 @@ pure nothrow @safe @nogc
 	}
 
 /**
- * Initialize a proxy options structure
+ * Initialize git_proxy_options structure
  *
- * @param opts the options struct to initialize
- * @param version_ the version of the struct, use `GIT_PROXY_OPTIONS_VERSION`
+ * Initializes a `git_proxy_options` with default values. Equivalent to
+ * creating an instance with `GIT_PROXY_OPTIONS_INIT`.
+ *
+ * @param opts The `git_proxy_options` struct to initialize.
+ * @param version The struct version; pass `GIT_PROXY_OPTIONS_VERSION`.
+ * @return Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_proxy_init_options(.git_proxy_options* opts, uint version_);
+int git_proxy_options_init(.git_proxy_options* opts, uint version_);

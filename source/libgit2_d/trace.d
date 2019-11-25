@@ -7,9 +7,6 @@
 module libgit2_d.trace;
 
 
-private static import libgit2_d.common;
-private static import libgit2_d.types;
-
 /**
  * @file git2/trace.h
  * @brief Git tracing configuration routines
@@ -19,6 +16,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Available tracing levels.  When tracing is set to a particular level,
@@ -51,7 +49,7 @@ enum git_trace_level_t
 /**
  * An instance for a tracing function
  */
-alias git_trace_callback = void function(.git_trace_level_t level, const (char)* msg);
+alias git_trace_cb = void function(.git_trace_level_t level, const (char)* msg);
 
 /**
  * Sets the system tracing configuration to the specified level with the
@@ -63,6 +61,6 @@ alias git_trace_callback = void function(.git_trace_level_t level, const (char)*
  * @return 0 or an error code
  */
 //GIT_EXTERN
-int git_trace_set(.git_trace_level_t level, .git_trace_callback cb);
+int git_trace_set(.git_trace_level_t level, .git_trace_cb cb);
 
 /** @} */
