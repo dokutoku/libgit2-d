@@ -189,7 +189,11 @@ struct git_cred_ssh_custom
 struct git_cred_username
 {
 	.git_cred parent;
-	char[1] username;
+
+	/**
+	 * This member is treated as an array.
+	 */
+	char username;
 }
 
 /**
