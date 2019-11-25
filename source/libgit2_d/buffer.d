@@ -35,24 +35,24 @@ nothrow @nogc:
  *
  * A `git_buf` is a public structure with three fields:
  *
- * - `ptr` points to the start of the allocated memory.  If it is null,
+ * - `ptr_` points to the start of the allocated memory.  If it is null,
  *   then the `git_buf` is considered empty and libgit2 will feel free
  *   to overwrite it with new data.
  *
  * - `size` holds the size (in bytes) of the data that is actually used.
  *
- * - `asize` holds the known total amount of allocated memory if the `ptr`
- *    was allocated by libgit2.  It may be larger than `size`.  If `ptr`
+ * - `asize` holds the known total amount of allocated memory if the `ptr_`
+ *    was allocated by libgit2.  It may be larger than `size`.  If `ptr_`
  *    was not allocated by libgit2 and should not be resized and/or freed,
  *    then `asize` will be set to zero.
  *
  * Some APIs may occasionally do something slightly unusual with a buffer,
- * such as setting `ptr` to a value that was passed in by the user.  In
+ * such as setting `ptr_` to a value that was passed in by the user.  In
  * those cases, the behavior will be clearly documented by the API.
  */
 struct git_buf
 {
-	char* ptr;
+	char* ptr_;
 	size_t asize;
 	size_t size;
 }
@@ -68,7 +68,7 @@ pure nothrow @safe @nogc
 	{
 		.git_buf OUTPUT =
 		{
-			ptr: STR,
+			ptr_: STR,
 			asize: 0,
 			size: LEN,
 		};
@@ -80,7 +80,7 @@ pure nothrow @safe @nogc
  * Free the memory referred to by the git_buf.
  *
  * Note that this does not free the `git_buf` itself, just the memory
- * pointed to by `buffer->ptr`.  This will not free the memory if it looks
+ * pointed to by `buffer->ptr_`.  This will not free the memory if it looks
  * like it was not allocated internally, but it will clear the buffer back
  * to the empty state.
  *
@@ -95,7 +95,7 @@ void git_buf_free(.git_buf* buffer);
  * This will attempt to grow the buffer to accommodate the target size.
  *
  * If the buffer refers to memory that was not allocated by libgit2 (i.e.
- * the `asize` field is zero), then `ptr` will be replaced with a newly
+ * the `asize` field is zero), then `ptr_` will be replaced with a newly
  * allocated block of data.  Be careful so that memory allocated by the
  * caller is not lost.  As a special variant, if you pass `target_size` as
  * 0 and the memory is not allocated by libgit2, this will allocate a new

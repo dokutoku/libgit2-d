@@ -35,9 +35,9 @@ struct git_merge_file_input
 	uint version_;
 
 	/** Pointer to the contents of the file. */
-	const (char)* ptr;
+	const (char)* ptr_;
 
-	/** Size of the contents pointed to in `ptr`. */
+	/** Size of the contents pointed to in `ptr_`. */
 	size_t size;
 
 	/** File name of the conflicted file, or `null` to not merge the path. */
@@ -268,7 +268,7 @@ struct git_merge_file_result
 	uint mode;
 
 	/** The contents of the merge. */
-	const (char)* ptr;
+	const (char)* ptr_;
 
 	/** The length of the merge contents. */
 	size_t len;
