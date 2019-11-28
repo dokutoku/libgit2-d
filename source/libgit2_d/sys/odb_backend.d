@@ -53,7 +53,7 @@ struct git_odb_backend
 	 */
 	int function(.git_odb_backend*, const (libgit2_d.oid.git_oid)*, const (void)*, size_t, libgit2_d.types.git_object_t) write;
 
-	int function(libgit2_d.types.git_odb_stream**, .git_odb_backend*, libgit2_d.types.git_off_t, libgit2_d.types.git_object_t) writestream;
+	int function(libgit2_d.types.git_odb_stream**, .git_odb_backend*, libgit2_d.types.git_object_size_t, libgit2_d.types.git_object_t) writestream;
 
 	int function(libgit2_d.types.git_odb_stream**, size_t*, libgit2_d.types.git_object_t*, .git_odb_backend*, const (libgit2_d.oid.git_oid)*) readstream;
 

@@ -101,7 +101,7 @@ const (void)* git_blob_rawcontent(const (libgit2_d.types.git_blob)* blob);
  * @return size on bytes
  */
 //GIT_EXTERN
-libgit2_d.types.git_off_t git_blob_rawsize(const (libgit2_d.types.git_blob)* blob);
+libgit2_d.types.git_object_size_t git_blob_rawsize(const (libgit2_d.types.git_blob)* blob);
 
 /**
  * Flags to control the functionality of `git_blob_filter`.

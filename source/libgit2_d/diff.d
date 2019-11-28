@@ -305,7 +305,7 @@ struct git_diff_file
 {
 	libgit2_d.oid.git_oid id;
 	const (char)* path;
-	libgit2_d.types.git_off_t size;
+	libgit2_d.types.git_object_size_t size;
 	uint flags;
 	ushort mode;
 	ushort id_abbrev;
@@ -1205,6 +1205,9 @@ enum git_diff_format_t
 
 	/**< like git diff --name-status */
 	GIT_DIFF_FORMAT_NAME_STATUS = 5u,
+
+	/**< git diff as used by git patch-id */
+	GIT_DIFF_FORMAT_PATCH_ID = 6u,
 }
 
 /**

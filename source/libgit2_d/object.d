@@ -22,6 +22,8 @@ extern (C):
 nothrow @nogc:
 public:
 
+enum GIT_OBJECT_SIZE_MAX = ulong.max;
+
 /**
  * Lookup a reference to one of the objects in a repository.
  *

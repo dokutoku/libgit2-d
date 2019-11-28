@@ -89,6 +89,11 @@ enum git_cert_ssh_t
 	 * SHA-1 is available
 	 */
 	GIT_CERT_SSH_SHA1 = 1 << 1,
+
+	/**
+	 * SHA-256 is available
+	 */
+	GIT_CERT_SSH_SHA256 = 1 << 2,
 }
 
 /**
@@ -118,6 +123,12 @@ struct git_cert_hostkey
 	 * have the SHA-1 hash of the hostkey.
 	 */
 	ubyte[20] hash_sha1;
+
+	/**
+	 * Hostkey hash. If type has `GIT_CERT_SSH_SHA256` set, this will
+	 * have the SHA-256 hash of the hostkey.
+	 */
+	ubyte[32] hash_sha256;
 }
 
 /**

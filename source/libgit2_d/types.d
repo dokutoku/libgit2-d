@@ -69,6 +69,11 @@ version (none) {
 	alias git_time_t = long;
 }
 
+/**
+ * The maximum size of an object
+ */
+alias git_object_size_t = ulong;
+
 //public import libgit2_d.buffer;
 //public import libgit2_d.oid;
 

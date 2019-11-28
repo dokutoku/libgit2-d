@@ -306,7 +306,7 @@ int git_odb_write(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_odb* odb, con
  * @return 0 if the stream was created; error code otherwise
  */
 //GIT_EXTERN
-int git_odb_open_wstream(libgit2_d.types.git_odb_stream** out_, libgit2_d.types.git_odb* db, libgit2_d.types.git_off_t size, libgit2_d.types.git_object_t type);
+int git_odb_open_wstream(libgit2_d.types.git_odb_stream** out_, libgit2_d.types.git_odb* db, libgit2_d.types.git_object_size_t size, libgit2_d.types.git_object_t type);
 
 /**
  * Write to an odb stream

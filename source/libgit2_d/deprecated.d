@@ -74,6 +74,8 @@ version (GIT_DEPRECATE_HARD) {
 		alias GIT_ATTR_UNSPECIFIED = GIT_ATTR_IS_UNSPECIFIED;
 	}
 
+	alias git_attr_t = libgit2_d.attr.git_attr_value_t;
+
 	/**@}*/
 
 	/** @name Deprecated Blob Functions
