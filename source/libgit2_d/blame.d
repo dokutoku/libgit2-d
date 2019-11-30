@@ -19,6 +19,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Flags for indicating option behavior for git_blame APIs.

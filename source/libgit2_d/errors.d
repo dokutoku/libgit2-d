@@ -15,6 +15,7 @@ module libgit2_d.errors;
  */
 extern (C):
 nothrow @nogc:
+public:
 
 /**
  * Generic return codes
