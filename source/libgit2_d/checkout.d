@@ -327,7 +327,7 @@ struct git_checkout_options
 	const (char)* target_directory;
 
 	/**< the name of the common ancestor side of conflicts */
-	const char * ancestor_label;
+	const (char)* ancestor_label;
 
 	/**< the name of the "our" side of conflicts */
 	const (char)* our_label;
