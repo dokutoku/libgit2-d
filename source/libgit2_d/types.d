@@ -77,53 +77,85 @@ alias git_object_size_t = ulong;
 //public import libgit2_d.buffer;
 //public import libgit2_d.oid;
 
-/** Basic type (loose or packed) of any Git object. */
+/**
+ * Basic type (loose or packed) of any Git object.
+ */
 enum git_object_t
 {
-	/**< Object can be any of the following */
+	/**
+	 * Object can be any of the following
+	 */
 	GIT_OBJECT_ANY = -2,
 
-	/**< Object is invalid. */
+	/**
+	 * Object is invalid.
+	 */
 	GIT_OBJECT_INVALID = -1,
 
-	/**< A commit object. */
+	/**
+	 * A commit object.
+	 */
 	GIT_OBJECT_COMMIT = 1,
 
-	/**< A tree (directory listing) object. */
+	/**
+	 * A tree (directory listing) object.
+	 */
 	GIT_OBJECT_TREE = 2,
 
-	/**< A file revision object. */
+	/**
+	 * A file revision object.
+	 */
 	GIT_OBJECT_BLOB = 3,
 
-	/**< An annotated tag object. */
+	/**
+	 * An annotated tag object.
+	 */
 	GIT_OBJECT_TAG = 4,
 
-	/**< A delta, base is given by an offset. */
+	/**
+	 * A delta, base is given by an offset.
+	 */
 	GIT_OBJECT_OFS_DELTA = 6,
 
-	/**< A delta, base is given by object id. */
+	/**
+	 * A delta, base is given by object id.
+	 */
 	GIT_OBJECT_REF_DELTA = 7,
 }
 
-/** An open object database handle. */
+/**
+ * An open object database handle.
+ */
 struct git_odb;
 
-/** A custom backend in an ODB */
+/**
+ * A custom backend in an ODB
+ */
 alias git_odb_backend = libgit2_d.sys.odb_backend.git_odb_backend;
 
-/** An object read from the ODB */
+/**
+ * An object read from the ODB
+ */
 struct git_odb_object;
 
-/** A stream to read/write from the ODB */
+/**
+ * A stream to read/write from the ODB
+ */
 alias git_odb_stream = libgit2_d.odb_backend.git_odb_stream;
 
-/** A stream to write a packfile to the ODB */
+/**
+ * A stream to write a packfile to the ODB
+ */
 alias git_odb_writepack = libgit2_d.odb_backend.git_odb_writepack;
 
-/** An open refs database handle. */
+/**
+ * An open refs database handle.
+ */
 struct git_refdb;
 
-/** A custom backend for refs */
+/**
+ * A custom backend for refs
+ */
 alias git_refdb_backend = libgit2_d.sys.refdb_backend.git_refdb_backend;
 
 /**
@@ -132,120 +164,194 @@ alias git_refdb_backend = libgit2_d.sys.refdb_backend.git_refdb_backend;
  */
 struct git_repository;
 
-/** Representation of a working tree */
+/**
+ * Representation of a working tree
+ */
 struct git_worktree;
 
-/** Representation of a generic object in a repository */
+/**
+ * Representation of a generic object in a repository
+ */
 struct git_object;
 
-/** Representation of an in-progress walk through the commits in a repo */
+/**
+ * Representation of an in-progress walk through the commits in a repo
+ */
 struct git_revwalk;
 
-/** Parsed representation of a tag object. */
+/**
+ * Parsed representation of a tag object.
+ */
 struct git_tag;
 
-/** In-memory representation of a blob object. */
+/**
+ * In-memory representation of a blob object.
+ */
 struct git_blob;
 
-/** Parsed representation of a commit object. */
+/**
+ * Parsed representation of a commit object.
+ */
 struct git_commit;
 
-/** Representation of each one of the entries in a tree object. */
+/**
+ * Representation of each one of the entries in a tree object.
+ */
 struct git_tree_entry;
 
-/** Representation of a tree object. */
+/**
+ * Representation of a tree object.
+ */
 struct git_tree;
 
-/** Constructor for in-memory trees */
+/**
+ * Constructor for in-memory trees
+ */
 struct git_treebuilder;
 
-/** Memory representation of an index file. */
+/**
+ * Memory representation of an index file.
+ */
 struct git_index;
 
-/** An iterator for entries in the index. */
+/**
+ * An iterator for entries in the index.
+ */
 struct git_index_iterator;
 
-/** An iterator for conflicts in the index. */
+/**
+ * An iterator for conflicts in the index.
+ */
 struct git_index_conflict_iterator;
 
-/** Memory representation of a set of config files */
+/**
+ * Memory representation of a set of config files
+ */
 struct git_config;
 
-/** Interface to access a configuration file */
+/**
+ * Interface to access a configuration file
+ */
 alias git_config_backend = libgit2_d.sys.config.git_config_backend;
 
-/** Representation of a reference log entry */
+/**
+ * Representation of a reference log entry
+ */
 struct git_reflog_entry;
 
-/** Representation of a reference log */
+/**
+ * Representation of a reference log
+ */
 struct git_reflog;
 
-/** Representation of a git note */
+/**
+ * Representation of a git note
+ */
 struct git_note;
 
-/** Representation of a git packbuilder */
+/**
+ * Representation of a git packbuilder
+ */
 struct git_packbuilder;
 
-/** Time in a signature */
+/**
+ * Time in a signature
+ */
 struct git_time
 {
-	/**< time in seconds from epoch */
+	/**
+	 * time in seconds from epoch
+	 */
 	.git_time_t time;
 
-	/**< timezone offset, in minutes */
+	/**
+	 * timezone offset, in minutes
+	 */
 	int offset;
 
-	/**< indicator for questionable '-0000' offsets in signature */
+	/**
+	 * indicator for questionable '-0000' offsets in signature
+	 */
 	char sign;
 }
 
-/** An action signature (e.g. for committers, taggers, etc) */
+/**
+ * An action signature (e.g. for committers, taggers, etc)
+ */
 struct git_signature
 {
-	/**< full name of the author */
+	/**
+	 * full name of the author
+	 */
 	char* name;
 
-	/**< email of the author */
+	/**
+	 * email of the author
+	 */
 	char* email;
 
-	/**< time when the action happened */
+	/**
+	 * time when the action happened
+	 */
 	.git_time when;
 }
 
-/** In-memory representation of a reference. */
+/**
+ * In-memory representation of a reference.
+ */
 struct git_reference;
 
-/** Iterator for references */
+/**
+ * Iterator for references
+ */
 alias git_reference_iterator = libgit2_d.sys.refdb_backend.git_reference_iterator;
 
-/** Transactional interface to references */
+/**
+ * Transactional interface to references
+ */
 struct git_transaction;
 
-/** Annotated commits, the input to merge and rebase. */
+/**
+ * Annotated commits, the input to merge and rebase.
+ */
 struct git_annotated_commit;
 
-/** Representation of a status collection */
+/**
+ * Representation of a status collection
+ */
 struct git_status_list;
 
-/** Representation of a rebase */
+/**
+ * Representation of a rebase
+ */
 struct git_rebase;
 
-/** Basic type of any Git reference. */
+/**
+ * Basic type of any Git reference.
+ */
 enum git_reference_t
 {
-	/**< Invalid reference */
+	/**
+	 * Invalid reference
+	 */
 	GIT_REFERENCE_INVALID = 0,
 
-	/**< A reference that points at an object id */
+	/**
+	 * A reference that points at an object id
+	 */
 	GIT_REFERENCE_DIRECT = 1,
 
-	/**< A reference that points at another reference */
+	/**
+	 * A reference that points at another reference
+	 */
 	GIT_REFERENCE_SYMBOLIC = 2,
 
 	GIT_REFERENCE_ALL = GIT_REFERENCE_DIRECT | GIT_REFERENCE_SYMBOLIC,
 }
 
-/** Basic type of any Git branch. */
+/**
+ * Basic type of any Git branch.
+ */
 enum git_branch_t
 {
 	GIT_BRANCH_LOCAL = 1,
@@ -253,7 +359,9 @@ enum git_branch_t
 	GIT_BRANCH_ALL = GIT_BRANCH_LOCAL | GIT_BRANCH_REMOTE,
 }
 
-/** Valid modes for index and tree entries. */
+/**
+ * Valid modes for index and tree entries.
+ */
 enum git_filemode_t
 {
 	GIT_FILEMODE_UNREADABLE = std.conv.octal!(0000000),
@@ -367,19 +475,29 @@ enum git_submodule_update_t
  */
 enum git_submodule_ignore_t
 {
-	/**< use the submodule's configuration */
+	/**
+	 * use the submodule's configuration
+	 */
 	GIT_SUBMODULE_IGNORE_UNSPECIFIED = -1,
 
-	/**< any change or untracked == dirty */
+	/**
+	 * any change or untracked == dirty
+	 */
 	GIT_SUBMODULE_IGNORE_NONE = 1,
 
-	/**< dirty if tracked files change */
+	/**
+	 * dirty if tracked files change
+	 */
 	GIT_SUBMODULE_IGNORE_UNTRACKED = 2,
 
-	/**< only dirty if HEAD moved */
+	/**
+	 * only dirty if HEAD moved
+	 */
 	GIT_SUBMODULE_IGNORE_DIRTY = 3,
 
-	/**< never dirty */
+	/**
+	 * never dirty
+	 */
 	GIT_SUBMODULE_IGNORE_ALL = 4,
 }
 
@@ -400,7 +518,9 @@ enum git_submodule_recurse_t
 	GIT_SUBMODULE_RECURSE_ONDEMAND = 2,
 }
 
-/** A type to write in a streaming fashion, for example, for filters. */
+/**
+ * A type to write in a streaming fashion, for example, for filters.
+ */
 struct git_writestream
 {
 	int function(.git_writestream* stream, const (char)* buffer, size_t len) write;
@@ -408,7 +528,9 @@ struct git_writestream
 	void function(.git_writestream* stream) free;
 }
 
-/** Representation of .mailmap file state. */
+/**
+ * Representation of .mailmap file state.
+ */
 struct git_mailmap;
 
 /** @} */

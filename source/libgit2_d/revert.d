@@ -29,13 +29,19 @@ struct git_revert_options
 {
 	uint version_;
 
-	/** For merge commits, the "mainline" is treated as the parent. */
+	/**
+	 * For merge commits, the "mainline" is treated as the parent.
+	 */
 	uint mainline;
 
-	/**< Options for the merging */
+	/**
+	 * Options for the merging
+	 */
 	libgit2_d.merge.git_merge_options merge_opts;
 
-	/**< Options for the checkout */
+	/**
+	 * Options for the checkout
+	 */
 	libgit2_d.checkout.git_checkout_options checkout_opts;
 }
 
@@ -51,8 +57,8 @@ pure nothrow @safe @nogc
 		{
 			version_: .GIT_REVERT_OPTIONS_VERSION,
 			mainline: 0,
-			merge_opts: libgit2_d.merge.GIT_MERGE_OPTIONS_INIT,
-			checkout_opts: libgit2_d.checkout.GIT_CHECKOUT_OPTIONS_INIT,
+			merge_opts: libgit2_d.merge.GIT_MERGE_OPTIONS_INIT(),
+			checkout_opts: libgit2_d.checkout.GIT_CHECKOUT_OPTIONS_INIT(),
 		};
 
 		return OUTPUT;

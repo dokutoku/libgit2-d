@@ -90,24 +90,27 @@ enum git_feature_t
 	 * If set, libgit2 was built thread-aware and can be safely used from multiple
 	 * threads.
 	 */
-	GIT_FEATURE_THREADS = (1 << 0),
+	GIT_FEATURE_THREADS = 1 << 0,
+
 	/**
 	 * If set, libgit2 was built with and linked against a TLS implementation.
 	 * Custom TLS streams may still be added by the user to support HTTPS
 	 * regardless of this.
 	 */
-	GIT_FEATURE_HTTPS = (1 << 1),
+	GIT_FEATURE_HTTPS = 1 << 1,
+
 	/**
 	 * If set, libgit2 was built with and linked against libssh2. A custom
 	 * transport may still be added by the user to support libssh2 regardless of
 	 * this.
 	 */
-	GIT_FEATURE_SSH = (1 << 2),
+	GIT_FEATURE_SSH = 1 << 2,
+
 	/**
 	 * If set, libgit2 was built with support for sub-second resolution in file
 	 * modification times.
 	 */
-	GIT_FEATURE_NSEC = (1 << 3),
+	GIT_FEATURE_NSEC = 1 << 3,
 }
 
 /**

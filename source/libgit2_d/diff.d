@@ -28,28 +28,36 @@ public:
  */
 enum git_diff_option_t
 {
-	/** Normal diff, the default */
+	/**
+	 * Normal diff, the default
+	 */
 	GIT_DIFF_NORMAL = 0,
 
 	/*
 	 * Options controlling which files will be in the diff
 	 */
 
-	/** Reverse the sides of the diff */
-	GIT_DIFF_REVERSE = (1u << 0),
+	/**
+	 * Reverse the sides of the diff
+	 */
+	GIT_DIFF_REVERSE = 1u << 0,
 
-	/** Include ignored files in the diff */
-	GIT_DIFF_INCLUDE_IGNORED = (1u << 1),
+	/**
+	 * Include ignored files in the diff
+	 */
+	GIT_DIFF_INCLUDE_IGNORED = 1u << 1,
 
 	/**
 	 * Even with GIT_DIFF_INCLUDE_IGNORED, an entire ignored directory
 	 *  will be marked with only a single entry in the diff; this flag
 	 *  adds all files under the directory as IGNORED entries, too.
 	 */
-	GIT_DIFF_RECURSE_IGNORED_DIRS = (1u << 2),
+	GIT_DIFF_RECURSE_IGNORED_DIRS = 1u << 2,
 
-	/** Include untracked files in the diff */
-	GIT_DIFF_INCLUDE_UNTRACKED = (1u << 3),
+	/**
+	 * Include untracked files in the diff
+	 */
+	GIT_DIFF_INCLUDE_UNTRACKED = 1u << 3,
 
 	/**
 	 * Even with GIT_DIFF_INCLUDE_UNTRACKED, an entire untracked
@@ -57,17 +65,19 @@ enum git_diff_option_t
 	 *  (a la what core Git does in `git status`); this flag adds *all*
 	 *  files under untracked directories as UNTRACKED entries, too.
 	 */
-	GIT_DIFF_RECURSE_UNTRACKED_DIRS = (1u << 4),
+	GIT_DIFF_RECURSE_UNTRACKED_DIRS = 1u << 4,
 
-	/** Include unmodified files in the diff */
-	GIT_DIFF_INCLUDE_UNMODIFIED = (1u << 5),
+	/**
+	 * Include unmodified files in the diff
+	 */
+	GIT_DIFF_INCLUDE_UNMODIFIED = 1u << 5,
 
 	/**
 	 * Normally, a type change between files will be converted into a
 	 *  DELETED record for the old and an ADDED record for the new; this
 	 *  options enabled the generation of TYPECHANGE delta records.
 	 */
-	GIT_DIFF_INCLUDE_TYPECHANGE = (1u << 6),
+	GIT_DIFF_INCLUDE_TYPECHANGE = 1u << 6,
 
 	/**
 	 * Even with GIT_DIFF_INCLUDE_TYPECHANGE, blob->tree changes still
@@ -75,22 +85,28 @@ enum git_diff_option_t
 	 *  label blob->tree transitions as TYPECHANGE records with new_file's
 	 *  mode set to tree.  Note: the tree SHA will not be available.
 	 */
-	GIT_DIFF_INCLUDE_TYPECHANGE_TREES = (1u << 7),
+	GIT_DIFF_INCLUDE_TYPECHANGE_TREES = 1u << 7,
 
-	/** Ignore file mode changes */
-	GIT_DIFF_IGNORE_FILEMODE = (1u << 8),
+	/**
+	 * Ignore file mode changes
+	 */
+	GIT_DIFF_IGNORE_FILEMODE = 1u << 8,
 
-	/** Treat all submodules as unmodified */
-	GIT_DIFF_IGNORE_SUBMODULES = (1u << 9),
+	/**
+	 * Treat all submodules as unmodified
+	 */
+	GIT_DIFF_IGNORE_SUBMODULES = 1u << 9,
 
-	/** Use case insensitive filename comparisons */
-	GIT_DIFF_IGNORE_CASE = (1u << 10),
+	/**
+	 * Use case insensitive filename comparisons
+	 */
+	GIT_DIFF_IGNORE_CASE = 1u << 10,
 
 	/**
 	 * May be combined with `GIT_DIFF_IGNORE_CASE` to specify that a file
 	 *  that has changed case will be returned as an add/delete pair.
 	 */
-	GIT_DIFF_INCLUDE_CASECHANGE = (1u << 11),
+	GIT_DIFF_INCLUDE_CASECHANGE = 1u << 11,
 
 	/**
 	 * If the pathspec is set in the diff options, this flags indicates
@@ -100,14 +116,14 @@ enum git_diff_option_t
 	 *  the path will _only_ match a directory).  If a directory is
 	 *  specified, all children will be included.
 	 */
-	GIT_DIFF_DISABLE_PATHSPEC_MATCH = (1u << 12),
+	GIT_DIFF_DISABLE_PATHSPEC_MATCH = 1u << 12,
 
 	/**
 	 * Disable updating of the `binary` flag in delta records.  This is
 	 *  useful when iterating over a diff if you don't need hunk and data
 	 *  callbacks and want to avoid having to load file completely.
 	 */
-	GIT_DIFF_SKIP_BINARY_CHECK = (1u << 13),
+	GIT_DIFF_SKIP_BINARY_CHECK = 1u << 13,
 
 	/**
 	 * When diff finds an untracked directory, to match the behavior of
@@ -118,7 +134,7 @@ enum git_diff_option_t
 	 *  turns off that scan and immediately labels an untracked directory
 	 *  as UNTRACKED (changing the behavior to not match core Git).
 	 */
-	GIT_DIFF_ENABLE_FAST_UNTRACKED_DIRS = (1u << 14),
+	GIT_DIFF_ENABLE_FAST_UNTRACKED_DIRS = 1u << 14,
 
 	/**
 	 * When diff finds a file in the working directory with stat
@@ -126,13 +142,17 @@ enum git_diff_option_t
 	 * same, write the correct stat information into the index.  Note:
 	 * without this flag, diff will always leave the index untouched.
 	 */
-	GIT_DIFF_UPDATE_INDEX = (1u << 15),
+	GIT_DIFF_UPDATE_INDEX = 1u << 15,
 
-	/** Include unreadable files in the diff */
-	GIT_DIFF_INCLUDE_UNREADABLE = (1u << 16),
+	/**
+	 * Include unreadable files in the diff
+	 */
+	GIT_DIFF_INCLUDE_UNREADABLE = 1u << 16,
 
-	/** Include unreadable files in the diff */
-	GIT_DIFF_INCLUDE_UNREADABLE_AS_UNTRACKED = (1u << 17),
+	/**
+	 * Include unreadable files in the diff
+	 */
+	GIT_DIFF_INCLUDE_UNREADABLE_AS_UNTRACKED = 1u << 17,
 
 	/*
 	 * Options controlling how output will be generated
@@ -143,19 +163,32 @@ enum git_diff_option_t
 	 * which generally can produce better diffs when dealing with ambiguous
 	 * diff hunks.
 	 */
-	GIT_DIFF_INDENT_HEURISTIC = (1u << 18),
+	GIT_DIFF_INDENT_HEURISTIC = 1u << 18,
 
-	/** Treat all files as text, disabling binary attributes & detection */
-	GIT_DIFF_FORCE_TEXT = (1u << 20),
-	/** Treat all files as binary, disabling text diffs */
-	GIT_DIFF_FORCE_BINARY = (1u << 21),
+	/**
+	 * Treat all files as text, disabling binary attributes & detection
+	 */
+	GIT_DIFF_FORCE_TEXT = 1u << 20,
 
-	/** Ignore all whitespace */
-	GIT_DIFF_IGNORE_WHITESPACE = (1u << 22),
-	/** Ignore changes in amount of whitespace */
-	GIT_DIFF_IGNORE_WHITESPACE_CHANGE = (1u << 23),
-	/** Ignore whitespace at end of line */
-	GIT_DIFF_IGNORE_WHITESPACE_EOL = (1u << 24),
+	/**
+	 * Treat all files as binary, disabling text diffs
+	 */
+	GIT_DIFF_FORCE_BINARY = 1u << 21,
+
+	/**
+	 * Ignore all whitespace
+	 */
+	GIT_DIFF_IGNORE_WHITESPACE = 1u << 22,
+
+	/**
+	 * Ignore changes in amount of whitespace
+	 */
+	GIT_DIFF_IGNORE_WHITESPACE_CHANGE = 1u << 23,
+
+	/**
+	 * Ignore whitespace at end of line
+	 */
+	GIT_DIFF_IGNORE_WHITESPACE_EOL = 1u << 24,
 
 	/**
 	 * When generating patch text, include the content of untracked
@@ -163,7 +196,7 @@ enum git_diff_option_t
 	 *  it does not turn on GIT_DIFF_RECURSE_UNTRACKED_DIRS.  Add that
 	 *  flag if you want the content of every single UNTRACKED file.
 	 */
-	GIT_DIFF_SHOW_UNTRACKED_CONTENT = (1u << 25),
+	GIT_DIFF_SHOW_UNTRACKED_CONTENT = 1u << 25,
 
 	/**
 	 * When generating output, include the names of unmodified files if
@@ -171,18 +204,23 @@ enum git_diff_option_t
 	 *  the formats that list files (e.g. name-only, name-status, raw).
 	 *  Even with this, these will not be included in patch format.
 	 */
-	GIT_DIFF_SHOW_UNMODIFIED = (1u << 26),
+	GIT_DIFF_SHOW_UNMODIFIED = 1u << 26,
 
-	/** Use the "patience diff" algorithm */
-	GIT_DIFF_PATIENCE = (1u << 28),
-	/** Take extra time to find minimal diff */
-	GIT_DIFF_MINIMAL = (1u << 29),
+	/**
+	 * Use the "patience diff" algorithm
+	 */
+	GIT_DIFF_PATIENCE = 1u << 28,
+
+	/**
+	 * Take extra time to find minimal diff
+	 */
+	GIT_DIFF_MINIMAL = 1u << 29,
 
 	/**
 	 * Include the necessary deflate / delta information so that `git-apply`
 	 *  can apply given diff information to binary files.
 	 */
-	GIT_DIFF_SHOW_BINARY = (1u << 30),
+	GIT_DIFF_SHOW_BINARY = 1u << 30,
 }
 
 /**
@@ -216,17 +254,25 @@ struct git_diff;
  */
 enum git_diff_flag_t
 {
-	/**< file(s) treated as binary data */
-	GIT_DIFF_FLAG_BINARY = (1u << 0),
+	/**
+	 * file(s) treated as binary data
+	 */
+	GIT_DIFF_FLAG_BINARY = 1u << 0,
 
-	/**< file(s) treated as text data */
-	GIT_DIFF_FLAG_NOT_BINARY = (1u << 1),
+	/**
+	 * file(s) treated as text data
+	 */
+	GIT_DIFF_FLAG_NOT_BINARY = 1u << 1,
 
-	/**< `id` value is known correct */
-	GIT_DIFF_FLAG_VALID_ID = (1u << 2),
+	/**
+	 * `id` value is known correct
+	 */
+	GIT_DIFF_FLAG_VALID_ID = 1u << 2,
 
-	/**< file exists at this side of the delta */
-	GIT_DIFF_FLAG_EXISTS = (1u << 3),
+	/**
+	 * file exists at this side of the delta
+	 */
+	GIT_DIFF_FLAG_EXISTS = 1u << 3,
 }
 
 /**
@@ -241,37 +287,59 @@ enum git_diff_flag_t
  */
 enum git_delta_t
 {
-	/**< no changes */
+	/**
+	 * no changes
+	 */
 	GIT_DELTA_UNMODIFIED = 0,
 
-	/**< entry does not exist in old version */
+	/**
+	 * entry does not exist in old version
+	 */
 	GIT_DELTA_ADDED = 1,
 
-	/**< entry does not exist in new version */
+	/**
+	 * entry does not exist in new version
+	 */
 	GIT_DELTA_DELETED = 2,
 
-	/**< entry content changed between old and new */
+	/**
+	 * entry content changed between old and new
+	 */
 	GIT_DELTA_MODIFIED = 3,
 
-	/**< entry was renamed between old and new */
+	/**
+	 * entry was renamed between old and new
+	 */
 	GIT_DELTA_RENAMED = 4,
 
-	/**< entry was copied from another old entry */
+	/**
+	 * entry was copied from another old entry
+	 */
 	GIT_DELTA_COPIED = 5,
 
-	/**< entry is ignored item in workdir */
+	/**
+	 * entry is ignored item in workdir
+	 */
 	GIT_DELTA_IGNORED = 6,
 
-	/**< entry is untracked item in workdir */
+	/**
+	 * entry is untracked item in workdir
+	 */
 	GIT_DELTA_UNTRACKED = 7,
 
-	/**< type of entry changed between old and new */
+	/**
+	 * type of entry changed between old and new
+	 */
 	GIT_DELTA_TYPECHANGE = 8,
 
-	/**< entry is unreadable */
+	/**
+	 * entry is unreadable
+	 */
 	GIT_DELTA_UNREADABLE = 9,
 
-	/**< entry in the index is conflicted */
+	/**
+	 * entry in the index is conflicted
+	 */
 	GIT_DELTA_CONFLICTED = 10,
 }
 
@@ -355,13 +423,19 @@ struct git_diff_delta
 {
 	.git_delta_t status;
 
-	/**< git_diff_flag_t values */
+	/**
+	 * git_diff_flag_t values
+	 */
 	uint flags;
 
-	/**< for RENAMED and COPIED, value 0-100 */
+	/**
+	 * for RENAMED and COPIED, value 0-100
+	 */
 	ushort similarity;
 
-	/**< number of files in this delta */
+	/**
+	 * number of files in this delta
+	 */
 	ushort nfiles;
 
 	.git_diff_file old_file;
@@ -404,7 +478,9 @@ alias git_diff_progress_cb = int function(const (.git_diff)* diff_so_far, const 
  */
 struct git_diff_options
 {
-	/**< version for the struct */
+	/**
+	 * version for the struct
+	 */
 	uint version_;
 
 	/**
@@ -483,7 +559,9 @@ struct git_diff_options
 	const (char)* new_prefix;
 }
 
-/* The current version of the diff options structure */
+/**
+ * The current version of the diff options structure
+ */
 enum GIT_DIFF_OPTIONS_VERSION = 1;
 
 /*
@@ -563,30 +641,46 @@ enum git_diff_binary_t
 	 */
 	GIT_DIFF_BINARY_NONE,
 
-	/** The binary data is the literal contents of the file. */
+	/**
+	 * The binary data is the literal contents of the file.
+	 */
 	GIT_DIFF_BINARY_LITERAL,
 
-	/** The binary data is the delta from one side to the other. */
+	/**
+	 * The binary data is the delta from one side to the other.
+	 */
 	GIT_DIFF_BINARY_DELTA,
 }
 
-/** The contents of one of the files in a binary diff. */
+/**
+ * The contents of one of the files in a binary diff.
+ */
 struct git_diff_binary_file
 {
-	/** The type of binary data for this file. */
+	/**
+	 * The type of binary data for this file.
+	 */
 	.git_diff_binary_t type;
 
-	/** The binary data, deflated. */
+	/**
+	 * The binary data, deflated.
+	 */
 	const (char)* data;
 
-	/** The length of the binary data. */
+	/**
+	 * The length of the binary data.
+	 */
 	size_t datalen;
 
-	/** The length of the binary data after inflation. */
+	/**
+	 * The length of the binary data after inflation.
+	 */
 	size_t inflatedlen;
 }
 
-/** Structure describing the binary contents of a diff. */
+/**
+ * Structure describing the binary contents of a diff.
+ */
 struct git_diff_binary
 {
 	/**
@@ -598,10 +692,14 @@ struct git_diff_binary
 	 */
 	uint contains_data;
 
-	/**< The contents of the old file. */
+	/**
+	 * The contents of the old file.
+	 */
 	.git_diff_binary_file old_file;
 
-	/**< The contents of the new file. */
+	/**
+	 * The contents of the new file.
+	 */
 	.git_diff_binary_file new_file;
 }
 
@@ -622,22 +720,34 @@ alias git_diff_binary_cb = int function(const (.git_diff_delta)* delta, const (.
  */
 struct git_diff_hunk
 {
-	/**< Starting line number in old_file */
+	/**
+	 * Starting line number in old_file
+	 */
 	int old_start;
 
-	/**< Number of lines in old_file */
+	/**
+	 * Number of lines in old_file
+	 */
 	int old_lines;
 
-	/**< Starting line number in new_file */
+	/**
+	 * Starting line number in new_file
+	 */
 	int new_start;
 
-	/**< Number of lines in new_file */
+	/**
+	 * Number of lines in new_file
+	 */
 	int new_lines;
 
-	/**< Number of bytes in header text */
+	/**
+	 * Number of bytes in header text
+	 */
 	size_t header_len;
 
-	/**< Header text, NUL-byte terminated */
+	/**
+	 * Header text, NUL-byte terminated
+	 */
 	char[.GIT_DIFF_HUNK_HEADER_SIZE] header = '\0'; 
 }
 
@@ -662,13 +772,19 @@ enum git_diff_line_t
 	GIT_DIFF_LINE_ADDITION = '+',
 	GIT_DIFF_LINE_DELETION = '-',
 
-	/**< Both files have no LF at end */
+	/**
+	 * Both files have no LF at end
+	 */
 	GIT_DIFF_LINE_CONTEXT_EOFNL = '=',
 
-	/**< Old has no LF at end, new does */
+	/**
+	 * Old has no LF at end, new does
+	 */
 	GIT_DIFF_LINE_ADD_EOFNL = '>',
 
-	/**< Old has LF at end, new does not */
+	/**
+	 * Old has LF at end, new does not
+	 */
 	GIT_DIFF_LINE_DEL_EOFNL = '<',
 
 	/*
@@ -678,7 +794,9 @@ enum git_diff_line_t
 	GIT_DIFF_LINE_FILE_HDR = 'F',
 	GIT_DIFF_LINE_HUNK_HDR = 'H',
 
-	/**< For "Binary files x and y differ" */
+	/**
+	 * For "Binary files x and y differ"
+	 */
 	GIT_DIFF_LINE_BINARY = 'B',
 }
 
@@ -695,25 +813,39 @@ enum git_diff_line_t
  */
 struct git_diff_line
 {
-	/**< A git_diff_line_t value */
+	/**
+	 * A git_diff_line_t value
+	 */
 	char origin = '\0';
 
-	/**< Line number in old file or -1 for added line */
+	/**
+	 * Line number in old file or -1 for added line
+	 */
 	int old_lineno;
 
-	/**< Line number in new file or -1 for deleted line */
+	/**
+	 * Line number in new file or -1 for deleted line
+	 */
 	int new_lineno;
 
-	/**< Number of newline characters in content */
+	/**
+	 * Number of newline characters in content
+	 */
 	int num_lines;
 
-	/**< Number of bytes of data */
+	/**
+	 * Number of bytes of data
+	 */
 	size_t content_len;
 
-	/**< Offset in the original file to the content */
+	/**
+	 * Offset in the original file to the content
+	 */
 	libgit2_d.types.git_off_t content_offset;
 
-	/**< Pointer to diff text, not NUL-byte terminated */
+	/**
+	 * Pointer to diff text, not NUL-byte terminated
+	 */
 	const (char)* content;
 }
 
@@ -736,17 +868,25 @@ alias git_diff_line_cb = int function(
  */
 enum git_diff_find_t
 {
-	/** Obey `diff.renames`. Overridden by any other GIT_DIFF_FIND_... flag. */
+	/**
+	 * Obey `diff.renames`. Overridden by any other GIT_DIFF_FIND_... flag.
+	 */
 	GIT_DIFF_FIND_BY_CONFIG = 0,
 
-	/** Look for renames? (`--find-renames`) */
-	GIT_DIFF_FIND_RENAMES = (1u << 0),
+	/**
+	 * Look for renames? (`--find-renames`)
+	 */
+	GIT_DIFF_FIND_RENAMES = 1u << 0,
 
-	/** Consider old side of MODIFIED for renames? (`--break-rewrites=N`) */
-	GIT_DIFF_FIND_RENAMES_FROM_REWRITES = (1u << 1),
+	/**
+	 * Consider old side of MODIFIED for renames? (`--break-rewrites=N`)
+	 */
+	GIT_DIFF_FIND_RENAMES_FROM_REWRITES = 1u << 1,
 
-	/** Look for copies? (a la `--find-copies`). */
-	GIT_DIFF_FIND_COPIES = (1u << 2),
+	/**
+	 * Look for copies? (a la `--find-copies`).
+	 */
+	GIT_DIFF_FIND_COPIES = 1u << 2,
 
 	/**
 	 * Consider UNMODIFIED as copy sources? (`--find-copies-harder`).
@@ -754,15 +894,22 @@ enum git_diff_find_t
 	 * For this to work correctly, use git_diff_option_t.GIT_DIFF_INCLUDE_UNMODIFIED when
 	 * the initial `git_diff` is being generated.
 	 */
-	GIT_DIFF_FIND_COPIES_FROM_UNMODIFIED = (1u << 3),
+	GIT_DIFF_FIND_COPIES_FROM_UNMODIFIED = 1u << 3,
 
-	/** Mark significant rewrites for split (`--break-rewrites=/M`) */
-	GIT_DIFF_FIND_REWRITES = (1u << 4),
-	/** Actually split large rewrites into delete/add pairs */
-	GIT_DIFF_BREAK_REWRITES = (1u << 5),
-	/** Mark rewrites for split and break into delete/add pairs */
-	GIT_DIFF_FIND_AND_BREAK_REWRITES =
-	    (GIT_DIFF_FIND_REWRITES | GIT_DIFF_BREAK_REWRITES),
+	/**
+	 * Mark significant rewrites for split (`--break-rewrites=/M`)
+	 */
+	GIT_DIFF_FIND_REWRITES = 1u << 4,
+
+	/**
+	 * Actually split large rewrites into delete/add pairs
+	 */
+	GIT_DIFF_BREAK_REWRITES = 1u << 5,
+
+	/**
+	 * Mark rewrites for split and break into delete/add pairs
+	 */
+	GIT_DIFF_FIND_AND_BREAK_REWRITES = GIT_DIFF_FIND_REWRITES | GIT_DIFF_BREAK_REWRITES,
 
 	/**
 	 * Find renames/copies for UNTRACKED items in working directory.
@@ -771,19 +918,32 @@ enum git_diff_find_t
 	 * initial `git_diff` is being generated (and obviously the diff must
 	 * be against the working directory for this to make sense).
 	 */
-	GIT_DIFF_FIND_FOR_UNTRACKED = (1u << 6),
+	GIT_DIFF_FIND_FOR_UNTRACKED = 1u << 6,
 
-	/** Turn on all finding features. */
-	GIT_DIFF_FIND_ALL = (0x00FF),
+	/**
+	 * Turn on all finding features.
+	 */
+	GIT_DIFF_FIND_ALL = 0x00FF,
 
-	/** Measure similarity ignoring leading whitespace (default) */
+	/**
+	 * Measure similarity ignoring leading whitespace (default)
+	 */
 	GIT_DIFF_FIND_IGNORE_LEADING_WHITESPACE = 0,
-	/** Measure similarity ignoring all whitespace */
-	GIT_DIFF_FIND_IGNORE_WHITESPACE = (1u << 12),
-	/** Measure similarity including all data */
-	GIT_DIFF_FIND_DONT_IGNORE_WHITESPACE = (1u << 13),
-	/** Measure similarity only by comparing SHAs (fast and cheap) */
-	GIT_DIFF_FIND_EXACT_MATCH_ONLY = (1u << 14),
+
+	/**
+	 * Measure similarity ignoring all whitespace
+	 */
+	GIT_DIFF_FIND_IGNORE_WHITESPACE = 1u << 12,
+
+	/**
+	 * Measure similarity including all data
+	 */
+	GIT_DIFF_FIND_DONT_IGNORE_WHITESPACE = 1u << 13,
+
+	/**
+	 * Measure similarity only by comparing SHAs (fast and cheap)
+	 */
+	GIT_DIFF_FIND_EXACT_MATCH_ONLY = 1u << 14,
 
 	/**
 	 * Do not break rewrites unless they contribute to a rename.
@@ -797,7 +957,7 @@ enum git_diff_find_t
 	 * actual rename or copy, then the modified record will be restored to
 	 * a regular MODIFIED record instead of being split.
 	 */
-	GIT_DIFF_BREAK_REWRITES_FOR_RENAMES_ONLY = (1u << 15),
+	GIT_DIFF_BREAK_REWRITES_FOR_RENAMES_ONLY = 1u << 15,
 
 	/**
 	 * Remove any UNMODIFIED deltas after find_similar is done.
@@ -807,7 +967,7 @@ enum git_diff_find_t
 	 * GIT_DIFF_INCLUDE_UNMODIFIED flag.  If you do not want UNMODIFIED
 	 * records in the final result, pass this flag to have them removed.
 	 */
-	GIT_DIFF_FIND_REMOVE_UNMODIFIED = (1u << 16),
+	GIT_DIFF_FIND_REMOVE_UNMODIFIED = 1u << 16,
 }
 
 /**
@@ -1191,22 +1351,34 @@ char git_diff_status_char(.git_delta_t status);
  */
 enum git_diff_format_t
 {
-	/**< full git diff */
+	/**
+	 * full git diff
+	 */
 	GIT_DIFF_FORMAT_PATCH = 1u,
 
-	/**< just the file headers of patch */
+	/**
+	 * just the file headers of patch
+	 */
 	GIT_DIFF_FORMAT_PATCH_HEADER = 2u,
 
-	/**< like git diff --raw */
+	/**
+	 * like git diff --raw
+	 */
 	GIT_DIFF_FORMAT_RAW = 3u,
 
-	/**< like git diff --name-only */
+	/**
+	 * like git diff --name-only
+	 */
 	GIT_DIFF_FORMAT_NAME_ONLY = 4u,
 
-	/**< like git diff --name-status */
+	/**
+	 * like git diff --name-status
+	 */
 	GIT_DIFF_FORMAT_NAME_STATUS = 5u,
 
-	/**< git diff as used by git patch-id */
+	/**
+	 * git diff as used by git patch-id
+	 */
 	GIT_DIFF_FORMAT_PATCH_ID = 6u,
 }
 
@@ -1361,23 +1533,31 @@ struct git_diff_stats;
  */
 enum git_diff_stats_format_t
 {
-	/** No stats*/
+	/**
+	 * No stats
+	 */
 	GIT_DIFF_STATS_NONE = 0,
 
-	/** Full statistics, equivalent of `--stat` */
-	GIT_DIFF_STATS_FULL = (1u << 0),
+	/**
+	 * Full statistics, equivalent of `--stat`
+	 */
+	GIT_DIFF_STATS_FULL = 1u << 0,
 
-	/** Short statistics, equivalent of `--shortstat` */
-	GIT_DIFF_STATS_SHORT = (1u << 1),
+	/**
+	 * Short statistics, equivalent of `--shortstat`
+	 */
+	GIT_DIFF_STATS_SHORT = 1u << 1,
 
-	/** Number statistics, equivalent of `--numstat` */
-	GIT_DIFF_STATS_NUMBER = (1u << 2),
+	/**
+	 * Number statistics, equivalent of `--numstat`
+	 */
+	GIT_DIFF_STATS_NUMBER = 1u << 2,
 
 	/**
 	 * Extended header information such as creations, renames and mode changes,
 	 * equivalent of `--summary`
 	 */
-	GIT_DIFF_STATS_INCLUDE_SUMMARY = (1u << 3),
+	GIT_DIFF_STATS_INCLUDE_SUMMARY = 1u << 3,
 }
 
 /**
@@ -1443,11 +1623,15 @@ void git_diff_stats_free(.git_diff_stats* stats);
  */
 enum git_diff_format_email_flags_t
 {
-	/** Normal patch, the default */
+	/**
+	 * Normal patch, the default
+	 */
 	GIT_DIFF_FORMAT_EMAIL_NONE = 0,
 
-	/** Don't insert "[PATCH]" in the subject header*/
-	GIT_DIFF_FORMAT_EMAIL_EXCLUDE_SUBJECT_PATCH_MARKER = (1 << 0),
+	/**
+	 * Don't insert "[PATCH]" in the subject header
+	 */
+	GIT_DIFF_FORMAT_EMAIL_EXCLUDE_SUBJECT_PATCH_MARKER = 1 << 0,
 }
 
 /**
@@ -1462,22 +1646,34 @@ struct git_diff_format_email_options
 	 */
 	uint flags;
 
-	/** This patch number */
+	/**
+	 * This patch number
+	 */
 	size_t patch_no;
 
-	/** Total number of patches in this series */
+	/**
+	 * Total number of patches in this series
+	 */
 	size_t total_patches;
 
-	/** id to use for the commit */
+	/**
+	 * id to use for the commit
+	 */
 	const (libgit2_d.oid.git_oid)* id;
 
-	/** Summary of the change */
+	/**
+	 * Summary of the change
+	 */
 	const (char)* summary;
 
-	/** Commit message's body */
+	/**
+	 * Commit message's body
+	 */
 	const (char)* body_;
 
-	/** Author of the change */
+	/**
+	 * Author of the change
+	 */
 	const (libgit2_d.types.git_signature)* author;
 }
 

@@ -45,18 +45,24 @@ struct git_describe_options
 {
 	uint version_;
 
-	/**< default: 10 */
+	/**
+	 * default: 10
+	 */
 	uint max_candidates_tags;
 
-	/**< default: git_describe_strategy_t.GIT_DESCRIBE_DEFAULT */
+	/**
+	 * default: git_describe_strategy_t.GIT_DESCRIBE_DEFAULT
+	 */
 	uint describe_strategy;
 
 	const (char)* pattern;
+
 	/**
 	 * When calculating the distance from the matching tag or
 	 * reference, only walk down the first-parent ancestry.
 	 */
 	int only_follow_first_parent;
+
 	/**
 	 * If no matching tag or reference is found, the describe
 	 * operation would normally fail. If this option is set, it

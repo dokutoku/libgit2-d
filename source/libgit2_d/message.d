@@ -60,7 +60,7 @@ struct git_message_trailer_array
 	.git_message_trailer* trailers;
 	size_t count;
 
-	/* private */
+package:
 	char* _trailer_block;
 }
 

@@ -387,7 +387,9 @@ alias git_smart_subtransport_cb = int function(.git_smart_subtransport** out_, .
  */
 struct git_smart_subtransport_definition
 {
-	/** The function to use to create the git_smart_subtransport */
+	/**
+	 * The function to use to create the git_smart_subtransport
+	 */
 	.git_smart_subtransport_cb callback;
 
 	/**

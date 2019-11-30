@@ -56,8 +56,12 @@ struct git_config_iterator
 struct git_config_backend
 {
 	uint version_;
-	/** True if this backend is for a snapshot */
+
+	/**
+	 * True if this backend is for a snapshot
+	 */
 	int readonly;
+
 	libgit2_d.types.git_config* cfg;
 
 	/* Open means open the file/database and parse if necessary */
@@ -68,8 +72,12 @@ struct git_config_backend
 	int function(.git_config_backend*, const (char)* key) del;
 	int function(.git_config_backend*, const (char)* key, const (char)* regexp) del_multivar;
 	int function(.git_config_iterator**,  .git_config_backend*) iterator;
-	/** Produce a read-only version of this backend */
+
+	/**
+	 * Produce a read-only version of this backend
+	 */
 	int function(.git_config_backend**,  .git_config_backend*) snapshot;
+
 	/**
 	 * Lock this backend.
 	 *
@@ -78,12 +86,14 @@ struct git_config_backend
 	 * readers.
 	 */
 	int function(.git_config_backend*) lock;
+
 	/**
 	 * Unlock the data store backing this backend. If success is
 	 * true, the changes should be committed, otherwise rolled
 	 * back.
 	 */
 	int function(.git_config_backend*, int success) unlock;
+
 	void function(.git_config_backend*) free;
 }
 

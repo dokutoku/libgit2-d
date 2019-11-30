@@ -82,10 +82,14 @@ struct git_remote_create_options
 	 */
 	const (char)* name;
 
-	/** The fetchspec the remote should use. */
+	/**
+	 * The fetchspec the remote should use.
+	 */
 	const (char)* fetchspec;
 
-	/** Additional flags for the remote. See git_remote_create_flags. */
+	/**
+	 * Additional flags for the remote. See git_remote_create_flags.
+	 */
 	uint flags;
 }
 
@@ -454,7 +458,9 @@ enum git_remote_completion_t
 	GIT_REMOTE_COMPLETION_ERROR,
 }
 
-/** Push network progress notification function */
+/**
+ * Push network progress notification function
+ */
 alias git_push_transfer_progress_cb = int function(uint current, uint total, size_t bytes, void* payload);
 
 /**
@@ -466,14 +472,17 @@ struct git_push_update
 	 * The source name of the reference
 	 */
 	char* src_refname;
+
 	/**
 	 * The name of the reference to update on the server
 	 */
 	char* dst_refname;
+
 	/**
 	 * The current target of the reference
 	 */
 	libgit2_d.oid.git_oid src;
+
 	/**
 	 * The new target for the reference
 	 */
@@ -526,7 +535,9 @@ alias git_url_resolve_cb = int function(libgit2_d.buffer.git_buf* url_resolved, 
  */
 struct git_remote_callbacks
 {
-	/**< The version */
+	/**
+	 * The version
+	 */
 	uint version_;
 
 	/**
@@ -653,10 +664,12 @@ enum git_fetch_prune_t
 	 * Use the setting from the configuration
 	 */
 	GIT_FETCH_PRUNE_UNSPECIFIED,
+
 	/**
 	 * Force pruning on
 	 */
 	GIT_FETCH_PRUNE,
+
 	/**
 	 * Force pruning off
 	 */
@@ -674,15 +687,18 @@ enum git_remote_autotag_option_t
 	 * Use the setting from the configuration.
 	 */
 	GIT_REMOTE_DOWNLOAD_TAGS_UNSPECIFIED = 0,
+
 	/**
 	 * Ask the server for tags pointing to objects we're already
 	 * downloading.
 	 */
 	GIT_REMOTE_DOWNLOAD_TAGS_AUTO,
+
 	/**
 	 * Don't ask for any tags beyond the refspecs.
 	 */
 	GIT_REMOTE_DOWNLOAD_TAGS_NONE,
+
 	/**
 	 * Ask for the all the tags.
 	 */
@@ -748,11 +764,11 @@ pure nothrow @safe @nogc
 		.git_fetch_options OUTPUT =
 		{
 			version_: .GIT_FETCH_OPTIONS_VERSION,
-			callbacks: .GIT_REMOTE_CALLBACKS_INIT,
+			callbacks: .GIT_REMOTE_CALLBACKS_INIT(),
 			prune: .git_fetch_prune_t.GIT_FETCH_PRUNE_UNSPECIFIED,
 			update_fetchhead: 1,
 			download_tags: .git_remote_autotag_option_t.GIT_REMOTE_DOWNLOAD_TAGS_UNSPECIFIED,
-			proxy_opts: libgit2_d.proxy.GIT_PROXY_OPTIONS_INIT,
+			proxy_opts: libgit2_d.proxy.GIT_PROXY_OPTIONS_INIT(),
 		};
 
 		return OUTPUT;
@@ -816,8 +832,8 @@ pure nothrow @safe @nogc
 		{
 			version_: .GIT_PUSH_OPTIONS_VERSION,
 			pb_parallelism: 1,
-			callbacks: .GIT_REMOTE_CALLBACKS_INIT,
-			proxy_opts: libgit2_d.proxy.GIT_PROXY_OPTIONS_INIT,
+			callbacks: .GIT_REMOTE_CALLBACKS_INIT(),
+			proxy_opts: libgit2_d.proxy.GIT_PROXY_OPTIONS_INIT(),
 		};
 
 		return OUTPUT;
@@ -958,6 +974,7 @@ const (libgit2_d.indexer.git_indexer_progress)* git_remote_stats(libgit2_d.types
  */
 //GIT_EXTERN
 int git_remote_set_autotag(libgit2_d.types.git_repository* repo, const (char)* remote, .git_remote_autotag_option_t value);
+
 /**
  * Retrieve the ref-prune setting
  *

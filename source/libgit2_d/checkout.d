@@ -107,7 +107,9 @@ public:
  */
 enum git_checkout_strategy_t
 {
-	/**< default is a dry run, no actual updates */
+	/**
+	 * default is a dry run, no actual updates
+	 */
 	GIT_CHECKOUT_NONE = 0,
 
 	/**
@@ -118,7 +120,7 @@ enum git_checkout_strategy_t
 	 * Mutually exclusive with GIT_CHECKOUT_FORCE.
 	 * GIT_CHECKOUT_FORCE takes precedence over GIT_CHECKOUT_SAFE.
 	 */
-	GIT_CHECKOUT_SAFE = (1u << 0),
+	GIT_CHECKOUT_SAFE = 1u << 0,
 
 	/**
 	 * Allow all updates to force working directory to look like index.
@@ -126,71 +128,108 @@ enum git_checkout_strategy_t
 	 * Mutually exclusive with GIT_CHECKOUT_SAFE.
 	 * GIT_CHECKOUT_FORCE takes precedence over GIT_CHECKOUT_SAFE.
 	 */
-	GIT_CHECKOUT_FORCE = (1u << 1),
+	GIT_CHECKOUT_FORCE = 1u << 1,
 
-	/** Allow checkout to recreate missing files */
-	GIT_CHECKOUT_RECREATE_MISSING = (1u << 2),
+	/**
+	 * Allow checkout to recreate missing files
+	 */
+	GIT_CHECKOUT_RECREATE_MISSING = 1u << 2,
 
-	/** Allow checkout to make safe updates even if conflicts are found */
-	GIT_CHECKOUT_ALLOW_CONFLICTS = (1u << 4),
+	/**
+	 * Allow checkout to make safe updates even if conflicts are found
+	 */
+	GIT_CHECKOUT_ALLOW_CONFLICTS = 1u << 4,
 
-	/** Remove untracked files not in index (that are not ignored) */
-	GIT_CHECKOUT_REMOVE_UNTRACKED = (1u << 5),
+	/**
+	 * Remove untracked files not in index (that are not ignored)
+	 */
+	GIT_CHECKOUT_REMOVE_UNTRACKED = 1u << 5,
 
-	/** Remove ignored files not in index */
-	GIT_CHECKOUT_REMOVE_IGNORED = (1u << 6),
+	/**
+	 * Remove ignored files not in index
+	 */
+	GIT_CHECKOUT_REMOVE_IGNORED = 1u << 6,
 
-	/** Only update existing files, don't create new ones */
-	GIT_CHECKOUT_UPDATE_ONLY = (1u << 7),
+	/**
+	 * Only update existing files, don't create new ones
+	 */
+	GIT_CHECKOUT_UPDATE_ONLY = 1u << 7,
 
 	/**
 	 * Normally checkout updates index entries as it goes; this stops that.
 	 * Implies `GIT_CHECKOUT_DONT_WRITE_INDEX`.
 	 */
-	GIT_CHECKOUT_DONT_UPDATE_INDEX = (1u << 8),
+	GIT_CHECKOUT_DONT_UPDATE_INDEX = 1u << 8,
 
-	/** Don't refresh index/config/etc before doing checkout */
-	GIT_CHECKOUT_NO_REFRESH = (1u << 9),
+	/**
+	 * Don't refresh index/config/etc before doing checkout
+	 */
+	GIT_CHECKOUT_NO_REFRESH = 1u << 9,
 
-	/** Allow checkout to skip unmerged files */
-	GIT_CHECKOUT_SKIP_UNMERGED = (1u << 10),
-	/** For unmerged files, checkout stage 2 from index */
-	GIT_CHECKOUT_USE_OURS = (1u << 11),
-	/** For unmerged files, checkout stage 3 from index */
-	GIT_CHECKOUT_USE_THEIRS = (1u << 12),
+	/**
+	 * Allow checkout to skip unmerged files
+	 */
+	GIT_CHECKOUT_SKIP_UNMERGED = 1u << 10,
 
-	/** Treat pathspec as simple list of exact match file paths */
-	GIT_CHECKOUT_DISABLE_PATHSPEC_MATCH = (1u << 13),
+	/**
+	 * For unmerged files, checkout stage 2 from index
+	 */
+	GIT_CHECKOUT_USE_OURS = 1u << 11,
 
-	/** Ignore directories in use, they will be left empty */
-	GIT_CHECKOUT_SKIP_LOCKED_DIRECTORIES = (1u << 18),
+	/**
+	 * For unmerged files, checkout stage 3 from index
+	 */
+	GIT_CHECKOUT_USE_THEIRS = 1u << 12,
 
-	/** Don't overwrite ignored files that exist in the checkout target */
-	GIT_CHECKOUT_DONT_OVERWRITE_IGNORED = (1u << 19),
+	/**
+	 * Treat pathspec as simple list of exact match file paths
+	 */
+	GIT_CHECKOUT_DISABLE_PATHSPEC_MATCH = 1u << 13,
 
-	/** Write normal merge files for conflicts */
-	GIT_CHECKOUT_CONFLICT_STYLE_MERGE = (1u << 20),
+	/**
+	 * Ignore directories in use, they will be left empty
+	 */
+	GIT_CHECKOUT_SKIP_LOCKED_DIRECTORIES = 1u << 18,
 
-	/** Include common ancestor data in diff3 format files for conflicts */
-	GIT_CHECKOUT_CONFLICT_STYLE_DIFF3 = (1u << 21),
+	/**
+	 * Don't overwrite ignored files that exist in the checkout target
+	 */
+	GIT_CHECKOUT_DONT_OVERWRITE_IGNORED = 1u << 19,
 
-	/** Don't overwrite existing files or folders */
-	GIT_CHECKOUT_DONT_REMOVE_EXISTING = (1u << 22),
+	/**
+	 * Write normal merge files for conflicts
+	 */
+	GIT_CHECKOUT_CONFLICT_STYLE_MERGE = 1u << 20,
 
-	/** Normally checkout writes the index upon completion; this prevents that. */
-	GIT_CHECKOUT_DONT_WRITE_INDEX = (1u << 23),
+	/**
+	 * Include common ancestor data in diff3 format files for conflicts
+	 */
+	GIT_CHECKOUT_CONFLICT_STYLE_DIFF3 = 1u << 21,
+
+	/**
+	 * Don't overwrite existing files or folders
+	 */
+	GIT_CHECKOUT_DONT_REMOVE_EXISTING = 1u << 22,
+
+	/**
+	 * Normally checkout writes the index upon completion; this prevents that.
+	 */
+	GIT_CHECKOUT_DONT_WRITE_INDEX = 1u << 23,
 
 	/**
 	 * THE FOLLOWING OPTIONS ARE NOT YET IMPLEMENTED
 	 */
 
-	/** Recursively checkout submodules with same options (NOT IMPLEMENTED) */
-	GIT_CHECKOUT_UPDATE_SUBMODULES = (1u << 16),
+	/**
+	 * Recursively checkout submodules with same options (NOT IMPLEMENTED)
+	 */
+	GIT_CHECKOUT_UPDATE_SUBMODULES = 1u << 16,
+
 	/**
 	 * Recursively checkout submodules if HEAD moved in super repo (NOT
 	 * IMPLEMENTED)
 	 */
-	GIT_CHECKOUT_UPDATE_SUBMODULES_IF_CHANGED = (1u << 17),
+	GIT_CHECKOUT_UPDATE_SUBMODULES_IF_CHANGED = 1u << 17,
 }
 
 /**
@@ -222,11 +261,11 @@ enum git_checkout_strategy_t
 enum git_checkout_notify_t
 {
 	GIT_CHECKOUT_NOTIFY_NONE = 0,
-	GIT_CHECKOUT_NOTIFY_CONFLICT = (1u << 0),
-	GIT_CHECKOUT_NOTIFY_DIRTY = (1u << 1),
-	GIT_CHECKOUT_NOTIFY_UPDATED = (1u << 2),
-	GIT_CHECKOUT_NOTIFY_UNTRACKED = (1u << 3),
-	GIT_CHECKOUT_NOTIFY_IGNORED = (1u << 4),
+	GIT_CHECKOUT_NOTIFY_CONFLICT = 1u << 0,
+	GIT_CHECKOUT_NOTIFY_DIRTY = 1u << 1,
+	GIT_CHECKOUT_NOTIFY_UPDATED = 1u << 2,
+	GIT_CHECKOUT_NOTIFY_UNTRACKED = 1u << 3,
+	GIT_CHECKOUT_NOTIFY_IGNORED = 1u << 4,
 
 	GIT_CHECKOUT_NOTIFY_ALL = 0x0FFFFu,
 }
@@ -241,13 +280,19 @@ struct git_checkout_perfdata
 	size_t chmod_calls;
 }
 
-/** Checkout notification callback function */
+/**
+ * Checkout notification callback function
+ */
 alias git_checkout_notify_cb = int function(.git_checkout_notify_t why, const (char)* path, const (libgit2_d.diff.git_diff_file)* baseline, const (libgit2_d.diff.git_diff_file)* target, const (libgit2_d.diff.git_diff_file)* workdir, void* payload);
 
-/** Checkout progress notification function */
+/**
+ * Checkout progress notification function
+ */
 alias git_checkout_progress_cb = void function(const (char)* path, size_t completed_steps, size_t total_steps, void* payload);
 
-/** Checkout perfdata notification function */
+/**
+ * Checkout perfdata notification function
+ */
 alias git_checkout_perfdata_cb = void function(const (.git_checkout_perfdata)* perfdata, void* payload);
 
 /**
@@ -258,25 +303,39 @@ alias git_checkout_perfdata_cb = void function(const (.git_checkout_perfdata)* p
  */
 struct git_checkout_options
 {
-	/**< The version */
+	/**
+	 * The version
+	 */
 	uint version_;
 
-	/**< default will be a safe checkout */
+	/**
+	 * default will be a safe checkout
+	 */
 	uint checkout_strategy;
 
-	/**< don't apply filters like CRLF conversion */
+	/**
+	 * don't apply filters like CRLF conversion
+	 */
 	int disable_filters;
 
-	/**< default is 0755 */
+	/**
+	 * default is 0755
+	 */
 	uint dir_mode;
 
-	/**< default is 0644 or 0755 as dictated by blob */
+	/**
+	 * default is 0644 or 0755 as dictated by blob
+	 */
 	uint file_mode;
 
-	/**< default is O_CREAT | O_TRUNC | O_WRONLY */
+	/**
+	 * default is O_CREAT | O_TRUNC | O_WRONLY
+	 */
 	int file_open_flags;
 
-	/**< see `git_checkout_notify_t` above */
+	/**
+	 * see `git_checkout_notify_t` above
+	 */
 	uint notify_flags;
 
 	/**
@@ -290,7 +349,9 @@ struct git_checkout_options
 	 */
 	void* notify_payload;
 
-	/** Optional callback to notify the consumer of checkout progress. */
+	/**
+	 * Optional callback to notify the consumer of checkout progress.
+	 */
 	.git_checkout_progress_cb progress_cb;
 
 	/**
@@ -323,19 +384,29 @@ struct git_checkout_options
 	 */
 	libgit2_d.types.git_index* baseline_index; 
 
-	/**< alternative checkout path to workdir */
+	/**
+	 * alternative checkout path to workdir
+	 */
 	const (char)* target_directory;
 
-	/**< the name of the common ancestor side of conflicts */
+	/**
+	 * the name of the common ancestor side of conflicts
+	 */
 	const (char)* ancestor_label;
 
-	/**< the name of the "our" side of conflicts */
+	/**
+	 * the name of the "our" side of conflicts
+	 */
 	const (char)* our_label;
 
-	/**< the name of the "their" side of conflicts */
+	/**
+	 * the name of the "their" side of conflicts
+	 */
 	const (char)* their_label;
 
-	/** Optional callback to notify the consumer of performance data. */
+	/**
+	 * Optional callback to notify the consumer of performance data.
+	 */
 	.git_checkout_perfdata_cb perfdata_cb;
 
 	/**

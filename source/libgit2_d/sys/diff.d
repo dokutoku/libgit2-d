@@ -62,10 +62,14 @@ struct git_diff_perfdata
 {
 	uint version_;
 
-	/**< Number of stat() calls performed */
+	/**
+	 * Number of stat() calls performed
+	 */
 	size_t stat_calls;
 
-	/**< Number of ID calculations */
+	/**
+	 * Number of ID calculations
+	 */
 	size_t oid_calculations;
 }
 

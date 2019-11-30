@@ -221,7 +221,9 @@ alias git_filter_cleanup_fn = void function(.git_filter* self, void* payload);
  */
 struct git_filter
 {
-	/** The `version` field should be set to `GIT_FILTER_VERSION`. */
+	/**
+	 * The `version` field should be set to `GIT_FILTER_VERSION`.
+	 */
 	uint version_;
 
 	/**
@@ -236,10 +238,14 @@ struct git_filter
 	 */
 	const (char)* attributes;
 
-	/** Called when the filter is first used for any file. */
+	/**
+	 * Called when the filter is first used for any file.
+	 */
 	.git_filter_init_fn initialize;
 
-	/** Called when the filter is removed or unregistered from the system. */
+	/**
+	 * Called when the filter is removed or unregistered from the system.
+	 */
 	.git_filter_shutdown_fn shutdown;
 
 	/**
@@ -263,7 +269,9 @@ struct git_filter
 	 */
 	.git_filter_stream_fn stream;
 
-	/** Called when the system is done filtering for a file. */
+	/**
+	 * Called when the system is done filtering for a file.
+	 */
 	.git_filter_cleanup_fn cleanup;
 }
 

@@ -18,10 +18,14 @@ extern (C):
 nothrow @nogc:
 public:
 
-/** Size (in bytes) of a raw/binary oid */
+/**
+ * Size (in bytes) of a raw/binary oid
+ */
 enum GIT_OID_RAWSZ = 20;
 
-/** Size (in bytes) of a hex formatted oid */
+/**
+ * Size (in bytes) of a hex formatted oid
+ */
 enum GIT_OID_HEXSZ = .GIT_OID_RAWSZ * 2;
 
 /**
@@ -30,10 +34,14 @@ enum GIT_OID_HEXSZ = .GIT_OID_RAWSZ * 2;
  */
 enum GIT_OID_MINPREFIXLEN = 4;
 
-/** Unique identity of any object (commit, tree, blob, tag). */
+/**
+ * Unique identity of any object (commit, tree, blob, tag).
+ */
 struct git_oid
 {
-	/** raw binary formatted id */
+	/**
+	 * raw binary formatted id
+	 */
 	ubyte[.GIT_OID_RAWSZ] id;
 }
 

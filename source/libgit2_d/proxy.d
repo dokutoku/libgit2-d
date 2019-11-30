@@ -26,10 +26,12 @@ enum git_proxy_t
 	 * to a proxy if the environment variables specify it.
 	 */
 	GIT_PROXY_NONE,
+
 	/**
 	 * Try to auto-detect the proxy from the git configuration.
 	 */
 	GIT_PROXY_AUTO,
+
 	/**
 	 * Connect via the URL given in the options
 	 */

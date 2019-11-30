@@ -16,25 +16,39 @@ module libgit2_d.errors;
 extern (C):
 nothrow @nogc:
 
-/** Generic return codes */
+/**
+ * Generic return codes
+ */
 enum git_error_code
 {
-	/**< No error */
+	/**
+	 * No error
+	 */
 	GIT_OK = 0,
 
-	/**< Generic error */
+	/**
+	 * Generic error
+	 */
 	GIT_ERROR = -1,
 
-	/**< Requested object could not be found */
+	/**
+	 * Requested object could not be found
+	 */
 	GIT_ENOTFOUND = -3,
 
-	/**< Object exists preventing operation */
+	/**
+	 * Object exists preventing operation
+	 */
 	GIT_EEXISTS = -4,
 
-	/**< More than one object matches */
+	/**
+	 * More than one object matches
+	 */
 	GIT_EAMBIGUOUS = -5,
 
-	/**< Output buffer too short to hold data */
+	/**
+	 * Output buffer too short to hold data
+	 */
 	GIT_EBUFS = -6,
 
 	/**
@@ -44,73 +58,119 @@ enum git_error_code
 	 */
 	GIT_EUSER = -7,
 
-	/**< Operation not allowed on bare repository */
+	/**
+	 * Operation not allowed on bare repository
+	 */
 	GIT_EBAREREPO = -8,
 
-	/**< HEAD refers to branch with no commits */
+	/**
+	 * HEAD refers to branch with no commits
+	 */
 	GIT_EUNBORNBRANCH = -9,
 
-	/**< Merge in progress prevented operation */
+	/**
+	 * Merge in progress prevented operation
+	 */
 	GIT_EUNMERGED = -10,
 
-	/**< Reference was not fast-forwardable */
+	/**
+	 * Reference was not fast-forwardable
+	 */
 	GIT_ENONFASTFORWARD = -11,
 
-	/**< Name/ref spec was not in a valid format */
+	/**
+	 * Name/ref spec was not in a valid format
+	 */
 	GIT_EINVALIDSPEC = -12,
 
-	/**< Checkout conflicts prevented operation */
+	/**
+	 * Checkout conflicts prevented operation
+	 */
 	GIT_ECONFLICT = -13,
 
-	/**< Lock file prevented operation */
+	/**
+	 * Lock file prevented operation
+	 */
 	GIT_ELOCKED = -14,
 
-	/**< Reference value does not match expected */
+	/**
+	 * Reference value does not match expected
+	 */
 	GIT_EMODIFIED = -15,
 
-	/**< Authentication error */
+	/**
+	 * Authentication error
+	 */
 	GIT_EAUTH = -16,
 
-	/**< Server certificate is invalid */
+	/**
+	 * Server certificate is invalid
+	 */
 	GIT_ECERTIFICATE = -17,
 
-	/**< Patch/merge has already been applied */
+	/**
+	 * Patch/merge has already been applied
+	 */
 	GIT_EAPPLIED = -18,
 
-	/**< The requested peel operation is not possible */
+	/**
+	 * The requested peel operation is not possible
+	 */
 	GIT_EPEEL = -19,
 
-	/**< Unexpected EOF */
+	/**
+	 * Unexpected EOF
+	 */
 	GIT_EEOF = -20,
 
-	/**< Invalid operation or input */
+	/**
+	 * Invalid operation or input
+	 */
 	GIT_EINVALID = -21,
 
-	/**< Uncommitted changes in index prevented operation */
+	/**
+	 * Uncommitted changes in index prevented operation
+	 */
 	GIT_EUNCOMMITTED = -22,
 
-	/**< The operation is not valid for a directory */
+	/**
+	 * The operation is not valid for a directory
+	 */
 	GIT_EDIRECTORY = -23,
 
-	/**< A merge conflict exists and cannot continue */
+	/**
+	 * A merge conflict exists and cannot continue
+	 */
 	GIT_EMERGECONFLICT = -24,
 
-	/**< A user-configured callback refused to act */
+	/**
+	 * A user-configured callback refused to act
+	 */
 	GIT_PASSTHROUGH = -30,
 
-	/**< Signals end of iteration with iterator */
+	/**
+	 * Signals end of iteration with iterator
+	 */
 	GIT_ITEROVER = -31,
 
-	/**< Internal only */
+	/**
+	 * Internal only
+	 */
 	GIT_RETRY = -32,
 
-	/**< Hashsum mismatch in object */
+	/**
+	 * Hashsum mismatch in object
+	 */
 	GIT_EMISMATCH = -33,
 
-	/**< Unsaved changes in the index would be overwritten */
+	/**
+	 * Unsaved changes in the index would be overwritten
+	 */
 	GIT_EINDEXDIRTY = -34,
 
-	/**< Patch application failed */
+	/**
+	 * Patch application failed
+	 */
 	GIT_EAPPLYFAIL = -35,
 }
 
@@ -126,7 +186,9 @@ struct git_error
 	int klass;
 }
 
-/** Error classes */
+/**
+ * Error classes
+ */
 enum git_error_t
 {
 	GIT_ERROR_NONE = 0,

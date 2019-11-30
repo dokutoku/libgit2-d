@@ -40,12 +40,15 @@ enum git_direction
  */
 struct git_remote_head
 {
-	/* available locally */
+	/**
+	 * available locally
+	 */
 	int local;
 
 	libgit2_d.oid.git_oid oid;
 	libgit2_d.oid.git_oid loid;
 	char* name;
+
 	/**
 	 * If the server send a symref mapping for this ref, this will
 	 * point to the target.

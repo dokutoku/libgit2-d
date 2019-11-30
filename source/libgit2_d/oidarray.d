@@ -13,7 +13,9 @@ extern (C):
 nothrow @nogc:
 public:
 
-/** Array of object ids */
+/**
+ * Array of object ids
+ */
 struct git_oidarray
 {
 	libgit2_d.oid.git_oid* ids;

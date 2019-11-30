@@ -78,7 +78,9 @@ int git_branch_create_from_annotated(libgit2_d.types.git_reference** ref_out, li
 //GIT_EXTERN
 int git_branch_delete(libgit2_d.types.git_reference* branch);
 
-/** Iterator type for branches */
+/**
+ * Iterator type for branches
+ */
 struct git_branch_iterator;
 
 /**

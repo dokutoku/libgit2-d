@@ -90,10 +90,14 @@ struct git_worktree_add_options
 {
 	uint version_;
 
-	/**< lock newly created worktree */
+	/**
+	 * lock newly created worktree
+	 */
 	int lock;
 
-	/**< reference to use for the new worktree HEAD */
+	/**
+	 * reference to use for the new worktree HEAD
+	 */
 	libgit2_d.types.git_reference* ref_;
 }
 
@@ -209,13 +213,19 @@ const (char)* git_worktree_path(const (libgit2_d.types.git_worktree)* wt);
  */
 enum git_worktree_prune_t
 {
-	/* Prune working tree even if working tree is valid */
+	/**
+	 * Prune working tree even if working tree is valid
+	 */
 	GIT_WORKTREE_PRUNE_VALID = 1u << 0,
 
-	/* Prune working tree even if it is locked */
+	/**
+	 * Prune working tree even if it is locked
+	 */
 	GIT_WORKTREE_PRUNE_LOCKED = 1u << 1,
 
-	/* Prune checked out working tree */
+	/**
+	 * Prune checked out working tree
+	 */
 	GIT_WORKTREE_PRUNE_WORKING_TREE = 1u << 2,
 }
 

@@ -52,10 +52,14 @@ struct git_reference_iterator
 	void function(.git_reference_iterator* iter) free;
 }
 
-/** An instance for a custom backend */
+/**
+ * An instance for a custom backend
+ */
 struct git_refdb_backend
 {
-	/**< The backend API version */
+	/**
+	 * The backend API version
+	 */
 	uint version_;
 
 	/**

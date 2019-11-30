@@ -21,7 +21,9 @@ extern (C):
 nothrow @nogc:
 package(libgit2_d):
 
-/** Representation of a rename conflict entry in the index. */
+/**
+ * Representation of a rename conflict entry in the index.
+ */
 struct git_index_name_entry
 {
 	char* ancestor;
@@ -29,7 +31,9 @@ struct git_index_name_entry
 	char* theirs;
 }
 
-/** Representation of a resolve undo entry in the index. */
+/**
+ * Representation of a resolve undo entry in the index.
+ */
 struct git_index_reuc_entry
 {
 	uint[3] mode;

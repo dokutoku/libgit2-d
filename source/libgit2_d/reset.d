@@ -26,13 +26,19 @@ public:
  */
 enum git_reset_t
 {
-	/**< Move the head to the given commit */
+	/**
+	 * Move the head to the given commit
+	 */
 	GIT_RESET_SOFT = 1,
 
-	/**< SOFT plus reset index to the commit */
+	/**
+	 * SOFT plus reset index to the commit
+	 */
 	GIT_RESET_MIXED = 2,
 
-	/**< MIXED plus changes in working tree discarded */
+	/**
+	 * MIXED plus changes in working tree discarded
+	 */
 	GIT_RESET_HARD = 3,
 }
 

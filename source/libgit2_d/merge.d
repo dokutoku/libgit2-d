@@ -34,16 +34,24 @@ struct git_merge_file_input
 {
 	uint version_;
 
-	/** Pointer to the contents of the file. */
+	/**
+	 * Pointer to the contents of the file.
+	 */
 	const (char)* ptr_;
 
-	/** Size of the contents pointed to in `ptr_`. */
+	/**
+	 * Size of the contents pointed to in `ptr_`.
+	 */
 	size_t size;
 
-	/** File name of the conflicted file, or `null` to not merge the path. */
+	/**
+	 * File name of the conflicted file, or `null` to not merge the path.
+	 */
 	const (char)* path;
 
-	/** File mode of the conflicted file, or `0` to not merge the mode. */
+	/**
+	 * File mode of the conflicted file, or `0` to not merge the mode.
+	 */
 	uint mode;
 }
 
@@ -86,19 +94,19 @@ enum git_merge_flag_t
 	 * side or the common ancestor and the "theirs" side.  This will enable
 	 * the ability to merge between a modified and renamed file.
 	 */
-	GIT_MERGE_FIND_RENAMES = (1 << 0),
+	GIT_MERGE_FIND_RENAMES = 1 << 0,
 
 	/**
 	 * If a conflict occurs, exit immediately instead of attempting to
 	 * continue resolving conflicts.  The merge operation will fail with
 	 * git_error_code.GIT_EMERGECONFLICT and no index will be returned.
 	 */
-	GIT_MERGE_FAIL_ON_CONFLICT = (1 << 1),
+	GIT_MERGE_FAIL_ON_CONFLICT = 1 << 1,
 
 	/**
 	 * Do not write the REUC extension on the generated index
 	 */
-	GIT_MERGE_SKIP_REUC = (1 << 2),
+	GIT_MERGE_SKIP_REUC = 1 << 2,
 
 	/**
 	 * If the commits being merged have multiple merge bases, do not build
@@ -106,7 +114,7 @@ enum git_merge_flag_t
 	 * instead simply use the first base.  This flag provides a similar
 	 * merge base to `git-merge-resolve`.
 	 */
-	GIT_MERGE_NO_RECURSIVE = (1 << 3),
+	GIT_MERGE_NO_RECURSIVE = 1 << 3,
 }
 
 /**
@@ -151,32 +159,50 @@ enum git_merge_file_favor_t
  */
 enum git_merge_file_flag_t
 {
-	/** Defaults */
+	/**
+	 * Defaults
+	 */
 	GIT_MERGE_FILE_DEFAULT = 0,
 
-	/** Create standard conflicted merge files */
-	GIT_MERGE_FILE_STYLE_MERGE = (1 << 0),
+	/**
+	 * Create standard conflicted merge files
+	 */
+	GIT_MERGE_FILE_STYLE_MERGE = 1 << 0,
 
-	/** Create diff3-style files */
-	GIT_MERGE_FILE_STYLE_DIFF3 = (1 << 1),
+	/**
+	 * Create diff3-style files
+	 */
+	GIT_MERGE_FILE_STYLE_DIFF3 = 1 << 1,
 
-	/** Condense non-alphanumeric regions for simplified diff file */
-	GIT_MERGE_FILE_SIMPLIFY_ALNUM = (1 << 2),
+	/**
+	 * Condense non-alphanumeric regions for simplified diff file
+	 */
+	GIT_MERGE_FILE_SIMPLIFY_ALNUM = 1 << 2,
 
-	/** Ignore all whitespace */
-	GIT_MERGE_FILE_IGNORE_WHITESPACE = (1 << 3),
+	/**
+	 * Ignore all whitespace
+	 */
+	GIT_MERGE_FILE_IGNORE_WHITESPACE = 1 << 3,
 
-	/** Ignore changes in amount of whitespace */
-	GIT_MERGE_FILE_IGNORE_WHITESPACE_CHANGE = (1 << 4),
+	/**
+	 * Ignore changes in amount of whitespace
+	 */
+	GIT_MERGE_FILE_IGNORE_WHITESPACE_CHANGE = 1 << 4,
 
-	/** Ignore whitespace at end of line */
-	GIT_MERGE_FILE_IGNORE_WHITESPACE_EOL = (1 << 5),
+	/**
+	 * Ignore whitespace at end of line
+	 */
+	GIT_MERGE_FILE_IGNORE_WHITESPACE_EOL = 1 << 5,
 
-	/** Use the "patience diff" algorithm */
-	GIT_MERGE_FILE_DIFF_PATIENCE = (1 << 6),
+	/**
+	 * Use the "patience diff" algorithm
+	 */
+	GIT_MERGE_FILE_DIFF_PATIENCE = 1 << 6,
 
-	/** Take extra time to find minimal diff */
-	GIT_MERGE_FILE_DIFF_MINIMAL = (1 << 7),
+	/**
+	 * Take extra time to find minimal diff
+	 */
+	GIT_MERGE_FILE_DIFF_MINIMAL = 1 << 7,
 }
 
 enum GIT_MERGE_CONFLICT_MARKER_SIZE = 7;
@@ -206,10 +232,14 @@ struct git_merge_file_options
 	 */
 	const (char)* their_label;
 
-	/** The file to favor in region conflicts. */
+	/**
+	 * The file to favor in region conflicts.
+	 */
 	.git_merge_file_favor_t favor;
 
-	/** see `git_merge_file_flag_t` above */
+	/**
+	 * see `git_merge_file_flag_t` above
+	 */
 	uint flags;
 
 	/**
@@ -265,13 +295,19 @@ struct git_merge_file_result
 	 */
 	const (char)* path;
 
-	/** The mode that the resultant merge file should use.  */
+	/**
+	 * The mode that the resultant merge file should use. 
+	 */
 	uint mode;
 
-	/** The contents of the merge. */
+	/**
+	 * The contents of the merge.
+	 */
 	const (char)* ptr_;
 
-	/** The length of the merge contents. */
+	/**
+	 * The length of the merge contents.
+	 */
 	size_t len;
 }
 
@@ -282,7 +318,9 @@ struct git_merge_options
 {
 	uint version_;
 
-	/** See `git_merge_flag_t` above */
+	/**
+	 * See `git_merge_flag_t` above
+	 */
 	uint flags;
 
 	/**
@@ -303,7 +341,9 @@ struct git_merge_options
 	 */
 	uint target_limit;
 
-	/** Pluggable similarity metric; pass null to use internal metric */
+	/**
+	 * Pluggable similarity metric; pass null to use internal metric
+	 */
 	libgit2_d.diff.git_diff_similarity_metric* metric;
 
 	/**
@@ -326,7 +366,9 @@ struct git_merge_options
 	 */
 	.git_merge_file_favor_t file_favor;
 
-	/** see `git_merge_file_flag_t` above */
+	/**
+	 * see `git_merge_file_flag_t` above
+	 */
 	uint file_flags;
 }
 
@@ -365,34 +407,36 @@ int git_merge_options_init(.git_merge_options* opts, uint version_);
  */
 enum git_merge_analysis_t
 {
-	/** No merge is possible.  (Unused.) */
+	/**
+	 * No merge is possible.  (Unused.)
+	 */
 	GIT_MERGE_ANALYSIS_NONE = 0,
 
 	/**
 	 * A "normal" merge; both HEAD and the given merge input have diverged
 	 * from their common ancestor.  The divergent commits must be merged.
 	 */
-	GIT_MERGE_ANALYSIS_NORMAL = (1 << 0),
+	GIT_MERGE_ANALYSIS_NORMAL = 1 << 0,
 
 	/**
 	 * All given merge inputs are reachable from HEAD, meaning the
 	 * repository is up-to-date and no merge needs to be performed.
 	 */
-	GIT_MERGE_ANALYSIS_UP_TO_DATE = (1 << 1),
+	GIT_MERGE_ANALYSIS_UP_TO_DATE = 1 << 1,
 
 	/**
 	 * The given merge input is a fast-forward from HEAD and no merge
 	 * needs to be performed.  Instead, the client can check out the
 	 * given merge input.
 	 */
-	GIT_MERGE_ANALYSIS_FASTFORWARD = (1 << 2),
+	GIT_MERGE_ANALYSIS_FASTFORWARD = 1 << 2,
 
 	/**
 	 * The HEAD of the current repository is "unborn" and does not point to
 	 * a valid commit.  No merge can be performed, but the caller may wish
 	 * to simply set HEAD to the target commit(s).
 	 */
-	GIT_MERGE_ANALYSIS_UNBORN = (1 << 3),
+	GIT_MERGE_ANALYSIS_UNBORN = 1 << 3,
 }
 
 /**
@@ -410,13 +454,13 @@ enum git_merge_preference_t
 	 * There is a `merge.ff=false` configuration setting, suggesting that
 	 * the user does not want to allow a fast-forward merge.
 	 */
-	GIT_MERGE_PREFERENCE_NO_FASTFORWARD = (1 << 0),
+	GIT_MERGE_PREFERENCE_NO_FASTFORWARD = 1 << 0,
 
 	/**
 	 * There is a `merge.ff=only` configuration setting, suggesting that
 	 * the user only wants fast-forward merges.
 	 */
-	GIT_MERGE_PREFERENCE_FASTFORWARD_ONLY = (1 << 1),
+	GIT_MERGE_PREFERENCE_FASTFORWARD_ONLY = 1 << 1,
 }
 
 /**

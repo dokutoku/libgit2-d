@@ -36,14 +36,17 @@ enum git_clone_local_t
 	 * `file://` urls.
 	 */
 	GIT_CLONE_LOCAL_AUTO,
+
 	/**
 	 * Bypass the git-aware transport even for a `file://` url.
 	 */
 	GIT_CLONE_LOCAL,
+
 	/**
 	 * Do no bypass the git-aware transport
 	 */
 	GIT_CLONE_NO_LOCAL,
+
 	/**
 	 * Bypass the git-aware transport, but do not try to use
 	 * hardlinks.
@@ -173,7 +176,7 @@ pure nothrow @safe @nogc
 		{
 			version_: .GIT_CLONE_OPTIONS_VERSION,
 			checkout_opts: CHECKOUT_OPTION,
-			fetch_opts: libgit2_d.remote.GIT_FETCH_OPTIONS_INIT,
+			fetch_opts: libgit2_d.remote.GIT_FETCH_OPTIONS_INIT(),
 		};
 
 		return OUTPUT;

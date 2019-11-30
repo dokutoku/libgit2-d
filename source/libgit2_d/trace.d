@@ -24,25 +24,39 @@ public:
  */
 enum git_trace_level_t
 {
-	/** No tracing will be performed. */
+	/**
+	 * No tracing will be performed.
+	 */
 	GIT_TRACE_NONE = 0,
 
-	/** Severe errors that may impact the program's execution */
+	/**
+	 * Severe errors that may impact the program's execution
+	 */
 	GIT_TRACE_FATAL = 1,
 
-	/** Errors that do not impact the program's execution */
+	/**
+	 * Errors that do not impact the program's execution
+	 */
 	GIT_TRACE_ERROR = 2,
 
-	/** Warnings that suggest abnormal data */
+	/**
+	 * Warnings that suggest abnormal data
+	 */
 	GIT_TRACE_WARN = 3,
 
-	/** Informational messages about program execution */
+	/**
+	 * Informational messages about program execution
+	 */
 	GIT_TRACE_INFO = 4,
 
-	/** Detailed data that allows for debugging */
+	/**
+	 * Detailed data that allows for debugging
+	 */
 	GIT_TRACE_DEBUG = 5,
 
-	/** Exceptionally detailed debugging data */
+	/**
+	 * Exceptionally detailed debugging data
+	 */
 	GIT_TRACE_TRACE = 6,
 }
 

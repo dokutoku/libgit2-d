@@ -49,7 +49,9 @@ struct git_stream
 
 struct git_stream_registration
 {
-	/** The `version` field should be set to `GIT_STREAM_VERSION`. */
+	/**
+	 * The `version` field should be set to `GIT_STREAM_VERSION`.
+	 */
 	int version_;
 
 	/**
@@ -84,10 +86,14 @@ struct git_stream_registration
  */
 enum git_stream_t
 {
-	/** A standard (non-TLS) socket. */
+	/**
+	 * A standard (non-TLS) socket.
+	 */
 	GIT_STREAM_STANDARD = 1,
 
-	/** A TLS-encrypted socket. */
+	/**
+	 * A TLS-encrypted socket.
+	 */
 	GIT_STREAM_TLS = 2,
 }
 

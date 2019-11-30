@@ -147,15 +147,17 @@ pure nothrow @safe @nogc
 			quiet: 0,
 			inmemory: 0,
 			rewrite_notes_ref: null,
-			merge_options: libgit2_d.merge.GIT_MERGE_OPTIONS_INIT,
-			checkout_options: libgit2_d.checkout.GIT_CHECKOUT_OPTIONS_INIT,
+			merge_options: libgit2_d.merge.GIT_MERGE_OPTIONS_INIT(),
+			checkout_options: libgit2_d.checkout.GIT_CHECKOUT_OPTIONS_INIT(),
 			signing_cb: null,
 		};
 
 		return OUTPUT;
 	}
 
-/** Indicates that a rebase operation is not (yet) in progress. */
+/**
+ * Indicates that a rebase operation is not (yet) in progress.
+ */
 enum GIT_REBASE_NO_OPERATION = size_t.max;
 
 /**
@@ -166,7 +168,9 @@ enum GIT_REBASE_NO_OPERATION = size_t.max;
  */
 struct git_rebase_operation
 {
-	/** The type of rebase operation. */
+	/**
+	 * The type of rebase operation.
+	 */
 	.git_rebase_operation_t type;
 
 	/**

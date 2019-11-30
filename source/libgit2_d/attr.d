@@ -113,16 +113,24 @@ version (none) {
  */
 enum git_attr_value_t
 {
-	/**< The attribute has been left unspecified */
+	/**
+	 * The attribute has been left unspecified
+	 */
 	GIT_ATTR_VALUE_UNSPECIFIED = 0,
 
-	/**< The attribute has been set */
+	/**
+	 * The attribute has been set
+	 */
 	GIT_ATTR_VALUE_TRUE,
 
-	/**< The attribute has been unset */
+	/**
+	 * The attribute has been unset
+	 */
 	GIT_ATTR_VALUE_FALSE,
 
-	/**< This attribute has a value */
+	/**
+	 * This attribute has a value
+	 */
 	GIT_ATTR_VALUE_STRING,
 }
 

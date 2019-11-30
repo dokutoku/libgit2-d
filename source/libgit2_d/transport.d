@@ -31,7 +31,9 @@ public:
  */
 alias git_transport_message_cb = int function(const (char)* str, int len, void* payload);
 
-/** Signature of a function which creates a transport */
+/**
+ * Signature of a function which creates a transport
+ */
 alias git_transport_cb = int function(libgit2_d.types.git_transport** out_, libgit2_d.types.git_remote* owner, void* param);
 
 /** @} */

@@ -35,19 +35,19 @@ enum git_stash_flags
 	 * All changes already added to the index are left intact in
 	 * the working directory
 	 */
-	GIT_STASH_KEEP_INDEX = (1 << 0),
+	GIT_STASH_KEEP_INDEX = 1 << 0,
 
 	/**
 	 * All untracked files are also stashed and then cleaned up
 	 * from the working directory
 	 */
-	GIT_STASH_INCLUDE_UNTRACKED = (1 << 1),
+	GIT_STASH_INCLUDE_UNTRACKED = 1 << 1,
 
 	/**
 	 * All ignored files are also stashed and then cleaned up from
 	 * the working directory
 	 */
-	GIT_STASH_INCLUDE_IGNORED = (1 << 2),
+	GIT_STASH_INCLUDE_IGNORED = 1 << 2,
 }
 
 /**
@@ -70,16 +70,18 @@ enum git_stash_flags
 //GIT_EXTERN
 int git_stash_save(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_signature)* stasher, const (char)* message, uint flags);
 
-/** Stash application flags. */
+/**
+ * Stash application flags.
+ */
 enum git_stash_apply_flags
 {
 	GIT_STASH_APPLY_DEFAULT = 0,
 
-	/*
+	/**
 	 * Try to reinstate not only the working tree's changes,
 	 * but also the index's changes.
 	 */
-	GIT_STASH_APPLY_REINSTATE_INDEX = (1 << 0),
+	GIT_STASH_APPLY_REINSTATE_INDEX = 1 << 0,
 }
 
 /**
@@ -89,25 +91,39 @@ enum git_stash_apply_progress_t
 {
 	GIT_STASH_APPLY_PROGRESS_NONE = 0,
 
-	/** Loading the stashed data from the object database. */
+	/**
+	 * Loading the stashed data from the object database.
+	 */
 	GIT_STASH_APPLY_PROGRESS_LOADING_STASH,
 
-	/** The stored index is being analyzed. */
+	/**
+	 * The stored index is being analyzed.
+	 */
 	GIT_STASH_APPLY_PROGRESS_ANALYZE_INDEX,
 
-	/** The modified files are being analyzed. */
+	/**
+	 * The modified files are being analyzed.
+	 */
 	GIT_STASH_APPLY_PROGRESS_ANALYZE_MODIFIED,
 
-	/** The untracked and ignored files are being analyzed. */
+	/**
+	 * The untracked and ignored files are being analyzed.
+	 */
 	GIT_STASH_APPLY_PROGRESS_ANALYZE_UNTRACKED,
 
-	/** The untracked files are being written to disk. */
+	/**
+	 * The untracked files are being written to disk.
+	 */
 	GIT_STASH_APPLY_PROGRESS_CHECKOUT_UNTRACKED,
 
-	/** The modified files are being written to disk. */
+	/**
+	 * The modified files are being written to disk.
+	 */
 	GIT_STASH_APPLY_PROGRESS_CHECKOUT_MODIFIED,
 
-	/** The stash was applied successfully. */
+	/**
+	 * The stash was applied successfully.
+	 */
 	GIT_STASH_APPLY_PROGRESS_DONE,
 }
 
@@ -128,14 +144,21 @@ struct git_stash_apply_options
 {
 	uint version_;
 
-	/** See `git_stash_apply_flags_t`, above. */
+	/**
+	 * See `git_stash_apply_flags_t`, above.
+	 */
 	uint flags;
 
-	/** Options to use when writing files to the working directory. */
+	/**
+	 * Options to use when writing files to the working directory.
+	 */
 	libgit2_d.checkout.git_checkout_options checkout_options;
 
-	/** Optional callback to notify the consumer of application progress. */
+	/**
+	 * Optional callback to notify the consumer of application progress.
+	 */
 	.git_stash_apply_progress_cb progress_cb;
+
 	void* progress_payload;
 }
 
@@ -151,7 +174,7 @@ pure nothrow @safe @nogc
 		{
 			version_: .GIT_STASH_APPLY_OPTIONS_VERSION,
 			flags: .git_stash_apply_flags.GIT_STASH_APPLY_DEFAULT,
-			checkout_options: libgit2_d.checkout.GIT_CHECKOUT_OPTIONS_INIT,
+			checkout_options: libgit2_d.checkout.GIT_CHECKOUT_OPTIONS_INIT(),
 		};
 
 		return OUTPUT;

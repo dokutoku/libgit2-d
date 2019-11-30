@@ -23,11 +23,16 @@ extern (C):
 nothrow @nogc:
 public:
 
-/** Time structure used in a git index entry */
+/**
+ * Time structure used in a git index entry
+ */
 struct git_index_time
 {
 	int seconds;
-	/* nsec should not be stored as time_t compatible */
+
+	/**
+	 * nsec should not be stored as time_t compatible
+	 */
 	uint nanoseconds;
 }
 
@@ -138,7 +143,9 @@ enum git_index_entry_extended_flag_t
 	GIT_INDEX_ENTRY_UPTODATE = 1 << 2,
 }
 
-/** Capabilities of system that affect index actions. */
+/**
+ * Capabilities of system that affect index actions.
+ */
 enum git_index_capability_t
 {
 	GIT_INDEX_CAPABILITY_IGNORE_CASE = 1,
@@ -147,16 +154,20 @@ enum git_index_capability_t
 	GIT_INDEX_CAPABILITY_FROM_OWNER = -1,
 }
 
-/** Callback for APIs that add/remove/update files matching pathspec */
+/**
+ * Callback for APIs that add/remove/update files matching pathspec
+ */
 alias git_index_matched_path_cb = int function(const (char)* path, const (char)* matched_pathspec, void* payload);
 
-/** Flags for APIs that add files matching pathspec */
+/**
+ * Flags for APIs that add files matching pathspec
+ */
 enum git_index_add_option_t
 {
 	GIT_INDEX_ADD_DEFAULT = 0,
-	GIT_INDEX_ADD_FORCE = (1u << 0),
-	GIT_INDEX_ADD_DISABLE_PATHSPEC_MATCH = (1u << 1),
-	GIT_INDEX_ADD_CHECK_PATHSPEC = (1u << 2),
+	GIT_INDEX_ADD_FORCE = 1u << 0,
+	GIT_INDEX_ADD_DISABLE_PATHSPEC_MATCH = 1u << 1,
+	GIT_INDEX_ADD_CHECK_PATHSPEC = 1u << 2,
 }
 
 /**
@@ -172,16 +183,24 @@ enum git_index_stage_t
 	 */
 	GIT_INDEX_STAGE_ANY = -1,
 
-	/** A normal staged file in the index. */
+	/**
+	 * A normal staged file in the index.
+	 */
 	GIT_INDEX_STAGE_NORMAL = 0,
 
-	/** The ancestor side of a conflict. */
+	/**
+	 * The ancestor side of a conflict.
+	 */
 	GIT_INDEX_STAGE_ANCESTOR = 1,
 
-	/** The "ours" side of a conflict. */
+	/**
+	 * The "ours" side of a conflict.
+	 */
 	GIT_INDEX_STAGE_OURS = 2,
 
-	/** The "theirs" side of a conflict. */
+	/**
+	 * The "theirs" side of a conflict.
+	 */
 	GIT_INDEX_STAGE_THEIRS = 3,
 }
 

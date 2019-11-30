@@ -230,7 +230,9 @@ size_t git_packbuilder_object_count(libgit2_d.types.git_packbuilder* pb);
 //GIT_EXTERN
 size_t git_packbuilder_written(libgit2_d.types.git_packbuilder* pb);
 
-/** Packbuilder progress notification function */
+/**
+ * Packbuilder progress notification function
+ */
 alias git_packbuilder_progress = int function(int stage, uint current, uint total, void* payload);
 
 /**

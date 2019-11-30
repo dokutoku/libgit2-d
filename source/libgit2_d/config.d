@@ -32,13 +32,19 @@ public:
  */
 enum git_config_level_t
 {
-	/** System-wide on Windows, for compatibility with portable git */
+	/**
+	 * System-wide on Windows, for compatibility with portable git
+	 */
 	GIT_CONFIG_LEVEL_PROGRAMDATA = 1,
 
-	/** System-wide configuration file; /etc/gitconfig on Linux systems */
+	/**
+	 * System-wide configuration file; /etc/gitconfig on Linux systems
+	 */
 	GIT_CONFIG_LEVEL_SYSTEM = 2,
 
-	/** XDG compatible configuration file; typically ~/.config/git/config */
+	/**
+	 * XDG compatible configuration file; typically ~/.config/git/config
+	 */
 	GIT_CONFIG_LEVEL_XDG = 3,
 
 	/**
@@ -70,10 +76,14 @@ enum git_config_level_t
  */
 struct git_config_entry
 {
-	/**< Name of the entry (normalised) */
+	/**
+	 * Name of the entry (normalised)
+	 */
 	const (char)* name;
 
-	/**< String value of the entry */
+	/**
+	 * String value of the entry
+	 */
 	const (char)* value;
 
 	/**
@@ -81,13 +91,19 @@ struct git_config_entry
 	 */
 	uint include_depth;
 
-	/**< Which config file this was found in */
+	/**
+	 * Which config file this was found in
+	 */
 	.git_config_level_t level;
 
-	/**< Free function for this entry */
+	/**
+	 * Free function for this entry
+	 */
 	void function(.git_config_entry* entry) free;
 
-	/**< Opaque value for the free function. Do not read or write */
+	/**
+	 * Opaque value for the free function. Do not read or write
+	 */
 	void* payload;
 }
 

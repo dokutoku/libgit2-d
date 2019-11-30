@@ -18,7 +18,9 @@ extern (C):
 nothrow @nogc:
 public:
 
-/** Array of strings */
+/**
+ * Array of strings
+ */
 struct git_strarray
 {
 	char** strings;

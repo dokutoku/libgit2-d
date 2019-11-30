@@ -66,12 +66,14 @@ int git_odb_backend_loose(libgit2_d.types.git_odb_backend** out_, const (char)* 
 //GIT_EXTERN
 int git_odb_backend_one_pack(libgit2_d.types.git_odb_backend** out_, const (char)* index_file);
 
-/** Streaming mode */
+/**
+ * Streaming mode
+ */
 enum git_odb_stream_t
 {
-	GIT_STREAM_RDONLY = (1 << 1),
-	GIT_STREAM_WRONLY = (1 << 2),
-	GIT_STREAM_RW = (GIT_STREAM_RDONLY | GIT_STREAM_WRONLY),
+	GIT_STREAM_RDONLY = 1 << 1,
+	GIT_STREAM_WRONLY = 1 << 2,
+	GIT_STREAM_RW = GIT_STREAM_RDONLY | GIT_STREAM_WRONLY,
 }
 
 /**
@@ -122,7 +124,9 @@ struct git_odb_stream
 	void function(.git_odb_stream* stream) free;
 }
 
-/** A stream to write a pack file to the ODB */
+/**
+ * A stream to write a pack file to the ODB
+ */
 struct git_odb_writepack
 {
 	libgit2_d.types.git_odb_backend* backend;

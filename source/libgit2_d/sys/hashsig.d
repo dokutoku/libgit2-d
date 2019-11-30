@@ -32,17 +32,17 @@ enum git_hashsig_option_t
 	/**
 	 * Ignore whitespace
 	 */
-	GIT_HASHSIG_IGNORE_WHITESPACE = (1 << 0),
+	GIT_HASHSIG_IGNORE_WHITESPACE = 1 << 0,
 
 	/**
 	 * Ignore \r and all space after \n
 	 */
-	GIT_HASHSIG_SMART_WHITESPACE = (1 << 1),
+	GIT_HASHSIG_SMART_WHITESPACE = 1 << 1,
 
 	/**
 	 * Allow hashing of small files
 	 */
-	GIT_HASHSIG_ALLOW_SMALL_FILES = (1 << 2),
+	GIT_HASHSIG_ALLOW_SMALL_FILES = 1 << 2,
 }
 
 /**

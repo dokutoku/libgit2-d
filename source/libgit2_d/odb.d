@@ -189,7 +189,9 @@ int git_odb_exists_prefix(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_odb* 
  */
 struct git_odb_expand_id
 {
-	/** The object ID to expand */
+	/**
+	 * The object ID to expand
+	 */
 	libgit2_d.oid.git_oid id;
 
 	/**

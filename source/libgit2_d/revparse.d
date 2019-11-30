@@ -69,11 +69,19 @@ int git_revparse_ext(libgit2_d.types.git_object** object_out, libgit2_d.types.gi
  */
 enum git_revparse_mode_t
 {
-	/** The spec targeted a single object. */
+	/**
+	 * The spec targeted a single object.
+	 */
 	GIT_REVPARSE_SINGLE = 1 << 0,
-	/** The spec targeted a range of commits. */
+
+	/**
+	 * The spec targeted a range of commits.
+	 */
 	GIT_REVPARSE_RANGE = 1 << 1,
-	/** The spec used the '...' operator, which invokes special semantics. */
+
+	/**
+	 * The spec used the '...' operator, which invokes special semantics.
+	 */
 	GIT_REVPARSE_MERGE_BASE = 1 << 2,
 }
 
@@ -82,11 +90,19 @@ enum git_revparse_mode_t
  */
 struct git_revspec
 {
-	/** The left element of the revspec; must be freed by the user */
+	/**
+	 * The left element of the revspec; must be freed by the user
+	 */
 	libgit2_d.types.git_object* from;
-	/** The right element of the revspec; must be freed by the user */
+
+	/**
+	 * The right element of the revspec; must be freed by the user
+	 */
 	libgit2_d.types.git_object* to;
-	/** The intent of the revspec (i.e. `git_revparse_mode_t` flags) */
+
+	/**
+	 * The intent of the revspec (i.e. `git_revparse_mode_t` flags)
+	 */
 	uint flags;
 }
 

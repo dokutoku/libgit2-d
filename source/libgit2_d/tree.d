@@ -217,6 +217,7 @@ libgit2_d.types.git_filemode_t git_tree_entry_filemode(const (libgit2_d.types.gi
 
 //GIT_EXTERN
 libgit2_d.types.git_filemode_t git_tree_entry_filemode_raw(const (libgit2_d.types.git_tree_entry)* entry);
+
 /**
  * Compare two tree entries
  *
@@ -392,16 +393,24 @@ int git_treebuilder_write(libgit2_d.oid.git_oid* id, libgit2_d.types.git_treebui
 //GIT_EXTERN
 int git_treebuilder_write_with_buffer(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_treebuilder* bld, libgit2_d.buffer.git_buf* tree);
 
-/** Callback for the tree traversal method */
+/**
+ * Callback for the tree traversal method
+ */
 alias git_treewalk_cb = int function(const (char)* root, const (libgit2_d.types.git_tree_entry)* entry, void* payload);
 
-/** Tree traversal modes */
+/**
+ * Tree traversal modes
+ */
 enum git_treewalk_mode
 {
-	/* Pre-order */
+	/**
+	 * Pre-order
+	 */
 	GIT_TREEWALK_PRE = 0,
 
-	/* Post-order */
+	/**
+	 * Post-order
+	 */
 	GIT_TREEWALK_POST = 1,
 }
 
@@ -440,9 +449,14 @@ int git_tree_dup(libgit2_d.types.git_tree** out_, libgit2_d.types.git_tree* sour
  */
 enum git_tree_update_t
 {
-	/** Update or insert an entry at the specified path */
+	/**
+	 * Update or insert an entry at the specified path
+	 */
 	GIT_TREE_UPDATE_UPSERT,
-	/** Remove an entry from the specified path */
+
+	/**
+	 * Remove an entry from the specified path
+	 */
 	GIT_TREE_UPDATE_REMOVE,
 }
 
@@ -451,13 +465,24 @@ enum git_tree_update_t
  */
 struct git_tree_update
 {
-	/** Update action. If it's an removal, only the path is looked at */
+	/**
+	 * Update action. If it's an removal, only the path is looked at
+	 */
 	.git_tree_update_t action;
-	/** The entry's id */
+
+	/**
+	 * The entry's id
+	 */
 	libgit2_d.oid.git_oid id;
-	/** The filemode/kind of object */
+
+	/**
+	 * The filemode/kind of object
+	 */
 	libgit2_d.types.git_filemode_t filemode;
-	/** The full path from the root tree */
+
+	/**
+	 * The full path from the root tree
+	 */
 	const (char)* path;
 }
 

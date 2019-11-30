@@ -41,23 +41,33 @@ enum GIT_MERGE_DRIVER_UNION = "union";
  */
 struct git_merge_driver_source;
 
-/** Get the repository that the source data is coming from. */
+/**
+ * Get the repository that the source data is coming from.
+ */
 //GIT_EXTERN
 const (libgit2_d.types.git_repository)* git_merge_driver_source_repo(const (.git_merge_driver_source)* src);
 
-/** Gets the ancestor of the file to merge. */
+/**
+ * Gets the ancestor of the file to merge.
+ */
 //GIT_EXTERN
 const (libgit2_d.index.git_index_entry)* git_merge_driver_source_ancestor(const (.git_merge_driver_source)* src);
 
-/** Gets the ours side of the file to merge. */
+/**
+ * Gets the ours side of the file to merge.
+ */
 //GIT_EXTERN
 const (libgit2_d.index.git_index_entry)* git_merge_driver_source_ours(const (.git_merge_driver_source)* src);
 
-/** Gets the theirs side of the file to merge. */
+/**
+ * Gets the theirs side of the file to merge.
+ */
 //GIT_EXTERN
 const (libgit2_d.index.git_index_entry)* git_merge_driver_source_theirs(const (.git_merge_driver_source)* src);
 
-/** Gets the merge file options that the merge was invoked with */
+/**
+ * Gets the merge file options that the merge was invoked with
+ */
 //GIT_EXTERN
 const (libgit2_d.merge.git_merge_file_options)* git_merge_driver_source_file_options(const (.git_merge_driver_source)* src);
 
@@ -116,13 +126,19 @@ alias git_merge_driver_apply_fn = int function(.git_merge_driver* self, const (c
  */
 struct git_merge_driver
 {
-	/** The `version` should be set to `GIT_MERGE_DRIVER_VERSION`. */
+	/**
+	 * The `version` should be set to `GIT_MERGE_DRIVER_VERSION`.
+	 */
 	uint version_;
 
-	/** Called when the merge driver is first used for any file. */
+	/**
+	 * Called when the merge driver is first used for any file.
+	 */
 	.git_merge_driver_init_fn initialize;
 
-	/** Called when the merge driver is unregistered from the system. */
+	/**
+	 * Called when the merge driver is unregistered from the system.
+	 */
 	.git_merge_driver_shutdown_fn shutdown;
 
 	/**
