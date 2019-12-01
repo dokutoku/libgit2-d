@@ -1,0 +1,37 @@
+{
+	"name": "libgit2-d-examples",
+	"authors":
+	[
+		"dokutoku"
+	],
+	"copyright": "Copyright © 2019, dokutoku",
+	"description": "libgit2 example.",
+	"license": "CC0",
+	"libs-windows":
+	[
+		"libucrt",
+	],
+	"dependencies":
+	{
+		"libgit2-d":
+		{
+			"path": "../"
+		}
+	},
+	"configurations":
+	[
+		{
+			"name": "library",
+			"targetType": "library"
+		},
+		{
+			"name": "application",
+			"targetType": "executable",
+			"libs":
+			[
+				"libgit2"
+			],
+			"versions": ["LIBGIT2_EXAMPLE"]
+		}
+	]
+}
