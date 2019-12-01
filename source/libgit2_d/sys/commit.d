@@ -33,7 +33,7 @@ package(libgit2_d):
  * @see git_commit_create
  */
 //GIT_EXTERN
-int git_commit_create_from_ids(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* update_ref, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2_d.oid.git_oid)* tree, size_t parent_count, const (libgit2_d.oid.git_oid)*[] parents);
+int git_commit_create_from_ids(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* update_ref, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2_d.oid.git_oid)* tree, size_t parent_count, const (libgit2_d.oid.git_oid)** parents);
 
 /**
  * Callback function to return parents for commit.

@@ -372,7 +372,7 @@ int git_commit_extract_signature(libgit2_d.buffer.git_buf* signature, libgit2_d.
  *	the given reference will be updated to point to it
  */
 //GIT_EXTERN
-int git_commit_create(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* update_ref, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2_d.types.git_tree)* tree, size_t parent_count, const (libgit2_d.types.git_commit)*[] parents);
+int git_commit_create(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* update_ref, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2_d.types.git_tree)* tree, size_t parent_count, const (libgit2_d.types.git_commit)** parents);
 
 /**
  * Create new commit in the repository using a variable argument list.
@@ -451,7 +451,7 @@ int git_commit_amend(libgit2_d.oid.git_oid* id, const (libgit2_d.types.git_commi
  * @return 0 or an error code
  */
 //GIT_EXTERN
-int git_commit_create_buffer(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2_d.types.git_tree)* tree, size_t parent_count, const (libgit2_d.types.git_commit)*[] parents);
+int git_commit_create_buffer(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2_d.types.git_tree)* tree, size_t parent_count, const (libgit2_d.types.git_commit)** parents);
 
 /**
  * Create a commit object from the given buffer and signature
