@@ -38,7 +38,7 @@ package(libgit2_d):
  * Subsequent reads will also be served from the in-memory store
  * to ensure consistency, until the memory store is dumped.
  *
- * @param out Pointer where to store the ODB backend
+ * @param out_ Pointer where to store the ODB backend
  * @return 0 on success; error code otherwise
  */
 //GIT_EXTERN

@@ -192,7 +192,7 @@ const (libgit2_d.types.git_signature)* git_commit_author(const (libgit2_d.types.
  *
  * Call `git_signature_free` to free the signature.
  *
- * @param out a pointer to store the resolved signature.
+ * @param out_ a pointer to store the resolved signature.
  * @param commit a previously loaded commit.
  * @param mailmap the mailmap to resolve with. (may be NULL)
  * @return 0 or an error code
@@ -206,7 +206,7 @@ int git_commit_committer_with_mailmap(libgit2_d.types.git_signature** out_, cons
  *
  * Call `git_signature_free` to free the signature.
  *
- * @param out a pointer to store the resolved signature.
+ * @param out_ a pointer to store the resolved signature.
  * @param commit a previously loaded commit.
  * @param mailmap the mailmap to resolve with. (may be NULL)
  * @return 0 or an error code
@@ -460,7 +460,7 @@ int git_commit_create_buffer(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git
  * header field in which to store the signature, attach the signature
  * to the commit and write it into the given repository.
  *
- * @param out the resulting commit id
+ * @param out_ the resulting commit id
  * @param commit_content the content of the unsigned commit object
  * @param signature the signature to add to the commit. Leave `NULL`
  * to create a commit without adding a signature field.

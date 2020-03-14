@@ -32,7 +32,7 @@ enum git_path_gitfile
 	/**
 	 * Check for the .gitattributes file
 	 */
-	GIT_PATH_GITFILE_GITATTRIBUTES
+	GIT_PATH_GITFILE_GITATTRIBUTES,
 }
 
 /**
@@ -54,7 +54,7 @@ enum git_path_fs
 	/**
 	 * Do HFS-specific checks only
 	 */
-	GIT_PATH_FS_HFS
+	GIT_PATH_FS_HFS,
 }
 
 /**

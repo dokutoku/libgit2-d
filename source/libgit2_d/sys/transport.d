@@ -264,7 +264,7 @@ int git_transport_smart_certificate_check(.git_transport* transport, libgit2_d.t
 /**
  * Call the credentials callback for this transport
  *
- * @param out the pointer where the creds are to be stored
+ * @param out_ the pointer where the creds are to be stored
  * @param transport a smart transport
  * @param user the user we saw on the url (if any)
  * @param methods available methods for authentication
@@ -411,7 +411,7 @@ struct git_smart_subtransport_definition
  *
  * This subtransport also supports https.
  *
- * @param out The newly created subtransport
+ * @param out_ The newly created subtransport
  * @param owner The smart transport to own this subtransport
  * @return 0 or an error code
  */

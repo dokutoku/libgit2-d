@@ -57,7 +57,7 @@ struct git_stream_registration
 	/**
 	 * Called to create a new connection to a given host.
 	 *
-	 * @param out The created stream
+	 * @param out_ The created stream
 	 * @param host The hostname to connect to; may be a hostname or
 	 *             IP address
 	 * @param port The port to connect to; may be a port number or
@@ -72,7 +72,7 @@ struct git_stream_registration
 	 * TLS stream over an HTTP CONNECT session.  If this is unset, then
 	 * HTTP CONNECT proxies will not be supported.
 	 *
-	 * @param out The created stream
+	 * @param out_ The created stream
 	 * @param in An existing stream to add TLS to
 	 * @param host The hostname that the stream is connected to,
 	 *             for certificate validation

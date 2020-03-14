@@ -1794,7 +1794,7 @@ int git_diff_patchid_options_init(.git_diff_patchid_options* opts, uint version_
  * defined in git-patch-id(1), and should in fact generate the
  * same IDs as the upstream git project does.
  *
- * @param out Pointer where the calculated patch ID should be stored
+ * @param out_ Pointer where the calculated patch ID should be stored
  * @param diff The diff to calculate the ID for
  * @param opts Options for how to calculate the patch ID. This is
  *  intended for future changes, as currently no options are

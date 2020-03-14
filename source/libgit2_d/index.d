@@ -558,7 +558,7 @@ int git_index_iterator_new(libgit2_d.types.git_index_iterator** iterator_out, li
 /**
  * Return the next index entry in-order from the iterator.
  *
- * @param out Pointer to store the index entry in
+ * @param out_ Pointer to store the index entry in
  * @param iterator The iterator
  * @return 0, git_error_code.GIT_ITEROVER on iteration completion or an error code
  */

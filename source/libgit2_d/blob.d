@@ -172,7 +172,7 @@ pure nothrow @safe @nogc
  * that case, be careful to *not* free the blob until done with the
  * buffer or copy it into memory you own.
  *
- * @param out The git_buf to be filled in
+ * @param out_ The git_buf to be filled in
  * @param blob Pointer to the blob
  * @param as_path Path used for file attribute lookups, etc.
  * @param opts Options to use for filtering the blob
@@ -226,7 +226,7 @@ int git_blob_create_from_disk(libgit2_d.oid.git_oid* id, libgit2_d.types.git_rep
  * what git filters should be applied to the object before it is written
  * to the object database.
  *
- * @param out the stream into which to write
+ * @param out_ the stream into which to write
  * @param repo Repository where the blob will be written.
  *        This repository can be bare or not.
  * @param hintpath If not NULL, will be used to select data filters

@@ -18,7 +18,9 @@ struct args_info
 	char** argv;
 	int pos;
 
-	/**< Did we see a -- separator */
+	/**
+	 * < Did we see a -- separator
+	 */
 	mixin
 	(
 		std.bitmanip.bitfields!

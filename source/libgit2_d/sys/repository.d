@@ -30,7 +30,7 @@ package(libgit2_d):
  * can fail to function properly: locations under $GIT_DIR, $GIT_COMMON_DIR,
  * or $GIT_INFO_DIR are impacted.
  *
- * @param out The blank repository
+ * @param out_ The blank repository
  * @return 0 on success, or an error code
  */
 //GIT_EXTERN

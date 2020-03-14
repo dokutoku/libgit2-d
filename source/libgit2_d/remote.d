@@ -129,7 +129,7 @@ int git_remote_create_options_init(.git_remote_create_options* opts, uint versio
  *
  * Passing NULL as the opts argument will result in a detached remote.
  *
- * @param out the resulting remote
+ * @param out_ the resulting remote
  * @param url the remote's url
  * @param opts the remote creation options
  * @return 0, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code

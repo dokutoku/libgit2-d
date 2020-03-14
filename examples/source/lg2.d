@@ -49,7 +49,7 @@ public struct commands_t
 	char requires_repo;
 }
 
-public commands_t[] commands =
+public static immutable .commands_t[] commands =
 [
 	{"add".ptr, &libgit2_d.example.add.lg2_add, 1},
 	{"blame".ptr, &libgit2_d.example.blame.lg2_blame, 1},
@@ -122,10 +122,6 @@ version (LIBGIT2_EXAMPLE) {
 	extern (C)
 	nothrow @nogc
 	public int main(int argc, char** argv)
-
-		in
-		{
-		}
 
 		do
 		{

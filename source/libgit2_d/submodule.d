@@ -332,7 +332,7 @@ int git_submodule_add_setup(libgit2_d.types.git_submodule** out_, libgit2_d.type
  *
  * This performs the necessary `git_clone` to setup a newly-created submodule.
  *
- * @param out The newly created repository object. Optional.
+ * @param out_ The newly created repository object. Optional.
  * @param submodule The submodule currently waiting for its clone.
  * @param opts The options to use.
  *
