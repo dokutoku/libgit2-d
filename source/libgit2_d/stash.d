@@ -145,7 +145,7 @@ struct git_stash_apply_options
 	uint version_;
 
 	/**
-	 * See `git_stash_apply_flags_t`, above.
+	 * See `git_stash_apply_flags`, above.
 	 */
 	uint flags;
 

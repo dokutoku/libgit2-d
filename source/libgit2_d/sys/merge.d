@@ -45,7 +45,7 @@ struct git_merge_driver_source;
  * Get the repository that the source data is coming from.
  */
 //GIT_EXTERN
-const (libgit2_d.types.git_repository)* git_merge_driver_source_repo(const (.git_merge_driver_source)* src);
+libgit2_d.types.git_repository* git_merge_driver_source_repo(const (.git_merge_driver_source)* src);
 
 /**
  * Gets the ancestor of the file to merge.

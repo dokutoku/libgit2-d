@@ -79,6 +79,7 @@ int git_mempack_dump(libgit2_d.buffer.git_buf* pack, libgit2_d.types.git_reposit
  * semantics to the Git repository.
  *
  * @param backend The mempack backend
+ * @return 0 on success; error code otherwise
  */
 //GIT_EXTERN
-void git_mempack_reset(libgit2_d.types.git_odb_backend* backend);
+int git_mempack_reset(libgit2_d.types.git_odb_backend* backend);

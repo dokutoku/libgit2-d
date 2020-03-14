@@ -46,9 +46,12 @@ int git_repository_new(libgit2_d.types.git_repository** out_);
  * trying to aggressively cleanup the repo before its
  * deallocation. `git_repository_free` already performs this operation
  * before deallocating the repo.
+ *
+ * @param repo The repository to clean up
+ * @return 0 on success, or an error code
  */
 //GIT_EXTERN
-void git_repository__cleanup(libgit2_d.types.git_repository* repo);
+int git_repository__cleanup(libgit2_d.types.git_repository* repo);
 
 /**
  * Update the filesystem config settings for an open repository
@@ -80,9 +83,10 @@ int git_repository_reinit_filesystem(libgit2_d.types.git_repository* repo, int r
  *
  * @param repo A repository object
  * @param config A Config object
+ * @return 0 on success, or an error code
  */
 //GIT_EXTERN
-void git_repository_set_config(libgit2_d.types.git_repository* repo, libgit2_d.types.git_config* config);
+int git_repository_set_config(libgit2_d.types.git_repository* repo, libgit2_d.types.git_config* config);
 
 /**
  * Set the Object Database for this repository
@@ -96,9 +100,10 @@ void git_repository_set_config(libgit2_d.types.git_repository* repo, libgit2_d.t
  *
  * @param repo A repository object
  * @param odb An ODB object
+ * @return 0 on success, or an error code
  */
 //GIT_EXTERN
-void git_repository_set_odb(libgit2_d.types.git_repository* repo, libgit2_d.types.git_odb* odb);
+int git_repository_set_odb(libgit2_d.types.git_repository* repo, libgit2_d.types.git_odb* odb);
 
 /**
  * Set the Reference Database Backend for this repository
@@ -112,9 +117,10 @@ void git_repository_set_odb(libgit2_d.types.git_repository* repo, libgit2_d.type
  *
  * @param repo A repository object
  * @param refdb An refdb object
+ * @return 0 on success, or an error code
  */
 //GIT_EXTERN
-void git_repository_set_refdb(libgit2_d.types.git_repository* repo, libgit2_d.types.git_refdb* refdb);
+int git_repository_set_refdb(libgit2_d.types.git_repository* repo, libgit2_d.types.git_refdb* refdb);
 
 /**
  * Set the index file for this repository
@@ -128,9 +134,10 @@ void git_repository_set_refdb(libgit2_d.types.git_repository* repo, libgit2_d.ty
  *
  * @param repo A repository object
  * @param index An index object
+ * @return 0 on success, or an error code
  */
 //GIT_EXTERN
-void git_repository_set_index(libgit2_d.types.git_repository* repo, libgit2_d.types.git_index* index);
+int git_repository_set_index(libgit2_d.types.git_repository* repo, libgit2_d.types.git_index* index);
 
 /**
  * Set a repository to be bare.

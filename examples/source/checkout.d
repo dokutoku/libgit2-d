@@ -18,12 +18,16 @@ private static import core.stdc.stdio;
 private static import core.stdc.stdlib;
 private static import core.stdc.string;
 private static import libgit2_d.annotated_commit;
+private static import libgit2_d.branch;
 private static import libgit2_d.checkout;
 private static import libgit2_d.commit;
 private static import libgit2_d.errors;
 private static import libgit2_d.example.args;
 private static import libgit2_d.example.common;
+private static import libgit2_d.refs;
+private static import libgit2_d.remote;
 private static import libgit2_d.repository;
+private static import libgit2_d.strarray;
 private static import libgit2_d.types;
 private static import std.bitmanip;
 
@@ -170,7 +174,7 @@ private void print_perf_data(const (libgit2_d.checkout.git_checkout_perfdata)* p
  * a branch-based checkout.
  */
 nothrow @nogc
-private int perform_checkout_ref(libgit2_d.types.git_repository* repo, libgit2_d.types.git_annotated_commit* target, .checkout_options* opts)
+private int perform_checkout_ref(libgit2_d.types.git_repository* repo, const (char)* target_ref, libgit2_d.types.git_annotated_commit* target, .checkout_options* opts)
 
 	in
 	{
@@ -195,10 +199,12 @@ private int perform_checkout_ref(libgit2_d.types.git_repository* repo, libgit2_d
 		}
 
 		/** Grab the commit we're interested to move to */
+		libgit2_d.types.git_reference* ref_ = null;
 		libgit2_d.types.git_commit* target_commit = null;
 
 		scope (exit) {
 			libgit2_d.commit.git_commit_free(target_commit);
+			libgit2_d.commit.git_commit_free(cast(libgit2_d.types.git_commit*)(ref_));
 		}
 
 		int err = libgit2_d.commit.git_commit_lookup(&target_commit, repo, libgit2_d.annotated_commit.git_annotated_commit_id(target));
@@ -230,12 +236,39 @@ private int perform_checkout_ref(libgit2_d.types.git_repository* repo, libgit2_d
 		 * Depending on the "origin" of target (ie. it's an OID or a branch name),
 		 * we might need to detach HEAD.
 		 */
+		libgit2_d.types.git_reference* branch = null;
+
+		scope (exit) {
+			libgit2_d.refs.git_reference_free(branch);
+		}
+
 		if (libgit2_d.annotated_commit.git_annotated_commit_ref(target)) {
-			err = libgit2_d.repository.git_repository_set_head(repo, libgit2_d.annotated_commit.git_annotated_commit_ref(target));
+			err = libgit2_d.refs.git_reference_lookup(&ref_, repo, libgit2_d.annotated_commit.git_annotated_commit_ref(target));
+
+			if (err < 0) {
+				goto error;
+			}
+
+			const (char)* target_head;
+
+			if (libgit2_d.refs.git_reference_is_remote(ref_)) {
+				err = libgit2_d.branch.git_branch_create_from_annotated(&branch, repo, target_ref, target, 0);
+
+				if (err < 0) {
+					goto error;
+				}
+
+				target_head = libgit2_d.refs.git_reference_name(branch);
+			} else {
+				target_head = libgit2_d.annotated_commit.git_annotated_commit_ref(target);
+			}
+
+			err = libgit2_d.repository.git_repository_set_head(repo, target_head);
 		} else {
 			err = libgit2_d.repository.git_repository_set_head_detached_from_annotated(repo, target);
 		}
 
+error:
 		if (err != 0) {
 			core.stdc.stdio.fprintf(core.stdc.stdio.stderr, "failed to update HEAD reference: %s\n", libgit2_d.errors.git_error_last().message);
 
@@ -243,6 +276,81 @@ private int perform_checkout_ref(libgit2_d.types.git_repository* repo, libgit2_d
 		}
 
 		return err;
+	}
+
+/**
+ * This corresponds to `git switch --guess`: if a given ref does
+ * not exist, git will by default try to guess the reference by
+ * seeing whether any remote has a branch called <ref>. If there
+ * is a single remote only that has it, then it is assumed to be
+ * the desired reference and a local branch is created for it.
+ *
+ * The following is a simplified implementation. It will not try
+ * to check whether the ref is unique across all remotes.
+ */
+nothrow @nogc
+private int guess_refish(libgit2_d.types.git_annotated_commit** out_, libgit2_d.types.git_repository* repo, const (char)* ref_)
+
+	do
+	{
+		libgit2_d.strarray.git_strarray remotes =
+		{
+			null,
+			0,
+		};
+		libgit2_d.types.git_reference* remote_ref = null;
+
+		scope (exit) {
+			libgit2_d.refs.git_reference_free(remote_ref);
+			libgit2_d.strarray.git_strarray_free(&remotes);
+		}
+
+		int error = libgit2_d.remote.git_remote_list(&remotes, repo);
+
+		if (error < 0) {
+			return error;
+		}
+
+		for (size_t i = 0; i < remotes.count; i++) {
+			char* refname = null;
+			size_t reflen = libgit2_d.example.common.snprintf(refname, 0, "refs/remotes/%s/%s", remotes.strings[i], ref_);
+			refname = cast(char*)(core.stdc.stdlib.malloc(reflen + 1));
+
+			if (refname == null) {
+				error = -1;
+
+				goto next;
+			}
+
+			libgit2_d.example.common.snprintf(refname, reflen + 1, "refs/remotes/%s/%s", remotes.strings[i], ref_);
+			error = libgit2_d.refs.git_reference_lookup(&remote_ref, repo, refname);
+
+			if (error < 0) {
+				goto next;
+			}
+
+			break;
+
+	next:
+			if (refname != null) {
+				core.stdc.stdlib.free(refname);
+			}
+
+			if ((error < 0) && (error != libgit2_d.errors.git_error_code.GIT_ENOTFOUND)) {
+				break;
+			}
+		}
+
+		if (!remote_ref) {
+			error = libgit2_d.errors.git_error_code.GIT_ENOTFOUND;
+			return error;
+		}
+
+		if ((error = libgit2_d.annotated_commit.git_annotated_commit_from_ref(out_, repo, remote_ref)) < 0) {
+			return error;
+		}
+
+		return error;
 	}
 
 /**
@@ -294,15 +402,13 @@ public int lg2_checkout(libgit2_d.types.git_repository* repo, int argc, char** a
 			/**
 			 * Try to resolve a "refish" argument to a target libgit2 can use
 			 */
-			err = libgit2_d.example.common.resolve_refish(&checkout_target, repo, args.argv[args.pos]);
-
-			if (err != 0) {
+			if (((err = libgit2_d.example.common.resolve_refish(&checkout_target, repo, args.argv[args.pos])) < 0) && ((err = .guess_refish(&checkout_target, repo, args.argv[args.pos])) < 0)) {
 				core.stdc.stdio.fprintf(core.stdc.stdio.stderr, "failed to resolve %s: %s\n", args.argv[args.pos], libgit2_d.errors.git_error_last().message);
 
 				return err;
 			}
 
-			err = .perform_checkout_ref(repo, checkout_target, &opts);
+			err = .perform_checkout_ref(repo, cast(const (char)*)(checkout_target), cast(libgit2_d.types.git_annotated_commit*)(args.argv[args.pos]), &opts);
 		}
 
 		return err;

@@ -9,7 +9,7 @@ module libgit2_d.remote;
 
 private static import libgit2_d.buffer;
 private static import libgit2_d.cert;
-private static import libgit2_d.cred;
+private static import libgit2_d.credential;
 private static import libgit2_d.indexer;
 private static import libgit2_d.net;
 private static import libgit2_d.oid;
@@ -410,9 +410,10 @@ int git_remote_connected(const (libgit2_d.types.git_remote)* remote);
  * the operation has been cancelled and if so stops the operation.
  *
  * @param remote the remote
+ * @return 0 on success, or an error code
  */
 //GIT_EXTERN
-void git_remote_stop(libgit2_d.types.git_remote* remote);
+int git_remote_stop(libgit2_d.types.git_remote* remote);
 
 /**
  * Disconnect from the remote
@@ -420,9 +421,10 @@ void git_remote_stop(libgit2_d.types.git_remote* remote);
  * Close the connection to the remote.
  *
  * @param remote the remote to disconnect from
+ * @return 0 on success, or an error code
  */
 //GIT_EXTERN
-void git_remote_disconnect(libgit2_d.types.git_remote* remote);
+int git_remote_disconnect(libgit2_d.types.git_remote* remote);
 
 /**
  * Free the memory associated with a remote
@@ -560,7 +562,7 @@ struct git_remote_callbacks
 	 * Returning git_error_code.GIT_PASSTHROUGH will make libgit2 behave as
 	 * though this field isn't set.
 	 */
-	libgit2_d.cred.git_cred_acquire_cb credentials;
+	libgit2_d.credential.git_credential_acquire_cb credentials;
 
 	/**
 	 * If cert verification fails, this will be called to let the

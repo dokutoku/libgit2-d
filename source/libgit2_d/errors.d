@@ -225,7 +225,8 @@ enum git_error_t
 	GIT_ERROR_FILESYSTEM,
 	GIT_ERROR_PATCH,
 	GIT_ERROR_WORKTREE,
-	GIT_ERROR_SHA1
+	GIT_ERROR_SHA1,
+	GIT_ERROR_HTTP,
 }
 
 /**
@@ -263,9 +264,10 @@ void git_error_clear();
  * @param error_class One of the `git_error_t` enum above describing the
  *                    general subsystem that is responsible for the error.
  * @param string_ The formatted error message to keep
+ * @return 0 on success or -1 on failure
  */
 //GIT_EXTERN
-void git_error_set_str(int error_class, const (char)* string_);
+int git_error_set_str(int error_class, const (char)* string_);
 
 /**
  * Set the error message to a special value for memory allocation failure.

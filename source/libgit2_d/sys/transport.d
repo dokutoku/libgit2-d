@@ -8,11 +8,11 @@ module libgit2_d.sys.transport;
 
 
 private static import libgit2_d.cert;
-private static import libgit2_d.cred;
+private static import libgit2_d.credential;
 private static import libgit2_d.indexer;
 private static import libgit2_d.proxy;
 private static import libgit2_d.strarray;
-private static import libgit2_d.sys.cred;
+private static import libgit2_d.sys.credential;
 private static import libgit2_d.transport;
 private static import libgit2_d.types;
 
@@ -59,7 +59,7 @@ struct git_transport
 	 * Connect the transport to the remote repository, using the given
 	 * direction.
 	 */
-	int function(.git_transport* transport, const (char)* url, libgit2_d.cred.git_cred_acquire_cb cred_acquire_cb, void* cred_acquire_payload, const (libgit2_d.proxy.git_proxy_options)* proxy_opts, int direction, int flags) connect;
+	int function(.git_transport* transport, const (char)* url, libgit2_d.credential.git_credential_acquire_cb cred_acquire_cb, void* cred_acquire_payload, const (libgit2_d.proxy.git_proxy_options)* proxy_opts, int direction, int flags) connect;
 
 	/**
 	 * Get the list of available references in the remote repository.
@@ -274,7 +274,7 @@ int git_transport_smart_certificate_check(.git_transport* transport, libgit2_d.t
  *         callback was set), or < 0 for an error
  */
 //GIT_EXTERN
-int git_transport_smart_credentials(libgit2_d.sys.cred.git_cred** out_, .git_transport* transport, const (char)* user, int methods);
+int git_transport_smart_credentials(libgit2_d.sys.credential.git_credential** out_, .git_transport* transport, const (char)* user, int methods);
 
 /**
  * Get a copy of the proxy options

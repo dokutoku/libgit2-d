@@ -27,7 +27,7 @@ private static import core.sys.posix.unistd;
 private static import core.sys.windows.stat;
 private static import core.sys.windows.winbase;
 private static import libgit2_d.annotated_commit;
-private static import libgit2_d.cred;
+private static import libgit2_d.credential;
 private static import libgit2_d.diff;
 private static import libgit2_d.errors;
 private static import libgit2_d.object;
@@ -339,7 +339,7 @@ private int ask(char** out_, const (char)* prompt, char optional)
  */
 extern (C)
 nothrow @nogc
-public int cred_acquire_cb(libgit2_d.cred.git_cred** out_, const (char)* url, const (char)* username_from_url, uint allowed_types, void* payload)
+public int cred_acquire_cb(libgit2_d.credential.git_credential** out_, const (char)* url, const (char)* username_from_url, uint allowed_types, void* payload)
 
 	in
 	{
@@ -392,7 +392,7 @@ public int cred_acquire_cb(libgit2_d.cred.git_cred** out_, const (char)* url, co
 			}
 		}
 
-		if (allowed_types & libgit2_d.cred.git_credtype_t.GIT_CREDTYPE_SSH_KEY) {
+		if (allowed_types & libgit2_d.credential.git_credential_t.GIT_CREDENTIAL_SSH_KEY) {
 			int n;
 
 			error = .ask(&privkey, "SSH Key:", 0);
@@ -425,17 +425,17 @@ public int cred_acquire_cb(libgit2_d.cred.git_cred** out_, const (char)* url, co
 				return error;
 			}
 
-			error = libgit2_d.cred.git_cred_ssh_key_new(out_, username, pubkey, privkey, password);
-		} else if (allowed_types & libgit2_d.cred.git_credtype_t.GIT_CREDTYPE_USERPASS_PLAINTEXT) {
+			error = libgit2_d.credential.git_credential_ssh_key_new(out_, username, pubkey, privkey, password);
+		} else if (allowed_types & libgit2_d.credential.git_credential_t.GIT_CREDENTIAL_USERPASS_PLAINTEXT) {
 			error = .ask(&password, "Password:", 1);
 
 			if (error < 0) {
 				return error;
 			}
 
-			error = libgit2_d.cred.git_cred_userpass_plaintext_new(out_, username, password);
-		} else if (allowed_types & libgit2_d.cred.git_credtype_t.GIT_CREDTYPE_USERNAME) {
-			error = libgit2_d.cred.git_cred_username_new(out_, username);
+			error = libgit2_d.credential.git_credential_userpass_plaintext_new(out_, username, password);
+		} else if (allowed_types & libgit2_d.credential.git_credential_t.GIT_CREDENTIAL_USERNAME) {
+			error = libgit2_d.credential.git_credential_username_new(out_, username);
 		}
 
 		return error;

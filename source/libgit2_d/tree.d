@@ -265,9 +265,10 @@ int git_treebuilder_new(libgit2_d.types.git_treebuilder** out_, libgit2_d.types.
  * Clear all the entires in the builder
  *
  * @param bld Builder to clear
+ * @return 0 on success; error code otherwise
  */
 //GIT_EXTERN
-void git_treebuilder_clear(libgit2_d.types.git_treebuilder* bld);
+int git_treebuilder_clear(libgit2_d.types.git_treebuilder* bld);
 
 /**
  * Get the number of entries listed in a treebuilder
@@ -362,9 +363,10 @@ alias git_treebuilder_filter_cb = int function(const (libgit2_d.types.git_tree_e
  * @param bld Tree builder
  * @param filter Callback to filter entries
  * @param payload Extra data to pass to filter callback
+ * @return 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
-void git_treebuilder_filter(libgit2_d.types.git_treebuilder* bld, .git_treebuilder_filter_cb filter, void* payload);
+int git_treebuilder_filter(libgit2_d.types.git_treebuilder* bld, .git_treebuilder_filter_cb filter, void* payload);
 
 /**
  * Write the contents of the tree builder as a tree object

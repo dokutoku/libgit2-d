@@ -86,8 +86,8 @@ int git_cherrypick_options_init(.git_cherrypick_options* opts, uint version_);
  * @param out_ pointer to store the index result in
  * @param repo the repository that contains the given commits
  * @param cherrypick_commit the commit to cherry-pick
- * @param our_commit the commit to revert against (eg, HEAD)
- * @param mainline the parent of the revert commit, if it is a merge
+ * @param our_commit the commit to cherry-pick against (eg, HEAD)
+ * @param mainline the parent of the `cherrypick_commit`, if it is a merge
  * @param merge_options the merge options (or null for defaults)
  * @return zero on success, -1 on failure.
  */

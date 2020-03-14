@@ -8,7 +8,7 @@ module libgit2_d.proxy;
 
 
 private static import libgit2_d.cert;
-private static import libgit2_d.cred;
+private static import libgit2_d.credential;
 
 extern (C):
 nothrow @nogc:
@@ -65,7 +65,7 @@ struct git_proxy_options
 	 * Returning git_error_code.GIT_PASSTHROUGH will make libgit2 behave as
 	 * though this field isn't set.
 	 */
-	libgit2_d.cred.git_cred_acquire_cb credentials;
+	libgit2_d.credential.git_credential_acquire_cb credentials;
 
 	/**
 	 * If cert verification fails, this will be called to let the

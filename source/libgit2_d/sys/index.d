@@ -85,9 +85,10 @@ int git_index_name_add(libgit2_d.types.git_index* index, const (char)* ancestor,
  * Remove all filename conflict entries.
  *
  * @param index an existing index object
+ * @return 0 or an error code
  */
 //GIT_EXTERN
-void git_index_name_clear(libgit2_d.types.git_index* index);
+int git_index_name_clear(libgit2_d.types.git_index* index);
 
 /**@}*/
 
@@ -186,9 +187,10 @@ int git_index_reuc_remove(libgit2_d.types.git_index* index, size_t n);
  * Remove all resolve undo entries from the index
  *
  * @param index an existing index object
+ * @return 0 or an error code
  */
 //GIT_EXTERN
-void git_index_reuc_clear(libgit2_d.types.git_index* index);
+int git_index_reuc_clear(libgit2_d.types.git_index* index);
 
 /**@}*/
 

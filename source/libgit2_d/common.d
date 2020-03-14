@@ -76,9 +76,10 @@ enum GIT_OID_HEX_ZERO = "0000000000000000000000000000000000000000";
  * @param major Store the major version number
  * @param minor Store the minor version number
  * @param rev Store the revision (patch) number
+ * @return 0 on success or an error code on failure
  */
 //GIT_EXTERN
-void git_libgit2_version(int* major, int* minor, int* rev);
+int git_libgit2_version(int* major, int* minor, int* rev);
 
 /**
  * Combinations of these values describe the features with which libgit2
@@ -170,6 +171,7 @@ enum git_libgit2_opt_t
 	GIT_OPT_GET_PACK_MAX_OBJECTS,
 	GIT_OPT_SET_PACK_MAX_OBJECTS,
 	GIT_OPT_DISABLE_PACK_KEEP_FILE_CHECKS,
+	GIT_OPT_ENABLE_HTTP_EXPECT_CONTINUE,
 }
 
 /**
@@ -362,6 +364,11 @@ enum git_libgit2_opt_t
  *	 opts(GIT_OPT_DISABLE_PACK_KEEP_FILE_CHECKS, int enabled)
  *		> This will cause .keep file existence checks to be skipped when
  *		> accessing packfiles, which can help performance with remote filesystems.
+ *
+ *	 opts(GIT_OPT_ENABLE_HTTP_EXPECT_CONTINUE, int enabled)
+ *		> When connecting to a server using NTLM or Negotiate
+ *		> authentication, use expect/continue when POSTing data.
+ *		> This option is not available on Windows.
  *
  * @param option Option key
  * @param ... value to set the option

@@ -86,9 +86,10 @@ int git_oid_fromstrn(.git_oid* out_, const (char)* str, size_t length);
  *
  * @param out_ oid structure the result is written into.
  * @param raw the raw input bytes to be copied.
+ * @return 0 on success or error code
  */
 //GIT_EXTERN
-void git_oid_fromraw(.git_oid* out_, const (ubyte)* raw);
+int git_oid_fromraw(.git_oid* out_, const (ubyte)* raw);
 
 /**
  * Format a git_oid into a hex string.
@@ -99,9 +100,10 @@ void git_oid_fromraw(.git_oid* out_, const (ubyte)* raw);
  *		oid digits are written; a '\\0' terminator must be added
  *		by the caller if it is required.
  * @param id oid structure to format.
+ * @return 0 on success or error code
  */
 //GIT_EXTERN
-void git_oid_fmt(char* out_, const (.git_oid)* id);
+int git_oid_fmt(char* out_, const (.git_oid)* id);
 
 /**
  * Format a git_oid into a partial hex string.
@@ -111,9 +113,10 @@ void git_oid_fmt(char* out_, const (.git_oid)* id);
  *		will be zeroed; if not, a '\0' terminator is NOT added.
  * @param n number of characters to write into out string
  * @param id oid structure to format.
+ * @return 0 on success or error code
  */
 //GIT_EXTERN
-void git_oid_nfmt(char* out_, size_t n, const (.git_oid)* id);
+int git_oid_nfmt(char* out_, size_t n, const (.git_oid)* id);
 
 /**
  * Format a git_oid into a loose-object path string.
@@ -127,9 +130,10 @@ void git_oid_nfmt(char* out_, size_t n, const (.git_oid)* id);
  *		oid digits are written; a '\\0' terminator must be added
  *		by the caller if it is required.
  * @param id oid structure to format.
+ * @return 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
-void git_oid_pathfmt(char* out_, const (.git_oid)* id);
+int git_oid_pathfmt(char* out_, const (.git_oid)* id);
 
 /**
  * Format a git_oid into a statically allocated c-string.
@@ -170,9 +174,10 @@ char* git_oid_tostr(char* out_, size_t n, const (.git_oid)* id);
  *
  * @param out_ oid structure the result is written into.
  * @param src oid structure to copy from.
+ * @return 0 on success or error code
  */
 //GIT_EXTERN
-void git_oid_cpy(.git_oid* out_, const (.git_oid)* src);
+int git_oid_cpy(.git_oid* out_, const (.git_oid)* src);
 
 /**
  * Compare two oid structures.

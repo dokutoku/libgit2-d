@@ -14,7 +14,8 @@ private static import libgit2_d.checkout;
 private static import libgit2_d.cherrypick;
 private static import libgit2_d.clone;
 private static import libgit2_d.config;
-private static import libgit2_d.cred;
+private static import libgit2_d.credential;
+private static import libgit2_d.credential_helpers;
 private static import libgit2_d.describe;
 private static import libgit2_d.diff;
 private static import libgit2_d.errors;
@@ -369,7 +370,7 @@ version (GIT_DEPRECATE_HARD) {
 
 	/**@}*/
 
-	/** @name Deprecated Credential Callback Types
+	/** @name Deprecated Credential Types
 	 *
 	 * These types are retained for backward compatibility.  The newer
 	 * versions of these values should be preferred in all new code.
@@ -378,8 +379,69 @@ version (GIT_DEPRECATE_HARD) {
 	 * this time.
 	 */
 
-	alias git_cred_sign_callback = libgit2_d.cred.git_cred_sign_cb;
-	alias git_cred_ssh_interactive_callback = libgit2_d.cred.git_cred_ssh_interactive_cb;
+	alias git_cred = libgit2_d.credential.git_credential;
+	alias git_cred_userpass_plaintext = libgit2_d.credential.git_credential_userpass_plaintext;
+	alias git_cred_username = libgit2_d.credential.git_credential_username;
+	alias git_cred_default = libgit2_d.credential.git_credential_default;
+	alias git_cred_ssh_key = libgit2_d.credential.git_credential_ssh_key;
+	alias git_cred_ssh_interactive = libgit2_d.credential.git_credential_ssh_interactive;
+	alias git_cred_ssh_custom = libgit2_d.credential.git_credential_ssh_custom;
+
+	alias git_cred_acquire_cb = libgit2_d.credential.git_credential_acquire_cb;
+	alias git_cred_sign_callback = libgit2_d.credential.git_credential_sign_cb;
+	alias git_cred_sign_cb = libgit2_d.credential.git_credential_sign_cb;
+	alias git_cred_ssh_interactive_callback = libgit2_d.credential.git_credential_ssh_interactive_cb;
+	alias git_cred_ssh_interactive_cb = libgit2_d.credential.git_credential_ssh_interactive_cb;
+
+	alias git_credtype_t = libgit2_d.credential.git_credential_t;
+
+	alias GIT_CREDTYPE_USERPASS_PLAINTEXT = libgit2_d.credential.git_credential_t.GIT_CREDENTIAL_USERPASS_PLAINTEXT;
+	alias GIT_CREDTYPE_SSH_KEY = libgit2_d.credential.git_credential_t.GIT_CREDENTIAL_SSH_KEY;
+	alias GIT_CREDTYPE_SSH_CUSTOM = libgit2_d.credential.git_credential_t.GIT_CREDENTIAL_SSH_CUSTOM;
+	alias GIT_CREDTYPE_DEFAULT = libgit2_d.credential.git_credential_t.GIT_CREDENTIAL_DEFAULT;
+	alias GIT_CREDTYPE_SSH_INTERACTIVE = libgit2_d.credential.git_credential_t.GIT_CREDENTIAL_SSH_INTERACTIVE;
+	alias GIT_CREDTYPE_USERNAME = libgit2_d.credential.git_credential_t.GIT_CREDENTIAL_USERNAME;
+	alias GIT_CREDTYPE_SSH_MEMORY = libgit2_d.credential.git_credential_t.GIT_CREDENTIAL_SSH_MEMORY;
+
+	//GIT_EXTERN
+	void git_cred_free(libgit2_d.credential.git_credential* cred);
+
+	//GIT_EXTERN
+	int git_cred_has_username(libgit2_d.credential.git_credential* cred);
+
+	//GIT_EXTERN
+	const (char)* git_cred_get_username(libgit2_d.credential.git_credential* cred);
+
+	//GIT_EXTERN
+	int git_cred_userpass_plaintext_new(libgit2_d.credential.git_credential** out_, const (char)* username, const (char)* password);
+
+	//GIT_EXTERN
+	int git_cred_default_new(libgit2_d.credential.git_credential** out_);
+
+	//GIT_EXTERN
+	int git_cred_username_new(libgit2_d.credential.git_credential** out_, const (char)* username);
+
+	//GIT_EXTERN
+	int git_cred_ssh_key_new(libgit2_d.credential.git_credential** out_, const (char)* username, const (char)* publickey, const (char)* privatekey, const (char)* passphrase);
+
+	//GIT_EXTERN
+	int git_cred_ssh_key_memory_new(libgit2_d.credential.git_credential** out_, const (char)* username, const (char)* publickey, const (char)* privatekey, const (char)* passphrase);
+
+	//GIT_EXTERN
+	int git_cred_ssh_interactive_new(libgit2_d.credential.git_credential** out_, const (char)* username, libgit2_d.credential.git_credential_ssh_interactive_cb prompt_callback, void* payload);
+
+	//GIT_EXTERN
+	int git_cred_ssh_key_from_agent(libgit2_d.credential.git_credential** out_, const (char)* username);
+
+	//GIT_EXTERN
+	int git_cred_ssh_custom_new(libgit2_d.credential.git_credential** out_, const (char)* username, const (char)* publickey, size_t publickey_len, libgit2_d.credential.git_credential_sign_cb sign_callback, void* payload);
+
+	/* Deprecated Credential Helper Types */
+
+	alias git_cred_userpass_payload = libgit2_d.credential_helpers.git_credential_userpass_payload;
+
+	//GIT_EXTERN
+	int git_cred_userpass(libgit2_d.credential.git_credential** out_, const (char)* url, const (char)* user_from_url, uint allowed_types, void* payload);
 
 	/**@}*/
 

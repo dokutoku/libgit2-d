@@ -274,9 +274,12 @@ int git_attr_foreach(libgit2_d.types.git_repository* repo, uint flags, const (ch
  * disk no longer match the cached contents of memory.  This will cause
  * the attributes files to be reloaded the next time that an attribute
  * access function is called.
+ *
+ * @param repo The repository containing the gitattributes cache
+ * @return 0 on success, or an error code
  */
 //GIT_EXTERN
-void git_attr_cache_flush(libgit2_d.types.git_repository* repo);
+int git_attr_cache_flush(libgit2_d.types.git_repository* repo);
 
 /**
  * Add a macro definition.
