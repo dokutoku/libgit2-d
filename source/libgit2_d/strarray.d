@@ -39,7 +39,8 @@ struct git_strarray
  * never allocate that object directly itself (it is more commonly embedded
  * inside another struct or created on the stack).
  *
- * @param array git_strarray from which to free string data
+ * Params:
+ *      array = git_strarray from which to free string data
  */
 //GIT_EXTERN
 void git_strarray_free(.git_strarray* array);
@@ -50,9 +51,11 @@ void git_strarray_free(.git_strarray* array);
  * Note: target is overwritten and hence should be empty, otherwise its
  * contents are leaked.  Call git_strarray_free() if necessary.
  *
- * @param tgt target
- * @param src source
- * @return 0 on success, < 0 on allocation failure
+ * Params:
+ *      tgt = target
+ *      src = source
+ *
+ * Returns: 0 on success, < 0 on allocation failure
  */
 //GIT_EXTERN
 int git_strarray_copy(.git_strarray* tgt, const (.git_strarray)* src);

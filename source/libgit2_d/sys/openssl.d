@@ -28,8 +28,7 @@ package(libgit2_d):
  * likely sets up locking. You should very strongly prefer that over
  * this function.
  *
- * @return 0 on success, -1 if there are errors or if libgit2 was not
- * built with OpenSSL and threading support.
+ * Returns: 0 on success, -1 if there are errors or if libgit2 was not built with OpenSSL and threading support.
  */
 //GIT_EXTERN
 int git_openssl_set_locking();

@@ -28,11 +28,12 @@ public:
  * The returned object should be released with `git_commit_free` when no
  * longer needed.
  *
- * @param commit pointer to the looked up commit
- * @param repo the repo to use when locating the commit.
- * @param id identity of the commit to locate. If the object is
- *		an annotated tag it will be peeled back to the commit.
- * @return 0 or an error code
+ * Params:
+ *      commit = pointer to the looked up commit
+ *      repo = the repo to use when locating the commit.
+ *      id = identity of the commit to locate. If the object is an annotated tag it will be peeled back to the commit.
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_commit_lookup(libgit2_d.types.git_commit** commit, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id);
@@ -46,12 +47,13 @@ int git_commit_lookup(libgit2_d.types.git_commit** commit, libgit2_d.types.git_r
  *
  * @see git_object_lookup_prefix
  *
- * @param commit pointer to the looked up commit
- * @param repo the repo to use when locating the commit.
- * @param id identity of the commit to locate. If the object is
- *		an annotated tag it will be peeled back to the commit.
- * @param len the length of the short identifier
- * @return 0 or an error code
+ * Params:
+ *      commit = pointer to the looked up commit
+ *      repo = the repo to use when locating the commit.
+ *      id = identity of the commit to locate. If the object is an annotated tag it will be peeled back to the commit.
+ *      len = the length of the short identifier
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_commit_lookup_prefix(libgit2_d.types.git_commit** commit, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id, size_t len);
@@ -65,7 +67,8 @@ int git_commit_lookup_prefix(libgit2_d.types.git_commit** commit, libgit2_d.type
  * It *is* necessary to call this method when you stop
  * using a commit. Failure to do so will cause a memory leak.
  *
- * @param commit the commit to close
+ * Params:
+ *      commit = the commit to close
  */
 
 //GIT_EXTERN
@@ -74,8 +77,10 @@ void git_commit_free(libgit2_d.types.git_commit* commit);
 /**
  * Get the id of a commit.
  *
- * @param commit a previously loaded commit.
- * @return object identity for the commit.
+ * Params:
+ *      commit = a previously loaded commit.
+ *
+ * Returns: object identity for the commit.
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_commit_id(const (libgit2_d.types.git_commit)* commit);
@@ -83,8 +88,10 @@ const (libgit2_d.oid.git_oid)* git_commit_id(const (libgit2_d.types.git_commit)*
 /**
  * Get the repository that contains the commit.
  *
- * @param commit A previously loaded commit.
- * @return Repository that contains this commit.
+ * Params:
+ *      commit = A previously loaded commit.
+ *
+ * Returns: Repository that contains this commit.
  */
 //GIT_EXTERN
 libgit2_d.types.git_repository* git_commit_owner(const (libgit2_d.types.git_commit)* commit);
@@ -96,8 +103,10 @@ libgit2_d.types.git_repository* git_commit_owner(const (libgit2_d.types.git_comm
  * The encoding may be null if the `encoding` header
  * in the commit is missing; in that case UTF-8 is assumed.
  *
- * @param commit a previously loaded commit.
- * @return null, or the encoding
+ * Params:
+ *      commit = a previously loaded commit.
+ *
+ * Returns: null, or the encoding
  */
 //GIT_EXTERN
 const (char)* git_commit_message_encoding(const (libgit2_d.types.git_commit)* commit);
@@ -108,8 +117,10 @@ const (char)* git_commit_message_encoding(const (libgit2_d.types.git_commit)* co
  * The returned message will be slightly prettified by removing any
  * potential leading newlines.
  *
- * @param commit a previously loaded commit.
- * @return the message of a commit
+ * Params:
+ *      commit = a previously loaded commit.
+ *
+ * Returns: the message of a commit
  */
 //GIT_EXTERN
 const (char)* git_commit_message(const (libgit2_d.types.git_commit)* commit);
@@ -117,8 +128,10 @@ const (char)* git_commit_message(const (libgit2_d.types.git_commit)* commit);
 /**
  * Get the full raw message of a commit.
  *
- * @param commit a previously loaded commit.
- * @return the raw message of a commit
+ * Params:
+ *      commit = a previously loaded commit.
+ *
+ * Returns: the raw message of a commit
  */
 //GIT_EXTERN
 const (char)* git_commit_message_raw(const (libgit2_d.types.git_commit)* commit);
@@ -129,8 +142,10 @@ const (char)* git_commit_message_raw(const (libgit2_d.types.git_commit)* commit)
  * The returned message is the summary of the commit, comprising the
  * first paragraph of the message with whitespace trimmed and squashed.
  *
- * @param commit a previously loaded commit.
- * @return the summary of a commit or null on error
+ * Params:
+ *      commit = a previously loaded commit.
+ *
+ * Returns: the summary of a commit or null on error
  */
 //GIT_EXTERN
 const (char)* git_commit_summary(libgit2_d.types.git_commit* commit);
@@ -142,9 +157,10 @@ const (char)* git_commit_summary(libgit2_d.types.git_commit* commit);
  * everything but the first paragraph of the message. Leading and
  * trailing whitespaces are trimmed.
  *
- * @param commit a previously loaded commit.
- * @return the body of a commit or null when no the message only
- *   consists of a summary
+ * Params:
+ *      commit = a previously loaded commit.
+ *
+ * Returns: the body of a commit or null when no the message only consists of a summary
  */
 //GIT_EXTERN
 const (char)* git_commit_body(libgit2_d.types.git_commit* commit);
@@ -152,8 +168,10 @@ const (char)* git_commit_body(libgit2_d.types.git_commit* commit);
 /**
  * Get the commit time (i.e. committer time) of a commit.
  *
- * @param commit a previously loaded commit.
- * @return the time of a commit
+ * Params:
+ *      commit = a previously loaded commit.
+ *
+ * Returns: the time of a commit
  */
 //GIT_EXTERN
 libgit2_d.types.git_time_t git_commit_time(const (libgit2_d.types.git_commit)* commit);
@@ -162,8 +180,10 @@ libgit2_d.types.git_time_t git_commit_time(const (libgit2_d.types.git_commit)* c
  * Get the commit timezone offset (i.e. committer's preferred timezone) of a
  * commit.
  *
- * @param commit a previously loaded commit.
- * @return positive or negative timezone offset, in minutes from UTC
+ * Params:
+ *      commit = a previously loaded commit.
+ *
+ * Returns: positive or negative timezone offset, in minutes from UTC
  */
 //GIT_EXTERN
 int git_commit_time_offset(const (libgit2_d.types.git_commit)* commit);
@@ -171,8 +191,10 @@ int git_commit_time_offset(const (libgit2_d.types.git_commit)* commit);
 /**
  * Get the committer of a commit.
  *
- * @param commit a previously loaded commit.
- * @return the committer of a commit
+ * Params:
+ *      commit = a previously loaded commit.
+ *
+ * Returns: the committer of a commit
  */
 //GIT_EXTERN
 const (libgit2_d.types.git_signature)* git_commit_committer(const (libgit2_d.types.git_commit)* commit);
@@ -180,8 +202,10 @@ const (libgit2_d.types.git_signature)* git_commit_committer(const (libgit2_d.typ
 /**
  * Get the author of a commit.
  *
- * @param commit a previously loaded commit.
- * @return the author of a commit
+ * Params:
+ *      commit = a previously loaded commit.
+ *
+ * Returns: the author of a commit
  */
 //GIT_EXTERN
 const (libgit2_d.types.git_signature)* git_commit_author(const (libgit2_d.types.git_commit)* commit);
@@ -192,10 +216,12 @@ const (libgit2_d.types.git_signature)* git_commit_author(const (libgit2_d.types.
  *
  * Call `git_signature_free` to free the signature.
  *
- * @param out_ a pointer to store the resolved signature.
- * @param commit a previously loaded commit.
- * @param mailmap the mailmap to resolve with. (may be NULL)
- * @return 0 or an error code
+ * Params:
+ *      out_ = a pointer to store the resolved signature.
+ *      commit = a previously loaded commit.
+ *      mailmap = the mailmap to resolve with. (may be NULL)
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_commit_committer_with_mailmap(libgit2_d.types.git_signature** out_, const (libgit2_d.types.git_commit)* commit, const (libgit2_d.types.git_mailmap)* mailmap);
@@ -206,10 +232,12 @@ int git_commit_committer_with_mailmap(libgit2_d.types.git_signature** out_, cons
  *
  * Call `git_signature_free` to free the signature.
  *
- * @param out_ a pointer to store the resolved signature.
- * @param commit a previously loaded commit.
- * @param mailmap the mailmap to resolve with. (may be NULL)
- * @return 0 or an error code
+ * Params:
+ *      out_ = a pointer to store the resolved signature.
+ *      commit = a previously loaded commit.
+ *      mailmap = the mailmap to resolve with. (may be NULL)
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_commit_author_with_mailmap(libgit2_d.types.git_signature** out_, const (libgit2_d.types.git_commit)* commit, const (libgit2_d.types.git_mailmap)* mailmap);
@@ -217,8 +245,10 @@ int git_commit_author_with_mailmap(libgit2_d.types.git_signature** out_, const (
 /**
  * Get the full raw text of the commit header.
  *
- * @param commit a previously loaded commit
- * @return the header text of the commit
+ * Params:
+ *      commit = a previously loaded commit
+ *
+ * Returns: the header text of the commit
  */
 //GIT_EXTERN
 const (char)* git_commit_raw_header(const (libgit2_d.types.git_commit)* commit);
@@ -226,9 +256,11 @@ const (char)* git_commit_raw_header(const (libgit2_d.types.git_commit)* commit);
 /**
  * Get the tree pointed to by a commit.
  *
- * @param tree_out pointer where to store the tree object
- * @param commit a previously loaded commit.
- * @return 0 or an error code
+ * Params:
+ *      tree_out = pointer where to store the tree object
+ *      commit = a previously loaded commit.
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_commit_tree(libgit2_d.types.git_tree** tree_out, const (libgit2_d.types.git_commit)* commit);
@@ -238,8 +270,10 @@ int git_commit_tree(libgit2_d.types.git_tree** tree_out, const (libgit2_d.types.
  * `git_commit_tree` in that no attempts are made to fetch an object
  * from the ODB.
  *
- * @param commit a previously loaded commit.
- * @return the id of tree pointed to by commit.
+ * Params:
+ *      commit = a previously loaded commit.
+ *
+ * Returns: the id of tree pointed to by commit.
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_commit_tree_id(const (libgit2_d.types.git_commit)* commit);
@@ -247,8 +281,10 @@ const (libgit2_d.oid.git_oid)* git_commit_tree_id(const (libgit2_d.types.git_com
 /**
  * Get the number of parents of this commit
  *
- * @param commit a previously loaded commit.
- * @return integer of count of parents
+ * Params:
+ *      commit = a previously loaded commit.
+ *
+ * Returns: integer of count of parents
  */
 //GIT_EXTERN
 uint git_commit_parentcount(const (libgit2_d.types.git_commit)* commit);
@@ -256,10 +292,12 @@ uint git_commit_parentcount(const (libgit2_d.types.git_commit)* commit);
 /**
  * Get the specified parent of the commit.
  *
- * @param out_ Pointer where to store the parent commit
- * @param commit a previously loaded commit.
- * @param n the position of the parent (from 0 to `parentcount`)
- * @return 0 or an error code
+ * Params:
+ *      out_ = Pointer where to store the parent commit
+ *      commit = a previously loaded commit.
+ *      n = the position of the parent (from 0 to `parentcount`)
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_commit_parent(libgit2_d.types.git_commit** out_, const (libgit2_d.types.git_commit)* commit, uint n);
@@ -269,9 +307,11 @@ int git_commit_parent(libgit2_d.types.git_commit** out_, const (libgit2_d.types.
  * `git_commit_parent`, which will attempt to load the parent commit from
  * the ODB.
  *
- * @param commit a previously loaded commit.
- * @param n the position of the parent (from 0 to `parentcount`)
- * @return the id of the parent, null on error.
+ * Params:
+ *      commit = a previously loaded commit.
+ *      n = the position of the parent (from 0 to `parentcount`)
+ *
+ * Returns: the id of the parent, null on error.
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_commit_parent_id(const (libgit2_d.types.git_commit)* commit, uint n);
@@ -284,11 +324,12 @@ const (libgit2_d.oid.git_oid)* git_commit_parent_id(const (libgit2_d.types.git_c
  * Passing `0` as the generation number returns another instance of the
  * base commit itself.
  *
- * @param ancestor Pointer where to store the ancestor commit
- * @param commit a previously loaded commit.
- * @param n the requested generation
- * @return 0 on success; git_error_code.GIT_ENOTFOUND if no matching ancestor exists
- * or an error code
+ * Params:
+ *      ancestor = Pointer where to store the ancestor commit
+ *      commit = a previously loaded commit.
+ *      n = the requested generation
+ *
+ * Returns: 0 on success; git_error_code.GIT_ENOTFOUND if no matching ancestor exists or an error code
  */
 //GIT_EXTERN
 int git_commit_nth_gen_ancestor(libgit2_d.types.git_commit** ancestor, const (libgit2_d.types.git_commit)* commit, uint n);
@@ -296,12 +337,12 @@ int git_commit_nth_gen_ancestor(libgit2_d.types.git_commit** ancestor, const (li
 /**
  * Get an arbitrary header field
  *
- * @param out_ the buffer to fill; existing content will be
- * overwritten
- * @param commit the commit to look in
- * @param field the header field to return
- * @return 0 on succeess, git_error_code.GIT_ENOTFOUND if the field does not exist,
- * or an error code
+ * Params:
+ *      out_ = the buffer to fill; existing content will be overwritten
+ *      commit = the commit to look in
+ *      field = the header field to return
+ *
+ * Returns: 0 on succeess, git_error_code.GIT_ENOTFOUND if the field does not exist, or an error code
  */
 //GIT_EXTERN
 int git_commit_header_field(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types.git_commit)* commit, const (char)* field);
@@ -313,16 +354,14 @@ int git_commit_header_field(libgit2_d.buffer.git_buf* out_, const (libgit2_d.typ
  * `git_error_t.GIT_ERROR_INVALID`. If the commit does not have a signature, the
  * error class will be `git_error_t.GIT_ERROR_OBJECT`.
  *
- * @param signature the signature block; existing content will be
- * overwritten
- * @param signed_data signed data; this is the commit contents minus the
- * signature block; existing content will be overwritten
- * @param repo the repository in which the commit exists
- * @param commit_id the commit from which to extract the data
- * @param field the name of the header field containing the signature
- * block; pass `null` to extract the default 'gpgsig'
- * @return 0 on success, git_error_code.GIT_ENOTFOUND if the id is not for a commit
- * or the commit does not have a signature.
+ * Params:
+ *      signature = the signature block; existing content will be overwritten
+ *      signed_data = signed data; this is the commit contents minus the signature block; existing content will be overwritten
+ *      repo = the repository in which the commit exists
+ *      commit_id = the commit from which to extract the data
+ *      field = the name of the header field containing the signature block; pass `null` to extract the default 'gpgsig'
+ *
+ * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if the id is not for a commit or the commit does not have a signature.
  */
 //GIT_EXTERN
 int git_commit_extract_signature(libgit2_d.buffer.git_buf* signature, libgit2_d.buffer.git_buf* signed_data, libgit2_d.types.git_repository* repo, libgit2_d.oid.git_oid* commit_id, const (char)* field);
@@ -333,43 +372,19 @@ int git_commit_extract_signature(libgit2_d.buffer.git_buf* signature, libgit2_d.
  * The message will **not** be cleaned up automatically. You can do that
  * with the `git_message_prettify()` function.
  *
- * @param id Pointer in which to store the OID of the newly created commit
+ * Params:
+ *      id = Pointer in which to store the OID of the newly created commit
+ *      repo = Repository where to store the commit
+ *      update_ref = If not null, name of the reference that will be updated to point to this commit. If the reference is not direct, it will be resolved to a direct reference. Use "HEAD" to update the HEAD of the current branch and make it point to this commit. If the reference doesn't exist yet, it will be created. If it does exist, the first parent must be the tip of this branch.
+ *      author = Signature with author and author time of commit
+ *      committer = Signature with committer and * commit time of commit
+ *      message_encoding = The encoding for the message in the commit, represented with a standard encoding name. E.g. "UTF-8". If null, no encoding header is written and UTF-8 is assumed.
+ *      message = Full message for this commit
+ *      tree = An instance of a `git_tree` object that will be used as the tree for the commit. This tree object must also be owned by the given `repo`.
+ *      parent_count = Number of parents for this commit
+ *      parents = Array of `parent_count` pointers to `git_commit` objects that will be used as the parents for this commit. This array may be null if `parent_count` is 0 (root commit). All the given commits must be owned by the `repo`.
  *
- * @param repo Repository where to store the commit
- *
- * @param update_ref If not null, name of the reference that
- *	will be updated to point to this commit. If the reference
- *	is not direct, it will be resolved to a direct reference.
- *	Use "HEAD" to update the HEAD of the current branch and
- *	make it point to this commit. If the reference doesn't
- *	exist yet, it will be created. If it does exist, the first
- *	parent must be the tip of this branch.
- *
- * @param author Signature with author and author time of commit
- *
- * @param committer Signature with committer and * commit time of commit
- *
- * @param message_encoding The encoding for the message in the
- *  commit, represented with a standard encoding name.
- *  E.g. "UTF-8". If null, no encoding header is written and
- *  UTF-8 is assumed.
- *
- * @param message Full message for this commit
- *
- * @param tree An instance of a `git_tree` object that will
- *  be used as the tree for the commit. This tree object must
- *  also be owned by the given `repo`.
- *
- * @param parent_count Number of parents for this commit
- *
- * @param parents Array of `parent_count` pointers to `git_commit`
- *  objects that will be used as the parents for this commit. This
- *  array may be null if `parent_count` is 0 (root commit). All the
- *  given commits must be owned by the `repo`.
- *
- * @return 0 or an error code
- *	The created commit will be written to the Object Database and
- *	the given reference will be updated to point to it
+ * Returns: 0 or an error code. The created commit will be written to the Object Database and the given reference will be updated to point to it
  */
 //GIT_EXTERN
 int git_commit_create(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* update_ref, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2_d.types.git_tree)* tree, size_t parent_count, const (libgit2_d.types.git_commit)** parents);
@@ -422,33 +437,18 @@ int git_commit_amend(libgit2_d.oid.git_oid* id, const (libgit2_d.types.git_commi
  * writing it to the objectdb, write the contents of the object into a
  * buffer.
  *
- * @param out_ the buffer into which to write the commit object content
+ * Params:
+ *      out_ = the buffer into which to write the commit object content
+ *      repo = Repository where the referenced tree and parents live
+ *      author = Signature with author and author time of commit
+ *      committer = Signature with committer and * commit time of commit
+ *      message_encoding = The encoding for the message in the commit, represented with a standard encoding name. E.g. "UTF-8". If null, no encoding header is written and UTF-8 is assumed.
+ *      message = Full message for this commit
+ *      tree = An instance of a `git_tree` object that will be used as the tree for the commit. This tree object must also be owned by the given `repo`.
+ *      parent_count = Number of parents for this commit
+ *      parents = Array of `parent_count` pointers to `git_commit` objects that will be used as the parents for this commit. This array may be null if `parent_count` is 0 (root commit). All the given commits must be owned by the `repo`.
  *
- * @param repo Repository where the referenced tree and parents live
- *
- * @param author Signature with author and author time of commit
- *
- * @param committer Signature with committer and * commit time of commit
- *
- * @param message_encoding The encoding for the message in the
- *  commit, represented with a standard encoding name.
- *  E.g. "UTF-8". If null, no encoding header is written and
- *  UTF-8 is assumed.
- *
- * @param message Full message for this commit
- *
- * @param tree An instance of a `git_tree` object that will
- *  be used as the tree for the commit. This tree object must
- *  also be owned by the given `repo`.
- *
- * @param parent_count Number of parents for this commit
- *
- * @param parents Array of `parent_count` pointers to `git_commit`
- *  objects that will be used as the parents for this commit. This
- *  array may be null if `parent_count` is 0 (root commit). All the
- *  given commits must be owned by the `repo`.
- *
- * @return 0 or an error code
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_commit_create_buffer(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2_d.types.git_tree)* tree, size_t parent_count, const (libgit2_d.types.git_commit)** parents);
@@ -460,13 +460,13 @@ int git_commit_create_buffer(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git
  * header field in which to store the signature, attach the signature
  * to the commit and write it into the given repository.
  *
- * @param out_ the resulting commit id
- * @param commit_content the content of the unsigned commit object
- * @param signature the signature to add to the commit. Leave `NULL`
- * to create a commit without adding a signature field.
- * @param signature_field which header field should contain this
- * signature. Leave `NULL` for the default of "gpgsig"
- * @return 0 or an error code
+ * Params:
+ *      out_ = the resulting commit id
+ *      commit_content = the content of the unsigned commit object
+ *      signature = the signature to add to the commit. Leave `NULL` to create a commit without adding a signature field.
+ *      signature_field = which header field should contain this signature. Leave `NULL` for the default of "gpgsig"
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_commit_create_with_signature(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, const (char)* commit_content, const (char)* signature, const (char)* signature_field);
@@ -475,8 +475,9 @@ int git_commit_create_with_signature(libgit2_d.oid.git_oid* out_, libgit2_d.type
  * Create an in-memory copy of a commit. The copy must be explicitly
  * free'd or it will leak.
  *
- * @param out_ Pointer to store the copy of the commit
- * @param source Original commit to copy
+ * Params:
+ *      out_ = Pointer to store the copy of the commit
+ *      source = Original commit to copy
  */
 //GIT_EXTERN
 int git_commit_dup(libgit2_d.types.git_commit** out_, libgit2_d.types.git_commit* source);

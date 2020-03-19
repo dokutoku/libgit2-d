@@ -26,8 +26,10 @@ package(libgit2_d):
 /**
  * Look up a filter by name
  *
- * @param name The name of the filter
- * @return Pointer to the filter object or null if not found
+ * Params:
+ *      name = The name of the filter
+ *
+ * Returns: Pointer to the filter object or null if not found
  */
 //GIT_EXTERN
 .git_filter* git_filter_lookup(const (char)* name);
@@ -87,8 +89,10 @@ int git_filter_list_push(libgit2_d.filter.git_filter_list* fl, .git_filter* filt
  * data that is passed in (for example, the CRLF filter will skip data
  * that appears to be binary).
  *
- * @param fl A filter list
- * @return The number of filters in the list
+ * Params:
+ *      fl = A filter list
+ *
+ * Returns: The number of filters in the list
  */
 //GIT_EXTERN
 size_t git_filter_list_length(const (libgit2_d.filter.git_filter_list)* fl);
@@ -295,9 +299,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_filter` with default values. Equivalent to
  * creating an instance with GIT_FILTER_INIT.
  *
- * @param filter the `git_filter` struct to initialize.
- * @param version Version the struct; pass `GIT_FILTER_VERSION`
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      filter = the `git_filter` struct to initialize.
+ *      version = Version the struct; pass `GIT_FILTER_VERSION`
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_filter_init(.git_filter* filter, uint version_);
@@ -320,13 +326,12 @@ int git_filter_init(.git_filter* filter, uint version_);
  * deregistering of filters must be done outside of any possible usage of
  * the filters (i.e. during application setup or shutdown).
  *
- * @param name A name by which the filter can be referenced.  Attempting
- * 			to register with an in-use name will return git_error_code.GIT_EEXISTS.
- * @param filter The filter definition.  This pointer will be stored as is
- * 			by libgit2 so it must be a durable allocation (either
- * static or on the heap).
- * @param priority The priority for filter application
- * @return 0 on successful registry, error code <0 on failure
+ * Params:
+ *      name = A name by which the filter can be referenced.  Attempting to register with an in-use name will return git_error_code.GIT_EEXISTS.
+ *      filter = The filter definition.  This pointer will be stored as is by libgit2 so it must be a durable allocation (either static or on the heap).
+ *      priority = The priority for filter application
+ *
+ * Returns: 0 on successful registry, error code <0 on failure
  */
 //GIT_EXTERN
 int git_filter_register(const (char)* name, .git_filter* filter, int priority);
@@ -341,8 +346,10 @@ int git_filter_register(const (char)* name, .git_filter* filter, int priority);
  * deregistering of filters must be done outside of any possible usage of
  * the filters (i.e. during application setup or shutdown).
  *
- * @param name The name under which the filter was registered
- * @return 0 on success, error code <0 on failure
+ * Params:
+ *      name = The name under which the filter was registered
+ *
+ * Returns: 0 on success, error code <0 on failure
  */
 //GIT_EXTERN
 int git_filter_unregister(const (char)* name);

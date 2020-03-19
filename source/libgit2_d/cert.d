@@ -64,14 +64,13 @@ struct git_cert
 /**
  * Callback for the user's custom certificate checks.
  *
- * @param cert The host certificate
- * @param valid Whether the libgit2 checks (OpenSSL or WinHTTP) think
- * this certificate is valid
- * @param host Hostname of the host libgit2 connected to
- * @param payload Payload provided by the caller
- * @return 0 to proceed with the connection, < 0 to fail the connection
- *         or > 0 to indicate that the callback refused to act and that
- *         the existing validity determination should be honored
+ * Params:
+ *      cert = The host certificate
+ *      valid = Whether the libgit2 checks (OpenSSL or WinHTTP) think this certificate is valid
+ *      host = Hostname of the host libgit2 connected to
+ *      payload = Payload provided by the caller
+ *
+ * Returns: 0 to proceed with the connection, < 0 to fail the connection or > 0 to indicate that the callback refused to act and that the existing validity determination should be honored
  */
 alias git_transport_certificate_check_cb = int function(.git_cert* cert, int valid, const (char)* host, void* payload);
 

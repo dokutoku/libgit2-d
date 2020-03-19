@@ -36,11 +36,13 @@ enum GIT_OBJECT_SIZE_MAX = ulong.max;
  * The special value 'git_object_t.GIT_OBJECT_ANY' may be passed to let
  * the method guess the object's type.
  *
- * @param object pointer to the looked-up object
- * @param repo the repository to look up the object
- * @param id the unique identifier for the object
- * @param type the type of the object
- * @return 0 or an error code
+ * Params:
+ *      object = pointer to the looked-up object
+ *      repo = the repository to look up the object
+ *      id = the unique identifier for the object
+ *      type = the type of the object
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_object_lookup(libgit2_d.types.git_object** object, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id, libgit2_d.types.git_object_t type);
@@ -65,12 +67,14 @@ int git_object_lookup(libgit2_d.types.git_object** object, libgit2_d.types.git_r
  * The special value 'git_object_t.GIT_OBJECT_ANY' may be passed to let
  * the method guess the object's type.
  *
- * @param object_out pointer where to store the looked-up object
- * @param repo the repository to look up the object
- * @param id a short identifier for the object
- * @param len the length of the short identifier
- * @param type the type of the object
- * @return 0 or an error code
+ * Params:
+ *      object_out = pointer where to store the looked-up object
+ *      repo = the repository to look up the object
+ *      id = a short identifier for the object
+ *      len = the length of the short identifier
+ *      type = the type of the object
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_object_lookup_prefix(libgit2_d.types.git_object** object_out, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id, size_t len, libgit2_d.types.git_object_t type);
@@ -78,12 +82,13 @@ int git_object_lookup_prefix(libgit2_d.types.git_object** object_out, libgit2_d.
 /**
  * Lookup an object that represents a tree entry.
  *
- * @param out_ buffer that receives a pointer to the object (which must be freed
- *            by the caller)
- * @param treeish root object that can be peeled to a tree
- * @param path relative path from the root object to the desired object
- * @param type type of object desired
- * @return 0 on success, or an error code
+ * Params:
+ *      out_ = buffer that receives a pointer to the object (which must be freed by the caller)
+ *      treeish = root object that can be peeled to a tree
+ *      path = relative path from the root object to the desired object
+ *      type = type of object desired
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_object_lookup_bypath(libgit2_d.types.git_object** out_, const (libgit2_d.types.git_object)* treeish, const (char)* path, libgit2_d.types.git_object_t type);
@@ -91,8 +96,10 @@ int git_object_lookup_bypath(libgit2_d.types.git_object** out_, const (libgit2_d
 /**
  * Get the id (SHA1) of a repository object
  *
- * @param obj the repository object
- * @return the SHA1 id
+ * Params:
+ *      obj = the repository object
+ *
+ * Returns: the SHA1 id
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_object_id(const (libgit2_d.types.git_object)* obj);
@@ -105,9 +112,11 @@ const (libgit2_d.oid.git_oid)* git_object_id(const (libgit2_d.types.git_object)*
  * The result will be unambiguous (at least until new objects are added to
  * the repository).
  *
- * @param out_ Buffer to write string into
- * @param obj The object to get an ID for
- * @return 0 on success, <0 for error
+ * Params:
+ *      out_ = Buffer to write string into
+ *      obj = The object to get an ID for
+ *
+ * Returns: 0 on success, <0 for error
  */
 //GIT_EXTERN
 int git_object_short_id(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types.git_object)* obj);
@@ -115,8 +124,10 @@ int git_object_short_id(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types.g
 /**
  * Get the object type of an object
  *
- * @param obj the repository object
- * @return the object's type
+ * Params:
+ *      obj = the repository object
+ *
+ * Returns: the object's type
  */
 //GIT_EXTERN
 libgit2_d.types.git_object_t git_object_type(const (libgit2_d.types.git_object)* obj);
@@ -130,8 +141,10 @@ libgit2_d.types.git_object_t git_object_type(const (libgit2_d.types.git_object)*
  * Any other operation may be run on the repository without
  * affecting the object.
  *
- * @param obj the object
- * @return the repository who owns this object
+ * Params:
+ *      obj = the object
+ *
+ * Returns: the repository who owns this object
  */
 //GIT_EXTERN
 libgit2_d.types.git_repository* git_object_owner(const (libgit2_d.types.git_object)* obj);
@@ -149,7 +162,8 @@ libgit2_d.types.git_repository* git_object_owner(const (libgit2_d.types.git_obje
  * It *is* necessary to call this method when you stop using
  * an object. Failure to do so will cause a memory leak.
  *
- * @param object the object to close
+ * Params:
+ *      object = the object to close
  */
 //GIT_EXTERN
 void git_object_free(libgit2_d.types.git_object* object);
@@ -160,8 +174,10 @@ void git_object_free(libgit2_d.types.git_object* object);
  * The result is a pointer to a string in static memory and
  * should not be free()'ed.
  *
- * @param type object type to convert.
- * @return the corresponding string representation.
+ * Params:
+ *      type = object type to convert.
+ *
+ * Returns: the corresponding string representation.
  */
 //GIT_EXTERN
 const (char)* git_object_type2string(libgit2_d.types.git_object_t type);
@@ -169,8 +185,10 @@ const (char)* git_object_type2string(libgit2_d.types.git_object_t type);
 /**
  * Convert a string object type representation to it's libgit2_d.types.git_object_t.
  *
- * @param str the string to convert.
- * @return the corresponding libgit2_d.types.git_object_t.
+ * Params:
+ *      str = the string to convert.
+ *
+ * Returns: the corresponding libgit2_d.types.git_object_t.
  */
 //GIT_EXTERN
 libgit2_d.types.git_object_t git_object_string2type(const (char)* str);
@@ -178,9 +196,10 @@ libgit2_d.types.git_object_t git_object_string2type(const (char)* str);
 /**
  * Determine if the given libgit2_d.types.git_object_t is a valid loose object type.
  *
- * @param type object type to test.
- * @return true if the type represents a valid loose object type,
- * false otherwise.
+ * Params:
+ *      type = object type to test.
+ *
+ * Returns: true if the type represents a valid loose object type, false otherwise.
  */
 //GIT_EXTERN
 int git_object_typeisloose(libgit2_d.types.git_object_t type);
@@ -203,10 +222,12 @@ int git_object_typeisloose(libgit2_d.types.git_object_t type);
  *
  * You must free the returned object.
  *
- * @param peeled Pointer to the peeled git_object
- * @param object The object to be processed
- * @param target_type The type of the requested object (a GIT_OBJECT_ value)
- * @return 0 on success, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EPEEL, or an error code
+ * Params:
+ *      peeled = Pointer to the peeled git_object
+ *      object = The object to be processed
+ *      target_type = The type of the requested object (a GIT_OBJECT_ value)
+ *
+ * Returns: 0 on success, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EPEEL, or an error code
  */
 //GIT_EXTERN
 int git_object_peel(libgit2_d.types.git_object** peeled, const (libgit2_d.types.git_object)* object, libgit2_d.types.git_object_t target_type);
@@ -215,8 +236,9 @@ int git_object_peel(libgit2_d.types.git_object** peeled, const (libgit2_d.types.
  * Create an in-memory copy of a Git object. The copy must be
  * explicitly free'd or it will leak.
  *
- * @param dest Pointer to store the copy of the object
- * @param source Original object to copy
+ * Params:
+ *      dest = Pointer to store the copy of the object
+ *      source = Original object to copy
  */
 //GIT_EXTERN
 int git_object_dup(libgit2_d.types.git_object** dest, libgit2_d.types.git_object* source);

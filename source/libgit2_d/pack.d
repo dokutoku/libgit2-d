@@ -61,10 +61,11 @@ enum git_packbuilder_stage_t
 /**
  * Initialize a new packbuilder
  *
- * @param out_ The new packbuilder object
- * @param repo The repository
+ * Params:
+ *      out_ = The new packbuilder object
+ *      repo = The repository
  *
- * @return 0 or an error code
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_packbuilder_new(libgit2_d.types.git_packbuilder** out_, libgit2_d.types.git_repository* repo);
@@ -76,9 +77,11 @@ int git_packbuilder_new(libgit2_d.types.git_packbuilder** out_, libgit2_d.types.
  * when set to 0, libgit2 will autodetect the number of
  * CPUs.
  *
- * @param pb The packbuilder
- * @param n Number of threads to spawn
- * @return number of actual threads to be used
+ * Params:
+ *      pb = The packbuilder
+ *      n = Number of threads to spawn
+ *
+ * Returns: number of actual threads to be used
  */
 //GIT_EXTERN
 uint git_packbuilder_set_threads(libgit2_d.types.git_packbuilder* pb, uint n);
@@ -89,11 +92,12 @@ uint git_packbuilder_set_threads(libgit2_d.types.git_packbuilder* pb, uint n);
  * For an optimal pack it's mandatory to insert objects in recency order,
  * commits followed by trees and blobs.
  *
- * @param pb The packbuilder
- * @param id The oid of the commit
- * @param name The name; might be null
+ * Params:
+ *      pb = The packbuilder
+ *      id = The oid of the commit
+ *      name = The name; might be null
  *
- * @return 0 or an error code
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_packbuilder_insert(libgit2_d.types.git_packbuilder* pb, const (libgit2_d.oid.git_oid)* id, const (char)* name);
@@ -103,10 +107,11 @@ int git_packbuilder_insert(libgit2_d.types.git_packbuilder* pb, const (libgit2_d
  *
  * This will add the tree as well as all referenced trees and blobs.
  *
- * @param pb The packbuilder
- * @param id The oid of the root tree
+ * Params:
+ *      pb = The packbuilder
+ *      id = The oid of the root tree
  *
- * @return 0 or an error code
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_packbuilder_insert_tree(libgit2_d.types.git_packbuilder* pb, const (libgit2_d.oid.git_oid)* id);
@@ -116,10 +121,11 @@ int git_packbuilder_insert_tree(libgit2_d.types.git_packbuilder* pb, const (libg
  *
  * This will add a commit as well as the completed referenced tree.
  *
- * @param pb The packbuilder
- * @param id The oid of the commit
+ * Params:
+ *      pb = The packbuilder
+ *      id = The oid of the commit
  *
- * @return 0 or an error code
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_packbuilder_insert_commit(libgit2_d.types.git_packbuilder* pb, const (libgit2_d.oid.git_oid)* id);
@@ -130,10 +136,11 @@ int git_packbuilder_insert_commit(libgit2_d.types.git_packbuilder* pb, const (li
  * Those commits and all objects they reference will be inserted into
  * the packbuilder.
  *
- * @param pb the packbuilder
- * @param walk the revwalk to use to fill the packbuilder
+ * Params:
+ *      pb = the packbuilder
+ *      walk = the revwalk to use to fill the packbuilder
  *
- * @return 0 or an error code
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_packbuilder_insert_walk(libgit2_d.types.git_packbuilder* pb, libgit2_d.types.git_revwalk* walk);
@@ -143,10 +150,12 @@ int git_packbuilder_insert_walk(libgit2_d.types.git_packbuilder* pb, libgit2_d.t
  *
  * Insert the object as well as any object it references.
  *
- * @param pb the packbuilder
- * @param id the id of the root object to insert
- * @param name optional name for the object
- * @return 0 or an error code
+ * Params:
+ *      pb = the packbuilder
+ *      id = the id of the root object to insert
+ *      name = optional name for the object
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_packbuilder_insert_recur(libgit2_d.types.git_packbuilder* pb, const (libgit2_d.oid.git_oid)* id, const (char)* name);
@@ -157,8 +166,9 @@ int git_packbuilder_insert_recur(libgit2_d.types.git_packbuilder* pb, const (lib
  * The contents of the buffer will become a valid packfile, even though there
  * will be no attached index
  *
- * @param buf Buffer where to write the packfile
- * @param pb The packbuilder
+ * Params:
+ *      buf = Buffer where to write the packfile
+ *      pb = The packbuilder
  */
 //GIT_EXTERN
 int git_packbuilder_write_buf(libgit2_d.buffer.git_buf* buf, libgit2_d.types.git_packbuilder* pb);
@@ -166,14 +176,14 @@ int git_packbuilder_write_buf(libgit2_d.buffer.git_buf* buf, libgit2_d.types.git
 /**
  * Write the new pack and corresponding index file to path.
  *
- * @param pb The packbuilder
- * @param path to the directory where the packfile and index should be stored
- * @param mode permissions to use creating a packfile or 0 for defaults
- * @param progress_cb function to call with progress information from the
- * indexer (optional)
- * @param progress_cb_payload payload for the progress callback (optional)
+ * Params:
+ *      pb = The packbuilder
+ *      path = to the directory where the packfile and index should be stored
+ *      mode = permissions to use creating a packfile or 0 for defaults
+ *      progress_cb = function to call with progress information from the indexer (optional)
+ *      progress_cb_payload = payload for the progress callback (optional)
  *
- * @return 0 or an error code
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_packbuilder_write(libgit2_d.types.git_packbuilder* pb, const (char)* path, uint mode, libgit2_d.indexer.git_indexer_progress_cb progress_cb, void* progress_cb_payload);
@@ -184,7 +194,8 @@ int git_packbuilder_write(libgit2_d.types.git_packbuilder* pb, const (char)* pat
  * A packfile's name is derived from the sorted hashing of all object
  * names. This is only correct after the packfile has been written.
  *
- * @param pb The packbuilder object
+ * Params:
+ *      pb = The packbuilder object
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_packbuilder_hash(libgit2_d.types.git_packbuilder* pb);
@@ -194,20 +205,24 @@ const (libgit2_d.oid.git_oid)* git_packbuilder_hash(libgit2_d.types.git_packbuil
  *
  * @see git_packbuilder_foreach
  *
- * @param buf A pointer to the object's data
- * @param size The size of the underlying object
- * @param payload Payload passed to git_packbuilder_foreach
- * @return non-zero to terminate the iteration
+ * Params:
+ *      buf = A pointer to the object's data
+ *      size = The size of the underlying object
+ *      payload = Payload passed to git_packbuilder_foreach
+ *
+ * Returns: non-zero to terminate the iteration
  */
 alias git_packbuilder_foreach_cb = int function(void* buf, size_t size, void* payload);
 
 /**
  * Create the new pack and pass each object to the callback
  *
- * @param pb the packbuilder
- * @param cb the callback to call with each packed object's buffer
- * @param payload the callback's data
- * @return 0 or an error code
+ * Params:
+ *      pb = the packbuilder
+ *      cb = the callback to call with each packed object's buffer
+ *      payload = the callback's data
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_packbuilder_foreach(libgit2_d.types.git_packbuilder* pb, .git_packbuilder_foreach_cb cb, void* payload);
@@ -215,8 +230,10 @@ int git_packbuilder_foreach(libgit2_d.types.git_packbuilder* pb, .git_packbuilde
 /**
  * Get the total number of objects the packbuilder will write out
  *
- * @param pb the packbuilder
- * @return the number of objects in the packfile
+ * Params:
+ *      pb = the packbuilder
+ *
+ * Returns: the number of objects in the packfile
  */
 //GIT_EXTERN
 size_t git_packbuilder_object_count(libgit2_d.types.git_packbuilder* pb);
@@ -224,8 +241,10 @@ size_t git_packbuilder_object_count(libgit2_d.types.git_packbuilder* pb);
 /**
  * Get the number of objects the packbuilder has already written out
  *
- * @param pb the packbuilder
- * @return the number of objects which have already been written
+ * Params:
+ *      pb = the packbuilder
+ *
+ * Returns: the number of objects which have already been written
  */
 //GIT_EXTERN
 size_t git_packbuilder_written(libgit2_d.types.git_packbuilder* pb);
@@ -238,12 +257,12 @@ alias git_packbuilder_progress = int function(int stage, uint current, uint tota
 /**
  * Set the callbacks for a packbuilder
  *
- * @param pb The packbuilder object
- * @param progress_cb Function to call with progress information during
- * pack building. Be aware that this is called inline with pack building
- * operations, so performance may be affected.
- * @param progress_cb_payload Payload for progress callback.
- * @return 0 or an error code
+ * Params:
+ *      pb = The packbuilder object
+ *      progress_cb = Function to call with progress information during pack building. Be aware that this is called inline with pack building operations, so performance may be affected.
+ *      progress_cb_payload = Payload for progress callback.
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_packbuilder_set_callbacks(libgit2_d.types.git_packbuilder* pb, .git_packbuilder_progress progress_cb, void* progress_cb_payload);
@@ -251,7 +270,8 @@ int git_packbuilder_set_callbacks(libgit2_d.types.git_packbuilder* pb, .git_pack
 /**
  * Free the packbuilder and all associated data
  *
- * @param pb The packbuilder
+ * Params:
+ *      pb = The packbuilder
  */
 //GIT_EXTERN
 void git_packbuilder_free(libgit2_d.types.git_packbuilder* pb);

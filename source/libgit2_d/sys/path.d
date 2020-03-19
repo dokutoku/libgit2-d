@@ -67,12 +67,13 @@ enum git_path_fs
  * path or not. This function can do the comparison for you,
  * depending on the filesystem you're on.
  *
- * @param path the path component to check
- * @param pathlen the length of `path` that is to be checked
- * @param gitfile which file to check against
- * @param fs which filesystem-specific checks to use
- * @return 0 in case the file does not match, a positive value if
- *         it does; -1 in case of an error
+ * Params:
+ *      path = the path component to check
+ *      pathlen = the length of `path` that is to be checked
+ *      gitfile = which file to check against
+ *      fs = which filesystem-specific checks to use
+ *
+ * Returns: 0 in case the file does not match, a positive value if it does; -1 in case of an error
  */
 //GIT_EXTERN
 int git_path_is_gitfile(const (char)* path, size_t pathlen, .git_path_gitfile gitfile, .git_path_fs fs);

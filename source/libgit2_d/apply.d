@@ -30,8 +30,9 @@ public:
  *      continues
  * - returns 0, the delta is applied, and the apply process continues.
  *
- * @param delta The delta to be applied
- * @param payload User-specified payload
+ * Params:
+ *      delta = The delta to be applied
+ *      payload = User-specified payload
  */
 alias git_apply_delta_cb = int function(const (libgit2_d.diff.git_diff_delta)* delta, void* payload);
 
@@ -44,8 +45,9 @@ alias git_apply_delta_cb = int function(const (libgit2_d.diff.git_diff_delta)* d
  *      continues
  * - returns 0, the hunk is applied, and the apply process continues.
  *
- * @param hunk The hunk to be applied
- * @param payload User-specified payload
+ * Params:
+ *      hunk = The hunk to be applied
+ *      payload = User-specified payload
  */
 alias git_apply_hunk_cb = int function(const (libgit2_d.diff.git_diff_hunk)* hunk, void* payload);
 
@@ -120,11 +122,12 @@ int git_apply_options_init(.git_apply_options* opts, uint version_);
  * Apply a `git_diff` to a `git_tree`, and return the resulting image
  * as an index.
  *
- * @param out_ the postimage of the application
- * @param repo the repository to apply
- * @param preimage the tree to apply the diff to
- * @param diff the diff to apply
- * @param options the options for the apply (or null for defaults)
+ * Params:
+ *      out_ = the postimage of the application
+ *      repo = the repository to apply
+ *      preimage = the tree to apply the diff to
+ *      diff = the diff to apply
+ *      options = the options for the apply (or null for defaults)
  */
 //GIT_EXTERN
 int git_apply_to_tree(libgit2_d.types.git_index** out_, libgit2_d.types.git_repository* repo, libgit2_d.types.git_tree* preimage, libgit2_d.diff.git_diff* diff, const (.git_apply_options)* options);
@@ -157,10 +160,11 @@ enum git_apply_location_t
  * Apply a `git_diff` to the given repository, making changes directly
  * in the working directory, the index, or both.
  *
- * @param repo the repository to apply to
- * @param diff the diff to apply
- * @param location the location to apply (workdir, index or both)
- * @param options the options for the apply (or null for defaults)
+ * Params:
+ *      repo = the repository to apply to
+ *      diff = the diff to apply
+ *      location = the location to apply (workdir, index or both)
+ *      options = the options for the apply (or null for defaults)
  */
 //GIT_EXTERN
 int git_apply(libgit2_d.types.git_repository* repo, libgit2_d.diff.git_diff* diff, .git_apply_location_t location, const (.git_apply_options)* options);

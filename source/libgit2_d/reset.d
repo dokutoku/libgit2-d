@@ -57,20 +57,13 @@ enum git_reset_t
  *
  * TODO: Implement remaining kinds of resets.
  *
- * @param repo Repository where to perform the reset operation.
+ * Params:
+ *      repo = Repository where to perform the reset operation.
+ *      target = Committish to which the Head should be moved to. This object must belong to the given `repo` and can either be a git_commit or a git_tag. When a git_tag is being passed, it should be dereferencable to a git_commit which oid will be used as the target of the branch.
+ *      reset_type = Kind of reset operation to perform.
+ *      checkout_opts = Optional checkout options to be used for a HARD reset. The checkout_strategy field will be overridden (based on reset_type). This parameter can be used to propagate notify and progress callbacks.
  *
- * @param target Committish to which the Head should be moved to. This object
- * must belong to the given `repo` and can either be a git_commit or a
- * git_tag. When a git_tag is being passed, it should be dereferencable
- * to a git_commit which oid will be used as the target of the branch.
- *
- * @param reset_type Kind of reset operation to perform.
- *
- * @param checkout_opts Optional checkout options to be used for a HARD reset.
- * The checkout_strategy field will be overridden (based on reset_type).
- * This parameter can be used to propagate notify and progress callbacks.
- *
- * @return 0 on success or an error code
+ * Returns: 0 on success or an error code
  */
 //GIT_EXTERN
 int git_reset(libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_object)* target, .git_reset_t reset_type, const (libgit2_d.checkout.git_checkout_options)* checkout_opts);
@@ -99,14 +92,12 @@ int git_reset_from_annotated(libgit2_d.types.git_repository* repo, const (libgit
  * Passing a null `target` will result in removing
  * entries in the index matching the provided pathspecs.
  *
- * @param repo Repository where to perform the reset operation.
+ * Params:
+ *      repo = Repository where to perform the reset operation.
+ *      target = The committish which content will be used to reset the content of the index.
+ *      pathspecs = List of pathspecs to operate on.
  *
- * @param target The committish which content will be used to reset the content
- * of the index.
- *
- * @param pathspecs List of pathspecs to operate on.
- *
- * @return 0 on success or an error code < 0
+ * Returns: 0 on success or an error code < 0
  */
 //GIT_EXTERN
 int git_reset_default(libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_object)* target, const (libgit2_d.strarray.git_strarray)* pathspecs);

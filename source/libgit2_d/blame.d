@@ -141,9 +141,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_blame_options` with default values. Equivalent to creating
  * an instance with GIT_BLAME_OPTIONS_INIT.
  *
- * @param opts The `git_blame_options` struct to initialize.
- * @param version The struct version; pass `GIT_BLAME_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_blame_options` struct to initialize.
+ *      version = The struct version; pass `GIT_BLAME_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_blame_options_init(.git_blame_options* opts, uint version_);
@@ -203,9 +205,11 @@ uint git_blame_get_hunk_count(.git_blame* blame);
 /**
  * Gets the blame hunk at the given index.
  *
- * @param blame the blame structure to query
- * @param index index of the hunk to retrieve
- * @return the hunk at the given index, or null on error
+ * Params:
+ *      blame = the blame structure to query
+ *      index = index of the hunk to retrieve
+ *
+ * Returns: the hunk at the given index, or null on error
  */
 //GIT_EXTERN
 const (.git_blame_hunk)* git_blame_get_hunk_byindex(.git_blame* blame, uint index);
@@ -213,9 +217,11 @@ const (.git_blame_hunk)* git_blame_get_hunk_byindex(.git_blame* blame, uint inde
 /**
  * Gets the hunk that relates to the given line number in the newest commit.
  *
- * @param blame the blame structure to query
- * @param lineno the (1-based) line number to find a hunk for
- * @return the hunk that contains the given line, or null on error
+ * Params:
+ *      blame = the blame structure to query
+ *      lineno = the (1-based) line number to find a hunk for
+ *
+ * Returns: the hunk that contains the given line, or null on error
  */
 //GIT_EXTERN
 const (.git_blame_hunk)* git_blame_get_hunk_byline(.git_blame* blame, size_t lineno);
@@ -223,13 +229,13 @@ const (.git_blame_hunk)* git_blame_get_hunk_byline(.git_blame* blame, size_t lin
 /**
  * Get the blame for a single file.
  *
- * @param out_ pointer that will receive the blame object
- * @param repo repository whose history is to be walked
- * @param path path to file to consider
- * @param options options for the blame operation.  If null, this is treated as
- *                though GIT_BLAME_OPTIONS_INIT were passed.
- * @return 0 on success, or an error code. (use git_error_last for information
- *         about the error.)
+ * Params:
+ *      out_ = pointer that will receive the blame object
+ *      repo = repository whose history is to be walked
+ *      path = path to file to consider
+ *      options = options for the blame operation.  If null, this is treated as though GIT_BLAME_OPTIONS_INIT were passed.
+ *
+ * Returns: 0 on success, or an error code. (use git_error_last for information about the error.)
  */
 //GIT_EXTERN
 int git_blame_file(.git_blame** out_, libgit2_d.types.git_repository* repo, const (char)* path, .git_blame_options* options);
@@ -243,13 +249,13 @@ int git_blame_file(.git_blame** out_, libgit2_d.types.git_repository* repo, cons
  * Lines that differ between the buffer and the committed version are marked as
  * having a zero OID for their final_commit_id.
  *
- * @param out_ pointer that will receive the resulting blame data
- * @param reference cached blame from the history of the file (usually the
- * output from git_blame_file)
- * @param buffer the (possibly) modified contents of the file
- * @param buffer_len number of valid bytes in the buffer
- * @return 0 on success, or an error code. (use git_error_last for information
- *         about the error)
+ * Params:
+ *      out_ = pointer that will receive the resulting blame data
+ *      reference = cached blame from the history of the file (usually the output from git_blame_file)
+ *      buffer = the (possibly) modified contents of the file
+ *      buffer_len = number of valid bytes in the buffer
+ *
+ * Returns: 0 on success, or an error code. (use git_error_last for information about the error)
  */
 //GIT_EXTERN
 int git_blame_buffer(.git_blame** out_, .git_blame* reference, const (char)* buffer, size_t buffer_len);
@@ -257,7 +263,8 @@ int git_blame_buffer(.git_blame** out_, .git_blame* reference, const (char)* buf
 /**
  * Free memory allocated by git_blame_file or git_blame_buffer.
  *
- * @param blame the blame structure to free
+ * Params:
+ *      blame = the blame structure to free
  */
 //GIT_EXTERN
 void git_blame_free(.git_blame* blame);

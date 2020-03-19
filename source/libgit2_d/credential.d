@@ -126,14 +126,14 @@ alias git_credential_ssh_custom = libgit2_d.sys.credential.git_credential_ssh_cu
  * an error. As such, it's easy to get in a loop if you fail to stop providing
  * the same incorrect credentials.
  *
- * @param out_ The newly created credential object.
- * @param url The resource for which we are demanding a credential.
- * @param username_from_url The username that was embedded in a "user\@host"
- *                          remote url, or NULL if not included.
- * @param allowed_types A bitmask stating which credential types are OK to return.
- * @param payload The payload provided when specifying this callback.
- * @return 0 for success, < 0 to indicate an error, > 0 to indicate
- *       no credential was acquired
+ * Params:
+ *      out_ = The newly created credential object.
+ *      url = The resource for which we are demanding a credential.
+ *      username_from_url = The username that was embedded in a "user\@host" remote url, or NULL if not included.
+ *      allowed_types = A bitmask stating which credential types are OK to return.
+ *      payload = The payload provided when specifying this callback.
+ *
+ * Returns: 0 for success, < 0 to indicate an error, > 0 to indicate no credential was acquired
  */
 alias git_credential_acquire_cb = int function(.git_credential** out_, const (char)* url, const (char)* username_from_url, uint allowed_types, void* payload);
 
@@ -143,7 +143,8 @@ alias git_credential_acquire_cb = int function(.git_credential** out_, const (ch
  * This is only necessary if you own the object; that is, if you are a
  * transport.
  *
- * @param cred the object to free
+ * Params:
+ *      cred = the object to free
  */
 //GIT_EXTERN
 void git_credential_free(.git_credential* cred);
@@ -151,8 +152,10 @@ void git_credential_free(.git_credential* cred);
 /**
  * Check whether a credential object contains username information.
  *
- * @param cred object to check
- * @return 1 if the credential object has non-NULL username, 0 otherwise
+ * Params:
+ *      cred = object to check
+ *
+ * Returns: 1 if the credential object has non-NULL username, 0 otherwise
  */
 //GIT_EXTERN
 int git_credential_has_username(.git_credential* cred);
@@ -160,8 +163,10 @@ int git_credential_has_username(.git_credential* cred);
 /**
  * Return the username associated with a credential object.
  *
- * @param cred object to check
- * @return the credential username, or NULL if not applicable
+ * Params:
+ *      cred = object to check
+ *
+ * Returns: the credential username, or NULL if not applicable
  */
 //GIT_EXTERN
 const (char)* git_credential_get_username(.git_credential* cred);
@@ -170,10 +175,12 @@ const (char)* git_credential_get_username(.git_credential* cred);
  * Create a new plain-text username and password credential object.
  * The supplied credential parameter will be internally duplicated.
  *
- * @param out_ The newly created credential object.
- * @param username The username of the credential.
- * @param password The password of the credential.
- * @return 0 for success or an error code for failure
+ * Params:
+ *      out_ = The newly created credential object.
+ *      username = The username of the credential.
+ *      password = The password of the credential.
+ *
+ * Returns: 0 for success or an error code for failure
  */
 //GIT_EXTERN
 int git_credential_userpass_plaintext_new(.git_credential** out_, const (char)* username, const (char)* password);
@@ -182,8 +189,10 @@ int git_credential_userpass_plaintext_new(.git_credential** out_, const (char)* 
  * Create a "default" credential usable for Negotiate mechanisms like NTLM
  * or Kerberos authentication.
  *
- * @param out_ The newly created credential object.
- * @return 0 for success or an error code for failure
+ * Params:
+ *      out_ = The newly created credential object.
+ *
+ * Returns: 0 for success or an error code for failure
  */
 //GIT_EXTERN
 int git_credential_default_new(.git_credential** out_);
@@ -194,9 +203,11 @@ int git_credential_default_new(.git_credential** out_);
  * This is used with ssh authentication to query for the username if
  * none is specified in the url.
  *
- * @param out_ The newly created credential object.
- * @param username The username to authenticate with
- * @return 0 for success or an error code for failure
+ * Params:
+ *      out_ = The newly created credential object.
+ *      username = The username to authenticate with
+ *
+ * Returns: 0 for success or an error code for failure
  */
 //GIT_EXTERN
 int git_credential_username_new(.git_credential** out_, const (char)* username);
@@ -205,12 +216,14 @@ int git_credential_username_new(.git_credential** out_, const (char)* username);
  * Create a new passphrase-protected ssh key credential object.
  * The supplied credential parameter will be internally duplicated.
  *
- * @param out_ The newly created credential object.
- * @param username username to use to authenticate
- * @param publickey The path to the public key of the credential.
- * @param privatekey The path to the private key of the credential.
- * @param passphrase The passphrase of the credential.
- * @return 0 for success or an error code for failure
+ * Params:
+ *      out_ = The newly created credential object.
+ *      username = username to use to authenticate
+ *      publickey = The path to the public key of the credential.
+ *      privatekey = The path to the private key of the credential.
+ *      passphrase = The passphrase of the credential.
+ *
+ * Returns: 0 for success or an error code for failure
  */
 //GIT_EXTERN
 int git_credential_ssh_key_new(.git_credential** out_, const (char)* username, const (char)* publickey, const (char)* privatekey, const (char)* passphrase);
@@ -218,12 +231,14 @@ int git_credential_ssh_key_new(.git_credential** out_, const (char)* username, c
 /**
  * Create a new ssh key credential object reading the keys from memory.
  *
- * @param out_ The newly created credential object.
- * @param username username to use to authenticate.
- * @param publickey The public key of the credential.
- * @param privatekey The private key of the credential.
- * @param passphrase The passphrase of the credential.
- * @return 0 for success or an error code for failure
+ * Params:
+ *      out_ = The newly created credential object.
+ *      username = username to use to authenticate.
+ *      publickey = The public key of the credential.
+ *      privatekey = The private key of the credential.
+ *      passphrase = The passphrase of the credential.
+ *
+ * Returns: 0 for success or an error code for failure
  */
 //GIT_EXTERN
 int git_credential_ssh_key_memory_new(.git_credential** out_, const (char)* username, const (char)* publickey, const (char)* privatekey, const (char)* passphrase);
@@ -248,10 +263,12 @@ alias git_credential_ssh_interactive_cb = void function(const (char)* name, int 
  * Create a new ssh keyboard-interactive based credential object.
  * The supplied credential parameter will be internally duplicated.
  *
- * @param username Username to use to authenticate.
- * @param prompt_callback The callback method used for prompts.
- * @param payload Additional data to pass to the callback.
- * @return 0 for success or an error code for failure.
+ * Params:
+ *      username = Username to use to authenticate.
+ *      prompt_callback = The callback method used for prompts.
+ *      payload = Additional data to pass to the callback.
+ *
+ * Returns: 0 for success or an error code for failure.
  */
 //GIT_EXTERN
 int git_credential_ssh_interactive_new(.git_credential** out_, const (char)* username, .git_credential_ssh_interactive_cb prompt_callback, void* payload);
@@ -260,9 +277,11 @@ int git_credential_ssh_interactive_new(.git_credential** out_, const (char)* use
  * Create a new ssh key credential object used for querying an ssh-agent.
  * The supplied credential parameter will be internally duplicated.
  *
- * @param out_ The newly created credential object.
- * @param username username to use to authenticate
- * @return 0 for success or an error code for failure
+ * Params:
+ *      out_ = The newly created credential object.
+ *      username = username to use to authenticate
+ *
+ * Returns: 0 for success or an error code for failure
  */
 //GIT_EXTERN
 int git_credential_ssh_key_from_agent(.git_credential** out_, const (char)* username);
@@ -279,13 +298,15 @@ alias git_credential_sign_cb = int function(.LIBSSH2_SESSION* session, ubyte** s
  *
  * The supplied credential parameter will be internally duplicated.
  *
- * @param out_ The newly created credential object.
- * @param username username to use to authenticate
- * @param publickey The bytes of the public key.
- * @param publickey_len The length of the public key in bytes.
- * @param sign_callback The callback method to sign the data during the challenge.
- * @param payload Additional data to pass to the callback.
- * @return 0 for success or an error code for failure
+ * Params:
+ *      out_ = The newly created credential object.
+ *      username = username to use to authenticate
+ *      publickey = The bytes of the public key.
+ *      publickey_len = The length of the public key in bytes.
+ *      sign_callback = The callback method to sign the data during the challenge.
+ *      payload = Additional data to pass to the callback.
+ *
+ * Returns: 0 for success or an error code for failure
  */
 //GIT_EXTERN
 int git_credential_ssh_custom_new(.git_credential** out_, const (char)* username, const (char)* publickey, size_t publickey_len, .git_credential_sign_cb sign_callback, void* payload);

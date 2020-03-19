@@ -21,7 +21,7 @@ public:
  * of times the initialization has been called (including this one) that have
  * not subsequently been shutdown.
  *
- * @return the number of initializations of the library, or an error code.
+ * Returns: the number of initializations of the library, or an error code.
  */
 //GIT_EXTERN
 int git_libgit2_init();
@@ -34,8 +34,7 @@ int git_libgit2_init();
  * number of remainining initializations that have not been shutdown
  * (after this one).
  *
- * @return the number of remaining initializations of the library, or an
- * error code.
+ * Returns: the number of remaining initializations of the library, or an error code.
  */
 //GIT_EXTERN
 int git_libgit2_shutdown();

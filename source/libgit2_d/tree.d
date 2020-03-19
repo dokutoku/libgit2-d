@@ -25,10 +25,12 @@ public:
 /**
  * Lookup a tree object from the repository.
  *
- * @param out_ Pointer to the looked up tree
- * @param repo The repo to use when locating the tree.
- * @param id Identity of the tree to locate.
- * @return 0 or an error code
+ * Params:
+ *      out_ = Pointer to the looked up tree
+ *      repo = The repo to use when locating the tree.
+ *      id = Identity of the tree to locate.
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_tree_lookup(libgit2_d.types.git_tree** out_, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id);
@@ -39,11 +41,13 @@ int git_tree_lookup(libgit2_d.types.git_tree** out_, libgit2_d.types.git_reposit
  *
  * @see git_object_lookup_prefix
  *
- * @param out_ pointer to the looked up tree
- * @param repo the repo to use when locating the tree.
- * @param id identity of the tree to locate.
- * @param len the length of the short identifier
- * @return 0 or an error code
+ * Params:
+ *      out_ = pointer to the looked up tree
+ *      repo = the repo to use when locating the tree.
+ *      id = identity of the tree to locate.
+ *      len = the length of the short identifier
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_tree_lookup_prefix(libgit2_d.types.git_tree** out_, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id, size_t len);
@@ -56,7 +60,8 @@ int git_tree_lookup_prefix(libgit2_d.types.git_tree** out_, libgit2_d.types.git_
  * IMPORTANT: You MUST call this method when you stop using a tree to
  * release memory. Failure to do so will cause a memory leak.
  *
- * @param tree The tree to close
+ * Params:
+ *      tree = The tree to close
  */
 //GIT_EXTERN
 void git_tree_free(libgit2_d.types.git_tree* tree);
@@ -64,8 +69,10 @@ void git_tree_free(libgit2_d.types.git_tree* tree);
 /**
  * Get the id of a tree.
  *
- * @param tree a previously loaded tree.
- * @return object identity for the tree.
+ * Params:
+ *      tree = a previously loaded tree.
+ *
+ * Returns: object identity for the tree.
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_tree_id(const (libgit2_d.types.git_tree)* tree);
@@ -73,8 +80,10 @@ const (libgit2_d.oid.git_oid)* git_tree_id(const (libgit2_d.types.git_tree)* tre
 /**
  * Get the repository that contains the tree.
  *
- * @param tree A previously loaded tree.
- * @return Repository that contains this tree.
+ * Params:
+ *      tree = A previously loaded tree.
+ *
+ * Returns: Repository that contains this tree.
  */
 //GIT_EXTERN
 libgit2_d.types.git_repository* git_tree_owner(const (libgit2_d.types.git_tree)* tree);
@@ -82,8 +91,10 @@ libgit2_d.types.git_repository* git_tree_owner(const (libgit2_d.types.git_tree)*
 /**
  * Get the number of entries listed in a tree
  *
- * @param tree a previously loaded tree.
- * @return the number of entries in the tree
+ * Params:
+ *      tree = a previously loaded tree.
+ *
+ * Returns: the number of entries in the tree
  */
 //GIT_EXTERN
 size_t git_tree_entrycount(const (libgit2_d.types.git_tree)* tree);
@@ -94,9 +105,11 @@ size_t git_tree_entrycount(const (libgit2_d.types.git_tree)* tree);
  * This returns a git_tree_entry that is owned by the git_tree.  You don't
  * have to free it, but you must not use it after the git_tree is released.
  *
- * @param tree a previously loaded tree.
- * @param filename the filename of the desired entry
- * @return the tree entry; null if not found
+ * Params:
+ *      tree = a previously loaded tree.
+ *      filename = the filename of the desired entry
+ *
+ * Returns: the tree entry; null if not found
  */
 //GIT_EXTERN
 const (libgit2_d.types.git_tree_entry)* git_tree_entry_byname(const (libgit2_d.types.git_tree)* tree, const (char)* filename);
@@ -107,9 +120,11 @@ const (libgit2_d.types.git_tree_entry)* git_tree_entry_byname(const (libgit2_d.t
  * This returns a git_tree_entry that is owned by the git_tree.  You don't
  * have to free it, but you must not use it after the git_tree is released.
  *
- * @param tree a previously loaded tree.
- * @param idx the position in the entry list
- * @return the tree entry; null if not found
+ * Params:
+ *      tree = a previously loaded tree.
+ *      idx = the position in the entry list
+ *
+ * Returns: the tree entry; null if not found
  */
 //GIT_EXTERN
 const (libgit2_d.types.git_tree_entry)* git_tree_entry_byindex(const (libgit2_d.types.git_tree)* tree, size_t idx);
@@ -122,9 +137,11 @@ const (libgit2_d.types.git_tree_entry)* git_tree_entry_byindex(const (libgit2_d.
  *
  * Warning: this must examine every entry in the tree, so it is not fast.
  *
- * @param tree a previously loaded tree.
- * @param id the sha being looked for
- * @return the tree entry; null if not found
+ * Params:
+ *      tree = a previously loaded tree.
+ *      id = the sha being looked for
+ *
+ * Returns: the tree entry; null if not found
  */
 //GIT_EXTERN
 const (libgit2_d.types.git_tree_entry)* git_tree_entry_byid(const (libgit2_d.types.git_tree)* tree, const (libgit2_d.oid.git_oid)* id);
@@ -136,10 +153,12 @@ const (libgit2_d.types.git_tree_entry)* git_tree_entry_byid(const (libgit2_d.typ
  * Unlike the other lookup functions, the returned tree entry is owned by
  * the user and must be freed explicitly with `git_tree_entry_free()`.
  *
- * @param out_ Pointer where to store the tree entry
- * @param root Previously loaded tree which is the root of the relative path
- * @param path Path to the contained entry
- * @return 0 on success; git_error_code.GIT_ENOTFOUND if the path does not exist
+ * Params:
+ *      out_ = Pointer where to store the tree entry
+ *      root = Previously loaded tree which is the root of the relative path
+ *      path = Path to the contained entry
+ *
+ * Returns: 0 on success; git_error_code.GIT_ENOTFOUND if the path does not exist
  */
 //GIT_EXTERN
 int git_tree_entry_bypath(libgit2_d.types.git_tree_entry** out_, const (libgit2_d.types.git_tree)* root, const (char)* path);
@@ -150,9 +169,11 @@ int git_tree_entry_bypath(libgit2_d.types.git_tree_entry** out_, const (libgit2_
  * Create a copy of a tree entry. The returned copy is owned by the user,
  * and must be freed explicitly with `git_tree_entry_free()`.
  *
- * @param dest pointer where to store the copy
- * @param source tree entry to duplicate
- * @return 0 or an error code
+ * Params:
+ *      dest = pointer where to store the copy
+ *      source = tree entry to duplicate
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_tree_entry_dup(libgit2_d.types.git_tree_entry** dest, const (libgit2_d.types.git_tree_entry)* source);
@@ -164,7 +185,8 @@ int git_tree_entry_dup(libgit2_d.types.git_tree_entry** dest, const (libgit2_d.t
  * user, such as the ones returned by `git_tree_entry_dup()` or
  * `git_tree_entry_bypath()`.
  *
- * @param entry The entry to free
+ * Params:
+ *      entry = The entry to free
  */
 //GIT_EXTERN
 void git_tree_entry_free(libgit2_d.types.git_tree_entry* entry);
@@ -172,8 +194,10 @@ void git_tree_entry_free(libgit2_d.types.git_tree_entry* entry);
 /**
  * Get the filename of a tree entry
  *
- * @param entry a tree entry
- * @return the name of the file
+ * Params:
+ *      entry = a tree entry
+ *
+ * Returns: the name of the file
  */
 //GIT_EXTERN
 const (char)* git_tree_entry_name(const (libgit2_d.types.git_tree_entry)* entry);
@@ -181,8 +205,10 @@ const (char)* git_tree_entry_name(const (libgit2_d.types.git_tree_entry)* entry)
 /**
  * Get the id of the object pointed by the entry
  *
- * @param entry a tree entry
- * @return the oid of the object
+ * Params:
+ *      entry = a tree entry
+ *
+ * Returns: the oid of the object
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_tree_entry_id(const (libgit2_d.types.git_tree_entry)* entry);
@@ -190,8 +216,10 @@ const (libgit2_d.oid.git_oid)* git_tree_entry_id(const (libgit2_d.types.git_tree
 /**
  * Get the type of the object pointed by the entry
  *
- * @param entry a tree entry
- * @return the type of the pointed object
+ * Params:
+ *      entry = a tree entry
+ *
+ * Returns: the type of the pointed object
  */
 //GIT_EXTERN
 libgit2_d.types.git_object_t git_tree_entry_type(const (libgit2_d.types.git_tree_entry)* entry);
@@ -199,8 +227,10 @@ libgit2_d.types.git_object_t git_tree_entry_type(const (libgit2_d.types.git_tree
 /**
  * Get the UNIX file attributes of a tree entry
  *
- * @param entry a tree entry
- * @return filemode as an integer
+ * Params:
+ *      entry = a tree entry
+ *
+ * Returns: filemode as an integer
  */
 //GIT_EXTERN
 libgit2_d.types.git_filemode_t git_tree_entry_filemode(const (libgit2_d.types.git_tree_entry)* entry);
@@ -211,8 +241,10 @@ libgit2_d.types.git_filemode_t git_tree_entry_filemode(const (libgit2_d.types.gi
  * This function does not perform any normalization and is only useful
  * if you need to be able to recreate the original tree object.
  *
- * @param entry a tree entry
- * @return filemode as an integer
+ * Params:
+ *      entry = a tree entry
+ *
+ * Returns: filemode as an integer
  */
 
 //GIT_EXTERN
@@ -221,9 +253,11 @@ libgit2_d.types.git_filemode_t git_tree_entry_filemode_raw(const (libgit2_d.type
 /**
  * Compare two tree entries
  *
- * @param e1 first tree entry
- * @param e2 second tree entry
- * @return <0 if e1 is before e2, 0 if e1 == e2, >0 if e1 is after e2
+ * Params:
+ *      e1 = first tree entry
+ *      e2 = second tree entry
+ *
+ * Returns: <0 if e1 is before e2, 0 if e1 == e2, >0 if e1 is after e2
  */
 //GIT_EXTERN
 int git_tree_entry_cmp(const (libgit2_d.types.git_tree_entry)* e1, const (libgit2_d.types.git_tree_entry)* e2);
@@ -233,10 +267,12 @@ int git_tree_entry_cmp(const (libgit2_d.types.git_tree_entry)* e1, const (libgit
  *
  * You must call `git_object_free()` on the object when you are done with it.
  *
- * @param object_out pointer to the converted object
- * @param repo repository where to lookup the pointed object
- * @param entry a tree entry
- * @return 0 or an error code
+ * Params:
+ *      object_out = pointer to the converted object
+ *      repo = repository where to lookup the pointed object
+ *      entry = a tree entry
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_tree_entry_to_object(libgit2_d.types.git_object** object_out, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_tree_entry)* entry);
@@ -253,10 +289,12 @@ int git_tree_entry_to_object(libgit2_d.types.git_object** object_out, libgit2_d.
  * If the `source` parameter is null, the tree builder will start with no
  * entries and will have to be filled manually.
  *
- * @param out_ Pointer where to store the tree builder
- * @param repo Repository in which to store the object
- * @param source Source tree to initialize the builder (optional)
- * @return 0 on success; error code otherwise
+ * Params:
+ *      out_ = Pointer where to store the tree builder
+ *      repo = Repository in which to store the object
+ *      source = Source tree to initialize the builder (optional)
+ *
+ * Returns: 0 on success; error code otherwise
  */
 //GIT_EXTERN
 int git_treebuilder_new(libgit2_d.types.git_treebuilder** out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_tree)* source);
@@ -264,8 +302,10 @@ int git_treebuilder_new(libgit2_d.types.git_treebuilder** out_, libgit2_d.types.
 /**
  * Clear all the entires in the builder
  *
- * @param bld Builder to clear
- * @return 0 on success; error code otherwise
+ * Params:
+ *      bld = Builder to clear
+ *
+ * Returns: 0 on success; error code otherwise
  */
 //GIT_EXTERN
 int git_treebuilder_clear(libgit2_d.types.git_treebuilder* bld);
@@ -273,8 +313,10 @@ int git_treebuilder_clear(libgit2_d.types.git_treebuilder* bld);
 /**
  * Get the number of entries listed in a treebuilder
  *
- * @param bld a previously loaded treebuilder.
- * @return the number of entries in the treebuilder
+ * Params:
+ *      bld = a previously loaded treebuilder.
+ *
+ * Returns: the number of entries in the treebuilder
  */
 //GIT_EXTERN
 size_t git_treebuilder_entrycount(libgit2_d.types.git_treebuilder* bld);
@@ -286,7 +328,8 @@ size_t git_treebuilder_entrycount(libgit2_d.types.git_treebuilder* bld);
  * Failing to free the builder after you're done using it
  * will result in a memory leak
  *
- * @param bld Builder to free
+ * Params:
+ *      bld = Builder to free
  */
 //GIT_EXTERN
 void git_treebuilder_free(libgit2_d.types.git_treebuilder* bld);
@@ -297,9 +340,11 @@ void git_treebuilder_free(libgit2_d.types.git_treebuilder* bld);
  * The returned entry is owned by the builder and should
  * not be freed manually.
  *
- * @param bld Tree builder
- * @param filename Name of the entry
- * @return pointer to the entry; null if not found
+ * Params:
+ *      bld = Tree builder
+ *      filename = Name of the entry
+ *
+ * Returns: pointer to the entry; null if not found
  */
 //GIT_EXTERN
 const (libgit2_d.types.git_tree_entry)* git_treebuilder_get(libgit2_d.types.git_treebuilder* bld, const (char)* filename);
@@ -323,14 +368,14 @@ const (libgit2_d.types.git_tree_entry)* git_treebuilder_get(libgit2_d.types.git_
  * correct type.  If you do not want this behavior, set the
  * `git_libgit2_opt_t.GIT_OPT_ENABLE_STRICT_OBJECT_CREATION` library option to false.
  *
- * @param out_ Pointer to store the entry (optional)
- * @param bld Tree builder
- * @param filename Filename of the entry
- * @param id SHA1 oid of the entry
- * @param filemode Folder attributes of the entry. This parameter must
- *			be valued with one of the following entries: 0040000,
- *0100644, 0100755, 0120000 or 0160000.
- * @return 0 or an error code
+ * Params:
+ *      out_ = Pointer to store the entry (optional)
+ *      bld = Tree builder
+ *      filename = Filename of the entry
+ *      id = SHA1 oid of the entry
+ *      filemode = Folder attributes of the entry. This parameter must be valued with one of the following entries: 0040000, 0100644, 0100755, 0120000 or 0160000.
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_treebuilder_insert(const (libgit2_d.types.git_tree_entry)** out_, libgit2_d.types.git_treebuilder* bld, const (char)* filename, const (libgit2_d.oid.git_oid)* id, libgit2_d.types.git_filemode_t filemode);
@@ -338,8 +383,9 @@ int git_treebuilder_insert(const (libgit2_d.types.git_tree_entry)** out_, libgit
 /**
  * Remove an entry from the builder by its filename
  *
- * @param bld Tree builder
- * @param filename Filename of the entry to remove
+ * Params:
+ *      bld = Tree builder
+ *      filename = Filename of the entry to remove
  */
 //GIT_EXTERN
 int git_treebuilder_remove(libgit2_d.types.git_treebuilder* bld, const (char)* filename);
@@ -360,10 +406,12 @@ alias git_treebuilder_filter_cb = int function(const (libgit2_d.types.git_tree_e
  * pointer to the entry and the provided `payload`; if the callback returns
  * non-zero, the entry will be filtered (removed from the builder).
  *
- * @param bld Tree builder
- * @param filter Callback to filter entries
- * @param payload Extra data to pass to filter callback
- * @return 0 on success, non-zero callback return value, or error code
+ * Params:
+ *      bld = Tree builder
+ *      filter = Callback to filter entries
+ *      payload = Extra data to pass to filter callback
+ *
+ * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
 int git_treebuilder_filter(libgit2_d.types.git_treebuilder* bld, .git_treebuilder_filter_cb filter, void* payload);
@@ -374,9 +422,11 @@ int git_treebuilder_filter(libgit2_d.types.git_treebuilder* bld, .git_treebuilde
  * The tree builder will be written to the given `repo`, and its
  * identifying SHA1 hash will be stored in the `id` pointer.
  *
- * @param id Pointer to store the OID of the newly written tree
- * @param bld Tree builder to write
- * @return 0 or an error code
+ * Params:
+ *      id = Pointer to store the OID of the newly written tree
+ *      bld = Tree builder to write
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_treebuilder_write(libgit2_d.oid.git_oid* id, libgit2_d.types.git_treebuilder* bld);
@@ -387,10 +437,12 @@ int git_treebuilder_write(libgit2_d.oid.git_oid* id, libgit2_d.types.git_treebui
  *
  * @see git_treebuilder_write
  *
- * @param oid Pointer to store the OID of the newly written tree
- * @param bld Tree builder to write
- * @param tree Shared buffer for writing the tree. Will be grown as necessary.
- * @return 0 or an error code
+ * Params:
+ *      oid = Pointer to store the OID of the newly written tree
+ *      bld = Tree builder to write
+ *      tree = Shared buffer for writing the tree. Will be grown as necessary.
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_treebuilder_write_with_buffer(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_treebuilder* bld, libgit2_d.buffer.git_buf* tree);
@@ -427,11 +479,13 @@ enum git_treewalk_mode
  * If the callback returns a positive value, the passed entry will be
  * skipped on the traversal (in pre mode). A negative value stops the walk.
  *
- * @param tree The tree to walk
- * @param mode Traversal mode (pre or post-order)
- * @param callback Function to call on each tree entry
- * @param payload Opaque pointer to be passed on each callback
- * @return 0 or an error code
+ * Params:
+ *      tree = The tree to walk
+ *      mode = Traversal mode (pre or post-order)
+ *      callback = Function to call on each tree entry
+ *      payload = Opaque pointer to be passed on each callback
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_tree_walk(const (libgit2_d.types.git_tree)* tree, .git_treewalk_mode mode, .git_treewalk_cb callback, void* payload);
@@ -440,8 +494,9 @@ int git_tree_walk(const (libgit2_d.types.git_tree)* tree, .git_treewalk_mode mod
  * Create an in-memory copy of a tree. The copy must be explicitly
  * free'd or it will leak.
  *
- * @param out_ Pointer to store the copy of the tree
- * @param source Original tree to copy
+ * Params:
+ *      out_ = Pointer to store the copy of the tree
+ *      source = Original tree to copy
  */
 //GIT_EXTERN
 int git_tree_dup(libgit2_d.types.git_tree** out_, libgit2_d.types.git_tree* source);
@@ -501,12 +556,12 @@ struct git_tree_update
  * Deleting and adding the same entry is undefined behaviour, changing
  * a tree to a blob or viceversa is not supported.
  *
- * @param out_ id of the new tree
- * @param repo the repository in which to create the tree, must be the
- * same as for `baseline`
- * @param baseline the tree to base these changes on
- * @param nupdates the number of elements in the update list
- * @param updates the list of updates to perform
+ * Params:
+ *      out_ = id of the new tree
+ *      repo = the repository in which to create the tree, must be the same as for `baseline`
+ *      baseline = the tree to base these changes on
+ *      nupdates = the number of elements in the update list
+ *      updates = the list of updates to perform
  */
 //GIT_EXTERN
 int git_tree_create_updated(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, libgit2_d.types.git_tree* baseline, size_t nupdates, const (.git_tree_update)* updates);

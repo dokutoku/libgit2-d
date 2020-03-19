@@ -28,9 +28,11 @@ public:
  * The returned list should be released with `git_strarray_free`
  * when no longer needed.
  *
- * @param out_ pointer to the array of working tree names
- * @param repo the repo to use when listing working trees
- * @return 0 or an error code
+ * Params:
+ *      out_ = pointer to the array of working tree names
+ *      repo = the repo to use when listing working trees
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_worktree_list(libgit2_d.strarray.git_strarray* out_, libgit2_d.types.git_repository* repo);
@@ -38,10 +40,12 @@ int git_worktree_list(libgit2_d.strarray.git_strarray* out_, libgit2_d.types.git
 /**
  * Lookup a working tree by its name for a given repository
  *
- * @param out_ Output pointer to looked up worktree or `null`
- * @param repo The repository containing worktrees
- * @param name Name of the working tree to look up
- * @return 0 or an error code
+ * Params:
+ *      out_ = Output pointer to looked up worktree or `null`
+ *      repo = The repository containing worktrees
+ *      name = Name of the working tree to look up
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_worktree_lookup(libgit2_d.types.git_worktree** out_, libgit2_d.types.git_repository* repo, const (char)* name);
@@ -53,8 +57,9 @@ int git_worktree_lookup(libgit2_d.types.git_worktree** out_, libgit2_d.types.git
  * function will look up the worktree inside the parent
  * repository and create a new `git_worktree` structure.
  *
- * @param out_ Out-pointer for the newly allocated worktree
- * @param repo Repository to look up worktree for
+ * Params:
+ *      out_ = Out-pointer for the newly allocated worktree
+ *      repo = Repository to look up worktree for
  */
 //GIT_EXTERN
 int git_worktree_open_from_repository(libgit2_d.types.git_worktree** out_, libgit2_d.types.git_repository* repo);
@@ -62,7 +67,8 @@ int git_worktree_open_from_repository(libgit2_d.types.git_worktree** out_, libgi
 /**
  * Free a previously allocated worktree
  *
- * @param wt worktree handle to close. If null nothing occurs.
+ * Params:
+ *      wt = worktree handle to close. If null nothing occurs.
  */
 //GIT_EXTERN
 void git_worktree_free(libgit2_d.types.git_worktree* wt);
@@ -74,8 +80,10 @@ void git_worktree_free(libgit2_d.types.git_worktree* wt);
  * the linked parent repository and the linked working copy to be
  * present.
  *
- * @param wt Worktree to check
- * @return 0 when worktree is valid, error-code otherwise
+ * Params:
+ *      wt = Worktree to check
+ *
+ * Returns: 0 when worktree is valid, error-code otherwise
  */
 //GIT_EXTERN
 int git_worktree_validate(const (libgit2_d.types.git_worktree)* wt);
@@ -125,9 +133,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_worktree_add_options` with default values. Equivalent to
  * creating an instance with `GIT_WORKTREE_ADD_OPTIONS_INIT`.
  *
- * @param opts The `git_worktree_add_options` struct to initialize.
- * @param version The struct version; pass `GIT_WORKTREE_ADD_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_worktree_add_options` struct to initialize.
+ *      version = The struct version; pass `GIT_WORKTREE_ADD_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_worktree_add_options_init(.git_worktree_add_options* opts, uint version_);
@@ -139,12 +149,14 @@ int git_worktree_add_options_init(.git_worktree_add_options* opts, uint version_
  * required data structures inside the repository and check out
  * the current HEAD at `path`
  *
- * @param out_ Output pointer containing new working tree
- * @param repo Repository to create working tree for
- * @param name Name of the working tree
- * @param path Path to create working tree at
- * @param opts Options to modify default behavior. May be null
- * @return 0 or an error code
+ * Params:
+ *      out_ = Output pointer containing new working tree
+ *      repo = Repository to create working tree for
+ *      name = Name of the working tree
+ *      path = Path to create working tree at
+ *      opts = Options to modify default behavior. May be null
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_worktree_add(libgit2_d.types.git_worktree** out_, libgit2_d.types.git_repository* repo, const (char)* name, const (char)* path, const (.git_worktree_add_options)* opts);
@@ -155,9 +167,11 @@ int git_worktree_add(libgit2_d.types.git_worktree** out_, libgit2_d.types.git_re
  * Lock a worktree, optionally specifying a reason why the linked
  * working tree is being locked.
  *
- * @param wt Worktree to lock
- * @param reason Reason why the working tree is being locked
- * @return 0 on success, non-zero otherwise
+ * Params:
+ *      wt = Worktree to lock
+ *      reason = Reason why the working tree is being locked
+ *
+ * Returns: 0 on success, non-zero otherwise
  */
 //GIT_EXTERN
 int git_worktree_lock(libgit2_d.types.git_worktree* wt, const (char)* reason);
@@ -165,9 +179,10 @@ int git_worktree_lock(libgit2_d.types.git_worktree* wt, const (char)* reason);
 /**
  * Unlock a locked worktree
  *
- * @param wt Worktree to unlock
- * @return 0 on success, 1 if worktree was not locked, error-code
- *  otherwise
+ * Params:
+ *      wt = Worktree to unlock
+ *
+ * Returns: 0 on success, 1 if worktree was not locked, error-code otherwise
  */
 //GIT_EXTERN
 int git_worktree_unlock(libgit2_d.types.git_worktree* wt);
@@ -178,11 +193,11 @@ int git_worktree_unlock(libgit2_d.types.git_worktree* wt);
  * A worktree may be locked if the linked working tree is stored
  * on a portable device which is not available.
  *
- * @param reason Buffer to store reason in. If null no reason is stored.
- * @param wt Worktree to check
- * @return 0 when the working tree not locked, a value greater
- *  than zero if it is locked, less than zero if there was an
- *  error
+ * Params:
+ *      reason = Buffer to store reason in. If null no reason is stored.
+ *      wt = Worktree to check
+ *
+ * Returns: 0 when the working tree not locked, a value greater than zero if it is locked, less than zero if there was an error
  */
 //GIT_EXTERN
 int git_worktree_is_locked(libgit2_d.buffer.git_buf* reason, const (libgit2_d.types.git_worktree)* wt);
@@ -190,9 +205,10 @@ int git_worktree_is_locked(libgit2_d.buffer.git_buf* reason, const (libgit2_d.ty
 /**
  * Retrieve the name of the worktree
  *
- * @param wt Worktree to get the name for
- * @return The worktree's name. The pointer returned is valid for the
- *  lifetime of the git_worktree
+ * Params:
+ *      wt = Worktree to get the name for
+ *
+ * Returns: The worktree's name. The pointer returned is valid for the lifetime of the git_worktree
  */
 //GIT_EXTERN
 const (char)* git_worktree_name(const (libgit2_d.types.git_worktree)* wt);
@@ -200,9 +216,10 @@ const (char)* git_worktree_name(const (libgit2_d.types.git_worktree)* wt);
 /**
  * Retrieve the filesystem path for the worktree
  *
- * @param wt Worktree to get the path for
- * @return The worktree's filesystem path. The pointer returned
- *  is valid for the lifetime of the git_worktree.
+ * Params:
+ *      wt = Worktree to get the path for
+ *
+ * Returns: The worktree's filesystem path. The pointer returned is valid for the lifetime of the git_worktree.
  */
 //GIT_EXTERN
 const (char)* git_worktree_path(const (libgit2_d.types.git_worktree)* wt);
@@ -265,9 +282,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_worktree_prune_options` with default values. Equivalent to
  * creating an instance with `GIT_WORKTREE_PRUNE_OPTIONS_INIT`.
  *
- * @param opts The `git_worktree_prune_options` struct to initialize.
- * @param version The struct version; pass `GIT_WORKTREE_PRUNE_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_worktree_prune_options` struct to initialize.
+ *      version = The struct version; pass `GIT_WORKTREE_PRUNE_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_worktree_prune_options_init(.git_worktree_prune_options* opts, uint version_);
@@ -296,10 +315,11 @@ int git_worktree_is_prunable(libgit2_d.types.git_worktree* wt, .git_worktree_pru
  * structures on disk. The repository will only be pruned of
  * `git_worktree_is_prunable` succeeds.
  *
- * @param wt Worktree to prune
- * @param opts Specifies which checks to override. See
- *        `git_worktree_is_prunable`. May be null
- * @return 0 or an error code
+ * Params:
+ *      wt = Worktree to prune
+ *      opts = Specifies which checks to override. See `git_worktree_is_prunable`. May be null
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_worktree_prune(libgit2_d.types.git_worktree* wt, .git_worktree_prune_options* opts);

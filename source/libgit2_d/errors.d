@@ -238,7 +238,7 @@ enum git_error_t
  * (unrelated) error may be returned. This can be avoided by only calling
  * this function if the prior call to a libgit2 API returned an error.
  *
- * @return A git_error object.
+ * Returns: A git_error object.
  */
 //GIT_EXTERN
 const (.git_error)* git_error_last();
@@ -261,10 +261,11 @@ void git_error_clear();
  * This error message is stored in thread-local storage and only applies
  * to the particular thread that this libgit2 call is made from.
  *
- * @param error_class One of the `git_error_t` enum above describing the
- *                    general subsystem that is responsible for the error.
- * @param string_ The formatted error message to keep
- * @return 0 on success or -1 on failure
+ * Params:
+ *      error_class = One of the `git_error_t` enum above describing the general subsystem that is responsible for the error.
+ *      string_ = The formatted error message to keep
+ *
+ * Returns: 0 on success or -1 on failure
  */
 //GIT_EXTERN
 int git_error_set_str(int error_class, const (char)* string_);

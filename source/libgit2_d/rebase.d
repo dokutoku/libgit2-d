@@ -192,9 +192,11 @@ struct git_rebase_operation
  * Initializes a `git_rebase_options` with default values. Equivalent to
  * creating an instance with `GIT_REBASE_OPTIONS_INIT`.
  *
- * @param opts The `git_rebase_options` struct to initialize.
- * @param version The struct version; pass `GIT_REBASE_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_rebase_options` struct to initialize.
+ *      version = The struct version; pass `GIT_REBASE_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_rebase_options_init(.git_rebase_options* opts, uint version_);
@@ -205,16 +207,15 @@ int git_rebase_options_init(.git_rebase_options* opts, uint version_);
  * process, call `git_rebase_next`.  When you have finished with this
  * object, call `git_rebase_free`.
  *
- * @param out_ Pointer to store the rebase object
- * @param repo The repository to perform the rebase
- * @param branch The terminal commit to rebase, or null to rebase the
- *               current branch
- * @param upstream The commit to begin rebasing from, or null to rebase all
- *                 reachable commits
- * @param onto The branch to rebase onto, or null to rebase onto the given
- *             upstream
- * @param opts Options to specify how rebase is performed, or null
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      out_ = Pointer to store the rebase object
+ *      repo = The repository to perform the rebase
+ *      branch = The terminal commit to rebase, or null to rebase the current branch
+ *      upstream = The commit to begin rebasing from, or null to rebase all reachable commits
+ *      onto = The branch to rebase onto, or null to rebase onto the given upstream
+ *      opts = Options to specify how rebase is performed, or null
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_rebase_init(libgit2_d.types.git_rebase** out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_annotated_commit)* branch, const (libgit2_d.types.git_annotated_commit)* upstream, const (libgit2_d.types.git_annotated_commit)* onto, const (.git_rebase_options)* opts);
@@ -223,10 +224,12 @@ int git_rebase_init(libgit2_d.types.git_rebase** out_, libgit2_d.types.git_repos
  * Opens an existing rebase that was previously started by either an
  * invocation of `git_rebase_init` or by another client.
  *
- * @param out_ Pointer to store the rebase object
- * @param repo The repository that has a rebase in-progress
- * @param opts Options to specify how rebase is performed
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      out_ = Pointer to store the rebase object
+ *      repo = The repository that has a rebase in-progress
+ *      opts = Options to specify how rebase is performed
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_rebase_open(libgit2_d.types.git_rebase** out_, libgit2_d.types.git_repository* repo, const (git_rebase_options)* opts);
@@ -234,7 +237,7 @@ int git_rebase_open(libgit2_d.types.git_rebase** out_, libgit2_d.types.git_repos
 /**
  * Gets the original `HEAD` ref name for merge rebases.
  *
- * @return The original `HEAD` ref name
+ * Returns: The original `HEAD` ref name
  */
 //GIT_EXTERN
 const (char)* git_rebase_orig_head_name(libgit2_d.types.git_rebase* rebase);
@@ -242,7 +245,7 @@ const (char)* git_rebase_orig_head_name(libgit2_d.types.git_rebase* rebase);
 /**
  * Gets the original `HEAD` id for merge rebases.
  *
- * @return The original `HEAD` id
+ * Returns: The original `HEAD` id
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_rebase_orig_head_id(libgit2_d.types.git_rebase* rebase);
@@ -250,7 +253,7 @@ const (libgit2_d.oid.git_oid)* git_rebase_orig_head_id(libgit2_d.types.git_rebas
 /**
  * Gets the `onto` ref name for merge rebases.
  *
- * @return The `onto` ref name
+ * Returns: The `onto` ref name
  */
 //GIT_EXTERN
 const (char)* git_rebase_onto_name(libgit2_d.types.git_rebase* rebase);
@@ -258,7 +261,7 @@ const (char)* git_rebase_onto_name(libgit2_d.types.git_rebase* rebase);
 /**
  * Gets the `onto` id for merge rebases.
  *
- * @return The `onto` id
+ * Returns: The `onto` id
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_rebase_onto_id(libgit2_d.types.git_rebase* rebase);
@@ -266,8 +269,10 @@ const (libgit2_d.oid.git_oid)* git_rebase_onto_id(libgit2_d.types.git_rebase* re
 /**
  * Gets the count of rebase operations that are to be applied.
  *
- * @param rebase The in-progress rebase
- * @return The number of rebase operations in total
+ * Params:
+ *      rebase = The in-progress rebase
+ *
+ * Returns: The number of rebase operations in total
  */
 //GIT_EXTERN
 size_t git_rebase_operation_entrycount(libgit2_d.types.git_rebase* rebase);
@@ -278,8 +283,10 @@ size_t git_rebase_operation_entrycount(libgit2_d.types.git_rebase* rebase);
  * called `init` but not yet `next`) then this returns
  * `GIT_REBASE_NO_OPERATION`.
  *
- * @param rebase The in-progress rebase
- * @return The index of the rebase operation currently being applied.
+ * Params:
+ *      rebase = The in-progress rebase
+ *
+ * Returns: The index of the rebase operation currently being applied.
  */
 //GIT_EXTERN
 size_t git_rebase_operation_current(libgit2_d.types.git_rebase* rebase);
@@ -287,9 +294,11 @@ size_t git_rebase_operation_current(libgit2_d.types.git_rebase* rebase);
 /**
  * Gets the rebase operation specified by the given index.
  *
- * @param rebase The in-progress rebase
- * @param idx The index of the rebase operation to retrieve
- * @return The rebase operation or null if `idx` was out of bounds
+ * Params:
+ *      rebase = The in-progress rebase
+ *      idx = The index of the rebase operation to retrieve
+ *
+ * Returns: The rebase operation or null if `idx` was out of bounds
  */
 //GIT_EXTERN
 .git_rebase_operation* git_rebase_operation_byindex(libgit2_d.types.git_rebase* rebase, size_t idx);
@@ -301,10 +310,11 @@ size_t git_rebase_operation_current(libgit2_d.types.git_rebase* rebase);
  * working directory will be updated with the changes.  If there are conflicts,
  * you will need to address those before committing the changes.
  *
- * @param operation Pointer to store the rebase operation that is to be
- * performed next
- * @param rebase The rebase in progress
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      operation = Pointer to store the rebase operation that is to be performed next
+ *      rebase = The rebase in progress
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_rebase_next(.git_rebase_operation** operation, libgit2_d.types.git_rebase* rebase);
@@ -328,22 +338,15 @@ int git_rebase_inmemory_index(libgit2_d.types.git_index** index, libgit2_d.types
  * were introduced during the patch application from the `git_rebase_next`
  * invocation.
  *
- * @param id Pointer in which to store the OID of the newly created commit
- * @param rebase The rebase that is in-progress
- * @param author The author of the updated commit, or null to keep the
- *        author from the original commit
- * @param committer The committer of the rebase
- * @param message_encoding The encoding for the message in the commit,
- *        represented with a standard encoding name.  If message is null,
- *        this should also be null, and the encoding from the original
- *        commit will be maintained.  If message is specified, this may be
- *        null to indicate that "UTF-8" is to be used.
- * @param message The message for this commit, or null to use the message
- *        from the original commit.
- * @return Zero on success, git_error_code.GIT_EUNMERGED if there are unmerged changes in
- *        the index, git_error_code.GIT_EAPPLIED if the current commit has already
- *        been applied to the upstream and there is nothing to commit,
- *        -1 on failure.
+ * Params:
+ *      id = Pointer in which to store the OID of the newly created commit
+ *      rebase = The rebase that is in-progress
+ *      author = The author of the updated commit, or null to keep the author from the original commit
+ *      committer = The committer of the rebase
+ *      message_encoding = The encoding for the message in the commit, represented with a standard encoding name.  If message is null, this should also be null, and the encoding from the original commit will be maintained.  If message is specified, this may be null to indicate that "UTF-8" is to be used.
+ *      message = The message for this commit, or null to use the message from the original commit.
+ *
+ * Returns: Zero on success, git_error_code.GIT_EUNMERGED if there are unmerged changes in the index, git_error_code.GIT_EAPPLIED if the current commit has already been applied to the upstream and there is nothing to commit, -1 on failure.
  */
 //GIT_EXTERN
 int git_rebase_commit(libgit2_d.oid.git_oid* id, libgit2_d.types.git_rebase* rebase, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message);
@@ -352,9 +355,10 @@ int git_rebase_commit(libgit2_d.oid.git_oid* id, libgit2_d.types.git_rebase* reb
  * Aborts a rebase that is currently in progress, resetting the repository
  * and working directory to their state before rebase began.
  *
- * @param rebase The rebase that is in-progress
- * @return Zero on success; git_error_code.GIT_ENOTFOUND if a rebase is not in progress,
- *         -1 on other errors.
+ * Params:
+ *      rebase = The rebase that is in-progress
+ *
+ * Returns: Zero on success; git_error_code.GIT_ENOTFOUND if a rebase is not in progress, -1 on other errors.
  */
 //GIT_EXTERN
 int git_rebase_abort(libgit2_d.types.git_rebase* rebase);
@@ -363,9 +367,11 @@ int git_rebase_abort(libgit2_d.types.git_rebase* rebase);
  * Finishes a rebase that is currently in progress once all patches have
  * been applied.
  *
- * @param rebase The rebase that is in-progress
- * @param signature The identity that is finishing the rebase (optional)
- * @return Zero on success; -1 on error
+ * Params:
+ *      rebase = The rebase that is in-progress
+ *      signature = The identity that is finishing the rebase (optional)
+ *
+ * Returns: Zero on success; -1 on error
  */
 //GIT_EXTERN
 int git_rebase_finish(libgit2_d.types.git_rebase* rebase, const (libgit2_d.types.git_signature)* signature);
@@ -373,7 +379,8 @@ int git_rebase_finish(libgit2_d.types.git_rebase* rebase, const (libgit2_d.types
 /**
  * Frees the `git_rebase` object.
  *
- * @param rebase The rebase object
+ * Params:
+ *      rebase = The rebase object
  */
 //GIT_EXTERN
 void git_rebase_free(libgit2_d.types.git_rebase* rebase);

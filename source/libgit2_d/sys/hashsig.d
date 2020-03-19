@@ -52,13 +52,13 @@ enum git_hashsig_option_t
  * whitespace will be removed from the buffer while it is being processed,
  * modifying the buffer in place. Sorry about that!
  *
- * @param out_ The computed similarity signature.
- * @param buf The input buffer.
- * @param buflen The input buffer size.
- * @param opts The signature computation options (see above).
- * @return 0 on success, git_error_code.GIT_EBUFS if the buffer doesn't contain enough data to
- * compute a valid signature (unless git_hashsig_option_t.GIT_HASHSIG_ALLOW_SMALL_FILES is set), or
- * error code.
+ * Params:
+ *      out_ = The computed similarity signature.
+ *      buf = The input buffer.
+ *      buflen = The input buffer size.
+ *      opts = The signature computation options (see above).
+ *
+ * Returns: 0 on success, git_error_code.GIT_EBUFS if the buffer doesn't contain enough data to compute a valid signature (unless git_hashsig_option_t.GIT_HASHSIG_ALLOW_SMALL_FILES is set), or error code.
  */
 //GIT_EXTERN
 int git_hashsig_create(.git_hashsig** out_, const (char)* buf, size_t buflen, .git_hashsig_option_t opts);
@@ -69,12 +69,12 @@ int git_hashsig_create(.git_hashsig** out_, const (char)* buf, size_t buflen, .g
  * This walks through the file, only loading a maximum of 4K of file data at
  * a time. Otherwise, it acts just like `git_hashsig_create`.
  *
- * @param out_ The computed similarity signature.
- * @param path The path to the input file.
- * @param opts The signature computation options (see above).
- * @return 0 on success, git_error_code.GIT_EBUFS if the buffer doesn't contain enough data to
- * compute a valid signature (unless git_hashsig_option_t.GIT_HASHSIG_ALLOW_SMALL_FILES is set), or
- * error code.
+ * Params:
+ *      out_ = The computed similarity signature.
+ *      path = The path to the input file.
+ *      opts = The signature computation options (see above).
+ *
+ * Returns: 0 on success, git_error_code.GIT_EBUFS if the buffer doesn't contain enough data to compute a valid signature (unless git_hashsig_option_t.GIT_HASHSIG_ALLOW_SMALL_FILES is set), or error code.
  */
 //GIT_EXTERN
 int git_hashsig_create_fromfile(.git_hashsig** out_, const (char)* path, .git_hashsig_option_t opts);
@@ -82,7 +82,8 @@ int git_hashsig_create_fromfile(.git_hashsig** out_, const (char)* path, .git_ha
 /**
  * Release memory for a content similarity signature
  *
- * @param sig The similarity signature to free.
+ * Params:
+ *      sig = The similarity signature to free.
  */
 //GIT_EXTERN
 void git_hashsig_free(.git_hashsig* sig);
@@ -90,9 +91,11 @@ void git_hashsig_free(.git_hashsig* sig);
 /**
  * Measure similarity score between two similarity signatures
  *
- * @param a The first similarity signature to compare.
- * @param b The second similarity signature to compare.
- * @return [0 to 100] on success as the similarity score, or error code.
+ * Params:
+ *      a = The first similarity signature to compare.
+ *      b = The second similarity signature to compare.
+ *
+ * Returns: [0 to 100] on success as the similarity score, or error code.
  */
 //GIT_EXTERN
 int git_hashsig_compare(const (.git_hashsig)* a, const (.git_hashsig)* b);

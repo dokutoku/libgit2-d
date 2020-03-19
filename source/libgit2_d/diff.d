@@ -462,10 +462,12 @@ alias git_diff_notify_cb = int function(const (.git_diff)* diff_so_far, const (.
  *
  * Called before each file comparison.
  *
- * @param diff_so_far The diff being generated.
- * @param old_path The path to the old file or null.
- * @param new_path The path to the new file or null.
- * @return Non-zero to abort the diff.
+ * Params:
+ *      diff_so_far = The diff being generated.
+ *      old_path = The path to the old file or null.
+ *      new_path = The path to the new file or null.
+ *
+ * Returns: Non-zero to abort the diff.
  */
 alias git_diff_progress_cb = int function(const (.git_diff)* diff_so_far, const (char)* old_path, const (char)* new_path, void* payload);
 
@@ -602,9 +604,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_diff_options` with default values. Equivalent to creating
  * an instance with GIT_DIFF_OPTIONS_INIT.
  *
- * @param opts The `git_diff_options` struct to initialize.
- * @param version The struct version; pass `GIT_DIFF_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_diff_options` struct to initialize.
+ *      version = The struct version; pass `GIT_DIFF_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_diff_options_init(.git_diff_options* opts, uint version_);
@@ -612,9 +616,10 @@ int git_diff_options_init(.git_diff_options* opts, uint version_);
 /**
  * When iterating over a diff, callback that will be made per file.
  *
- * @param delta A pointer to the delta data for the file
- * @param progress Goes from 0 to 1 over the diff
- * @param payload User-specified pointer from foreach function
+ * Params:
+ *      delta = A pointer to the delta data for the file
+ *      progress = Goes from 0 to 1 over the diff
+ *      payload = User-specified pointer from foreach function
  */
 alias git_diff_file_cb = int function(const (.git_diff_delta)* delta, float progress, void* payload);
 
@@ -1066,9 +1071,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_diff_find_options` with default values. Equivalent to creating
  * an instance with GIT_DIFF_FIND_OPTIONS_INIT.
  *
- * @param opts The `git_diff_find_options` struct to initialize.
- * @param version The struct version; pass `GIT_DIFF_FIND_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_diff_find_options` struct to initialize.
+ *      version = The struct version; pass `GIT_DIFF_FIND_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_diff_find_options_init(.git_diff_find_options* opts, uint version_);
@@ -1084,7 +1091,8 @@ int git_diff_find_options_init(.git_diff_find_options* opts, uint version_);
 /**
  * Deallocate a diff.
  *
- * @param diff The previously created diff; cannot be used after free.
+ * Params:
+ *      diff = The previously created diff; cannot be used after free.
  */
 //GIT_EXTERN
 void git_diff_free(.git_diff* diff);
@@ -1099,11 +1107,12 @@ void git_diff_free(.git_diff* diff);
  * pass null to indicate an empty tree, although it is an error to pass
  * null for both the `old_tree` and `new_tree`.
  *
- * @param diff Output pointer to a git_diff pointer to be allocated.
- * @param repo The repository containing the trees.
- * @param old_tree A git_tree object to diff from, or null for empty tree.
- * @param new_tree A git_tree object to diff to, or null for empty tree.
- * @param opts Structure with options to influence diff or null for defaults.
+ * Params:
+ *      diff = Output pointer to a git_diff pointer to be allocated.
+ *      repo = The repository containing the trees.
+ *      old_tree = A git_tree object to diff from, or null for empty tree.
+ *      new_tree = A git_tree object to diff to, or null for empty tree.
+ *      opts = Structure with options to influence diff or null for defaults.
  */
 //GIT_EXTERN
 int git_diff_tree_to_tree(.git_diff** diff, libgit2_d.types.git_repository* repo, libgit2_d.types.git_tree* old_tree, libgit2_d.types.git_tree* new_tree, const (.git_diff_options)* opts);
@@ -1121,11 +1130,12 @@ int git_diff_tree_to_tree(.git_diff** diff, libgit2_d.types.git_repository* repo
  * will be used.  In this case, the index will be refreshed from disk
  * (if it has changed) before the diff is generated.
  *
- * @param diff Output pointer to a git_diff pointer to be allocated.
- * @param repo The repository containing the tree and index.
- * @param old_tree A git_tree object to diff from, or null for empty tree.
- * @param index The index to diff with; repo index used if null.
- * @param opts Structure with options to influence diff or null for defaults.
+ * Params:
+ *      diff = Output pointer to a git_diff pointer to be allocated.
+ *      repo = The repository containing the tree and index.
+ *      old_tree = A git_tree object to diff from, or null for empty tree.
+ *      index = The index to diff with; repo index used if null.
+ *      opts = Structure with options to influence diff or null for defaults.
  */
 //GIT_EXTERN
 int git_diff_tree_to_index(.git_diff** diff, libgit2_d.types.git_repository* repo, libgit2_d.types.git_tree* old_tree, libgit2_d.types.git_index* index, const (.git_diff_options)* opts);
@@ -1145,10 +1155,11 @@ int git_diff_tree_to_index(.git_diff** diff, libgit2_d.types.git_repository* rep
  * will be used.  In this case, the index will be refreshed from disk
  * (if it has changed) before the diff is generated.
  *
- * @param diff Output pointer to a git_diff pointer to be allocated.
- * @param repo The repository.
- * @param index The index to diff from; repo index used if null.
- * @param opts Structure with options to influence diff or null for defaults.
+ * Params:
+ *      diff = Output pointer to a git_diff pointer to be allocated.
+ *      repo = The repository.
+ *      index = The index to diff from; repo index used if null.
+ *      opts = Structure with options to influence diff or null for defaults.
  */
 //GIT_EXTERN
 int git_diff_index_to_workdir(.git_diff** diff, libgit2_d.types.git_repository* repo, libgit2_d.types.git_index* index, const (.git_diff_options)* opts);
@@ -1171,10 +1182,11 @@ int git_diff_index_to_workdir(.git_diff** diff, libgit2_d.types.git_repository* 
  * tree-to-workdir diff for that file is 'modified', but `git diff` would
  * show status 'deleted' since there is a staged delete.
  *
- * @param diff A pointer to a git_diff pointer that will be allocated.
- * @param repo The repository containing the tree.
- * @param old_tree A git_tree object to diff from, or null for empty tree.
- * @param opts Structure with options to influence diff or null for defaults.
+ * Params:
+ *      diff = A pointer to a git_diff pointer that will be allocated.
+ *      repo = The repository containing the tree.
+ *      old_tree = A git_tree object to diff from, or null for empty tree.
+ *      opts = Structure with options to influence diff or null for defaults.
  */
 //GIT_EXTERN
 int git_diff_tree_to_workdir(.git_diff** diff, libgit2_d.types.git_repository* repo, libgit2_d.types.git_tree* old_tree, const (.git_diff_options)* opts);
@@ -1187,10 +1199,11 @@ int git_diff_tree_to_workdir(.git_diff** diff, libgit2_d.types.git_repository* r
  * the index to the working directory and blending the results into a
  * single diff that includes staged deleted, etc.
  *
- * @param diff A pointer to a git_diff pointer that will be allocated.
- * @param repo The repository containing the tree.
- * @param old_tree A git_tree object to diff from, or null for empty tree.
- * @param opts Structure with options to influence diff or null for defaults.
+ * Params:
+ *      diff = A pointer to a git_diff pointer that will be allocated.
+ *      repo = The repository containing the tree.
+ *      old_tree = A git_tree object to diff from, or null for empty tree.
+ *      opts = Structure with options to influence diff or null for defaults.
  */
 //GIT_EXTERN
 int git_diff_tree_to_workdir_with_index(.git_diff** diff, libgit2_d.types.git_repository* repo, libgit2_d.types.git_tree* old_tree, const (.git_diff_options)* opts);
@@ -1201,11 +1214,12 @@ int git_diff_tree_to_workdir_with_index(.git_diff** diff, libgit2_d.types.git_re
  * The first index will be used for the "old_file" side of the delta and the
  * second index will be used for the "new_file" side of the delta.
  *
- * @param diff Output pointer to a git_diff pointer to be allocated.
- * @param repo The repository containing the indexes.
- * @param old_index A git_index object to diff from.
- * @param new_index A git_index object to diff to.
- * @param opts Structure with options to influence diff or null for defaults.
+ * Params:
+ *      diff = Output pointer to a git_diff pointer to be allocated.
+ *      repo = The repository containing the indexes.
+ *      old_index = A git_index object to diff from.
+ *      new_index = A git_index object to diff to.
+ *      opts = Structure with options to influence diff or null for defaults.
  */
 //GIT_EXTERN
 int git_diff_index_to_index(.git_diff** diff, libgit2_d.types.git_repository* repo, libgit2_d.types.git_index* old_index, libgit2_d.types.git_index* new_index, const (.git_diff_options)* opts);
@@ -1220,8 +1234,9 @@ int git_diff_index_to_index(.git_diff** diff, libgit2_d.types.git_repository* re
  * is from the "from" list (with the exception that if the item has a
  * pending DELETE in the middle, then it will show as deleted).
  *
- * @param onto Diff to merge into.
- * @param from Diff to merge.
+ * Params:
+ *      onto = Diff to merge into.
+ *      from = Diff to merge.
  */
 //GIT_EXTERN
 int git_diff_merge(.git_diff* onto, const (.git_diff)* from);
@@ -1234,9 +1249,11 @@ int git_diff_merge(.git_diff* onto, const (.git_diff)* from);
  * This also will, if requested, break modified files into add/remove
  * pairs if the amount of change is above a threshold.
  *
- * @param diff diff to run detection algorithms on
- * @param options Control how detection should be run, null for defaults
- * @return 0 on success, -1 on failure
+ * Params:
+ *      diff = diff to run detection algorithms on
+ *      options = Control how detection should be run, null for defaults
+ *
+ * Returns: 0 on success, -1 on failure
  */
 //GIT_EXTERN
 int git_diff_find_similar(.git_diff* diff, const (.git_diff_find_options)* options);
@@ -1254,8 +1271,10 @@ int git_diff_find_similar(.git_diff* diff, const (.git_diff_find_options)* optio
 /**
  * Query how many diff records are there in a diff.
  *
- * @param diff A git_diff generated by one of the above functions
- * @return Count of number of deltas in the list
+ * Params:
+ *      diff = A git_diff generated by one of the above functions
+ *
+ * Returns: Count of number of deltas in the list
  */
 //GIT_EXTERN
 size_t git_diff_num_deltas(const (.git_diff)* diff);
@@ -1267,9 +1286,11 @@ size_t git_diff_num_deltas(const (.git_diff)* diff);
  * that is a `git_delta_t` and returns just the count of how many deltas
  * match that particular type.
  *
- * @param diff A git_diff generated by one of the above functions
- * @param type A git_delta_t value to filter the count
- * @return Count of number of deltas matching delta_t type
+ * Params:
+ *      diff = A git_diff generated by one of the above functions
+ *      type = A git_delta_t value to filter the count
+ *
+ * Returns: Count of number of deltas matching delta_t type
  */
 //GIT_EXTERN
 size_t git_diff_num_deltas_of_type(const (.git_diff)* diff, .git_delta_t type);
@@ -1287,9 +1308,11 @@ size_t git_diff_num_deltas_of_type(const (.git_diff)* diff, .git_delta_t type);
  * For now, if you need those flags to be up to date, your only option is
  * to either use `git_diff_foreach` or create a `git_patch`.
  *
- * @param diff Diff list object
- * @param idx Index into diff list
- * @return Pointer to git_diff_delta (or null if `idx` out of range)
+ * Params:
+ *      diff = Diff list object
+ *      idx = Index into diff list
+ *
+ * Returns: Pointer to git_diff_delta (or null if `idx` out of range)
  */
 //GIT_EXTERN
 const (.git_diff_delta)* git_diff_get_delta(const (.git_diff)* diff, size_t idx);
@@ -1297,8 +1320,10 @@ const (.git_diff_delta)* git_diff_get_delta(const (.git_diff)* diff, size_t idx)
 /**
  * Check if deltas are sorted case sensitively or insensitively.
  *
- * @param diff diff to check
- * @return 0 if case sensitive, 1 if case is ignored
+ * Params:
+ *      diff = diff to check
+ *
+ * Returns: 0 if case sensitive, 1 if case is ignored
  */
 //GIT_EXTERN
 int git_diff_is_sorted_icase(const (.git_diff)* diff);
@@ -1317,17 +1342,15 @@ int git_diff_is_sorted_icase(const (.git_diff)* diff);
  * Returning a non-zero value from any of the callbacks will terminate
  * the iteration and return the value to the user.
  *
- * @param diff A git_diff generated by one of the above functions.
- * @param file_cb Callback function to make per file in the diff.
- * @param binary_cb Optional callback to make for binary files.
- * @param hunk_cb Optional callback to make per hunk of text diff.  This
- *                callback is called to describe a range of lines in the
- *                diff.  It will not be issued for binary files.
- * @param line_cb Optional callback to make per line of diff text.  This
- *                same callback will be made for context lines, added, and
- *                removed lines, and even for a deleted trailing newline.
- * @param payload Reference pointer that will be passed to your callbacks.
- * @return 0 on success, non-zero callback return value, or error code
+ * Params:
+ *      diff = A git_diff generated by one of the above functions.
+ *      file_cb = Callback function to make per file in the diff.
+ *      binary_cb = Optional callback to make for binary files.
+ *      hunk_cb = Optional callback to make per hunk of text diff.  This callback is called to describe a range of lines in the diff.  It will not be issued for binary files.
+ *      line_cb = Optional callback to make per line of diff text.  This same callback will be made for context lines, added, and removed lines, and even for a deleted trailing newline.
+ *      payload = Reference pointer that will be passed to your callbacks.
+ *
+ * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
 int git_diff_foreach(.git_diff* diff, .git_diff_file_cb file_cb, .git_diff_binary_cb binary_cb, .git_diff_hunk_cb hunk_cb, .git_diff_line_cb line_cb, void* payload);
@@ -1340,8 +1363,10 @@ int git_diff_foreach(.git_diff* diff, .git_diff_file_cb file_cb, .git_diff_binar
  * etc.  This function converts a git_delta_t value into these letters for
  * your own purposes.  git_delta_t.GIT_DELTA_UNTRACKED will return a space (i.e. ' ').
  *
- * @param status The git_delta_t value to look up
- * @return The single character label for that code
+ * Params:
+ *      status = The git_delta_t value to look up
+ *
+ * Returns: The single character label for that code
  */
 //GIT_EXTERN
 char git_diff_status_char(.git_delta_t status);
@@ -1388,11 +1413,13 @@ enum git_diff_format_t
  * Returning a non-zero value from the callbacks will terminate the
  * iteration and return the non-zero value to the caller.
  *
- * @param diff A git_diff generated by one of the above functions.
- * @param format A git_diff_format_t value to pick the text format.
- * @param print_cb Callback to make per line of diff text.
- * @param payload Reference pointer that will be passed to your callback.
- * @return 0 on success, non-zero callback return value, or error code
+ * Params:
+ *      diff = A git_diff generated by one of the above functions.
+ *      format = A git_diff_format_t value to pick the text format.
+ *      print_cb = Callback to make per line of diff text.
+ *      payload = Reference pointer that will be passed to your callback.
+ *
+ * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
 int git_diff_print(.git_diff* diff, .git_diff_format_t format, .git_diff_line_cb print_cb, void* payload);
@@ -1401,11 +1428,12 @@ int git_diff_print(.git_diff* diff, .git_diff_format_t format, .git_diff_line_cb
  * Produce the complete formatted text output from a diff into a
  * buffer.
  *
- * @param out_ A pointer to a user-allocated git_buf that will
- *            contain the diff text
- * @param diff A git_diff generated by one of the above functions.
- * @param format A git_diff_format_t value to pick the text format.
- * @return 0 on success or error code
+ * Params:
+ *      out_ = A pointer to a user-allocated git_buf that will contain the diff text
+ *      diff = A git_diff generated by one of the above functions.
+ *      format = A git_diff_format_t value to pick the text format.
+ *
+ * Returns: 0 on success or error code
  */
 //GIT_EXTERN
 int git_diff_to_buf(libgit2_d.buffer.git_buf* out_, .git_diff* diff, .git_diff_format_t format);
@@ -1432,17 +1460,19 @@ int git_diff_to_buf(libgit2_d.buffer.git_buf* out_, .git_diff* diff, .git_diff_f
  * to 1 and no call to the hunk_cb nor line_cb will be made (unless you pass
  * `git_diff_option_t.GIT_DIFF_FORCE_TEXT` of course).
  *
- * @param old_blob Blob for old side of diff, or null for empty blob
- * @param old_as_path Treat old blob as if it had this filename; can be null
- * @param new_blob Blob for new side of diff, or null for empty blob
- * @param new_as_path Treat new blob as if it had this filename; can be null
- * @param options Options for diff, or null for default options
- * @param file_cb Callback for "file"; made once if there is a diff; can be null
- * @param binary_cb Callback for binary files; can be null
- * @param hunk_cb Callback for each hunk in diff; can be null
- * @param line_cb Callback for each line in diff; can be null
- * @param payload Payload passed to each callback function
- * @return 0 on success, non-zero callback return value, or error code
+ * Params:
+ *      old_blob = Blob for old side of diff, or null for empty blob
+ *      old_as_path = Treat old blob as if it had this filename; can be null
+ *      new_blob = Blob for new side of diff, or null for empty blob
+ *      new_as_path = Treat new blob as if it had this filename; can be null
+ *      options = Options for diff, or null for default options
+ *      file_cb = Callback for "file"; made once if there is a diff; can be null
+ *      binary_cb = Callback for binary files; can be null
+ *      hunk_cb = Callback for each hunk in diff; can be null
+ *      line_cb = Callback for each line in diff; can be null
+ *      payload = Payload passed to each callback function
+ *
+ * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
 int git_diff_blobs(const (libgit2_d.types.git_blob)* old_blob, const (char)* old_as_path, const (libgit2_d.types.git_blob)* new_blob, const (char)* new_as_path, const (.git_diff_options)* options, .git_diff_file_cb file_cb, .git_diff_binary_cb binary_cb, .git_diff_hunk_cb hunk_cb, .git_diff_line_cb line_cb, void* payload);
@@ -1459,18 +1489,20 @@ int git_diff_blobs(const (libgit2_d.types.git_blob)* old_blob, const (char)* old
  * entire content of the buffer added).  Passing null to the buffer will do
  * the reverse, with GIT_DELTA_REMOVED and blob content removed.
  *
- * @param old_blob Blob for old side of diff, or null for empty blob
- * @param old_as_path Treat old blob as if it had this filename; can be null
- * @param buffer Raw data for new side of diff, or null for empty
- * @param buffer_len Length of raw data for new side of diff
- * @param buffer_as_path Treat buffer as if it had this filename; can be null
- * @param options Options for diff, or null for default options
- * @param file_cb Callback for "file"; made once if there is a diff; can be null
- * @param binary_cb Callback for binary files; can be null
- * @param hunk_cb Callback for each hunk in diff; can be null
- * @param line_cb Callback for each line in diff; can be null
- * @param payload Payload passed to each callback function
- * @return 0 on success, non-zero callback return value, or error code
+ * Params:
+ *      old_blob = Blob for old side of diff, or null for empty blob
+ *      old_as_path = Treat old blob as if it had this filename; can be null
+ *      buffer = Raw data for new side of diff, or null for empty
+ *      buffer_len = Length of raw data for new side of diff
+ *      buffer_as_path = Treat buffer as if it had this filename; can be null
+ *      options = Options for diff, or null for default options
+ *      file_cb = Callback for "file"; made once if there is a diff; can be null
+ *      binary_cb = Callback for binary files; can be null
+ *      hunk_cb = Callback for each hunk in diff; can be null
+ *      line_cb = Callback for each line in diff; can be null
+ *      payload = Payload passed to each callback function
+ *
+ * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
 int git_diff_blob_to_buffer(const (libgit2_d.types.git_blob)* old_blob, const (char)* old_as_path, const (char)* buffer, size_t buffer_len, const (char)* buffer_as_path, const (.git_diff_options)* options, .git_diff_file_cb file_cb, .git_diff_binary_cb binary_cb, .git_diff_hunk_cb hunk_cb, .git_diff_line_cb line_cb, void* payload);
@@ -1482,19 +1514,21 @@ int git_diff_blob_to_buffer(const (libgit2_d.types.git_blob)* old_blob, const (c
  * context, so the `git_diff_file` parameters to the callbacks will be
  * faked a la the rules for `git_diff_blobs()`.
  *
- * @param old_buffer Raw data for old side of diff, or null for empty
- * @param old_len Length of the raw data for old side of the diff
- * @param old_as_path Treat old buffer as if it had this filename; can be null
- * @param new_buffer Raw data for new side of diff, or null for empty
- * @param new_len Length of raw data for new side of diff
- * @param new_as_path Treat buffer as if it had this filename; can be null
- * @param options Options for diff, or null for default options
- * @param file_cb Callback for "file"; made once if there is a diff; can be null
- * @param binary_cb Callback for binary files; can be null
- * @param hunk_cb Callback for each hunk in diff; can be null
- * @param line_cb Callback for each line in diff; can be null
- * @param payload Payload passed to each callback function
- * @return 0 on success, non-zero callback return value, or error code
+ * Params:
+ *      old_buffer = Raw data for old side of diff, or null for empty
+ *      old_len = Length of the raw data for old side of the diff
+ *      old_as_path = Treat old buffer as if it had this filename; can be null
+ *      new_buffer = Raw data for new side of diff, or null for empty
+ *      new_len = Length of raw data for new side of diff
+ *      new_as_path = Treat buffer as if it had this filename; can be null
+ *      options = Options for diff, or null for default options
+ *      file_cb = Callback for "file"; made once if there is a diff; can be null
+ *      binary_cb = Callback for binary files; can be null
+ *      hunk_cb = Callback for each hunk in diff; can be null
+ *      line_cb = Callback for each line in diff; can be null
+ *      payload = Payload passed to each callback function
+ *
+ * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
 int git_diff_buffers(const (void)* old_buffer, size_t old_len, const (char)* old_as_path, const (void)* new_buffer, size_t new_len, const (char)* new_as_path, const (.git_diff_options)* options, .git_diff_file_cb file_cb, .git_diff_binary_cb binary_cb, .git_diff_hunk_cb hunk_cb, .git_diff_line_cb line_cb, void* payload);
@@ -1513,10 +1547,12 @@ int git_diff_buffers(const (void)* old_buffer, size_t old_len, const (char)* old
  * implementation, it will not read unified diffs produced by
  * the `diff` program, nor any other types of patch files.
  *
- * @param out_ A pointer to a git_diff pointer that will be allocated.
- * @param content The contents of a patch file
- * @param content_len The length of the patch file contents
- * @return 0 or an error code
+ * Params:
+ *      out_ = A pointer to a git_diff pointer that will be allocated.
+ *      content = The contents of a patch file
+ *      content_len = The length of the patch file contents
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_diff_from_buffer(.git_diff** out_, const (char)* content, size_t content_len);
@@ -1563,9 +1599,11 @@ enum git_diff_stats_format_t
 /**
  * Accumulate diff statistics for all patches.
  *
- * @param out_ Structure containg the diff statistics.
- * @param diff A git_diff generated by one of the above functions.
- * @return 0 on success; non-zero on error
+ * Params:
+ *      out_ = Structure containg the diff statistics.
+ *      diff = A git_diff generated by one of the above functions.
+ *
+ * Returns: 0 on success; non-zero on error
  */
 //GIT_EXTERN
 int git_diff_get_stats(.git_diff_stats** out_, .git_diff* diff);
@@ -1573,8 +1611,10 @@ int git_diff_get_stats(.git_diff_stats** out_, .git_diff* diff);
 /**
  * Get the total number of files changed in a diff
  *
- * @param stats A `git_diff_stats` generated by one of the above functions.
- * @return total number of files changed in the diff
+ * Params:
+ *      stats = A `git_diff_stats` generated by one of the above functions.
+ *
+ * Returns: total number of files changed in the diff
  */
 //GIT_EXTERN
 size_t git_diff_stats_files_changed(const (.git_diff_stats)* stats);
@@ -1582,8 +1622,10 @@ size_t git_diff_stats_files_changed(const (.git_diff_stats)* stats);
 /**
  * Get the total number of insertions in a diff
  *
- * @param stats A `git_diff_stats` generated by one of the above functions.
- * @return total number of insertions in the diff
+ * Params:
+ *      stats = A `git_diff_stats` generated by one of the above functions.
+ *
+ * Returns: total number of insertions in the diff
  */
 //GIT_EXTERN
 size_t git_diff_stats_insertions(const (.git_diff_stats)* stats);
@@ -1591,8 +1633,10 @@ size_t git_diff_stats_insertions(const (.git_diff_stats)* stats);
 /**
  * Get the total number of deletions in a diff
  *
- * @param stats A `git_diff_stats` generated by one of the above functions.
- * @return total number of deletions in the diff
+ * Params:
+ *      stats = A `git_diff_stats` generated by one of the above functions.
+ *
+ * Returns: total number of deletions in the diff
  */
 //GIT_EXTERN
 size_t git_diff_stats_deletions(const (.git_diff_stats)* stats);
@@ -1600,11 +1644,13 @@ size_t git_diff_stats_deletions(const (.git_diff_stats)* stats);
 /**
  * Print diff statistics to a `git_buf`.
  *
- * @param out_ buffer to store the formatted diff statistics in.
- * @param stats A `git_diff_stats` generated by one of the above functions.
- * @param format Formatting option.
- * @param width Target width for output (only affects git_diff_stats_format_t.GIT_DIFF_STATS_FULL)
- * @return 0 on success; non-zero on error
+ * Params:
+ *      out_ = buffer to store the formatted diff statistics in.
+ *      stats = A `git_diff_stats` generated by one of the above functions.
+ *      format = Formatting option.
+ *      width = Target width for output (only affects git_diff_stats_format_t.GIT_DIFF_STATS_FULL)
+ *
+ * Returns: 0 on success; non-zero on error
  */
 //GIT_EXTERN
 int git_diff_stats_to_buf(libgit2_d.buffer.git_buf* out_, const (.git_diff_stats)* stats, .git_diff_stats_format_t format, size_t width);
@@ -1612,7 +1658,8 @@ int git_diff_stats_to_buf(libgit2_d.buffer.git_buf* out_, const (.git_diff_stats
 /**
  * Deallocate a `git_diff_stats`.
  *
- * @param stats The previously created statistics object;
+ * Params:
+ *      stats = The previously created statistics object;
  * cannot be used after free.
  */
 //GIT_EXTERN
@@ -1703,10 +1750,12 @@ pure nothrow @safe @nogc
 /**
  * Create an e-mail ready patch from a diff.
  *
- * @param out_ buffer to store the e-mail patch in
- * @param diff containing the commit
- * @param opts structure with options to influence content and formatting.
- * @return 0 or an error code
+ * Params:
+ *      out_ = buffer to store the e-mail patch in
+ *      diff = containing the commit
+ *      opts = structure with options to influence content and formatting.
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_diff_format_email(libgit2_d.buffer.git_buf* out_, .git_diff* diff, const (.git_diff_format_email_options)* opts);
@@ -1716,15 +1765,16 @@ int git_diff_format_email(libgit2_d.buffer.git_buf* out_, .git_diff* diff, const
  *
  * Does not support creating patches for merge commits (yet).
  *
- * @param out_ buffer to store the e-mail patch in
- * @param repo containing the commit
- * @param commit pointer to up commit
- * @param patch_no patch number of the commit
- * @param total_patches total number of patches in the patch set
- * @param flags determines the formatting of the e-mail
- * @param diff_opts structure with options to influence diff or null for
- * defaults.
- * @return 0 or an error code
+ * Params:
+ *      out_ = buffer to store the e-mail patch in
+ *      repo = containing the commit
+ *      commit = pointer to up commit
+ *      patch_no = patch number of the commit
+ *      total_patches = total number of patches in the patch set
+ *      flags = determines the formatting of the e-mail
+ *      diff_opts = structure with options to influence diff or null for defaults.
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_diff_commit_as_email(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_repository* repo, libgit2_d.types.git_commit* commit, size_t patch_no, size_t total_patches, uint flags, const (.git_diff_options)* diff_opts);
@@ -1735,9 +1785,11 @@ int git_diff_commit_as_email(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git
  * Initializes a `git_diff_format_email_options` with default values. Equivalent
  * to creating an instance with GIT_DIFF_FORMAT_EMAIL_OPTIONS_INIT.
  *
- * @param opts The `git_blame_options` struct to initialize.
- * @param version The struct version; pass `GIT_DIFF_FORMAT_EMAIL_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_blame_options` struct to initialize.
+ *      version = The struct version; pass `GIT_DIFF_FORMAT_EMAIL_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_diff_format_email_options_init(.git_diff_format_email_options* opts, uint version_);
@@ -1775,9 +1827,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_diff_patchid_options` with default values. Equivalent to
  * creating an instance with `GIT_DIFF_PATCHID_OPTIONS_INIT`.
  *
- * @param opts The `git_diff_patchid_options` struct to initialize.
- * @param version The struct version; pass `GIT_DIFF_PATCHID_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_diff_patchid_options` struct to initialize.
+ *      version = The struct version; pass `GIT_DIFF_PATCHID_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_diff_patchid_options_init(.git_diff_patchid_options* opts, uint version_);
@@ -1794,12 +1848,12 @@ int git_diff_patchid_options_init(.git_diff_patchid_options* opts, uint version_
  * defined in git-patch-id(1), and should in fact generate the
  * same IDs as the upstream git project does.
  *
- * @param out_ Pointer where the calculated patch ID should be stored
- * @param diff The diff to calculate the ID for
- * @param opts Options for how to calculate the patch ID. This is
- *  intended for future changes, as currently no options are
- *  available.
- * @return 0 on success, an error code otherwise.
+ * Params:
+ *      out_ = Pointer where the calculated patch ID should be stored
+ *      diff = The diff to calculate the ID for
+ *      opts = Options for how to calculate the patch ID. This is intended for future changes, as currently no options are available.
+ *
+ * Returns: 0 on success, an error code otherwise.
  */
 //GIT_EXTERN
 int git_diff_patchid(libgit2_d.oid.git_oid* out_, .git_diff* diff, .git_diff_patchid_options* opts);

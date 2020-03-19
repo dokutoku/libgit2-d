@@ -25,10 +25,12 @@ public:
 /**
  * Lookup a tag object from the repository.
  *
- * @param out_ pointer to the looked up tag
- * @param repo the repo to use when locating the tag.
- * @param id identity of the tag to locate.
- * @return 0 or an error code
+ * Params:
+ *      out_ = pointer to the looked up tag
+ *      repo = the repo to use when locating the tag.
+ *      id = identity of the tag to locate.
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_tag_lookup(libgit2_d.types.git_tag** out_, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id);
@@ -39,11 +41,13 @@ int git_tag_lookup(libgit2_d.types.git_tag** out_, libgit2_d.types.git_repositor
  *
  * @see git_object_lookup_prefix
  *
- * @param out_ pointer to the looked up tag
- * @param repo the repo to use when locating the tag.
- * @param id identity of the tag to locate.
- * @param len the length of the short identifier
- * @return 0 or an error code
+ * Params:
+ *      out_ = pointer to the looked up tag
+ *      repo = the repo to use when locating the tag.
+ *      id = identity of the tag to locate.
+ *      len = the length of the short identifier
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_tag_lookup_prefix(libgit2_d.types.git_tag** out_, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id, size_t len);
@@ -56,7 +60,8 @@ int git_tag_lookup_prefix(libgit2_d.types.git_tag** out_, libgit2_d.types.git_re
  * IMPORTANT: You MUST call this method when you are through with a tag to
  * release memory. Failure to do so will cause a memory leak.
  *
- * @param tag the tag to close
+ * Params:
+ *      tag = the tag to close
  */
 //GIT_EXTERN
 void git_tag_free(libgit2_d.types.git_tag* tag);
@@ -64,8 +69,10 @@ void git_tag_free(libgit2_d.types.git_tag* tag);
 /**
  * Get the id of a tag.
  *
- * @param tag a previously loaded tag.
- * @return object identity for the tag.
+ * Params:
+ *      tag = a previously loaded tag.
+ *
+ * Returns: object identity for the tag.
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_tag_id(const (libgit2_d.types.git_tag)* tag);
@@ -73,8 +80,10 @@ const (libgit2_d.oid.git_oid)* git_tag_id(const (libgit2_d.types.git_tag)* tag);
 /**
  * Get the repository that contains the tag.
  *
- * @param tag A previously loaded tag.
- * @return Repository that contains this tag.
+ * Params:
+ *      tag = A previously loaded tag.
+ *
+ * Returns: Repository that contains this tag.
  */
 //GIT_EXTERN
 libgit2_d.types.git_repository* git_tag_owner(const (libgit2_d.types.git_tag)* tag);
@@ -85,9 +94,11 @@ libgit2_d.types.git_repository* git_tag_owner(const (libgit2_d.types.git_tag)* t
  * This method performs a repository lookup for the
  * given object and returns it
  *
- * @param target_out pointer where to store the target
- * @param tag a previously loaded tag.
- * @return 0 or an error code
+ * Params:
+ *      target_out = pointer where to store the target
+ *      tag = a previously loaded tag.
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_tag_target(libgit2_d.types.git_object** target_out, const (libgit2_d.types.git_tag)* tag);
@@ -95,8 +106,10 @@ int git_tag_target(libgit2_d.types.git_object** target_out, const (libgit2_d.typ
 /**
  * Get the OID of the tagged object of a tag
  *
- * @param tag a previously loaded tag.
- * @return pointer to the OID
+ * Params:
+ *      tag = a previously loaded tag.
+ *
+ * Returns: pointer to the OID
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_tag_target_id(const (libgit2_d.types.git_tag)* tag);
@@ -104,8 +117,10 @@ const (libgit2_d.oid.git_oid)* git_tag_target_id(const (libgit2_d.types.git_tag)
 /**
  * Get the type of a tag's tagged object
  *
- * @param tag a previously loaded tag.
- * @return type of the tagged object
+ * Params:
+ *      tag = a previously loaded tag.
+ *
+ * Returns: type of the tagged object
  */
 //GIT_EXTERN
 libgit2_d.types.git_object_t git_tag_target_type(const (libgit2_d.types.git_tag)* tag);
@@ -113,8 +128,10 @@ libgit2_d.types.git_object_t git_tag_target_type(const (libgit2_d.types.git_tag)
 /**
  * Get the name of a tag
  *
- * @param tag a previously loaded tag.
- * @return name of the tag
+ * Params:
+ *      tag = a previously loaded tag.
+ *
+ * Returns: name of the tag
  */
 //GIT_EXTERN
 const (char)* git_tag_name(const (libgit2_d.types.git_tag)* tag);
@@ -122,8 +139,10 @@ const (char)* git_tag_name(const (libgit2_d.types.git_tag)* tag);
 /**
  * Get the tagger (author) of a tag
  *
- * @param tag a previously loaded tag.
- * @return reference to the tag's author or null when unspecified
+ * Params:
+ *      tag = a previously loaded tag.
+ *
+ * Returns: reference to the tag's author or null when unspecified
  */
 //GIT_EXTERN
 const (libgit2_d.types.git_signature)* git_tag_tagger(const (libgit2_d.types.git_tag)* tag);
@@ -131,8 +150,10 @@ const (libgit2_d.types.git_signature)* git_tag_tagger(const (libgit2_d.types.git
 /**
  * Get the message of a tag
  *
- * @param tag a previously loaded tag.
- * @return message of the tag or null when unspecified
+ * Params:
+ *      tag = a previously loaded tag.
+ *
+ * Returns: message of the tag or null when unspecified
  */
 //GIT_EXTERN
 const (char)* git_tag_message(const (libgit2_d.types.git_tag)* tag);
@@ -151,30 +172,18 @@ const (char)* git_tag_message(const (libgit2_d.types.git_tag)* tag);
  * the characters '~', '^', ':', '\\', '?', '[', and '*', and the
  * sequences ".." and "@{" which have special meaning to revparse.
  *
- * @param oid Pointer where to store the OID of the
- * newly created tag. If the tag already exists, this parameter
- * will be the oid of the existing tag, and the function will
- * return a git_error_code.GIT_EEXISTS error code.
+ * Params:
+ *      oid = Pointer where to store the OID of the newly created tag. If the tag already exists, this parameter will be the oid of the existing tag, and the function will return a git_error_code.GIT_EEXISTS error code.
  *
- * @param repo Repository where to store the tag
+ * Params:
+ *      repo = Repository where to store the tag
+ *      tag_name = Name for the tag; this name is validated for consistency. It should also not conflict with an already existing tag name
+ *      target = Object to which this tag points. This object must belong to the given `repo`.
+ *      tagger = Signature of the tagger for this tag, and of the tagging time
+ *      message = Full message for this tag
+ *      force = Overwrite existing references
  *
- * @param tag_name Name for the tag; this name is validated
- * for consistency. It should also not conflict with an
- * already existing tag name
- *
- * @param target Object to which this tag points. This object
- * must belong to the given `repo`.
- *
- * @param tagger Signature of the tagger for this tag, and
- * of the tagging time
- *
- * @param message Full message for this tag
- *
- * @param force Overwrite existing references
- *
- * @return 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code
- *	A tag object is written to the ODB, and a proper reference
- *	is written in the /refs/tags folder, pointing to it
+ * Returns: 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code A tag object is written to the ODB, and a proper reference is written in the /refs/tags folder, pointing to it
  */
 //GIT_EXTERN
 int git_tag_create(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_repository* repo, const (char)* tag_name, const (libgit2_d.types.git_object)* target, const (libgit2_d.types.git_signature)* tagger, const (char)* message, int force);
@@ -185,22 +194,15 @@ int git_tag_create(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_repository* r
  * The message will not be cleaned up. This can be achieved
  * through `git_message_prettify()`.
  *
- * @param oid Pointer where to store the OID of the
- * newly created tag
+ * Params:
+ *      oid = Pointer where to store the OID of the newly created tag
+ *      repo = Repository where to store the tag
+ *      tag_name = Name for the tag
+ *      target = Object to which this tag points. This object must belong to the given `repo`.
+ *      tagger = Signature of the tagger for this tag, and of the tagging time
+ *      message = Full message for this tag
  *
- * @param repo Repository where to store the tag
- *
- * @param tag_name Name for the tag
- *
- * @param target Object to which this tag points. This object
- * must belong to the given `repo`.
- *
- * @param tagger Signature of the tagger for this tag, and
- * of the tagging time
- *
- * @param message Full message for this tag
- *
- * @return 0 on success or an error code
+ * Returns: 0 on success or an error code
  */
 //GIT_EXTERN
 int git_tag_annotation_create(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_repository* repo, const (char)* tag_name, const (libgit2_d.types.git_object)* target, const (libgit2_d.types.git_signature)* tagger, const (char)* message);
@@ -208,11 +210,13 @@ int git_tag_annotation_create(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_re
 /**
  * Create a new tag in the repository from a buffer
  *
- * @param oid Pointer where to store the OID of the newly created tag
- * @param repo Repository where to store the tag
- * @param buffer Raw tag data
- * @param force Overwrite existing tags
- * @return 0 on success; error code otherwise
+ * Params:
+ *      oid = Pointer where to store the OID of the newly created tag
+ *      repo = Repository where to store the tag
+ *      buffer = Raw tag data
+ *      force = Overwrite existing tags
+ *
+ * Returns: 0 on success; error code otherwise
  */
 //GIT_EXTERN
 int git_tag_create_from_buffer(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_repository* repo, const (char)* buffer, int force);
@@ -227,25 +231,14 @@ int git_tag_create_from_buffer(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_r
  * The tag name will be checked for validity.
  * See `git_tag_create()` for rules about valid names.
  *
- * @param oid Pointer where to store the OID of the provided
- * target object. If the tag already exists, this parameter
- * will be filled with the oid of the existing pointed object
- * and the function will return a git_error_code.GIT_EEXISTS error code.
+ * Params:
+ *      oid = Pointer where to store the OID of the provided target object. If the tag already exists, this parameter will be filled with the oid of the existing pointed object and the function will return a git_error_code.GIT_EEXISTS error code.
+ *      repo = Repository where to store the lightweight tag
+ *      tag_name = Name for the tag; this name is validated for consistency. It should also not conflict with an already existing tag name
+ *      target = Object to which this tag points. This object must belong to the given `repo`.
+ *      force = Overwrite existing references
  *
- * @param repo Repository where to store the lightweight tag
- *
- * @param tag_name Name for the tag; this name is validated
- * for consistency. It should also not conflict with an
- * already existing tag name
- *
- * @param target Object to which this tag points. This object
- * must belong to the given `repo`.
- *
- * @param force Overwrite existing references
- *
- * @return 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code
- *	A proper reference is written in the /refs/tags folder,
- * pointing to the provided target object
+ * Returns: 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code A proper reference is written in the /refs/tags folder, pointing to the provided target object
  */
 //GIT_EXTERN
 int git_tag_create_lightweight(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_repository* repo, const (char)* tag_name, const (libgit2_d.types.git_object)* target, int force);
@@ -256,12 +249,11 @@ int git_tag_create_lightweight(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_r
  * The tag name will be checked for validity.
  * See `git_tag_create()` for rules about valid names.
  *
- * @param repo Repository where lives the tag
+ * Params:
+ *      repo = Repository where lives the tag
+ *      tag_name = Name of the tag to be deleted; this name is validated for consistency.
  *
- * @param tag_name Name of the tag to be deleted;
- * this name is validated for consistency.
- *
- * @return 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code
+ * Returns: 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code
  */
 //GIT_EXTERN
 int git_tag_delete(libgit2_d.types.git_repository* repo, const (char)* tag_name);
@@ -274,10 +266,11 @@ int git_tag_delete(libgit2_d.types.git_repository* repo, const (char)* tag_name)
  * should be free'd manually when no longer needed, using
  * `git_strarray_free`.
  *
- * @param tag_names Pointer to a git_strarray structure where
- *		the tag names will be stored
- * @param repo Repository where to find the tags
- * @return 0 or an error code
+ * Params:
+ *      tag_names = Pointer to a git_strarray structure where the tag names will be stored
+ *      repo = Repository where to find the tags
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_tag_list(libgit2_d.strarray.git_strarray* tag_names, libgit2_d.types.git_repository* repo);
@@ -294,11 +287,12 @@ int git_tag_list(libgit2_d.strarray.git_strarray* tag_names, libgit2_d.types.git
  * should be free'd manually when no longer needed, using
  * `git_strarray_free`.
  *
- * @param tag_names Pointer to a git_strarray structure where
- *		the tag names will be stored
- * @param pattern Standard fnmatch pattern
- * @param repo Repository where to find the tags
- * @return 0 or an error code
+ * Params:
+ *      tag_names = Pointer to a git_strarray structure where the tag names will be stored
+ *      pattern = Standard fnmatch pattern
+ *      repo = Repository where to find the tags
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_tag_list_match(libgit2_d.strarray.git_strarray* tag_names, const (char)* pattern, libgit2_d.types.git_repository* repo);
@@ -308,19 +302,22 @@ int git_tag_list_match(libgit2_d.strarray.git_strarray* tag_names, const (char)*
  *
  * @see git_tag_foreach
  *
- * @param name The tag name
- * @param oid The tag's OID
- * @param payload Payload passed to git_tag_foreach
- * @return non-zero to terminate the iteration
+ * Params:
+ *      name = The tag name
+ *      oid = The tag's OID
+ *      payload = Payload passed to git_tag_foreach
+ *
+ * Returns: non-zero to terminate the iteration
  */
 alias git_tag_foreach_cb = int function(const (char)* name, libgit2_d.oid.git_oid* oid, void* payload);
 
 /**
  * Call callback `cb' for each tag in the repository
  *
- * @param repo Repository
- * @param callback Callback function
- * @param payload Pointer to callback data (optional)
+ * Params:
+ *      repo = Repository
+ *      callback = Callback function
+ *      payload = Pointer to callback data (optional)
  */
 //GIT_EXTERN
 int git_tag_foreach(libgit2_d.types.git_repository* repo, .git_tag_foreach_cb callback, void* payload);
@@ -331,9 +328,11 @@ int git_tag_foreach(libgit2_d.types.git_repository* repo, .git_tag_foreach_cb ca
  * The retrieved `tag_target` object is owned by the repository
  * and should be closed with the `git_object_free` method.
  *
- * @param tag_target_out Pointer to the peeled git_object
- * @param tag The tag to be processed
- * @return 0 or an error code
+ * Params:
+ *      tag_target_out = Pointer to the peeled git_object
+ *      tag = The tag to be processed
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_tag_peel(libgit2_d.types.git_object** tag_target_out, const (libgit2_d.types.git_tag)* tag);
@@ -342,8 +341,9 @@ int git_tag_peel(libgit2_d.types.git_object** tag_target_out, const (libgit2_d.t
  * Create an in-memory copy of a tag. The copy must be explicitly
  * free'd or it will leak.
  *
- * @param out_ Pointer to store the copy of the tag
- * @param source Original tag to copy
+ * Params:
+ *      out_ = Pointer to store the copy of the tag
+ *      source = Original tag to copy
  */
 //GIT_EXTERN
 int git_tag_dup(libgit2_d.types.git_tag** out_, libgit2_d.types.git_tag* source);

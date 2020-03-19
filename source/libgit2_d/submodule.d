@@ -139,10 +139,12 @@ bool GIT_SUBMODULE_STATUS_IS_WD_DIRTY(T)(S)
 /**
  * Function pointer to receive each submodule
  *
- * @param sm git_submodule currently being visited
- * @param name name of the submodule
- * @param payload value you passed to the foreach function as payload
- * @return 0 on success or error code
+ * Params:
+ *      sm = git_submodule currently being visited
+ *      name = name of the submodule
+ *      payload = value you passed to the foreach function as payload
+ *
+ * Returns: 0 on success or error code
  */
 alias git_submodule_cb = int function(libgit2_d.types.git_submodule* sm, const (char)* name, void* payload);
 
@@ -211,9 +213,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_submodule_update_options` with default values. Equivalent to
  * creating an instance with `GIT_SUBMODULE_UPDATE_OPTIONS_INIT`.
  *
- * @param opts The `git_submodule_update_options` struct to initialize.
- * @param version The struct version; pass `GIT_SUBMODULE_UPDATE_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_submodule_update_options` struct to initialize.
+ *      version = The struct version; pass `GIT_SUBMODULE_UPDATE_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_submodule_update_options_init(.git_submodule_update_options* opts, uint version_);
@@ -225,16 +229,12 @@ int git_submodule_update_options_init(.git_submodule_update_options* opts, uint 
  * the target commit (e.g. because fetchRecurseSubmodules isn't set), then
  * the submodule is fetched using the fetch options supplied in options.
  *
- * @param submodule Submodule object
- * @param init If the submodule is not initialized, setting this flag to true
- *        will initialize the submodule before updating. Otherwise, this will
- *        return an error if attempting to update an uninitialzed repository.
- *        but setting this to true forces them to be updated.
- * @param options configuration options for the update.  If null, the
- *        function works as though GIT_SUBMODULE_UPDATE_OPTIONS_INIT was passed.
- * @return 0 on success, any non-zero return value from a callback
- *         function, or a negative value to indicate an error (use
- *         `git_error_last` for a detailed error message).
+ * Params:
+ *      submodule = Submodule object
+ *      init = If the submodule is not initialized, setting this flag to true will initialize the submodule before updating. Otherwise, this will return an error if attempting to update an uninitialzed repository. but setting this to true forces them to be updated.
+ *      options = configuration options for the update.  If null, the function works as though GIT_SUBMODULE_UPDATE_OPTIONS_INIT was passed.
+ *
+ * Returns: 0 on success, any non-zero return value from a callback function, or a negative value to indicate an error (use `git_error_last` for a detailed error message).
  */
 //GIT_EXTERN
 int git_submodule_update(libgit2_d.types.git_submodule* submodule, int init, .git_submodule_update_options* options);
@@ -259,12 +259,12 @@ int git_submodule_update(libgit2_d.types.git_submodule* submodule, int init, .gi
  *
  * You must call `git_submodule_free` when done with the submodule.
  *
- * @param out_ Output ptr to submodule; pass null to just get return code
- * @param repo The parent repository
- * @param name The name of or path to the submodule; trailing slashes okay
- * @return 0 on success, git_error_code.GIT_ENOTFOUND if submodule does not exist,
- *         git_error_code.GIT_EEXISTS if a repository is found in working directory only,
- *         -1 on other errors.
+ * Params:
+ *      out_ = Output ptr to submodule; pass null to just get return code
+ *      repo = The parent repository
+ *      name = The name of or path to the submodule; trailing slashes okay
+ *
+ * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if submodule does not exist, git_error_code.GIT_EEXISTS if a repository is found in working directory only, -1 on other errors.
  */
 //GIT_EXTERN
 int git_submodule_lookup(libgit2_d.types.git_submodule** out_, libgit2_d.types.git_repository* repo, const (char)* name);
@@ -272,7 +272,8 @@ int git_submodule_lookup(libgit2_d.types.git_submodule** out_, libgit2_d.types.g
 /**
  * Release a submodule
  *
- * @param submodule Submodule object
+ * Params:
+ *      submodule = Submodule object
  */
 //GIT_EXTERN
 void git_submodule_free(libgit2_d.types.git_submodule* submodule);
@@ -289,11 +290,12 @@ void git_submodule_free(libgit2_d.types.git_submodule* submodule);
  * them as added in the workdir.  Also, the status API will treat the entire
  * subdirectory of a contained git repo as a single git_status_t.GIT_STATUS_WT_NEW item.
  *
- * @param repo The repository
- * @param callback Function to be called with the name of each submodule.
- *        Return a non-zero value to terminate the iteration.
- * @param payload Extra data to pass to callback
- * @return 0 on success, -1 on error, or non-zero return value of callback
+ * Params:
+ *      repo = The repository
+ *      callback = Function to be called with the name of each submodule. Return a non-zero value to terminate the iteration.
+ *      payload = Extra data to pass to callback
+ *
+ * Returns: 0 on success, -1 on error, or non-zero return value of callback
  */
 //GIT_EXTERN
 int git_submodule_foreach(libgit2_d.types.git_repository* repo, .git_submodule_cb callback, void* payload);
@@ -315,14 +317,14 @@ int git_submodule_foreach(libgit2_d.types.git_repository* repo, .git_submodule_c
  *
  * You must call `git_submodule_free` on the submodule object when done.
  *
- * @param out_ The newly created submodule ready to open for clone
- * @param repo The repository in which you want to create the submodule
- * @param url URL for the submodule's remote
- * @param path Path at which the submodule should be created
- * @param use_gitlink Should workdir contain a gitlink to the repo in
- *        .git/modules vs. repo directly in workdir.
- * @return 0 on success, git_error_code.GIT_EEXISTS if submodule already exists,
- *         -1 on other errors.
+ * Params:
+ *      out_ = The newly created submodule ready to open for clone
+ *      repo = The repository in which you want to create the submodule
+ *      url = URL for the submodule's remote
+ *      path = Path at which the submodule should be created
+ *      use_gitlink = Should workdir contain a gitlink to the repo in .git/modules vs. repo directly in workdir.
+ *
+ * Returns: 0 on success, git_error_code.GIT_EEXISTS if submodule already exists, -1 on other errors.
  */
 //GIT_EXTERN
 int git_submodule_add_setup(libgit2_d.types.git_submodule** out_, libgit2_d.types.git_repository* repo, const (char)* url, const (char)* path, int use_gitlink);
@@ -332,11 +334,12 @@ int git_submodule_add_setup(libgit2_d.types.git_submodule** out_, libgit2_d.type
  *
  * This performs the necessary `git_clone` to setup a newly-created submodule.
  *
- * @param out_ The newly created repository object. Optional.
- * @param submodule The submodule currently waiting for its clone.
- * @param opts The options to use.
+ * Params:
+ *      out_ = The newly created repository object. Optional.
+ *      submodule = The submodule currently waiting for its clone.
+ *      opts = The options to use.
  *
- * @return 0 on success, -1 on other errors (see git_clone).
+ * Returns: 0 on success, -1 on other errors (see git_clone).
  */
 //GIT_EXTERN
 int git_submodule_clone(libgit2_d.types.git_repository** out_, libgit2_d.types.git_submodule* submodule, const (.git_submodule_update_options)* opts);
@@ -349,7 +352,8 @@ int git_submodule_clone(libgit2_d.types.git_repository** out_, libgit2_d.types.g
  * and the newly cloned submodule to the index to be ready to be committed
  * (but doesn't actually do the commit).
  *
- * @param submodule The submodule to finish adding.
+ * Params:
+ *      submodule = The submodule to finish adding.
  */
 //GIT_EXTERN
 int git_submodule_add_finalize(libgit2_d.types.git_submodule* submodule);
@@ -357,12 +361,11 @@ int git_submodule_add_finalize(libgit2_d.types.git_submodule* submodule);
 /**
  * Add current submodule HEAD commit to index of superproject.
  *
- * @param submodule The submodule to add to the index
- * @param write_index Boolean if this should immediately write the index
- *            file.  If you pass this as false, you will have to get the
- *            git_index and explicitly call `git_index_write()` on it to
- *            save the change.
- * @return 0 on success, <0 on failure
+ * Params:
+ *      submodule = The submodule to add to the index
+ *      write_index = Boolean if this should immediately write the index file.  If you pass this as false, you will have to get the git_index and explicitly call `git_index_write()` on it to save the change.
+ *
+ * Returns: 0 on success, <0 on failure
  */
 //GIT_EXTERN
 int git_submodule_add_to_index(libgit2_d.types.git_submodule* submodule, int write_index);
@@ -375,8 +378,10 @@ int git_submodule_add_to_index(libgit2_d.types.git_submodule* submodule, int wri
  * original `git_submodule_lookup()` call, so if that repository has been
  * freed, then this may be a dangling reference.
  *
- * @param submodule Pointer to submodule object
- * @return Pointer to `libgit2_d.types.git_repository`
+ * Params:
+ *      submodule = Pointer to submodule object
+ *
+ * Returns: Pointer to `libgit2_d.types.git_repository`
  */
 //GIT_EXTERN
 libgit2_d.types.git_repository* git_submodule_owner(libgit2_d.types.git_submodule* submodule);
@@ -384,8 +389,10 @@ libgit2_d.types.git_repository* git_submodule_owner(libgit2_d.types.git_submodul
 /**
  * Get the name of submodule.
  *
- * @param submodule Pointer to submodule object
- * @return Pointer to the submodule name
+ * Params:
+ *      submodule = Pointer to submodule object
+ *
+ * Returns: Pointer to the submodule name
  */
 //GIT_EXTERN
 const (char)* git_submodule_name(libgit2_d.types.git_submodule* submodule);
@@ -396,8 +403,10 @@ const (char)* git_submodule_name(libgit2_d.types.git_submodule* submodule);
  * The path is almost always the same as the submodule name, but the
  * two are actually not required to match.
  *
- * @param submodule Pointer to submodule object
- * @return Pointer to the submodule path
+ * Params:
+ *      submodule = Pointer to submodule object
+ *
+ * Returns: Pointer to the submodule path
  */
 //GIT_EXTERN
 const (char)* git_submodule_path(libgit2_d.types.git_submodule* submodule);
@@ -405,8 +414,10 @@ const (char)* git_submodule_path(libgit2_d.types.git_submodule* submodule);
 /**
  * Get the URL for the submodule.
  *
- * @param submodule Pointer to submodule object
- * @return Pointer to the submodule url
+ * Params:
+ *      submodule = Pointer to submodule object
+ *
+ * Returns: Pointer to the submodule url
  */
 //GIT_EXTERN
 const (char)* git_submodule_url(libgit2_d.types.git_submodule* submodule);
@@ -414,10 +425,12 @@ const (char)* git_submodule_url(libgit2_d.types.git_submodule* submodule);
 /**
  * Resolve a submodule url relative to the given repository.
  *
- * @param out_ buffer to store the absolute submodule url in
- * @param repo Pointer to repository object
- * @param url Relative url
- * @return 0 or an error code
+ * Params:
+ *      out_ = buffer to store the absolute submodule url in
+ *      repo = Pointer to repository object
+ *      url = Relative url
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_submodule_resolve_url(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_repository* repo, const (char)* url);
@@ -425,8 +438,10 @@ int git_submodule_resolve_url(libgit2_d.buffer.git_buf* out_, libgit2_d.types.gi
 /**
  * Get the branch for the submodule.
  *
- * @param submodule Pointer to submodule object
- * @return Pointer to the submodule branch
+ * Params:
+ *      submodule = Pointer to submodule object
+ *
+ * Returns: Pointer to the submodule branch
  */
 //GIT_EXTERN
 const (char)* git_submodule_branch(libgit2_d.types.git_submodule* submodule);
@@ -437,10 +452,12 @@ const (char)* git_submodule_branch(libgit2_d.types.git_submodule* submodule);
  * After calling this, you may wish to call `git_submodule_sync()` to
  * write the changes to the checked out submodule repository.
  *
- * @param repo the repository to affect
- * @param name the name of the submodule to configure
- * @param branch Branch that should be used for the submodule
- * @return 0 on success, <0 on failure
+ * Params:
+ *      repo = the repository to affect
+ *      name = the name of the submodule to configure
+ *      branch = Branch that should be used for the submodule
+ *
+ * Returns: 0 on success, <0 on failure
  */
 //GIT_EXTERN
 int git_submodule_set_branch(libgit2_d.types.git_repository* repo, const (char)* name, const (char)* branch);
@@ -452,10 +469,12 @@ int git_submodule_set_branch(libgit2_d.types.git_repository* repo, const (char)*
  * After calling this, you may wish to call `git_submodule_sync()` to
  * write the changes to the checked out submodule repository.
  *
- * @param repo the repository to affect
- * @param name the name of the submodule to configure
- * @param url URL that should be used for the submodule
- * @return 0 on success, <0 on failure
+ * Params:
+ *      repo = the repository to affect
+ *      name = the name of the submodule to configure
+ *      url = URL that should be used for the submodule
+ *
+ * Returns: 0 on success, <0 on failure
  */
 //GIT_EXTERN
 int git_submodule_set_url(libgit2_d.types.git_repository* repo, const (char)* name, const (char)* url);
@@ -463,8 +482,10 @@ int git_submodule_set_url(libgit2_d.types.git_repository* repo, const (char)* na
 /**
  * Get the OID for the submodule in the index.
  *
- * @param submodule Pointer to submodule object
- * @return Pointer to git_oid or null if submodule is not in index.
+ * Params:
+ *      submodule = Pointer to submodule object
+ *
+ * Returns: Pointer to git_oid or null if submodule is not in index.
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_submodule_index_id(libgit2_d.types.git_submodule* submodule);
@@ -472,8 +493,10 @@ const (libgit2_d.oid.git_oid)* git_submodule_index_id(libgit2_d.types.git_submod
 /**
  * Get the OID for the submodule in the current HEAD tree.
  *
- * @param submodule Pointer to submodule object
- * @return Pointer to git_oid or null if submodule is not in the HEAD.
+ * Params:
+ *      submodule = Pointer to submodule object
+ *
+ * Returns: Pointer to git_oid or null if submodule is not in the HEAD.
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_submodule_head_id(libgit2_d.types.git_submodule* submodule);
@@ -486,8 +509,10 @@ const (libgit2_d.oid.git_oid)* git_submodule_head_id(libgit2_d.types.git_submodu
  * else, this won't notice that.  You should call `git_submodule_status()`
  * for a more complete picture about the state of the working directory.
  *
- * @param submodule Pointer to submodule object
- * @return Pointer to git_oid or null if submodule is not checked out.
+ * Params:
+ *      submodule = Pointer to submodule object
+ *
+ * Returns: Pointer to git_oid or null if submodule is not checked out.
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_submodule_wd_id(libgit2_d.types.git_submodule* submodule);
@@ -511,9 +536,10 @@ const (libgit2_d.oid.git_oid)* git_submodule_wd_id(libgit2_d.types.git_submodule
  *    The working directory will be consider clean so long as there is a
  *    checked out version present.
  *
- * @param submodule The submodule to check
- * @return The current libgit2_d.types.git_submodule_ignore_t valyue what will be used for
- *         this submodule.
+ * Params:
+ *      submodule = The submodule to check
+ *
+ * Returns: The current libgit2_d.types.git_submodule_ignore_t valyue what will be used for this submodule.
  */
 //GIT_EXTERN
 libgit2_d.types.git_submodule_ignore_t git_submodule_ignore(libgit2_d.types.git_submodule* submodule);
@@ -523,10 +549,12 @@ libgit2_d.types.git_submodule_ignore_t git_submodule_ignore(libgit2_d.types.git_
  *
  * This does not affect any currently-loaded instances.
  *
- * @param repo the repository to affect
- * @param name the name of the submdule
- * @param ignore The new value for the ignore rule
- * @return 0 or an error code
+ * Params:
+ *      repo = the repository to affect
+ *      name = the name of the submdule
+ *      ignore = The new value for the ignore rule
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_submodule_set_ignore(libgit2_d.types.git_repository* repo, const (char)* name, libgit2_d.types.git_submodule_ignore_t ignore);
@@ -537,9 +565,10 @@ int git_submodule_set_ignore(libgit2_d.types.git_repository* repo, const (char)*
  * This value controls the behavior of the `git submodule update` command.
  * There are four useful values documented with `libgit2_d.types.git_submodule_update_t`.
  *
- * @param submodule The submodule to check
- * @return The current libgit2_d.types.git_submodule_update_t value that will be used
- *         for this submodule.
+ * Params:
+ *      submodule = The submodule to check
+ *
+ * Returns: The current libgit2_d.types.git_submodule_update_t value that will be used for this submodule.
  */
 //GIT_EXTERN
 libgit2_d.types.git_submodule_update_t git_submodule_update_strategy(libgit2_d.types.git_submodule* submodule);
@@ -549,10 +578,12 @@ libgit2_d.types.git_submodule_update_t git_submodule_update_strategy(libgit2_d.t
  *
  * This setting won't affect any existing instances.
  *
- * @param repo the repository to affect
- * @param name the name of the submodule to configure
- * @param update The new value to use
- * @return 0 or an error code
+ * Params:
+ *      repo = the repository to affect
+ *      name = the name of the submodule to configure
+ *      update = The new value to use
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_submodule_set_update(libgit2_d.types.git_repository* repo, const (char)* name, libgit2_d.types.git_submodule_update_t update);
@@ -566,7 +597,7 @@ int git_submodule_set_update(libgit2_d.types.git_repository* repo, const (char)*
  * Note that at this time, libgit2 does not honor this setting and the
  * fetch functionality current ignores submodules.
  *
- * @return 0 if fetchRecurseSubmodules is false, 1 if true
+ * Returns: 0 if fetchRecurseSubmodules is false, 1 if true
  */
 //GIT_EXTERN
 libgit2_d.types.git_submodule_recurse_t git_submodule_fetch_recurse_submodules(libgit2_d.types.git_submodule* submodule);
@@ -576,10 +607,12 @@ libgit2_d.types.git_submodule_recurse_t git_submodule_fetch_recurse_submodules(l
  *
  * This setting won't affect any existing instances.
  *
- * @param repo the repository to affect
- * @param name the submodule to configure
- * @param fetch_recurse_submodules Boolean value
- * @return old value for fetchRecurseSubmodules
+ * Params:
+ *      repo = the repository to affect
+ *      name = the submodule to configure
+ *      fetch_recurse_submodules = Boolean value
+ *
+ * Returns: old value for fetchRecurseSubmodules
  */
 //GIT_EXTERN
 int git_submodule_set_fetch_recurse_submodules(libgit2_d.types.git_repository* repo, const (char)* name, libgit2_d.types.git_submodule_recurse_t fetch_recurse_submodules);
@@ -592,10 +625,11 @@ int git_submodule_set_fetch_recurse_submodules(libgit2_d.types.git_repository* r
  * above to alter the in-memory git_submodule object and control what
  * is written to the config, overriding what is in .gitmodules.
  *
- * @param submodule The submodule to write into the superproject config
- * @param overwrite By default, existing entries will not be overwritten,
- *                  but setting this to true forces them to be updated.
- * @return 0 on success, <0 on failure.
+ * Params:
+ *      submodule = The submodule to write into the superproject config
+ *      overwrite = By default, existing entries will not be overwritten, but setting this to true forces them to be updated.
+ *
+ * Returns: 0 on success, <0 on failure.
  */
 //GIT_EXTERN
 int git_submodule_init(libgit2_d.types.git_submodule* submodule, int overwrite);
@@ -607,11 +641,12 @@ int git_submodule_init(libgit2_d.types.git_submodule* submodule, int overwrite);
  * repository from a submodule in preparation to clone it from
  * its remote.
  *
- * @param out_ Output pointer to the created git repository.
- * @param sm The submodule to create a new subrepository from.
- * @param use_gitlink Should the workdir contain a gitlink to
- *        the repo in .git/modules vs. repo directly in workdir.
- * @return 0 on success, <0 on failure.
+ * Params:
+ *      out_ = Output pointer to the created git repository.
+ *      sm = The submodule to create a new subrepository from.
+ *      use_gitlink = Should the workdir contain a gitlink to the repo in .git/modules vs. repo directly in workdir.
+ *
+ * Returns: 0 on success, <0 on failure.
  */
 //GIT_EXTERN
 int git_submodule_repo_init(libgit2_d.types.git_repository** out_, const (libgit2_d.types.git_submodule)* sm, int use_gitlink);
@@ -635,9 +670,11 @@ int git_submodule_sync(libgit2_d.types.git_submodule* submodule);
  * function will return distinct `libgit2_d.types.git_repository` objects.  This will only
  * work if the submodule is checked out into the working directory.
  *
- * @param repo Pointer to the submodule repo which was opened
- * @param submodule Submodule to be opened
- * @return 0 on success, <0 if submodule repo could not be opened.
+ * Params:
+ *      repo = Pointer to the submodule repo which was opened
+ *      submodule = Submodule to be opened
+ *
+ * Returns: 0 on success, <0 if submodule repo could not be opened.
  */
 //GIT_EXTERN
 int git_submodule_open(libgit2_d.types.git_repository** repo, libgit2_d.types.git_submodule* submodule);
@@ -648,9 +685,11 @@ int git_submodule_open(libgit2_d.types.git_repository** repo, libgit2_d.types.gi
  * Call this to reread cached submodule information for this submodule if
  * you have reason to believe that it has changed.
  *
- * @param submodule The submodule to reload
- * @param force Force reload even if the data doesn't seem out of date
- * @return 0 on success, <0 on error
+ * Params:
+ *      submodule = The submodule to reload
+ *      force = Force reload even if the data doesn't seem out of date
+ *
+ * Returns: 0 on success, <0 on error
  */
 //GIT_EXTERN
 int git_submodule_reload(libgit2_d.types.git_submodule* submodule, int force);
@@ -663,11 +702,13 @@ int git_submodule_reload(libgit2_d.types.git_submodule* submodule, int force);
  * How deeply it examines the working directory to do this will depend
  * on the `libgit2_d.types.git_submodule_ignore_t` value for the submodule.
  *
- * @param status Combination of `GIT_SUBMODULE_STATUS` flags
- * @param repo the repository in which to look
- * @param name name of the submodule
- * @param ignore the ignore rules to follow
- * @return 0 on success, <0 on error
+ * Params:
+ *      status = Combination of `GIT_SUBMODULE_STATUS` flags
+ *      repo = the repository in which to look
+ *      name = name of the submodule
+ *      ignore = the ignore rules to follow
+ *
+ * Returns: 0 on success, <0 on error
  */
 //GIT_EXTERN
 int git_submodule_status(uint* status, libgit2_d.types.git_repository* repo, const (char)* name, libgit2_d.types.git_submodule_ignore_t ignore);
@@ -682,9 +723,11 @@ int git_submodule_status(uint* status, libgit2_d.types.git_repository* repo, con
  * This can be useful if you want to know if the submodule is present in the
  * working directory at this point in time, etc.
  *
- * @param location_status Combination of first four `GIT_SUBMODULE_STATUS` flags
- * @param submodule Submodule for which to get status
- * @return 0 on success, <0 on error
+ * Params:
+ *      location_status = Combination of first four `GIT_SUBMODULE_STATUS` flags
+ *      submodule = Submodule for which to get status
+ *
+ * Returns: 0 on success, <0 on error
  */
 //GIT_EXTERN
 int git_submodule_location(uint* location_status, libgit2_d.types.git_submodule* submodule);

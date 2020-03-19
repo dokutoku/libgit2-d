@@ -70,9 +70,11 @@ alias git_trace_cb = void function(.git_trace_level_t level, const (char)* msg);
  * specified callback.  When system events occur at a level equal to, or
  * lower than, the given level they will be reported to the given callback.
  *
- * @param level Level to set tracing to
- * @param cb Function to call with trace data
- * @return 0 or an error code
+ * Params:
+ *      level = Level to set tracing to
+ *      cb = Function to call with trace data
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_trace_set(.git_trace_level_t level, .git_trace_cb cb);

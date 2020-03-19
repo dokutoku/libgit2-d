@@ -211,9 +211,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_refdb_backend` with default values. Equivalent to
  * creating an instance with GIT_REFDB_BACKEND_INIT.
  *
- * @param backend the `git_refdb_backend` struct to initialize
- * @param version Version of struct; pass `GIT_REFDB_BACKEND_VERSION`
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      backend = the `git_refdb_backend` struct to initialize
+ *      version = Version of struct; pass `GIT_REFDB_BACKEND_VERSION`
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_refdb_init_backend(.git_refdb_backend* backend, uint version_);
@@ -225,9 +227,11 @@ int git_refdb_init_backend(.git_refdb_backend* backend, uint version_);
  * opened / created, but you can use this to explicitly construct a
  * filesystem refdb backend for a repository.
  *
- * @param backend_out Output pointer to the git_refdb_backend object
- * @param repo Git repository to access
- * @return 0 on success, <0 error code on failure
+ * Params:
+ *      backend_out = Output pointer to the git_refdb_backend object
+ *      repo = Git repository to access
+ *
+ * Returns: 0 on success, <0 error code on failure
  */
 //GIT_EXTERN
 int git_refdb_backend_fs(.git_refdb_backend** backend_out, libgit2_d.types.git_repository* repo);
@@ -238,9 +242,11 @@ int git_refdb_backend_fs(.git_refdb_backend** backend_out, libgit2_d.types.git_r
  * The `git_refdb` will take ownership of the `git_refdb_backend` so you
  * should NOT free it after calling this function.
  *
- * @param refdb database to add the backend to
- * @param backend pointer to a git_refdb_backend instance
- * @return 0 on success; error code otherwise
+ * Params:
+ *      refdb = database to add the backend to
+ *      backend = pointer to a git_refdb_backend instance
+ *
+ * Returns: 0 on success; error code otherwise
  */
 //GIT_EXTERN
 int git_refdb_set_backend(libgit2_d.types.git_refdb* refdb, .git_refdb_backend* backend);

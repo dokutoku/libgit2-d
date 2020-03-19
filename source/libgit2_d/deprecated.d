@@ -333,8 +333,10 @@ version (GIT_DEPRECATE_HARD) {
 	 * of calling `sizeof(git_commit)` if the core types
 	 * were not opaque on the external API.
 	 *
-	 * @param type object type to get its size
-	 * @return size in bytes of the object
+	 * Params:
+	 *      type = object type to get its size
+	 *
+	 * Returns: size in bytes of the object
 	 */
 	//GIT_EXTERN
 	size_t git_object__size(libgit2_d.types.git_object_t type);

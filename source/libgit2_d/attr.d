@@ -144,8 +144,10 @@ enum git_attr_value_t
  * If the attribute has a `VALUE` string, it can be accessed normally
  * as a null-terminated C string.
  *
- * @param attr The attribute
- * @return the value type for the attribute
+ * Params:
+ *      attr = The attribute
+ *
+ * Returns: the value type for the attribute
  */
 //GIT_EXTERN
 .git_attr_value_t git_attr_value(const (char)* attr);
@@ -186,17 +188,12 @@ enum GIT_ATTR_CHECK_INCLUDE_HEAD = 1 << 3;
 /**
  * Look up the value of one git attribute for path.
  *
- * @param value_out Output of the value of the attribute.  Use the GIT_ATTR_...
- *             macros to test for TRUE, FALSE, UNSPECIFIED, etc. or just
- *             use the string value for attributes set to a value.  You
- *             should NOT modify or free this value.
- * @param repo The repository containing the path.
- * @param flags A combination of GIT_ATTR_CHECK... flags.
- * @param path The path to check for attributes.  Relative paths are
- *             interpreted relative to the repo root.  The file does
- *             not have to exist, but if it does not, then it will be
- *             treated as a plain file (not a directory).
- * @param name The name of the attribute to look up.
+ * Params:
+ *      value_out = Output of the value of the attribute.  Use the GIT_ATTR_... macros to test for TRUE, FALSE, UNSPECIFIED, etc. or just use the string value for attributes set to a value.  You should NOT modify or free this value.
+ *      repo = The repository containing the path.
+ *      flags = A combination of GIT_ATTR_CHECK... flags.
+ *      path = The path to check for attributes.  Relative paths are interpreted relative to the repo root.  The file does not have to exist, but if it does not, then it will be treated as a plain file (not a directory).
+ *      name = The name of the attribute to look up.
  */
 //GIT_EXTERN
 int git_attr_get(const (char)** value_out, libgit2_d.types.git_repository* repo, uint flags, const (char)* path, const (char)* name);
@@ -217,18 +214,13 @@ int git_attr_get(const (char)** value_out, libgit2_d.types.git_repository* repo,
  * Then you could loop through the 3 values to get the settings for
  * the three attributes you asked about.
  *
- * @param values_out An array of num_attr entries that will have string
- *             pointers written into it for the values of the attributes.
- *             You should not modify or free the values that are written
- *             into this array (although of course, you should free the
- *             array itself if you allocated it).
- * @param repo The repository containing the path.
- * @param flags A combination of GIT_ATTR_CHECK... flags.
- * @param path The path inside the repo to check attributes.  This
- *             does not have to exist, but if it does not, then
- *             it will be treated as a plain file (i.e. not a directory).
- * @param num_attr The number of attributes being looked up
- * @param names An array of num_attr strings containing attribute names.
+ * Params:
+ *      values_out = An array of num_attr entries that will have string pointers written into it for the values of the attributes. You should not modify or free the values that are written into this array (although of course, you should free the array itself if you allocated it).
+ *      repo = The repository containing the path.
+ *      flags = A combination of GIT_ATTR_CHECK... flags.
+ *      path = The path inside the repo to check attributes.  This does not have to exist, but if it does not, then it will be treated as a plain file (i.e. not a directory).
+ *      num_attr = The number of attributes being looked up
+ *      names = An array of num_attr strings containing attribute names.
  */
 //GIT_EXTERN
 int git_attr_get_many(const (char)** values_out, libgit2_d.types.git_repository* repo, uint flags, const (char)* path, size_t num_attr, const (char)** names);
@@ -242,27 +234,26 @@ int git_attr_get_many(const (char)** values_out, libgit2_d.types.git_repository*
  *
  * @see git_attr_foreach.
  *
- * @param name The attribute name.
- * @param value The attribute value. May be NULL if the attribute is explicitly
- *              set to UNSPECIFIED using the '!' sign.
- * @param payload A user-specified pointer.
- * @return 0 to continue looping, non-zero to stop. This value will be returned
- *         from git_attr_foreach.
+ * Params:
+ *      name = The attribute name.
+ *      value = The attribute value. May be NULL if the attribute is explicitly set to UNSPECIFIED using the '!' sign.
+ *      payload = A user-specified pointer.
+ *
+ * Returns: 0 to continue looping, non-zero to stop. This value will be returned from git_attr_foreach.
  */
 alias git_attr_foreach_cb = int function(const (char)* name, const (char)* value, void* payload);
 
 /**
  * Loop over all the git attributes for a path.
  *
- * @param repo The repository containing the path.
- * @param flags A combination of GIT_ATTR_CHECK... flags.
- * @param path Path inside the repo to check attributes.  This does not have
- *             to exist, but if it does not, then it will be treated as a
- *             plain file (i.e. not a directory).
- * @param callback Function to invoke on each attribute name and value.
- *                 See git_attr_foreach_cb.
- * @param payload Passed on as extra parameter to callback function.
- * @return 0 on success, non-zero callback return value, or error code
+ * Params:
+ *      repo = The repository containing the path.
+ *      flags = A combination of GIT_ATTR_CHECK... flags.
+ *      path = Path inside the repo to check attributes.  This does not have to exist, but if it does not, then it will be treated as a plain file (i.e. not a directory).
+ *      callback = Function to invoke on each attribute name and value. See git_attr_foreach_cb.
+ *      payload = Passed on as extra parameter to callback function.
+ *
+ * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
 int git_attr_foreach(libgit2_d.types.git_repository* repo, uint flags, const (char)* path, .git_attr_foreach_cb callback, void* payload);
@@ -275,8 +266,10 @@ int git_attr_foreach(libgit2_d.types.git_repository* repo, uint flags, const (ch
  * the attributes files to be reloaded the next time that an attribute
  * access function is called.
  *
- * @param repo The repository containing the gitattributes cache
- * @return 0 on success, or an error code
+ * Params:
+ *      repo = The repository containing the gitattributes cache
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_attr_cache_flush(libgit2_d.types.git_repository* repo);

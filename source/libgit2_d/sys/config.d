@@ -117,9 +117,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_config_backend` with default values. Equivalent to
  * creating an instance with GIT_CONFIG_BACKEND_INIT.
  *
- * @param backend the `git_config_backend` struct to initialize.
- * @param version Version of struct; pass `GIT_CONFIG_BACKEND_VERSION`
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      backend = the `git_config_backend` struct to initialize.
+ *      version = Version of struct; pass `GIT_CONFIG_BACKEND_VERSION`
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_config_init_backend(.git_config_backend* backend, uint version_);
@@ -134,15 +136,14 @@ int git_config_init_backend(.git_config_backend* backend, uint version_);
  * of the config file instances in order (instances with
  * a higher priority level will be accessed first).
  *
- * @param cfg the configuration to add the file to
- * @param file the configuration file (backend) to add
- * @param level the priority level of the backend
- * @param repo optional repository to allow parsing of
- *  conditional includes
- * @param force if a config file already exists for the given
- *  priority level, replace it
- * @return 0 on success, git_error_code.GIT_EEXISTS when adding more than one file
- *  for a given priority level (and force_replace set to 0), or error code
+ * Params:
+ *      cfg = the configuration to add the file to
+ *      file = the configuration file (backend) to add
+ *      level = the priority level of the backend
+ *      repo = optional repository to allow parsing of conditional includes
+ *      force = if a config file already exists for the given priority level, replace it
+ *
+ * Returns: 0 on success, git_error_code.GIT_EEXISTS when adding more than one file for a given priority level (and force_replace set to 0), or error code
  */
 //GIT_EXTERN
 int git_config_add_backend(libgit2_d.types.git_config* cfg, .git_config_backend* file, libgit2_d.config.git_config_level_t level, const (libgit2_d.types.git_repository)* repo, int force);

@@ -141,9 +141,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_transport` with default values. Equivalent to
  * creating an instance with GIT_TRANSPORT_INIT.
  *
- * @param opts the `git_transport` struct to initialize
- * @param version Version of struct; pass `GIT_TRANSPORT_VERSION`
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = the `git_transport` struct to initialize
+ *      version = Version of struct; pass `GIT_TRANSPORT_VERSION`
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_transport_init(.git_transport* opts, uint version_);
@@ -153,10 +155,12 @@ int git_transport_init(.git_transport* opts, uint version_);
  * is scanned to find a transport that implements the scheme of the URI (i.e.
  * git:// or http://) and a transport object is returned to the caller.
  *
- * @param out_ The newly created transport (out)
- * @param owner The git_remote which will own this transport
- * @param url The URL to connect to
- * @return 0 or an error code
+ * Params:
+ *      out_ = The newly created transport (out)
+ *      owner = The git_remote which will own this transport
+ *      url = The URL to connect to
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_transport_new(.git_transport** out_, libgit2_d.types.git_remote* owner, const (char)* url);
@@ -170,10 +174,12 @@ int git_transport_new(.git_transport** out_, libgit2_d.types.git_remote* owner, 
  * The payload argument must be a strarray pointer with the paths for
  * the `git-upload-pack` and `git-receive-pack` at index 0 and 1.
  *
- * @param out_ the resulting transport
- * @param owner the owning remote
- * @param payload a strarray with the paths
- * @return 0 or an error code
+ * Params:
+ *      out_ = the resulting transport
+ *      owner = the owning remote
+ *      payload = a strarray with the paths
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_transport_ssh_with_paths(.git_transport** out_, libgit2_d.types.git_remote* owner, void* payload);
@@ -186,10 +192,12 @@ int git_transport_ssh_with_paths(.git_transport** out_, libgit2_d.types.git_remo
  * and git_transport_unregister with other calls to the library that
  * instantiate transports.
  *
- * @param prefix The scheme (ending in "://") to match, i.e. "git://"
- * @param cb The callback used to create an instance of the transport
- * @param param A fixed parameter to pass to cb at creation time
- * @return 0 or an error code
+ * Params:
+ *      prefix = The scheme (ending in "://") to match, i.e. "git://"
+ *      cb = The callback used to create an instance of the transport
+ *      param = A fixed parameter to pass to cb at creation time
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_transport_register(const (char)* prefix, libgit2_d.transport.git_transport_cb cb, void* param);
@@ -202,8 +210,10 @@ int git_transport_register(const (char)* prefix, libgit2_d.transport.git_transpo
  * and git_transport_unregister with other calls to the library that
  * instantiate transports.
  *
- * @param prefix From the previous call to git_transport_register
- * @return 0 or an error code
+ * Params:
+ *      prefix = From the previous call to git_transport_register
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_transport_unregister(const (char)* prefix);
@@ -216,10 +226,12 @@ int git_transport_unregister(const (char)* prefix);
 /**
  * Create an instance of the dummy transport.
  *
- * @param out_ The newly created transport (out)
- * @param owner The git_remote which will own this transport
- * @param payload You must pass null for this parameter.
- * @return 0 or an error code
+ * Params:
+ *      out_ = The newly created transport (out)
+ *      owner = The git_remote which will own this transport
+ *      payload = You must pass null for this parameter.
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_transport_dummy(.git_transport** out_, libgit2_d.types.git_remote* owner, /* null */ void* payload);
@@ -227,10 +239,12 @@ int git_transport_dummy(.git_transport** out_, libgit2_d.types.git_remote* owner
 /**
  * Create an instance of the local transport.
  *
- * @param out_ The newly created transport (out)
- * @param owner The git_remote which will own this transport
- * @param payload You must pass null for this parameter.
- * @return 0 or an error code
+ * Params:
+ *      out_ = The newly created transport (out)
+ *      owner = The git_remote which will own this transport
+ *      payload = You must pass null for this parameter.
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_transport_local(.git_transport** out_, libgit2_d.types.git_remote* owner, /* null */ void* payload);
@@ -238,10 +252,12 @@ int git_transport_local(.git_transport** out_, libgit2_d.types.git_remote* owner
 /**
  * Create an instance of the smart transport.
  *
- * @param out_ The newly created transport (out)
- * @param owner The git_remote which will own this transport
- * @param payload A pointer to a git_smart_subtransport_definition
- * @return 0 or an error code
+ * Params:
+ *      out_ = The newly created transport (out)
+ *      owner = The git_remote which will own this transport
+ *      payload = A pointer to a git_smart_subtransport_definition
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_transport_smart(.git_transport** out_, libgit2_d.types.git_remote* owner, /* (git_smart_subtransport_definition *) */ void* payload);
@@ -249,14 +265,13 @@ int git_transport_smart(.git_transport** out_, libgit2_d.types.git_remote* owner
 /**
  * Call the certificate check for this transport.
  *
- * @param transport a smart transport
- * @param cert the certificate to pass to the caller
- * @param valid whether we believe the certificate is valid
- * @param hostname the hostname we connected to
- * @return the return value of the callback: 0 for no error, git_error_code.GIT_PASSTHROUGH
- *         to indicate that there is no callback registered (or the callback
- *         refused to validate the certificate and callers should behave as
- *         if no callback was set), or < 0 for an error
+ * Params:
+ *      transport = a smart transport
+ *      cert = the certificate to pass to the caller
+ *      valid = whether we believe the certificate is valid
+ *      hostname = the hostname we connected to
+ *
+ * Returns: the return value of the callback: 0 for no error, git_error_code.GIT_PASSTHROUGH to indicate that there is no callback registered (or the callback refused to validate the certificate and callers should behave as if no callback was set), or < 0 for an error
  */
 //GIT_EXTERN
 int git_transport_smart_certificate_check(.git_transport* transport, libgit2_d.types.git_cert* cert, int valid, const (char)* hostname);
@@ -264,14 +279,13 @@ int git_transport_smart_certificate_check(.git_transport* transport, libgit2_d.t
 /**
  * Call the credentials callback for this transport
  *
- * @param out_ the pointer where the creds are to be stored
- * @param transport a smart transport
- * @param user the user we saw on the url (if any)
- * @param methods available methods for authentication
- * @return the return value of the callback: 0 for no error, git_error_code.GIT_PASSTHROUGH
- *         to indicate that there is no callback registered (or the callback
- *         refused to provide credentials and callers should behave as if no
- *         callback was set), or < 0 for an error
+ * Params:
+ *      out_ = the pointer where the creds are to be stored
+ *      transport = a smart transport
+ *      user = the user we saw on the url (if any)
+ *      methods = available methods for authentication
+ *
+ * Returns: the return value of the callback: 0 for no error, git_error_code.GIT_PASSTHROUGH to indicate that there is no callback registered (or the callback refused to provide credentials and callers should behave as if no callback was set), or < 0 for an error
  */
 //GIT_EXTERN
 int git_transport_smart_credentials(libgit2_d.sys.credential.git_credential** out_, .git_transport* transport, const (char)* user, int methods);
@@ -281,8 +295,9 @@ int git_transport_smart_credentials(libgit2_d.sys.credential.git_credential** ou
  *
  * The url is copied and must be freed by the caller.
  *
- * @param out_ options struct to fill
- * @param transport the transport to extract the data from.
+ * Params:
+ *      out_ = options struct to fill
+ *      transport = the transport to extract the data from.
  */
 //GIT_EXTERN
 int git_transport_smart_proxy_options(libgit2_d.proxy.git_proxy_options* out_, .git_transport* transport);
@@ -411,9 +426,11 @@ struct git_smart_subtransport_definition
  *
  * This subtransport also supports https.
  *
- * @param out_ The newly created subtransport
- * @param owner The smart transport to own this subtransport
- * @return 0 or an error code
+ * Params:
+ *      out_ = The newly created subtransport
+ *      owner = The smart transport to own this subtransport
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_smart_subtransport_http(.git_smart_subtransport** out_, .git_transport* owner, void* param);
@@ -421,9 +438,11 @@ int git_smart_subtransport_http(.git_smart_subtransport** out_, .git_transport* 
 /**
  * Create an instance of the git subtransport.
  *
- * @param out_ The newly created subtransport
- * @param owner The smart transport to own this subtransport
- * @return 0 or an error code
+ * Params:
+ *      out_ = The newly created subtransport
+ *      owner = The smart transport to own this subtransport
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_smart_subtransport_git(.git_smart_subtransport** out_, .git_transport* owner, void* param);
@@ -431,9 +450,11 @@ int git_smart_subtransport_git(.git_smart_subtransport** out_, .git_transport* o
 /**
  * Create an instance of the ssh subtransport.
  *
- * @param out_ The newly created subtransport
- * @param owner The smart transport to own this subtransport
- * @return 0 or an error code
+ * Params:
+ *      out_ = The newly created subtransport
+ *      owner = The smart transport to own this subtransport
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_smart_subtransport_ssh(.git_smart_subtransport** out_, .git_transport* owner, void* param);

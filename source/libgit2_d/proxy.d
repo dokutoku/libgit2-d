@@ -104,9 +104,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_proxy_options` with default values. Equivalent to
  * creating an instance with `GIT_PROXY_OPTIONS_INIT`.
  *
- * @param opts The `git_proxy_options` struct to initialize.
- * @param version The struct version; pass `GIT_PROXY_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_proxy_options` struct to initialize.
+ *      version = The struct version; pass `GIT_PROXY_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_proxy_options_init(.git_proxy_options* opts, uint version_);

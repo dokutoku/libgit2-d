@@ -44,10 +44,12 @@ struct git_patch;
  * It is okay to pass null for either of the output parameters; if you pass
  * null for the `git_patch`, then the text diff will not be calculated.
  *
- * @param out_ Output parameter for the delta patch object
- * @param diff Diff list object
- * @param idx Index into diff list
- * @return 0 on success, other value < 0 on error
+ * Params:
+ *      out_ = Output parameter for the delta patch object
+ *      diff = Diff list object
+ *      idx = Index into diff list
+ *
+ * Returns: 0 on success, other value < 0 on error
  */
 //GIT_EXTERN
 int git_patch_from_diff(.git_patch** out_, libgit2_d.diff.git_diff* diff, size_t idx);
@@ -60,13 +62,15 @@ int git_patch_from_diff(.git_patch** out_, libgit2_d.diff.git_diff* diff, size_t
  * standard `git_patch` accessor functions to read the patch data, and
  * you must call `git_patch_free()` on the patch when done.
  *
- * @param out_ The generated patch; null on error
- * @param old_blob Blob for old side of diff, or null for empty blob
- * @param old_as_path Treat old blob as if it had this filename; can be null
- * @param new_blob Blob for new side of diff, or null for empty blob
- * @param new_as_path Treat new blob as if it had this filename; can be null
- * @param opts Options for diff, or null for default options
- * @return 0 on success or error code < 0
+ * Params:
+ *      out_ = The generated patch; null on error
+ *      old_blob = Blob for old side of diff, or null for empty blob
+ *      old_as_path = Treat old blob as if it had this filename; can be null
+ *      new_blob = Blob for new side of diff, or null for empty blob
+ *      new_as_path = Treat new blob as if it had this filename; can be null
+ *      opts = Options for diff, or null for default options
+ *
+ * Returns: 0 on success or error code < 0
  */
 //GIT_EXTERN
 int git_patch_from_blobs(.git_patch** out_, const (libgit2_d.types.git_blob)* old_blob, const (char)* old_as_path, const (libgit2_d.types.git_blob)* new_blob, const (char)* new_as_path, const (libgit2_d.diff.git_diff_options)* opts);
@@ -79,14 +83,16 @@ int git_patch_from_blobs(.git_patch** out_, const (libgit2_d.types.git_blob)* ol
  * use the standard `git_patch` accessor functions to read the patch
  * data, and you must call `git_patch_free()` on the patch when done.
  *
- * @param out_ The generated patch; null on error
- * @param old_blob Blob for old side of diff, or null for empty blob
- * @param old_as_path Treat old blob as if it had this filename; can be null
- * @param buffer Raw data for new side of diff, or null for empty
- * @param buffer_len Length of raw data for new side of diff
- * @param buffer_as_path Treat buffer as if it had this filename; can be null
- * @param opts Options for diff, or null for default options
- * @return 0 on success or error code < 0
+ * Params:
+ *      out_ = The generated patch; null on error
+ *      old_blob = Blob for old side of diff, or null for empty blob
+ *      old_as_path = Treat old blob as if it had this filename; can be null
+ *      buffer = Raw data for new side of diff, or null for empty
+ *      buffer_len = Length of raw data for new side of diff
+ *      buffer_as_path = Treat buffer as if it had this filename; can be null
+ *      opts = Options for diff, or null for default options
+ *
+ * Returns: 0 on success or error code < 0
  */
 //GIT_EXTERN
 int git_patch_from_blob_and_buffer(.git_patch** out_, const (libgit2_d.types.git_blob)* old_blob, const (char)* old_as_path, const (void)* buffer, size_t buffer_len, const (char)* buffer_as_path, const (libgit2_d.diff.git_diff_options)* opts);
@@ -99,15 +105,17 @@ int git_patch_from_blob_and_buffer(.git_patch** out_, const (libgit2_d.types.git
  * use the standard `git_patch` accessor functions to read the patch
  * data, and you must call `git_patch_free()` on the patch when done.
  *
- * @param out_ The generated patch; null on error
- * @param old_buffer Raw data for old side of diff, or null for empty
- * @param old_len Length of the raw data for old side of the diff
- * @param old_as_path Treat old buffer as if it had this filename; can be null
- * @param new_buffer Raw data for new side of diff, or null for empty
- * @param new_len Length of raw data for new side of diff
- * @param new_as_path Treat buffer as if it had this filename; can be null
- * @param opts Options for diff, or null for default options
- * @return 0 on success or error code < 0
+ * Params:
+ *      out_ = The generated patch; null on error
+ *      old_buffer = Raw data for old side of diff, or null for empty
+ *      old_len = Length of the raw data for old side of the diff
+ *      old_as_path = Treat old buffer as if it had this filename; can be null
+ *      new_buffer = Raw data for new side of diff, or null for empty
+ *      new_len = Length of raw data for new side of diff
+ *      new_as_path = Treat buffer as if it had this filename; can be null
+ *      opts = Options for diff, or null for default options
+ *
+ * Returns: 0 on success or error code < 0
  */
 //GIT_EXTERN
 int git_patch_from_buffers(.git_patch** out_, const (void)* old_buffer, size_t old_len, const (char)* old_as_path, const (void)* new_buffer, size_t new_len, const (char)* new_as_path, const (libgit2_d.diff.git_diff_options)* opts);
@@ -141,11 +149,13 @@ size_t git_patch_num_hunks(const (.git_patch)* patch);
  *
  * All outputs are optional. Pass null if you don't need a particular count.
  *
- * @param total_context Count of context lines in output, can be null.
- * @param total_additions Count of addition lines in output, can be null.
- * @param total_deletions Count of deletion lines in output, can be null.
- * @param patch The git_patch object
- * @return 0 on success, <0 on error
+ * Params:
+ *      total_context = Count of context lines in output, can be null.
+ *      total_additions = Count of addition lines in output, can be null.
+ *      total_deletions = Count of deletion lines in output, can be null.
+ *      patch = The git_patch object
+ *
+ * Returns: 0 on success, <0 on error
  */
 //GIT_EXTERN
 int git_patch_line_stats(size_t* total_context, size_t* total_additions, size_t* total_deletions, const (.git_patch)* patch);
@@ -157,11 +167,13 @@ int git_patch_line_stats(size_t* total_context, size_t* total_additions, size_t*
  * information about that hunk.  Any of the output pointers can be passed
  * as null if you don't care about that particular piece of information.
  *
- * @param out_ Output pointer to git_diff_hunk of hunk
- * @param lines_in_hunk Output count of total lines in this hunk
- * @param patch Input pointer to patch object
- * @param hunk_idx Input index of hunk to get information about
- * @return 0 on success, git_error_code.GIT_ENOTFOUND if hunk_idx out of range, <0 on error
+ * Params:
+ *      out_ = Output pointer to git_diff_hunk of hunk
+ *      lines_in_hunk = Output count of total lines in this hunk
+ *      patch = Input pointer to patch object
+ *      hunk_idx = Input index of hunk to get information about
+ *
+ * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if hunk_idx out of range, <0 on error
  */
 //GIT_EXTERN
 int git_patch_get_hunk(const (libgit2_d.diff.git_diff_hunk)** out_, size_t* lines_in_hunk, .git_patch* patch, size_t hunk_idx);
@@ -169,9 +181,11 @@ int git_patch_get_hunk(const (libgit2_d.diff.git_diff_hunk)** out_, size_t* line
 /**
  * Get the number of lines in a hunk.
  *
- * @param patch The git_patch object
- * @param hunk_idx Index of the hunk
- * @return Number of lines in hunk or git_error_code.GIT_ENOTFOUND if invalid hunk index
+ * Params:
+ *      patch = The git_patch object
+ *      hunk_idx = Index of the hunk
+ *
+ * Returns: Number of lines in hunk or git_error_code.GIT_ENOTFOUND if invalid hunk index
  */
 //GIT_EXTERN
 int git_patch_num_lines_in_hunk(const (.git_patch)* patch, size_t hunk_idx);
@@ -184,11 +198,13 @@ int git_patch_num_lines_in_hunk(const (.git_patch)* patch, size_t hunk_idx);
  * index larger than the number of hunks or a line index larger than
  * the number of lines in the hunk, this will return -1.
  *
- * @param out_ The git_diff_line data for this line
- * @param patch The patch to look in
- * @param hunk_idx The index of the hunk
- * @param line_of_hunk The index of the line in the hunk
- * @return 0 on success, <0 on failure
+ * Params:
+ *      out_ = The git_diff_line data for this line
+ *      patch = The patch to look in
+ *      hunk_idx = The index of the hunk
+ *      line_of_hunk = The index of the line in the hunk
+ *
+ * Returns: 0 on success, <0 on failure
  */
 //GIT_EXTERN
 int git_patch_get_line_in_hunk(const (libgit2_d.diff.git_diff_line)** out_, .git_patch* patch, size_t hunk_idx, size_t line_of_hunk);
@@ -203,11 +219,13 @@ int git_patch_get_line_in_hunk(const (libgit2_d.diff.git_diff_line)** out_, .git
  * of all of the diff output; if you pass it as false (zero), this will
  * only include the actual changed lines (as if `context_lines` was 0).
  *
- * @param patch A git_patch representing changes to one file
- * @param include_context Include context lines in size if non-zero
- * @param include_hunk_headers Include hunk header lines if non-zero
- * @param include_file_headers Include file header lines if non-zero
- * @return The number of bytes of data
+ * Params:
+ *      patch = A git_patch representing changes to one file
+ *      include_context = Include context lines in size if non-zero
+ *      include_hunk_headers = Include hunk header lines if non-zero
+ *      include_file_headers = Include file header lines if non-zero
+ *
+ * Returns: The number of bytes of data
  */
 //GIT_EXTERN
 size_t git_patch_size(.git_patch* patch, int include_context, int include_hunk_headers, int include_file_headers);
@@ -218,11 +236,12 @@ size_t git_patch_size(.git_patch* patch, int include_context, int include_hunk_h
  * Returning a non-zero value from the callback will terminate the iteration
  * and return that value to the caller.
  *
- * @param patch A git_patch representing changes to one file
- * @param print_cb Callback function to output lines of the patch.  Will be
- *                 called for file headers, hunk headers, and diff lines.
- * @param payload Reference pointer that will be passed to your callbacks.
- * @return 0 on success, non-zero callback return value, or error code
+ * Params:
+ *      patch = A git_patch representing changes to one file
+ *      print_cb = Callback function to output lines of the patch.  Will be called for file headers, hunk headers, and diff lines.
+ *      payload = Reference pointer that will be passed to your callbacks.
+ *
+ * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
 int git_patch_print(.git_patch* patch, libgit2_d.diff.git_diff_line_cb print_cb, void* payload);
@@ -230,9 +249,11 @@ int git_patch_print(.git_patch* patch, libgit2_d.diff.git_diff_line_cb print_cb,
 /**
  * Get the content of a patch as a single diff text.
  *
- * @param out_ The git_buf to be filled in
- * @param patch A git_patch representing changes to one file
- * @return 0 on success, <0 on failure.
+ * Params:
+ *      out_ = The git_buf to be filled in
+ *      patch = A git_patch representing changes to one file
+ *
+ * Returns: 0 on success, <0 on failure.
  */
 //GIT_EXTERN
 int git_patch_to_buf(libgit2_d.buffer.git_buf* out_, .git_patch* patch);

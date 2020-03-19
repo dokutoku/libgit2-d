@@ -67,8 +67,9 @@ struct git_indexer_progress
  * Type for progress callbacks during indexing.  Return a value less
  * than zero to cancel the indexing or download.
  *
- * @param stats Structure containing information about the state of the tran    sfer
- * @param payload Payload provided by caller
+ * Params:
+ *      stats = Structure containing information about the state of the tran    sfer
+ *      payload = Payload provided by caller
  */
 alias git_indexer_progress_cb = int function(const (.git_indexer_progress)* stats, void* payload);
 
@@ -115,9 +116,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_indexer_options` with default values. Equivalent to
  * creating an instance with GIT_INDEXER_OPTIONS_INIT.
  *
- * @param opts the `git_indexer_options` struct to initialize.
- * @param version Version of struct; pass `GIT_INDEXER_OPTIONS_VERSION`
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = the `git_indexer_options` struct to initialize.
+ *      version = Version of struct; pass `GIT_INDEXER_OPTIONS_VERSION`
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_indexer_options_init(.git_indexer_options* opts, uint version_);
@@ -125,14 +128,12 @@ int git_indexer_options_init(.git_indexer_options* opts, uint version_);
 /**
  * Create a new indexer instance
  *
- * @param out_ where to store the indexer instance
- * @param path to the directory where the packfile should be stored
- * @param mode permissions to use creating packfile or 0 for defaults
- * @param odb object database from which to read base objects when
- * fixing thin packs. Pass null if no thin pack is expected (an error
- * will be returned if there are bases missing)
- * @param opts Optional structure containing additional options. See
- * `git_indexer_options` above.
+ * Params:
+ *      out_ = where to store the indexer instance
+ *      path = to the directory where the packfile should be stored
+ *      mode = permissions to use creating packfile or 0 for defaults
+ *      odb = object database from which to read base objects when fixing thin packs. Pass null if no thin pack is expected (an error will be returned if there are bases missing)
+ *      opts = Optional structure containing additional options. See `git_indexer_options` above.
  */
 //GIT_EXTERN
 int git_indexer_new(.git_indexer** out_, const (char)* path, uint mode, libgit2_d.types.git_odb* odb, .git_indexer_options* opts);
@@ -140,10 +141,11 @@ int git_indexer_new(.git_indexer** out_, const (char)* path, uint mode, libgit2_
 /**
  * Add data to the indexer
  *
- * @param idx the indexer
- * @param data the data to add
- * @param size the size of the data in bytes
- * @param stats stat storage
+ * Params:
+ *      idx = the indexer
+ *      data = the data to add
+ *      size = the size of the data in bytes
+ *      stats = stat storage
  */
 //GIT_EXTERN
 int git_indexer_append(.git_indexer* idx, const (void)* data, size_t size, .git_indexer_progress* stats);
@@ -153,7 +155,8 @@ int git_indexer_append(.git_indexer* idx, const (void)* data, size_t size, .git_
  *
  * Resolve any pending deltas and write out the index file
  *
- * @param idx the indexer
+ * Params:
+ *      idx = the indexer
  */
 //GIT_EXTERN
 int git_indexer_commit(.git_indexer* idx, .git_indexer_progress* stats);
@@ -164,7 +167,8 @@ int git_indexer_commit(.git_indexer* idx, .git_indexer_progress* stats);
  * A packfile's name is derived from the sorted hashing of all object
  * names. This is only correct after the index has been finalized.
  *
- * @param idx the indexer instance
+ * Params:
+ *      idx = the indexer instance
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_indexer_hash(const (.git_indexer)* idx);
@@ -172,7 +176,8 @@ const (libgit2_d.oid.git_oid)* git_indexer_hash(const (.git_indexer)* idx);
 /**
  * Free the indexer and its resources
  *
- * @param idx the indexer to free
+ * Params:
+ *      idx = the indexer to free
  */
 //GIT_EXTERN
 void git_indexer_free(.git_indexer* idx);

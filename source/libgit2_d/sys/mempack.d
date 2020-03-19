@@ -38,8 +38,10 @@ package(libgit2_d):
  * Subsequent reads will also be served from the in-memory store
  * to ensure consistency, until the memory store is dumped.
  *
- * @param out_ Pointer where to store the ODB backend
- * @return 0 on success; error code otherwise
+ * Params:
+ *      out_ = Pointer where to store the ODB backend
+ *
+ * Returns: 0 on success; error code otherwise
  */
 //GIT_EXTERN
 int git_mempack_new(libgit2_d.types.git_odb_backend** out_);
@@ -60,10 +62,12 @@ int git_mempack_new(libgit2_d.types.git_odb_backend** out_);
  * written to disk will result in an inconsistent repository
  * (the objects in the memory store won't be accessible).
  *
- * @param pack Buffer where to store the raw packfile
- * @param repo The active repository where the backend is loaded
- * @param backend The mempack backend
- * @return 0 on success; error code otherwise
+ * Params:
+ *      pack = Buffer where to store the raw packfile
+ *      repo = The active repository where the backend is loaded
+ *      backend = The mempack backend
+ *
+ * Returns: 0 on success; error code otherwise
  */
 //GIT_EXTERN
 int git_mempack_dump(libgit2_d.buffer.git_buf* pack, libgit2_d.types.git_repository* repo, libgit2_d.types.git_odb_backend* backend);
@@ -78,8 +82,10 @@ int git_mempack_dump(libgit2_d.buffer.git_buf* pack, libgit2_d.types.git_reposit
  * all the recently written objects, giving transaction-like
  * semantics to the Git repository.
  *
- * @param backend The mempack backend
- * @return 0 on success; error code otherwise
+ * Params:
+ *      backend = The mempack backend
+ *
+ * Returns: 0 on success; error code otherwise
  */
 //GIT_EXTERN
 int git_mempack_reset(libgit2_d.types.git_odb_backend* backend);

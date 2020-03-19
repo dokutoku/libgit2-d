@@ -444,8 +444,10 @@ public int cred_acquire_cb(libgit2_d.credential.git_credential** out_, const (ch
 /**
  * Read a file into a buffer
  *
- * @param path The path to the file that shall be read
- * @return NUL-terminated buffer if the file was successfully read, null-pointer otherwise
+ * Params:
+ *      path = The path to the file that shall be read
+ *
+ * Returns: NUL-terminated buffer if the file was successfully read, null-pointer otherwise
  */
 nothrow @nogc
 public char* read_file(const (char)* path)

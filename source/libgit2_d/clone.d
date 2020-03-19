@@ -62,12 +62,14 @@ enum git_clone_local_t
  * override the remote creation and customization process during a clone
  * operation.
  *
- * @param out_ the resulting remote
- * @param repo the repository in which to create the remote
- * @param name the remote's name
- * @param url the remote's url
- * @param payload an opaque payload
- * @return 0, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code
+ * Params:
+ *      out_ = the resulting remote
+ *      repo = the repository in which to create the remote
+ *      name = the remote's name
+ *      url = the remote's url
+ *      payload = an opaque payload
+ *
+ * Returns: 0, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code
  */
 alias git_remote_create_cb = int function(libgit2_d.types.git_remote** out_, libgit2_d.types.git_repository* repo, const (char)* name, const (char)* url, void* payload);
 
@@ -79,12 +81,13 @@ alias git_remote_create_cb = int function(libgit2_d.types.git_remote** out_, lib
  * to override the repository creation and customization process
  * during a clone operation.
  *
- * @param out_ the resulting repository
- * @param path path in which to create the repository
- * @param bare whether the repository is bare. This is the value from the clone
- * options
- * @param payload payload specified by the options
- * @return 0, or a negative value to indicate error
+ * Params:
+ *      out_ = the resulting repository
+ *      path = path in which to create the repository
+ *      bare = whether the repository is bare. This is the value from the clone options
+ *      payload = payload specified by the options
+ *
+ * Returns: 0, or a negative value to indicate error
  */
 alias git_repository_create_cb = int function(libgit2_d.types.git_repository** out_, const (char)* path, int bare, void* payload);
 
@@ -188,9 +191,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_clone_options` with default values. Equivalent to creating
  * an instance with GIT_CLONE_OPTIONS_INIT.
  *
- * @param opts The `git_clone_options` struct to initialize.
- * @param version The struct version; pass `GIT_CLONE_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_clone_options` struct to initialize.
+ *      version = The struct version; pass `GIT_CLONE_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_clone_options_init(.git_clone_options* opts, uint version_);
@@ -202,14 +207,13 @@ int git_clone_options_init(.git_clone_options* opts, uint version_);
  * git's defaults. You can use the options in the callback to
  * customize how these are created.
  *
- * @param out_ pointer that will receive the resulting repository object
- * @param url the remote repository to clone
- * @param local_path local directory to clone to
- * @param options configuration options for the clone.  If null, the
- *        function works as though GIT_OPTIONS_INIT were passed.
- * @return 0 on success, any non-zero return value from a callback
- *         function, or a negative value to indicate an error (use
- *         `git_error_last` for a detailed error message)
+ * Params:
+ *      out_ = pointer that will receive the resulting repository object
+ *      url = the remote repository to clone
+ *      local_path = local directory to clone to
+ *      options = configuration options for the clone.  If null, the function works as though GIT_OPTIONS_INIT were passed.
+ *
+ * Returns: 0 on success, any non-zero return value from a callback function, or a negative value to indicate an error (use `git_error_last` for a detailed error message)
  */
 //GIT_EXTERN
 int git_clone(libgit2_d.types.git_repository** out_, const (char)* url, const (char)* local_path, const (.git_clone_options)* options);

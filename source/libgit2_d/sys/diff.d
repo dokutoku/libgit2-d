@@ -94,9 +94,11 @@ pure nothrow @safe @nogc
 /**
  * Get performance data for a diff object.
  *
- * @param out_ Structure to be filled with diff performance data
- * @param diff Diff to read performance data from
- * @return 0 for success, <0 for error
+ * Params:
+ *      out_ = Structure to be filled with diff performance data
+ *      diff = Diff to read performance data from
+ *
+ * Returns: 0 for success, <0 for error
  */
 //GIT_EXTERN
 int git_diff_get_perfdata(.git_diff_perfdata* out_, const (libgit2_d.diff.git_diff)* diff);

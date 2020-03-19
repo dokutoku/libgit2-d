@@ -32,9 +32,11 @@ public:
  * The method will automatically detect if 'path' is a normal
  * or bare repository or fail is 'path' is neither.
  *
- * @param out_ pointer to the repo which will be opened
- * @param path the path to the repository
- * @return 0 or an error code
+ * Params:
+ *      out_ = pointer to the repo which will be opened
+ *      path = the path to the repository
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_repository_open(libgit2_d.types.git_repository** out_, const (char)* path);
@@ -45,9 +47,11 @@ int git_repository_open(libgit2_d.types.git_repository** out_, const (char)* pat
  * Open the working directory of the working tree as a normal
  * repository that can then be worked on.
  *
- * @param out_ Output pointer containing opened repository
- * @param wt Working tree to open
- * @return 0 or an error code
+ * Params:
+ *      out_ = Output pointer containing opened repository
+ *      wt = Working tree to open
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_repository_open_from_worktree(libgit2_d.types.git_repository** out_, libgit2_d.types.git_worktree* wt);
@@ -59,9 +63,11 @@ int git_repository_open_from_worktree(libgit2_d.types.git_repository** out_, lib
  * with the API when all you have is an object database. This doesn't
  * have any paths associated with it, so use with care.
  *
- * @param out_ pointer to the repo
- * @param odb the object database to wrap
- * @return 0 or an error code
+ * Params:
+ *      out_ = pointer to the repo
+ *      odb = the object database to wrap
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_repository_wrap_odb(libgit2_d.types.git_repository** out_, libgit2_d.types.git_odb* odb);
@@ -76,21 +82,13 @@ int git_repository_wrap_odb(libgit2_d.types.git_repository** out_, libgit2_d.typ
  * The method will automatically detect if the repository is bare
  * (if there is a repository).
  *
- * @param out_ A pointer to a user-allocated git_buf which will contain
- * the found path.
+ * Params:
+ *      out_ = A pointer to a user-allocated git_buf which will contain the found path.
+ *      start_path = The base path where the lookup starts.
+ *      across_fs = If true, then the lookup will not stop when a filesystem device change is detected while exploring parent directories.
+ *      ceiling_dirs = A GIT_PATH_LIST_SEPARATOR separated list of absolute symbolic link free paths. The lookup will stop when any of this paths is reached. Note that the lookup always performs on start_path no matter start_path appears in ceiling_dirs ceiling_dirs might be null (which is equivalent to an empty string)
  *
- * @param start_path The base path where the lookup starts.
- *
- * @param across_fs If true, then the lookup will not stop when a
- * filesystem device change is detected while exploring parent directories.
- *
- * @param ceiling_dirs A GIT_PATH_LIST_SEPARATOR separated list of
- * absolute symbolic link free paths. The lookup will stop when any
- * of this paths is reached. Note that the lookup always performs on
- * start_path no matter start_path appears in ceiling_dirs ceiling_dirs
- * might be null (which is equivalent to an empty string)
- *
- * @return 0 or an error code
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_repository_discover(libgit2_d.buffer.git_buf* out_, const (char)* start_path, int across_fs, const (char)* ceiling_dirs);
@@ -151,20 +149,13 @@ enum git_repository_open_flag_t
 /**
  * Find and open a repository with extended controls.
  *
- * @param out_ Pointer to the repo which will be opened.  This can
- *        actually be null if you only want to use the error code to
- *        see if a repo at this path could be opened.
- * @param path Path to open as git repository.  If the flags
- *        permit "searching", then this can be a path to a subdirectory
- *        inside the working directory of the repository. May be null if
- *        flags is git_repository_open_flag_t.GIT_REPOSITORY_OPEN_FROM_ENV.
- * @param flags A combination of the GIT_REPOSITORY_OPEN flags above.
- * @param ceiling_dirs A GIT_PATH_LIST_SEPARATOR delimited list of path
- *        prefixes at which the search for a containing repository should
- *        terminate.
- * @return 0 on success, git_error_code.GIT_ENOTFOUND if no repository could be found,
- *        or -1 if there was a repository but open failed for some reason
- *        (such as repo corruption or system errors).
+ * Params:
+ *      out_ = Pointer to the repo which will be opened.  This can actually be null if you only want to use the error code to see if a repo at this path could be opened.
+ *      path = Path to open as git repository.  If the flags permit "searching", then this can be a path to a subdirectory inside the working directory of the repository. May be null if flags is git_repository_open_flag_t.GIT_REPOSITORY_OPEN_FROM_ENV.
+ *      flags = A combination of the GIT_REPOSITORY_OPEN flags above.
+ *      ceiling_dirs = A GIT_PATH_LIST_SEPARATOR delimited list of path prefixes at which the search for a containing repository should terminate.
+ *
+ * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if no repository could be found, or -1 if there was a repository but open failed for some reason (such as repo corruption or system errors).
  */
 //GIT_EXTERN
 int git_repository_open_ext(libgit2_d.types.git_repository** out_, const (char)* path, uint flags, const (char)* ceiling_dirs);
@@ -176,9 +167,11 @@ int git_repository_open_ext(libgit2_d.types.git_repository** out_, const (char)*
  * if you're e.g. hosting git repositories and need to access them
  * efficiently
  *
- * @param out_ Pointer to the repo which will be opened.
- * @param bare_path Direct path to the bare repository
- * @return 0 on success, or an error code
+ * Params:
+ *      out_ = Pointer to the repo which will be opened.
+ *      bare_path = Direct path to the bare repository
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_repository_open_bare(libgit2_d.types.git_repository** out_, const (char)* bare_path);
@@ -192,7 +185,8 @@ int git_repository_open_bare(libgit2_d.types.git_repository** out_, const (char)
  * an object without a backing repository will result in undefined
  * behavior
  *
- * @param repo repository handle to close. If null nothing occurs.
+ * Params:
+ *      repo = repository handle to close. If null nothing occurs.
  */
 //GIT_EXTERN
 void git_repository_free(libgit2_d.types.git_repository* repo);
@@ -203,14 +197,12 @@ void git_repository_free(libgit2_d.types.git_repository* repo);
  * TODO:
  *	- Reinit the repository
  *
- * @param out_ pointer to the repo which will be created or reinitialized
- * @param path the path to the repository
- * @param is_bare if true, a Git repository without a working directory is
- *		created at the pointed path. If false, provided path will be
- *		considered as the working directory into which the .git
- *directory will be created.
+ * Params:
+ *      out_ = pointer to the repo which will be created or reinitialized
+ *      path = the path to the repository
+ *      is_bare = if true, a Git repository without a working directory is created at the pointed path. If false, provided path will be considered as the working directory into which the .git directory will be created.
  *
- * @return 0 or an error code
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_repository_init(libgit2_d.types.git_repository** out_, const (char)* path, uint is_bare);
@@ -336,9 +328,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_repository_init_options` with default values. Equivalent to
  * creating an instance with `GIT_REPOSITORY_INIT_OPTIONS_INIT`.
  *
- * @param opts The `git_repository_init_options` struct to initialize.
- * @param version The struct version; pass `GIT_REPOSITORY_INIT_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_repository_init_options` struct to initialize.
+ *      version = The struct version; pass `GIT_REPOSITORY_INIT_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_repository_init_options_init(.git_repository_init_options* opts, uint version_);
@@ -351,10 +345,12 @@ int git_repository_init_options_init(.git_repository_init_options* opts, uint ve
  * auto-detect the case sensitivity of the file system and if the
  * file system supports file mode bits correctly.
  *
- * @param out_ Pointer to the repo which will be created or reinitialized.
- * @param repo_path The path to the repository.
- * @param opts Pointer to git_repository_init_options struct.
- * @return 0 or an error code on failure.
+ * Params:
+ *      out_ = Pointer to the repo which will be created or reinitialized.
+ *      repo_path = The path to the repository.
+ *      opts = Pointer to git_repository_init_options struct.
+ *
+ * Returns: 0 or an error code on failure.
  */
 //GIT_EXTERN
 int git_repository_init_ext(libgit2_d.types.git_repository** out_, const (char)* repo_path, .git_repository_init_options* opts);
@@ -366,11 +362,11 @@ int git_repository_init_ext(libgit2_d.types.git_repository** out_, const (char)*
  * `git_reference_free()` must be called when done with it to release the
  * allocated memory and prevent a leak.
  *
- * @param out_ pointer to the reference which will be retrieved
- * @param repo a repository object
+ * Params:
+ *      out_ = pointer to the reference which will be retrieved
+ *      repo = a repository object
  *
- * @return 0 on success, git_error_code.GIT_EUNBORNBRANCH when HEAD points to a non existing
- * branch, git_error_code.GIT_ENOTFOUND when HEAD is missing; an error code otherwise
+ * Returns: 0 on success, git_error_code.GIT_EUNBORNBRANCH when HEAD points to a non existing branch, git_error_code.GIT_ENOTFOUND when HEAD is missing; an error code otherwise
  */
 //GIT_EXTERN
 int git_repository_head(libgit2_d.types.git_reference** out_, libgit2_d.types.git_repository* repo);
@@ -378,10 +374,12 @@ int git_repository_head(libgit2_d.types.git_reference** out_, libgit2_d.types.gi
 /**
  * Retrieve the referenced HEAD for the worktree
  *
- * @param out_ pointer to the reference which will be retrieved
- * @param repo a repository object
- * @param name name of the worktree to retrieve HEAD for
- * @return 0 when successful, error-code otherwise
+ * Params:
+ *      out_ = pointer to the reference which will be retrieved
+ *      repo = a repository object
+ *      name = name of the worktree to retrieve HEAD for
+ *
+ * Returns: 0 when successful, error-code otherwise
  */
 //GIT_EXTERN
 int git_repository_head_for_worktree(libgit2_d.types.git_reference** out_, libgit2_d.types.git_repository* repo, const (char)* name);
@@ -392,9 +390,10 @@ int git_repository_head_for_worktree(libgit2_d.types.git_reference** out_, libgi
  * A repository's HEAD is detached when it points directly to a commit
  * instead of a branch.
  *
- * @param repo Repo to test
- * @return 1 if HEAD is detached, 0 if it's not; error code if there
- * was an error.
+ * Params:
+ *      repo = Repo to test
+ *
+ * Returns: 1 if HEAD is detached, 0 if it's not; error code if there was an error.
  */
 //GIT_EXTERN
 int git_repository_head_detached(libgit2_d.types.git_repository* repo);
@@ -405,10 +404,11 @@ int git_repository_head_detached(libgit2_d.types.git_repository* repo);
  * A worktree's HEAD is detached when it points directly to a
  * commit instead of a branch.
  *
- * @param repo a repository object
- * @param name name of the worktree to retrieve HEAD for
- * @return 1 if HEAD is detached, 0 if its not; error code if
- *  there was an error
+ * Params:
+ *      repo = a repository object
+ *      name = name of the worktree to retrieve HEAD for
+ *
+ * Returns: 1 if HEAD is detached, 0 if its not; error code if there was an error
  */
 //GIT_EXTERN
 int git_repository_head_detached_for_worktree(libgit2_d.types.git_repository* repo, const (char)* name);
@@ -419,9 +419,10 @@ int git_repository_head_detached_for_worktree(libgit2_d.types.git_repository* re
  * An unborn branch is one named from HEAD but which doesn't exist in
  * the refs namespace, because it doesn't have any commit to point to.
  *
- * @param repo Repo to test
- * @return 1 if the current branch is unborn, 0 if it's not; error
- * code if there was an error
+ * Params:
+ *      repo = Repo to test
+ *
+ * Returns: 1 if the current branch is unborn, 0 if it's not; error code if there was an error
  */
 //GIT_EXTERN
 int git_repository_head_unborn(libgit2_d.types.git_repository* repo);
@@ -432,9 +433,10 @@ int git_repository_head_unborn(libgit2_d.types.git_repository* repo);
  * An empty repository has just been initialized and contains no references
  * apart from HEAD, which must be pointing to the unborn master branch.
  *
- * @param repo Repo to test
- * @return 1 if the repository is empty, 0 if it isn't, error code
- * if the repository is corrupted
+ * Params:
+ *      repo = Repo to test
+ *
+ * Returns: 1 if the repository is empty, 0 if it isn't, error code if the repository is corrupted
  */
 //GIT_EXTERN
 int git_repository_is_empty(libgit2_d.types.git_repository* repo);
@@ -470,10 +472,12 @@ enum git_repository_item_t
  * exist for a given item (e.g. the working directory of a bare
  * repository), git_error_code.GIT_ENOTFOUND is returned.
  *
- * @param out_ Buffer to store the path at
- * @param repo Repository to get path for
- * @param item The repository item for which to retrieve the path
- * @return 0, git_error_code.GIT_ENOTFOUND if the path cannot exist or an error code
+ * Params:
+ *      out_ = Buffer to store the path at
+ *      repo = Repository to get path for
+ *      item = The repository item for which to retrieve the path
+ *
+ * Returns: 0, git_error_code.GIT_ENOTFOUND if the path cannot exist or an error code
  */
 //GIT_EXTERN
 int git_repository_item_path(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types.git_repository)* repo, .git_repository_item_t item);
@@ -484,8 +488,10 @@ int git_repository_item_path(libgit2_d.buffer.git_buf* out_, const (libgit2_d.ty
  * This is the path of the `.git` folder for normal repositories,
  * or of the repository itself for bare repositories.
  *
- * @param repo A repository object
- * @return the path to the repository
+ * Params:
+ *      repo = A repository object
+ *
+ * Returns: the path to the repository
  */
 //GIT_EXTERN
 const (char)* git_repository_path(const (libgit2_d.types.git_repository)* repo);
@@ -496,8 +502,10 @@ const (char)* git_repository_path(const (libgit2_d.types.git_repository)* repo);
  * If the repository is bare, this function will always return
  * null.
  *
- * @param repo A repository object
- * @return the path to the working dir, if it exists
+ * Params:
+ *      repo = A repository object
+ *
+ * Returns: the path to the working dir, if it exists
  */
 //GIT_EXTERN
 const (char)* git_repository_workdir(const (libgit2_d.types.git_repository)* repo);
@@ -508,8 +516,10 @@ const (char)* git_repository_workdir(const (libgit2_d.types.git_repository)* rep
  * If the repository is bare is not a worktree, the git directory
  * path is returned.
  *
- * @param repo A repository object
- * @return the path to the common dir
+ * Params:
+ *      repo = A repository object
+ *
+ * Returns: the path to the common dir
  */
 //GIT_EXTERN
 const (char)* git_repository_commondir(const (libgit2_d.types.git_repository)* repo);
@@ -525,11 +535,12 @@ const (char)* git_repository_commondir(const (libgit2_d.types.git_repository)* r
  * all the common workdir operations (checkout, status, index
  * manipulation, etc).
  *
- * @param repo A repository object
- * @param workdir The path to a working directory
- * @param update_gitlink Create/update gitlink in workdir and set config
- *        "core.worktree" (if workdir is not the parent of the .git directory)
- * @return 0, or an error code
+ * Params:
+ *      repo = A repository object
+ *      workdir = The path to a working directory
+ *      update_gitlink = Create/update gitlink in workdir and set config "core.worktree" (if workdir is not the parent of the .git directory)
+ *
+ * Returns: 0, or an error code
  */
 //GIT_EXTERN
 int git_repository_set_workdir(libgit2_d.types.git_repository* repo, const (char)* workdir, int update_gitlink);
@@ -537,8 +548,10 @@ int git_repository_set_workdir(libgit2_d.types.git_repository* repo, const (char
 /**
  * Check if a repository is bare
  *
- * @param repo Repo to test
- * @return 1 if the repository is bare, 0 otherwise.
+ * Params:
+ *      repo = Repo to test
+ *
+ * Returns: 1 if the repository is bare, 0 otherwise.
  */
 //GIT_EXTERN
 int git_repository_is_bare(const (libgit2_d.types.git_repository)* repo);
@@ -546,8 +559,10 @@ int git_repository_is_bare(const (libgit2_d.types.git_repository)* repo);
 /**
  * Check if a repository is a linked work tree
  *
- * @param repo Repo to test
- * @return 1 if the repository is a linked work tree, 0 otherwise.
+ * Params:
+ *      repo = Repo to test
+ *
+ * Returns: 1 if the repository is a linked work tree, 0 otherwise.
  */
 //GIT_EXTERN
 int git_repository_is_worktree(const (libgit2_d.types.git_repository)* repo);
@@ -562,9 +577,11 @@ int git_repository_is_worktree(const (libgit2_d.types.git_repository)* repo);
  * The configuration file must be freed once it's no longer
  * being used by the user.
  *
- * @param out_ Pointer to store the loaded configuration
- * @param repo A repository object
- * @return 0, or an error code
+ * Params:
+ *      out_ = Pointer to store the loaded configuration
+ *      repo = A repository object
+ *
+ * Returns: 0, or an error code
  */
 //GIT_EXTERN
 int git_repository_config(libgit2_d.types.git_config** out_, libgit2_d.types.git_repository* repo);
@@ -579,9 +596,11 @@ int git_repository_config(libgit2_d.types.git_config** out_, libgit2_d.types.git
  * The configuration file must be freed once it's no longer
  * being used by the user.
  *
- * @param out_ Pointer to store the loaded configuration
- * @param repo the repository
- * @return 0, or an error code
+ * Params:
+ *      out_ = Pointer to store the loaded configuration
+ *      repo = the repository
+ *
+ * Returns: 0, or an error code
  */
 //GIT_EXTERN
 int git_repository_config_snapshot(libgit2_d.types.git_config** out_, libgit2_d.types.git_repository* repo);
@@ -596,9 +615,11 @@ int git_repository_config_snapshot(libgit2_d.types.git_config** out_, libgit2_d.
  * The ODB must be freed once it's no longer being used by
  * the user.
  *
- * @param out_ Pointer to store the loaded ODB
- * @param repo A repository object
- * @return 0, or an error code
+ * Params:
+ *      out_ = Pointer to store the loaded ODB
+ *      repo = A repository object
+ *
+ * Returns: 0, or an error code
  */
 //GIT_EXTERN
 int git_repository_odb(libgit2_d.types.git_odb** out_, libgit2_d.types.git_repository* repo);
@@ -613,9 +634,11 @@ int git_repository_odb(libgit2_d.types.git_odb** out_, libgit2_d.types.git_repos
  * The refdb must be freed once it's no longer being used by
  * the user.
  *
- * @param out_ Pointer to store the loaded refdb
- * @param repo A repository object
- * @return 0, or an error code
+ * Params:
+ *      out_ = Pointer to store the loaded refdb
+ *      repo = A repository object
+ *
+ * Returns: 0, or an error code
  */
 //GIT_EXTERN
 int git_repository_refdb(libgit2_d.types.git_refdb** out_, libgit2_d.types.git_repository* repo);
@@ -630,9 +653,11 @@ int git_repository_refdb(libgit2_d.types.git_refdb** out_, libgit2_d.types.git_r
  * The index must be freed once it's no longer being used by
  * the user.
  *
- * @param out_ Pointer to store the loaded index
- * @param repo A repository object
- * @return 0, or an error code
+ * Params:
+ *      out_ = Pointer to store the loaded index
+ *      repo = A repository object
+ *
+ * Returns: 0, or an error code
  */
 //GIT_EXTERN
 int git_repository_index(libgit2_d.types.git_index** out_, libgit2_d.types.git_repository* repo);
@@ -649,9 +674,11 @@ int git_repository_index(libgit2_d.types.git_index** out_, libgit2_d.types.git_r
  * Use this function to get the contents of this file. Don't forget to
  * remove the file after you create the commit.
  *
- * @param out_ git_buf to write data into
- * @param repo Repository to read prepared message from
- * @return 0, git_error_code.GIT_ENOTFOUND if no message exists or an error code
+ * Params:
+ *      out_ = git_buf to write data into
+ *      repo = Repository to read prepared message from
+ *
+ * Returns: 0, git_error_code.GIT_ENOTFOUND if no message exists or an error code
  */
 //GIT_EXTERN
 int git_repository_message(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_repository* repo);
@@ -668,8 +695,10 @@ int git_repository_message_remove(libgit2_d.types.git_repository* repo);
  * Remove all the metadata associated with an ongoing command like merge,
  * revert, cherry-pick, etc.  For example: MERGE_HEAD, MERGE_MSG, etc.
  *
- * @param repo A repository object
- * @return 0 on success, or error
+ * Params:
+ *      repo = A repository object
+ *
+ * Returns: 0 on success, or error
  */
 //GIT_EXTERN
 int git_repository_state_cleanup(libgit2_d.types.git_repository* repo);
@@ -679,12 +708,14 @@ int git_repository_state_cleanup(libgit2_d.types.git_repository* repo);
  *
  * @see git_repository_fetchhead_foreach
  *
- * @param ref_name The reference name
- * @param remote_url The remote URL
- * @param oid The reference target OID
- * @param is_merge Was the reference the result of a merge
- * @param payload Payload passed to git_repository_fetchhead_foreach
- * @return non-zero to terminate the iteration
+ * Params:
+ *      ref_name = The reference name
+ *      remote_url = The remote URL
+ *      oid = The reference target OID
+ *      is_merge = Was the reference the result of a merge
+ *      payload = Payload passed to git_repository_fetchhead_foreach
+ *
+ * Returns: non-zero to terminate the iteration
  */
 alias git_repository_fetchhead_foreach_cb = int function(const (char)* ref_name, const (char)* remote_url, const (libgit2_d.oid.git_oid)* oid, uint is_merge, void* payload);
 
@@ -693,11 +724,12 @@ alias git_repository_fetchhead_foreach_cb = int function(const (char)* ref_name,
  *
  * Return a non-zero value from the callback to stop the loop.
  *
- * @param repo A repository object
- * @param callback Callback function
- * @param payload Pointer to callback data (optional)
- * @return 0 on success, non-zero callback return value, git_error_code.GIT_ENOTFOUND if
- *         there is no FETCH_HEAD file, or other error code.
+ * Params:
+ *      repo = A repository object
+ *      callback = Callback function
+ *      payload = Pointer to callback data (optional)
+ *
+ * Returns: 0 on success, non-zero callback return value, git_error_code.GIT_ENOTFOUND if there is no FETCH_HEAD file, or other error code.
  */
 //GIT_EXTERN
 int git_repository_fetchhead_foreach(libgit2_d.types.git_repository* repo, .git_repository_fetchhead_foreach_cb callback, void* payload);
@@ -707,9 +739,11 @@ int git_repository_fetchhead_foreach(libgit2_d.types.git_repository* repo, .git_
  *
  * @see git_repository_mergehead_foreach
  *
- * @param oid The merge OID
- * @param payload Payload passed to git_repository_mergehead_foreach
- * @return non-zero to terminate the iteration
+ * Params:
+ *      oid = The merge OID
+ *      payload = Payload passed to git_repository_mergehead_foreach
+ *
+ * Returns: non-zero to terminate the iteration
  */
 alias git_repository_mergehead_foreach_cb = int function(const (libgit2_d.oid.git_oid)* oid, void* payload);
 
@@ -719,11 +753,12 @@ alias git_repository_mergehead_foreach_cb = int function(const (libgit2_d.oid.gi
  *
  * Return a non-zero value from the callback to stop the loop.
  *
- * @param repo A repository object
- * @param callback Callback function
- * @param payload Pointer to callback data (optional)
- * @return 0 on success, non-zero callback return value, git_error_code.GIT_ENOTFOUND if
- *         there is no MERGE_HEAD file, or other error code.
+ * Params:
+ *      repo = A repository object
+ *      callback = Callback function
+ *      payload = Pointer to callback data (optional)
+ *
+ * Returns: 0 on success, non-zero callback return value, git_error_code.GIT_ENOTFOUND if there is no MERGE_HEAD file, or other error code.
  */
 //GIT_EXTERN
 int git_repository_mergehead_foreach(libgit2_d.types.git_repository* repo, .git_repository_mergehead_foreach_cb callback, void* payload);
@@ -740,16 +775,14 @@ int git_repository_mergehead_foreach(libgit2_d.types.git_repository* repo, .git_
  * filtering triggers that failure, then this function will return an
  * error and not calculate the hash of the file.
  *
- * @param out_ Output value of calculated SHA
- * @param repo Repository pointer
- * @param path Path to file on disk whose contents should be hashed. If the
- *             repository is not null, this can be a relative path.
- * @param type The object type to hash as (e.g. git_object_t.GIT_OBJECT_BLOB)
- * @param as_path The path to use to look up filtering rules. If this is
- *             null, then the `path` parameter will be used instead. If
- *             this is passed as the empty string, then no filters will be
- *             applied when calculating the hash.
- * @return 0 on success, or an error code
+ * Params:
+ *      out_ = Output value of calculated SHA
+ *      repo = Repository pointer
+ *      path = Path to file on disk whose contents should be hashed. If the repository is not null, this can be a relative path.
+ *      type = The object type to hash as (e.g. git_object_t.GIT_OBJECT_BLOB)
+ *      as_path = The path to use to look up filtering rules. If this is null, then the `path` parameter will be used instead. If this is passed as the empty string, then no filters will be applied when calculating the hash.
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_repository_hashfile(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, const (char)* path, libgit2_d.types.git_object_t type, const (char)* as_path);
@@ -768,9 +801,11 @@ int git_repository_hashfile(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_rep
  * Otherwise, the HEAD will be detached and will directly point to
  * the Commit.
  *
- * @param repo Repository pointer
- * @param refname Canonical name of the reference the HEAD should point at
- * @return 0 on success, or an error code
+ * Params:
+ *      repo = Repository pointer
+ *      refname = Canonical name of the reference the HEAD should point at
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_repository_set_head(libgit2_d.types.git_repository* repo, const (char)* refname);
@@ -787,9 +822,11 @@ int git_repository_set_head(libgit2_d.types.git_repository* repo, const (char)* 
  * Otherwise, the HEAD will eventually be detached and will directly point to
  * the peeled Commit.
  *
- * @param repo Repository pointer
- * @param commitish Object id of the Commit the HEAD should point to
- * @return 0 on success, or an error code
+ * Params:
+ *      repo = Repository pointer
+ *      commitish = Object id of the Commit the HEAD should point to
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_repository_set_head_detached(libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* commitish);
@@ -822,9 +859,10 @@ int git_repository_set_head_detached_from_annotated(libgit2_d.types.git_reposito
  *
  * Otherwise, the HEAD will be detached and point to the peeled Commit.
  *
- * @param repo Repository pointer
- * @return 0 on success, git_error_code.GIT_EUNBORNBRANCH when HEAD points to a non existing
- * branch or an error code
+ * Params:
+ *      repo = Repository pointer
+ *
+ * Returns: 0 on success, git_error_code.GIT_EUNBORNBRANCH when HEAD points to a non existing branch or an error code
  */
 //GIT_EXTERN
 int git_repository_detach_head(libgit2_d.types.git_repository* repo);
@@ -855,8 +893,10 @@ enum git_repository_state_t
  * Determines the status of a git repository - ie, whether an operation
  * (merge, cherry-pick, etc) is in progress.
  *
- * @param repo Repository pointer
- * @return The state of the repository
+ * Params:
+ *      repo = Repository pointer
+ *
+ * Returns: The state of the repository
  */
 //GIT_EXTERN
 int git_repository_state(libgit2_d.types.git_repository* repo);
@@ -867,11 +907,11 @@ int git_repository_state(libgit2_d.types.git_repository* repo);
  * This namespace affects all reference operations for the repo.
  * See `man gitnamespaces`
  *
- * @param repo The repo
- * @param nmspace The namespace. This should not include the refs
- *	folder, e.g. to namespace all references under `refs/namespaces/foo/`,
- *	use `foo` as the namespace.
- *	@return 0 on success, -1 on error
+ * Params:
+ *      repo = The repo
+ *      nmspace = The namespace. This should not include the refs folder, e.g. to namespace all references under `refs/namespaces/foo/`, use `foo` as the namespace.
+ *
+ * Returns: 0 on success, -1 on error
  */
 //GIT_EXTERN
 int git_repository_set_namespace(libgit2_d.types.git_repository* repo, const (char)* nmspace);
@@ -879,8 +919,10 @@ int git_repository_set_namespace(libgit2_d.types.git_repository* repo, const (ch
 /**
  * Get the currently active namespace for this repository
  *
- * @param repo The repo
- * @return the active namespace, or null if there isn't one
+ * Params:
+ *      repo = The repo
+ *
+ * Returns: the active namespace, or null if there isn't one
  */
 //GIT_EXTERN
 const (char)* git_repository_get_namespace(libgit2_d.types.git_repository* repo);
@@ -888,8 +930,10 @@ const (char)* git_repository_get_namespace(libgit2_d.types.git_repository* repo)
 /**
  * Determine if the repository was a shallow clone
  *
- * @param repo The repository
- * @return 1 if shallow, zero if not
+ * Params:
+ *      repo = The repository
+ *
+ * Returns: 1 if shallow, zero if not
  */
 //GIT_EXTERN
 int git_repository_is_shallow(libgit2_d.types.git_repository* repo);
@@ -900,9 +944,10 @@ int git_repository_is_shallow(libgit2_d.types.git_repository* repo);
  * The memory is owned by the repository and must not be freed by the
  * user.
  *
- * @param name where to store the pointer to the name
- * @param email where to store the pointer to the email
- * @param repo the repository
+ * Params:
+ *      name = where to store the pointer to the name
+ *      email = where to store the pointer to the email
+ *      repo = the repository
  */
 //GIT_EXTERN
 int git_repository_ident(const (char)** name, const (char)** email, const (libgit2_d.types.git_repository)* repo);
@@ -914,9 +959,10 @@ int git_repository_ident(const (char)** name, const (char)** email, const (libgi
  * reflog. Pass null to unset. When unset, the identity will be taken
  * from the repository's configuration.
  *
- * @param repo the repository to configure
- * @param name the name to use for the reflog entries
- * @param email the email to use for the reflog entries
+ * Params:
+ *      repo = the repository to configure
+ *      name = the name to use for the reflog entries
+ *      email = the email to use for the reflog entries
  */
 //GIT_EXTERN
 int git_repository_set_ident(libgit2_d.types.git_repository* repo, const (char)* name, const (char)* email);

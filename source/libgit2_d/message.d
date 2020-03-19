@@ -25,17 +25,13 @@ public:
  *
  * Optionally, it can remove lines which start with the comment character.
  *
- * @param out_ The user-allocated git_buf which will be filled with the
- *     cleaned up message.
+ * Params:
+ *      out_ = The user-allocated git_buf which will be filled with the cleaned up message.
+ *      message = The message to be prettified.
+ *      strip_comments = Non-zero to remove comment lines, 0 to leave them in.
+ *      comment_char = Comment character. Lines starting with this character are considered to be comments and removed if `strip_comments` is non-zero.
  *
- * @param message The message to be prettified.
- *
- * @param strip_comments Non-zero to remove comment lines, 0 to leave them in.
- *
- * @param comment_char Comment character. Lines starting with this character
- * are considered to be comments and removed if `strip_comments` is non-zero.
- *
- * @return 0 or an error code.
+ * Returns: 0 or an error code.
  */
 //GIT_EXTERN
 int git_message_prettify(libgit2_d.buffer.git_buf* out_, const (char)* message, int strip_comments, char comment_char);
@@ -70,10 +66,11 @@ package:
  * Trailers are key/value pairs in the last paragraph of a message, not
  * including any patches or conflicts that may be present.
  *
- * @param arr A pre-allocated git_message_trailer_array struct to be filled in
- *            with any trailers found during parsing.
- * @param message The message to be parsed
- * @return 0 on success, or non-zero on error.
+ * Params:
+ *      arr = A pre-allocated git_message_trailer_array struct to be filled in with any trailers found during parsing.
+ *      message = The message to be parsed
+ *
+ * Returns: 0 on success, or non-zero on error.
  */
 //GIT_EXTERN
 int git_message_trailers(.git_message_trailer_array* arr, const (char)* message);

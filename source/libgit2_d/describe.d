@@ -98,9 +98,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_describe_options` with default values. Equivalent to creating
  * an instance with GIT_DESCRIBE_OPTIONS_INIT.
  *
- * @param opts The `git_describe_options` struct to initialize.
- * @param version The struct version; pass `GIT_DESCRIBE_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_describe_options` struct to initialize.
+ *      version = The struct version; pass `GIT_DESCRIBE_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_describe_options_init(.git_describe_options* opts, uint version_);
@@ -157,9 +159,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_describe_format_options` with default values. Equivalent to creating
  * an instance with GIT_DESCRIBE_FORMAT_OPTIONS_INIT.
  *
- * @param opts The `git_describe_format_options` struct to initialize.
- * @param version The struct version; pass `GIT_DESCRIBE_FORMAT_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_describe_format_options` struct to initialize.
+ *      version = The struct version; pass `GIT_DESCRIBE_FORMAT_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_describe_format_options_init(.git_describe_format_options* opts, uint version_);
@@ -174,10 +178,10 @@ struct git_describe_result;
  *
  * Perform the describe operation on the given committish object.
  *
- * @param result pointer to store the result. You must free this once
- * you're done with it.
- * @param committish a committish to describe
- * @param opts the lookup options (or NULL for defaults)
+ * Params:
+ *      result = pointer to store the result. You must free this once you're done with it.
+ *      committish = a committish to describe
+ *      opts = the lookup options (or NULL for defaults)
  */
 //GIT_EXTERN
 int git_describe_commit(.git_describe_result** result, libgit2_d.types.git_object* committish, .git_describe_options* opts);
@@ -189,10 +193,10 @@ int git_describe_commit(.git_describe_result** result, libgit2_d.types.git_objec
  * worktree. After peforming describe on HEAD, a status is run and the
  * description is considered to be dirty if there are.
  *
- * @param out_ pointer to store the result. You must free this once
- * you're done with it.
- * @param repo the repository in which to perform the describe
- * @param opts the lookup options (or NULL for defaults)
+ * Params:
+ *      out_ = pointer to store the result. You must free this once you're done with it.
+ *      repo = the repository in which to perform the describe
+ *      opts = the lookup options (or NULL for defaults)
  */
 //GIT_EXTERN
 int git_describe_workdir(.git_describe_result** out_, libgit2_d.types.git_repository* repo, .git_describe_options* opts);
@@ -200,10 +204,10 @@ int git_describe_workdir(.git_describe_result** out_, libgit2_d.types.git_reposi
 /**
  * Print the describe result to a buffer
  *
- * @param out_ The buffer to store the result
- * @param result the result from `git_describe_commit()` or
- * `git_describe_workdir()`.
- * @param opts the formatting options (or NULL for defaults)
+ * Params:
+ *      out_ = The buffer to store the result
+ *      result = the result from `git_describe_commit()` or `git_describe_workdir()`.
+ *      opts = the formatting options (or NULL for defaults)
  */
 //GIT_EXTERN
 int git_describe_format(libgit2_d.buffer.git_buf* out_, const (.git_describe_result)* result, const (.git_describe_format_options)* opts);

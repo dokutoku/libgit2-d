@@ -27,9 +27,11 @@ public:
  * This does not lock anything, but sets up the transaction object to
  * know from which repository to lock.
  *
- * @param out_ the resulting transaction
- * @param repo the repository in which to lock
- * @return 0 or an error code
+ * Params:
+ *      out_ = the resulting transaction
+ *      repo = the repository in which to lock
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_transaction_new(libgit2_d.types.git_transaction** out_, libgit2_d.types.git_repository* repo);
@@ -40,9 +42,11 @@ int git_transaction_new(libgit2_d.types.git_transaction** out_, libgit2_d.types.
  * Lock the specified reference. This is the first step to updating a
  * reference.
  *
- * @param tx the transaction
- * @param refname the reference to lock
- * @return 0 or an error message
+ * Params:
+ *      tx = the transaction
+ *      refname = the reference to lock
+ *
+ * Returns: 0 or an error message
  */
 //GIT_EXTERN
 int git_transaction_lock_ref(libgit2_d.types.git_transaction* tx, const (char)* refname);
@@ -53,14 +57,14 @@ int git_transaction_lock_ref(libgit2_d.types.git_transaction* tx, const (char)* 
  * Set the target of the specified reference. This reference must be
  * locked.
  *
- * @param tx the transaction
- * @param refname reference to update
- * @param target target to set the reference to
- * @param sig signature to use in the reflog; pass null to read the identity
- * from the config
- * @param msg message to use in the reflog
- * @return 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an
- * error code
+ * Params:
+ *      tx = the transaction
+ *      refname = reference to update
+ *      target = target to set the reference to
+ *      sig = signature to use in the reflog; pass null to read the identity from the config
+ *      msg = message to use in the reflog
+ *
+ * Returns: 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an error code
  */
 //GIT_EXTERN
 int git_transaction_set_target(libgit2_d.types.git_transaction* tx, const (char)* refname, const (libgit2_d.oid.git_oid)* target, const (libgit2_d.types.git_signature)* sig, const (char)* msg);
@@ -71,14 +75,14 @@ int git_transaction_set_target(libgit2_d.types.git_transaction* tx, const (char)
  * Set the target of the specified reference. This reference must be
  * locked.
  *
- * @param tx the transaction
- * @param refname reference to update
- * @param target target to set the reference to
- * @param sig signature to use in the reflog; pass null to read the identity
- * from the config
- * @param msg message to use in the reflog
- * @return 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an
- * error code
+ * Params:
+ *      tx = the transaction
+ *      refname = reference to update
+ *      target = target to set the reference to
+ *      sig = signature to use in the reflog; pass null to read the identity from the config
+ *      msg = message to use in the reflog
+ *
+ * Returns: 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an error code
  */
 //GIT_EXTERN
 int git_transaction_set_symbolic_target(libgit2_d.types.git_transaction* tx, const (char)* refname, const (char)* target, const (libgit2_d.types.git_signature)* sig, const (char)* msg);
@@ -89,11 +93,12 @@ int git_transaction_set_symbolic_target(libgit2_d.types.git_transaction* tx, con
  * Set the specified reference's reflog. If this is combined with
  * setting the target, that update won't be written to the reflog.
  *
- * @param tx the transaction
- * @param refname the reference whose reflog to set
- * @param reflog the reflog as it should be written out
- * @return 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an
- * error code
+ * Params:
+ *      tx = the transaction
+ *      refname = the reference whose reflog to set
+ *      reflog = the reflog as it should be written out
+ *
+ * Returns: 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an error code
  */
 //GIT_EXTERN
 int git_transaction_set_reflog(libgit2_d.types.git_transaction* tx, const (char)* refname, const (libgit2_d.types.git_reflog)* reflog);
@@ -101,10 +106,11 @@ int git_transaction_set_reflog(libgit2_d.types.git_transaction* tx, const (char)
 /**
  * Remove a reference
  *
- * @param tx the transaction
- * @param refname the reference to remove
- * @return 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an
- * error code
+ * Params:
+ *      tx = the transaction
+ *      refname = the reference to remove
+ *
+ * Returns: 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an error code
  */
 //GIT_EXTERN
 int git_transaction_remove(libgit2_d.types.git_transaction* tx, const (char)* refname);
@@ -115,8 +121,10 @@ int git_transaction_remove(libgit2_d.types.git_transaction* tx, const (char)* re
  * Perform the changes that have been queued. The updates will be made
  * one by one, and the first failure will stop the processing.
  *
- * @param tx the transaction
- * @return 0 or an error code
+ * Params:
+ *      tx = the transaction
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_transaction_commit(libgit2_d.types.git_transaction* tx);
@@ -127,7 +135,8 @@ int git_transaction_commit(libgit2_d.types.git_transaction* tx);
  * If any references remain locked, they will be unlocked without any
  * changes made to them.
  *
- * @param tx the transaction
+ * Params:
+ *      tx = the transaction
  */
 //GIT_EXTERN
 void git_transaction_free(libgit2_d.types.git_transaction* tx);

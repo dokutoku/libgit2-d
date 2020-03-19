@@ -31,10 +31,12 @@ public:
  * The reflog must be freed manually by using
  * git_reflog_free().
  *
- * @param out_ pointer to reflog
- * @param repo the repostiory
- * @param name reference to look up
- * @return 0 or an error code
+ * Params:
+ *      out_ = pointer to reflog
+ *      repo = the repostiory
+ *      name = reference to look up
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_reflog_read(libgit2_d.types.git_reflog** out_, libgit2_d.types.git_repository* repo, const (char)* name);
@@ -43,8 +45,10 @@ int git_reflog_read(libgit2_d.types.git_reflog** out_, libgit2_d.types.git_repos
  * Write an existing in-memory reflog object back to disk
  * using an atomic file lock.
  *
- * @param reflog an existing reflog object
- * @return 0 or an error code
+ * Params:
+ *      reflog = an existing reflog object
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_reflog_write(libgit2_d.types.git_reflog* reflog);
@@ -54,11 +58,13 @@ int git_reflog_write(libgit2_d.types.git_reflog* reflog);
  *
  * `msg` is optional and can be null.
  *
- * @param reflog an existing reflog object
- * @param id the OID the reference is now pointing to
- * @param committer the signature of the committer
- * @param msg the reflog message
- * @return 0 or an error code
+ * Params:
+ *      reflog = an existing reflog object
+ *      id = the OID the reference is now pointing to
+ *      committer = the signature of the committer
+ *      msg = the reflog message
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_reflog_append(libgit2_d.types.git_reflog* reflog, const (libgit2_d.oid.git_oid)* id, const (libgit2_d.types.git_signature)* committer, const (char)* msg);
@@ -71,10 +77,12 @@ int git_reflog_append(libgit2_d.types.git_reflog* reflog, const (libgit2_d.oid.g
  * The new name will be checked for validity.
  * See `git_reference_create_symbolic()` for rules about valid names.
  *
- * @param repo the repository
- * @param old_name the old name of the reference
- * @param name the new name of the reference
- * @return 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code
+ * Params:
+ *      repo = the repository
+ *      old_name = the old name of the reference
+ *      name = the new name of the reference
+ *
+ * Returns: 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code
  */
 //GIT_EXTERN
 int git_reflog_rename(libgit2_d.types.git_repository* repo, const (char)* old_name, const (char)* name);
@@ -82,9 +90,11 @@ int git_reflog_rename(libgit2_d.types.git_repository* repo, const (char)* old_na
 /**
  * Delete the reflog for the given reference
  *
- * @param repo the repository
- * @param name the reflog to delete
- * @return 0 or an error code
+ * Params:
+ *      repo = the repository
+ *      name = the reflog to delete
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_reflog_delete(libgit2_d.types.git_repository* repo, const (char)* name);
@@ -92,8 +102,10 @@ int git_reflog_delete(libgit2_d.types.git_repository* repo, const (char)* name);
 /**
  * Get the number of log entries in a reflog
  *
- * @param reflog the previously loaded reflog
- * @return the number of log entries
+ * Params:
+ *      reflog = the previously loaded reflog
+ *
+ * Returns: the number of log entries
  */
 //GIT_EXTERN
 size_t git_reflog_entrycount(libgit2_d.types.git_reflog* reflog);
@@ -104,10 +116,11 @@ size_t git_reflog_entrycount(libgit2_d.types.git_reflog* reflog);
  * Requesting the reflog entry with an index of 0 (zero) will
  * return the most recently created entry.
  *
- * @param reflog a previously loaded reflog
- * @param idx the position of the entry to lookup. Should be greater than or
- * equal to 0 (zero) and less than `git_reflog_entrycount()`.
- * @return the entry; null if not found
+ * Params:
+ *      reflog = a previously loaded reflog
+ *      idx = the position of the entry to lookup. Should be greater than or equal to 0 (zero) and less than `git_reflog_entrycount()`.
+ *
+ * Returns: the entry; null if not found
  */
 //GIT_EXTERN
 const (libgit2_d.types.git_reflog_entry)* git_reflog_entry_byindex(const (libgit2_d.types.git_reflog)* reflog, size_t idx);
@@ -119,15 +132,12 @@ const (libgit2_d.types.git_reflog_entry)* git_reflog_entry_byindex(const (libgit
  * param value to 1. When deleting entry `n`, member old_oid of entry `n-1`
  * (if any) will be updated with the value of member new_oid of entry `n+1`.
  *
- * @param reflog a previously loaded reflog.
+ * Params:
+ *      reflog = a previously loaded reflog.
+ *      idx = the position of the entry to remove. Should be greater than or equal to 0 (zero) and less than `git_reflog_entrycount()`.
+ *      rewrite_previous_entry = 1 to rewrite the history; 0 otherwise.
  *
- * @param idx the position of the entry to remove. Should be greater than or
- * equal to 0 (zero) and less than `git_reflog_entrycount()`.
- *
- * @param rewrite_previous_entry 1 to rewrite the history; 0 otherwise.
- *
- * @return 0 on success, git_error_code.GIT_ENOTFOUND if the entry doesn't exist
- * or an error code.
+ * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if the entry doesn't exist or an error code.
  */
 //GIT_EXTERN
 int git_reflog_drop(libgit2_d.types.git_reflog* reflog, size_t idx, int rewrite_previous_entry);
@@ -135,8 +145,10 @@ int git_reflog_drop(libgit2_d.types.git_reflog* reflog, size_t idx, int rewrite_
 /**
  * Get the old oid
  *
- * @param entry a reflog entry
- * @return the old oid
+ * Params:
+ *      entry = a reflog entry
+ *
+ * Returns: the old oid
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_reflog_entry_id_old(const (libgit2_d.types.git_reflog_entry)* entry);
@@ -144,8 +156,10 @@ const (libgit2_d.oid.git_oid)* git_reflog_entry_id_old(const (libgit2_d.types.gi
 /**
  * Get the new oid
  *
- * @param entry a reflog entry
- * @return the new oid at this time
+ * Params:
+ *      entry = a reflog entry
+ *
+ * Returns: the new oid at this time
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_reflog_entry_id_new(const (libgit2_d.types.git_reflog_entry)* entry);
@@ -153,8 +167,10 @@ const (libgit2_d.oid.git_oid)* git_reflog_entry_id_new(const (libgit2_d.types.gi
 /**
  * Get the committer of this entry
  *
- * @param entry a reflog entry
- * @return the committer
+ * Params:
+ *      entry = a reflog entry
+ *
+ * Returns: the committer
  */
 //GIT_EXTERN
 const (libgit2_d.types.git_signature)* git_reflog_entry_committer(const (libgit2_d.types.git_reflog_entry)* entry);
@@ -162,8 +178,10 @@ const (libgit2_d.types.git_signature)* git_reflog_entry_committer(const (libgit2
 /**
  * Get the log message
  *
- * @param entry a reflog entry
- * @return the log msg
+ * Params:
+ *      entry = a reflog entry
+ *
+ * Returns: the log msg
  */
 //GIT_EXTERN
 const (char)* git_reflog_entry_message(const (libgit2_d.types.git_reflog_entry)* entry);
@@ -171,7 +189,8 @@ const (char)* git_reflog_entry_message(const (libgit2_d.types.git_reflog_entry)*
 /**
  * Free the reflog
  *
- * @param reflog reflog to free
+ * Params:
+ *      reflog = reflog to free
  */
 //GIT_EXTERN
 void git_reflog_free(libgit2_d.types.git_reflog* reflog);

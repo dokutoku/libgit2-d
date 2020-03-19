@@ -34,13 +34,12 @@ struct git_credential_userpass_payload
  * git_cred_userpass_plaintext_new unless the protocol has not specified
  * `git_credential_t.GIT_CREDENTIAL_USERPASS_PLAINTEXT` as an allowed type.
  *
- * @param out_ The newly created credential object.
- * @param url The resource for which we are demanding a credential.
- * @param user_from_url The username that was embedded in a "user\@host"
- *                          remote url, or NULL if not included.
- * @param allowed_types A bitmask stating which credential types are OK to return.
- * @param payload The payload provided when specifying this callback.  (This is
- *        interpreted as a `git_credential_userpass_payload*`.)
+ * Params:
+ *      out_ = The newly created credential object.
+ *      url = The resource for which we are demanding a credential.
+ *      user_from_url = The username that was embedded in a "user\@host" remote url, or NULL if not included.
+ *      allowed_types = A bitmask stating which credential types are OK to return.
+ *      payload = The payload provided when specifying this callback.  (This is interpreted as a `git_credential_userpass_payload*`.)
  */
 //GIT_EXTERN
 int git_credential_userpass(libgit2_d.credential.git_credential** out_, const (char)* url, const (char)* user_from_url, uint allowed_types, void* payload);

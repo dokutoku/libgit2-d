@@ -25,9 +25,10 @@ public:
  *
  * Return a negative value to cancel the network operation.
  *
- * @param str The message from the transport
- * @param len The length of the message
- * @param payload Payload provided by the caller
+ * Params:
+ *      str = The message from the transport
+ *      len = The length of the message
+ *      payload = Payload provided by the caller
  */
 alias git_transport_message_cb = int function(const (char)* str, int len, void* payload);
 

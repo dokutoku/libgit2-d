@@ -51,8 +51,10 @@ struct git_index_reuc_entry
 /**
  * Get the count of filename conflict entries currently in the index.
  *
- * @param index an existing index object
- * @return integer of count of current filename conflict entries
+ * Params:
+ *      index = an existing index object
+ *
+ * Returns: integer of count of current filename conflict entries
  */
 //GIT_EXTERN
 size_t git_index_name_entrycount(libgit2_d.types.git_index* index);
@@ -63,9 +65,11 @@ size_t git_index_name_entrycount(libgit2_d.types.git_index* index);
  * The returned entry is read-only and should not be modified
  * or freed by the caller.
  *
- * @param index an existing index object
- * @param n the position of the entry
- * @return a pointer to the filename conflict entry; null if out of bounds
+ * Params:
+ *      index = an existing index object
+ *      n = the position of the entry
+ *
+ * Returns: a pointer to the filename conflict entry; null if out of bounds
  */
 //GIT_EXTERN
 const (.git_index_name_entry)* git_index_name_get_byindex(libgit2_d.types.git_index* index, size_t n);
@@ -73,10 +77,11 @@ const (.git_index_name_entry)* git_index_name_get_byindex(libgit2_d.types.git_in
 /**
  * Record the filenames involved in a rename conflict.
  *
- * @param index an existing index object
- * @param ancestor the path of the file as it existed in the ancestor
- * @param ours the path of the file as it existed in our tree
- * @param theirs the path of the file as it existed in their tree
+ * Params:
+ *      index = an existing index object
+ *      ancestor = the path of the file as it existed in the ancestor
+ *      ours = the path of the file as it existed in our tree
+ *      theirs = the path of the file as it existed in their tree
  */
 //GIT_EXTERN
 int git_index_name_add(libgit2_d.types.git_index* index, const (char)* ancestor, const (char)* ours, const (char)* theirs);
@@ -84,8 +89,10 @@ int git_index_name_add(libgit2_d.types.git_index* index, const (char)* ancestor,
 /**
  * Remove all filename conflict entries.
  *
- * @param index an existing index object
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_name_clear(libgit2_d.types.git_index* index);
@@ -103,8 +110,10 @@ int git_index_name_clear(libgit2_d.types.git_index* index);
 /**
  * Get the count of resolve undo entries currently in the index.
  *
- * @param index an existing index object
- * @return integer of count of current resolve undo entries
+ * Params:
+ *      index = an existing index object
+ *
+ * Returns: integer of count of current resolve undo entries
  */
 //GIT_EXTERN
 size_t git_index_reuc_entrycount(libgit2_d.types.git_index* index);
@@ -113,11 +122,12 @@ size_t git_index_reuc_entrycount(libgit2_d.types.git_index* index);
  * Finds the resolve undo entry that points to the given path in the Git
  * index.
  *
- * @param at_pos the address to which the position of the reuc entry is written
- * (optional)
- * @param index an existing index object
- * @param path path to search
- * @return 0 if found, < 0 otherwise (git_error_code.GIT_ENOTFOUND)
+ * Params:
+ *      at_pos = the address to which the position of the reuc entry is written (optional)
+ *      index = an existing index object
+ *      path = path to search
+ *
+ * Returns: 0 if found, < 0 otherwise (git_error_code.GIT_ENOTFOUND)
  */
 //GIT_EXTERN
 int git_index_reuc_find(size_t* at_pos, libgit2_d.types.git_index* index, const (char)* path);
@@ -128,9 +138,11 @@ int git_index_reuc_find(size_t* at_pos, libgit2_d.types.git_index* index, const 
  * The returned entry is read-only and should not be modified
  * or freed by the caller.
  *
- * @param index an existing index object
- * @param path path to search
- * @return the resolve undo entry; null if not found
+ * Params:
+ *      index = an existing index object
+ *      path = path to search
+ *
+ * Returns: the resolve undo entry; null if not found
  */
 //GIT_EXTERN
 const (.git_index_reuc_entry)* git_index_reuc_get_bypath(libgit2_d.types.git_index* index, const (char)* path);
@@ -141,9 +153,11 @@ const (.git_index_reuc_entry)* git_index_reuc_get_bypath(libgit2_d.types.git_ind
  * The returned entry is read-only and should not be modified
  * or freed by the caller.
  *
- * @param index an existing index object
- * @param n the position of the entry
- * @return a pointer to the resolve undo entry; null if out of bounds
+ * Params:
+ *      index = an existing index object
+ *      n = the position of the entry
+ *
+ * Returns: a pointer to the resolve undo entry; null if out of bounds
  */
 //GIT_EXTERN
 const (.git_index_reuc_entry)* git_index_reuc_get_byindex(libgit2_d.types.git_index* index, size_t n);
@@ -160,15 +174,17 @@ const (.git_index_reuc_entry)* git_index_reuc_get_byindex(libgit2_d.types.git_in
  *
  * This method will fail in bare index instances.
  *
- * @param index an existing index object
- * @param path filename to add
- * @param ancestor_mode mode of the ancestor file
- * @param ancestor_id oid of the ancestor file
- * @param our_mode mode of our file
- * @param our_id oid of our file
- * @param their_mode mode of their file
- * @param their_id oid of their file
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *      path = filename to add
+ *      ancestor_mode = mode of the ancestor file
+ *      ancestor_id = oid of the ancestor file
+ *      our_mode = mode of our file
+ *      our_id = oid of our file
+ *      their_mode = mode of their file
+ *      their_id = oid of their file
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_reuc_add(libgit2_d.types.git_index* index, const (char)* path, int ancestor_mode, const (libgit2_d.oid.git_oid)* ancestor_id, int our_mode, const (libgit2_d.oid.git_oid)* our_id, int their_mode, const (libgit2_d.oid.git_oid)* their_id);
@@ -176,9 +192,11 @@ int git_index_reuc_add(libgit2_d.types.git_index* index, const (char)* path, int
 /**
  * Remove an resolve undo entry from the index
  *
- * @param index an existing index object
- * @param n position of the resolve undo entry to remove
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *      n = position of the resolve undo entry to remove
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_reuc_remove(libgit2_d.types.git_index* index, size_t n);
@@ -186,8 +204,10 @@ int git_index_reuc_remove(libgit2_d.types.git_index* index, size_t n);
 /**
  * Remove all resolve undo entries from the index
  *
- * @param index an existing index object
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_reuc_clear(libgit2_d.types.git_index* index);

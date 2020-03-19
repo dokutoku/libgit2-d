@@ -30,8 +30,10 @@ package(libgit2_d):
  * can fail to function properly: locations under $GIT_DIR, $GIT_COMMON_DIR,
  * or $GIT_INFO_DIR are impacted.
  *
- * @param out_ The blank repository
- * @return 0 on success, or an error code
+ * Params:
+ *      out_ = The blank repository
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_repository_new(libgit2_d.types.git_repository** out_);
@@ -47,8 +49,10 @@ int git_repository_new(libgit2_d.types.git_repository** out_);
  * deallocation. `git_repository_free` already performs this operation
  * before deallocating the repo.
  *
- * @param repo The repository to clean up
- * @return 0 on success, or an error code
+ * Params:
+ *      repo = The repository to clean up
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_repository__cleanup(libgit2_d.types.git_repository* repo);
@@ -64,9 +68,11 @@ int git_repository__cleanup(libgit2_d.types.git_repository* repo);
  * call reruns the phase of repository initialization that sets those
  * properties to compensate for the current filesystem of the repo.
  *
- * @param repo A repository object
- * @param recurse_submodules Should submodules be updated recursively
- * @return 0 on success, < 0 on error
+ * Params:
+ *      repo = A repository object
+ *      recurse_submodules = Should submodules be updated recursively
+ *
+ * Returns: 0 on success, < 0 on error
  */
 //GIT_EXTERN
 int git_repository_reinit_filesystem(libgit2_d.types.git_repository* repo, int recurse_submodules);
@@ -81,9 +87,11 @@ int git_repository_reinit_filesystem(libgit2_d.types.git_repository* repo, int r
  * the user must still free the config after setting it
  * to the repository, or it will leak.
  *
- * @param repo A repository object
- * @param config A Config object
- * @return 0 on success, or an error code
+ * Params:
+ *      repo = A repository object
+ *      config = A Config object
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_repository_set_config(libgit2_d.types.git_repository* repo, libgit2_d.types.git_config* config);
@@ -98,9 +106,11 @@ int git_repository_set_config(libgit2_d.types.git_repository* repo, libgit2_d.ty
  * must still free the ODB object after setting it to the
  * repository, or it will leak.
  *
- * @param repo A repository object
- * @param odb An ODB object
- * @return 0 on success, or an error code
+ * Params:
+ *      repo = A repository object
+ *      odb = An ODB object
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_repository_set_odb(libgit2_d.types.git_repository* repo, libgit2_d.types.git_odb* odb);
@@ -115,9 +125,11 @@ int git_repository_set_odb(libgit2_d.types.git_repository* repo, libgit2_d.types
  * must still free the refdb object after setting it to the
  * repository, or it will leak.
  *
- * @param repo A repository object
- * @param refdb An refdb object
- * @return 0 on success, or an error code
+ * Params:
+ *      repo = A repository object
+ *      refdb = An refdb object
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_repository_set_refdb(libgit2_d.types.git_repository* repo, libgit2_d.types.git_refdb* refdb);
@@ -132,9 +144,11 @@ int git_repository_set_refdb(libgit2_d.types.git_repository* repo, libgit2_d.typ
  * the user must still free the index after setting it
  * to the repository, or it will leak.
  *
- * @param repo A repository object
- * @param index An index object
- * @return 0 on success, or an error code
+ * Params:
+ *      repo = A repository object
+ *      index = An index object
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_repository_set_index(libgit2_d.types.git_repository* repo, libgit2_d.types.git_index* index);
@@ -147,8 +161,10 @@ int git_repository_set_index(libgit2_d.types.git_repository* repo, libgit2_d.typ
  * typically does not have an index, but this function will not do that
  * for you.
  *
- * @param repo Repo to make bare
- * @return 0 on success, <0 on failure
+ * Params:
+ *      repo = Repo to make bare
+ *
+ * Returns: 0 on success, <0 on failure
  */
 //GIT_EXTERN
 int git_repository_set_bare(libgit2_d.types.git_repository* repo);
@@ -162,7 +178,8 @@ int git_repository_set_bare(libgit2_d.types.git_repository* repo);
  * has to look each one up individually.  This function loads all submodules
  * and caches them so that subsequent calls to `git_submodule_lookup` are O(1).
  *
- * @param repo the repository whose submodules will be cached.
+ * Params:
+ *      repo = the repository whose submodules will be cached.
  */
 //GIT_EXTERN
 int git_repository_submodule_cache_all(libgit2_d.types.git_repository* repo);
@@ -177,7 +194,8 @@ int git_repository_submodule_cache_all(libgit2_d.types.git_repository* repo);
  * as the state of the working tree, the index, and HEAD.  So any time any
  * of these has changed, the cache might become invalid.
  *
- * @param repo the repository whose submodule cache will be cleared
+ * Params:
+ *      repo = the repository whose submodule cache will be cleared
  */
 //GIT_EXTERN
 int git_repository_submodule_cache_clear(libgit2_d.types.git_repository* repo);

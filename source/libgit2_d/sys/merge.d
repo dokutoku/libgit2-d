@@ -26,8 +26,10 @@ package(libgit2_d):
 /**
  * Look up a merge driver by name
  *
- * @param name The name of the merge driver
- * @return Pointer to the merge driver object or null if not found
+ * Params:
+ *      name = The name of the merge driver
+ *
+ * Returns: Pointer to the merge driver object or null if not found
  */
 //GIT_EXTERN
 .git_merge_driver* git_merge_driver_lookup(const (char)* name);
@@ -163,12 +165,11 @@ enum GIT_MERGE_DRIVER_VERSION = 1;
  * any possible usage of the drivers (i.e. during application setup or
  * shutdown).
  *
- * @param name The name of this driver to match an attribute.  Attempting
- * 			to register with an in-use name will return git_error_code.GIT_EEXISTS.
- * @param driver The merge driver definition.  This pointer will be stored
- *			as is by libgit2 so it must be a durable allocation
- *(either static or on the heap).
- * @return 0 on successful registry, error code <0 on failure
+ * Params:
+ *      name = The name of this driver to match an attribute.  Attempting to register with an in-use name will return git_error_code.GIT_EEXISTS.
+ *      driver = The merge driver definition.  This pointer will be stored as is by libgit2 so it must be a durable allocation (either static or on the heap).
+ *
+ * Returns: 0 on successful registry, error code <0 on failure
  */
 //GIT_EXTERN
 int git_merge_driver_register(const (char)* name, .git_merge_driver* driver);
@@ -183,8 +184,10 @@ int git_merge_driver_register(const (char)* name, .git_merge_driver* driver);
  * registering or deregistering of drivers must be done outside of any
  * possible usage of the drivers (i.e. during application setup or shutdown).
  *
- * @param name The name under which the merge driver was registered
- * @return 0 on success, error code <0 on failure
+ * Params:
+ *      name = The name under which the merge driver was registered
+ *
+ * Returns: 0 on success, error code <0 on failure
  */
 //GIT_EXTERN
 int git_merge_driver_unregister(const (char)* name);

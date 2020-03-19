@@ -75,10 +75,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_merge_file_input` with default values. Equivalent to
  * creating an instance with GIT_MERGE_FILE_INPUT_INIT.
  *
- * @param opts the `git_merge_file_input` instance to initialize.
- * @param version_ the version of the struct; you should pass
- *        `GIT_MERGE_FILE_INPUT_VERSION` here.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = the `git_merge_file_input` instance to initialize.
+ *      version_ = the version of the struct; you should pass `GIT_MERGE_FILE_INPUT_VERSION` here.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_merge_file_input_init(.git_merge_file_input* opts, uint version_);
@@ -271,9 +272,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_merge_file_options` with default values. Equivalent to
  * creating an instance with `GIT_MERGE_FILE_OPTIONS_INIT`.
  *
- * @param opts The `git_merge_file_options` struct to initialize.
- * @param version The struct version; pass `GIT_MERGE_FILE_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_merge_file_options` struct to initialize.
+ *      version = The struct version; pass `GIT_MERGE_FILE_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_merge_file_options_init(.git_merge_file_options* opts, uint version_);
@@ -395,9 +398,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_merge_options` with default values. Equivalent to
  * creating an instance with `GIT_MERGE_OPTIONS_INIT`.
  *
- * @param opts The `git_merge_options` struct to initialize.
- * @param version The struct version; pass `GIT_MERGE_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_merge_options` struct to initialize.
+ *      version = The struct version; pass `GIT_MERGE_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_merge_options_init(.git_merge_options* opts, uint version_);
@@ -467,11 +472,13 @@ enum git_merge_preference_t
  * Analyzes the given branch(es) and determines the opportunities for
  * merging them into the HEAD of the repository.
  *
- * @param analysis_out analysis enumeration that the result is written into
- * @param repo the repository to merge
- * @param their_heads the heads to merge into
- * @param their_heads_len the number of heads to merge
- * @return 0 on success or error code
+ * Params:
+ *      analysis_out = analysis enumeration that the result is written into
+ *      repo = the repository to merge
+ *      their_heads = the heads to merge into
+ *      their_heads_len = the number of heads to merge
+ *
+ * Returns: 0 on success or error code
  */
 //GIT_EXTERN
 int git_merge_analysis(.git_merge_analysis_t* analysis_out, .git_merge_preference_t* preference_out, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_annotated_commit)** their_heads, size_t their_heads_len);
@@ -480,12 +487,14 @@ int git_merge_analysis(.git_merge_analysis_t* analysis_out, .git_merge_preferenc
  * Analyzes the given branch(es) and determines the opportunities for
  * merging them into a reference.
  *
- * @param analysis_out analysis enumeration that the result is written into
- * @param repo the repository to merge
- * @param our_ref the reference to perform the analysis from
- * @param their_heads the heads to merge into
- * @param their_heads_len the number of heads to merge
- * @return 0 on success or error code
+ * Params:
+ *      analysis_out = analysis enumeration that the result is written into
+ *      repo = the repository to merge
+ *      our_ref = the reference to perform the analysis from
+ *      their_heads = the heads to merge into
+ *      their_heads_len = the number of heads to merge
+ *
+ * Returns: 0 on success or error code
  */
 //GIT_EXTERN
 int git_merge_analysis_for_ref(.git_merge_analysis_t* analysis_out, .git_merge_preference_t* preference_out, libgit2_d.types.git_repository* repo, libgit2_d.types.git_reference* our_ref, const (libgit2_d.types.git_annotated_commit)** their_heads, size_t their_heads_len);
@@ -493,11 +502,13 @@ int git_merge_analysis_for_ref(.git_merge_analysis_t* analysis_out, .git_merge_p
 /**
  * Find a merge base between two commits
  *
- * @param out_ the OID of a merge base between 'one' and 'two'
- * @param repo the repository where the commits exist
- * @param one one of the commits
- * @param two the other commit
- * @return 0 on success, git_error_code.GIT_ENOTFOUND if not found or error code
+ * Params:
+ *      out_ = the OID of a merge base between 'one' and 'two'
+ *      repo = the repository where the commits exist
+ *      one = one of the commits
+ *      two = the other commit
+ *
+ * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if not found or error code
  */
 //GIT_EXTERN
 int git_merge_base(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* one, const (libgit2_d.oid.git_oid)* two);
@@ -505,11 +516,13 @@ int git_merge_base(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* 
 /**
  * Find merge bases between two commits
  *
- * @param out_ array in which to store the resulting ids
- * @param repo the repository where the commits exist
- * @param one one of the commits
- * @param two the other commit
- * @return 0 on success, git_error_code.GIT_ENOTFOUND if not found or error code
+ * Params:
+ *      out_ = array in which to store the resulting ids
+ *      repo = the repository where the commits exist
+ *      one = one of the commits
+ *      two = the other commit
+ *
+ * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if not found or error code
  */
 //GIT_EXTERN
 int git_merge_bases(libgit2_d.oidarray.git_oidarray* out_, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* one, const (libgit2_d.oid.git_oid)* two);
@@ -517,11 +530,13 @@ int git_merge_bases(libgit2_d.oidarray.git_oidarray* out_, libgit2_d.types.git_r
 /**
  * Find a merge base given a list of commits
  *
- * @param out_ the OID of a merge base considering all the commits
- * @param repo the repository where the commits exist
- * @param length The number of commits in the provided `input_array`
- * @param input_array oids of the commits
- * @return Zero on success; git_error_code.GIT_ENOTFOUND or -1 on failure.
+ * Params:
+ *      out_ = the OID of a merge base considering all the commits
+ *      repo = the repository where the commits exist
+ *      length = The number of commits in the provided `input_array`
+ *      input_array = oids of the commits
+ *
+ * Returns: Zero on success; git_error_code.GIT_ENOTFOUND or -1 on failure.
  */
 //GIT_EXTERN
 int git_merge_base_many(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, size_t length, const libgit2_d.oid.git_oid[] input_array);
@@ -529,11 +544,13 @@ int git_merge_base_many(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_reposit
 /**
  * Find all merge bases given a list of commits
  *
- * @param out_ array in which to store the resulting ids
- * @param repo the repository where the commits exist
- * @param length The number of commits in the provided `input_array`
- * @param input_array oids of the commits
- * @return Zero on success; git_error_code.GIT_ENOTFOUND or -1 on failure.
+ * Params:
+ *      out_ = array in which to store the resulting ids
+ *      repo = the repository where the commits exist
+ *      length = The number of commits in the provided `input_array`
+ *      input_array = oids of the commits
+ *
+ * Returns: Zero on success; git_error_code.GIT_ENOTFOUND or -1 on failure.
  */
 //GIT_EXTERN
 int git_merge_bases_many(libgit2_d.oidarray.git_oidarray* out_, libgit2_d.types.git_repository* repo, size_t length, const libgit2_d.oid.git_oid[] input_array);
@@ -541,11 +558,13 @@ int git_merge_bases_many(libgit2_d.oidarray.git_oidarray* out_, libgit2_d.types.
 /**
  * Find a merge base in preparation for an octopus merge
  *
- * @param out_ the OID of a merge base considering all the commits
- * @param repo the repository where the commits exist
- * @param length The number of commits in the provided `input_array`
- * @param input_array oids of the commits
- * @return Zero on success; git_error_code.GIT_ENOTFOUND or -1 on failure.
+ * Params:
+ *      out_ = the OID of a merge base considering all the commits
+ *      repo = the repository where the commits exist
+ *      length = The number of commits in the provided `input_array`
+ *      input_array = oids of the commits
+ *
+ * Returns: Zero on success; git_error_code.GIT_ENOTFOUND or -1 on failure.
  */
 //GIT_EXTERN
 int git_merge_base_octopus(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, size_t length, const libgit2_d.oid.git_oid[] input_array);
@@ -559,12 +578,14 @@ int git_merge_base_octopus(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repo
  * Note that this function does not reference a repository and any
  * configuration must be passed as `git_merge_file_options`.
  *
- * @param out_ The git_merge_file_result to be filled in
- * @param ancestor The contents of the ancestor file
- * @param ours The contents of the file in "our" side
- * @param theirs The contents of the file in "their" side
- * @param opts The merge file options or `null` for defaults
- * @return 0 on success or error code
+ * Params:
+ *      out_ = The git_merge_file_result to be filled in
+ *      ancestor = The contents of the ancestor file
+ *      ours = The contents of the file in "our" side
+ *      theirs = The contents of the file in "their" side
+ *      opts = The merge file options or `null` for defaults
+ *
+ * Returns: 0 on success or error code
  */
 //GIT_EXTERN
 int git_merge_file(.git_merge_file_result* out_, const (.git_merge_file_input)* ancestor, const (.git_merge_file_input)* ours, const (.git_merge_file_input)* theirs, const (.git_merge_file_options)* opts);
@@ -575,13 +596,15 @@ int git_merge_file(.git_merge_file_result* out_, const (.git_merge_file_input)* 
  * reflects the merge result.  The `git_merge_file_result` must be freed with
  * `git_merge_file_result_free`.
  *
- * @param out_ The git_merge_file_result to be filled in
- * @param repo The repository
- * @param ancestor The index entry for the ancestor file (stage level 1)
- * @param ours The index entry for our file (stage level 2)
- * @param theirs The index entry for their file (stage level 3)
- * @param opts The merge file options or null
- * @return 0 on success or error code
+ * Params:
+ *      out_ = The git_merge_file_result to be filled in
+ *      repo = The repository
+ *      ancestor = The index entry for the ancestor file (stage level 1)
+ *      ours = The index entry for our file (stage level 2)
+ *      theirs = The index entry for their file (stage level 3)
+ *      opts = The merge file options or null
+ *
+ * Returns: 0 on success or error code
  */
 //GIT_EXTERN
 int git_merge_file_from_index(.git_merge_file_result* out_, libgit2_d.types.git_repository* repo, const (libgit2_d.index.git_index_entry)* ancestor, const (libgit2_d.index.git_index_entry)* ours, const (libgit2_d.index.git_index_entry)* theirs, const (.git_merge_file_options)* opts);
@@ -589,7 +612,8 @@ int git_merge_file_from_index(.git_merge_file_result* out_, libgit2_d.types.git_
 /**
  * Frees a `git_merge_file_result`.
  *
- * @param result The result to free or `null`
+ * Params:
+ *      result = The result to free or `null`
  */
 //GIT_EXTERN
 void git_merge_file_result_free(.git_merge_file_result* result);
@@ -602,13 +626,15 @@ void git_merge_file_result_free(.git_merge_file_result* result);
  *
  * The returned index must be freed explicitly with `git_index_free`.
  *
- * @param out_ pointer to store the index result in
- * @param repo repository that contains the given trees
- * @param ancestor_tree the common ancestor between the trees (or null if none)
- * @param our_tree the tree that reflects the destination tree
- * @param their_tree the tree to merge in to `our_tree`
- * @param opts the merge tree options (or null for defaults)
- * @return 0 on success or error code
+ * Params:
+ *      out_ = pointer to store the index result in
+ *      repo = repository that contains the given trees
+ *      ancestor_tree = the common ancestor between the trees (or null if none)
+ *      our_tree = the tree that reflects the destination tree
+ *      their_tree = the tree to merge in to `our_tree`
+ *      opts = the merge tree options (or null for defaults)
+ *
+ * Returns: 0 on success or error code
  */
 //GIT_EXTERN
 int git_merge_trees(libgit2_d.types.git_index** out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_tree)* ancestor_tree, const (libgit2_d.types.git_tree)* our_tree, const (libgit2_d.types.git_tree)* their_tree, const (.git_merge_options)* opts);
@@ -621,12 +647,14 @@ int git_merge_trees(libgit2_d.types.git_index** out_, libgit2_d.types.git_reposi
  *
  * The returned index must be freed explicitly with `git_index_free`.
  *
- * @param out_ pointer to store the index result in
- * @param repo repository that contains the given trees
- * @param our_commit the commit that reflects the destination tree
- * @param their_commit the commit to merge in to `our_commit`
- * @param opts the merge tree options (or null for defaults)
- * @return 0 on success or error code
+ * Params:
+ *      out_ = pointer to store the index result in
+ *      repo = repository that contains the given trees
+ *      our_commit = the commit that reflects the destination tree
+ *      their_commit = the commit to merge in to `our_commit`
+ *      opts = the merge tree options (or null for defaults)
+ *
+ * Returns: 0 on success or error code
  */
 //GIT_EXTERN
 int git_merge_commits(libgit2_d.types.git_index** out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_commit)* our_commit, const (libgit2_d.types.git_commit)* their_commit, const (.git_merge_options)* opts);
@@ -642,12 +670,14 @@ int git_merge_commits(libgit2_d.types.git_index** out_, libgit2_d.types.git_repo
  * you should clear this state by calling
  * `git_repository_state_cleanup()`.
  *
- * @param repo the repository to merge
- * @param their_heads the heads to merge into
- * @param their_heads_len the number of heads to merge
- * @param merge_opts merge options
- * @param checkout_opts checkout options
- * @return 0 on success or error code
+ * Params:
+ *      repo = the repository to merge
+ *      their_heads = the heads to merge into
+ *      their_heads_len = the number of heads to merge
+ *      merge_opts = merge options
+ *      checkout_opts = checkout options
+ *
+ * Returns: 0 on success or error code
  */
 //GIT_EXTERN
 int git_merge(libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_annotated_commit)** their_heads, size_t their_heads_len, const (.git_merge_options)* merge_opts, const (libgit2_d.checkout.git_checkout_options)* checkout_opts);

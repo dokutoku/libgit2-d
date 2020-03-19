@@ -70,9 +70,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_revert_options` with default values. Equivalent to
  * creating an instance with `GIT_REVERT_OPTIONS_INIT`.
  *
- * @param opts The `git_revert_options` struct to initialize.
- * @param version The struct version; pass `GIT_REVERT_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_revert_options` struct to initialize.
+ *      version = The struct version; pass `GIT_REVERT_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_revert_options_init(.git_revert_options* opts, uint version_);
@@ -83,13 +85,15 @@ int git_revert_options_init(.git_revert_options* opts, uint version_);
  *
  * The returned index must be freed explicitly with `git_index_free`.
  *
- * @param out_ pointer to store the index result in
- * @param repo the repository that contains the given commits
- * @param revert_commit the commit to revert
- * @param our_commit the commit to revert against (eg, HEAD)
- * @param mainline the parent of the revert commit, if it is a merge
- * @param merge_options the merge options (or null for defaults)
- * @return zero on success, -1 on failure.
+ * Params:
+ *      out_ = pointer to store the index result in
+ *      repo = the repository that contains the given commits
+ *      revert_commit = the commit to revert
+ *      our_commit = the commit to revert against (eg, HEAD)
+ *      mainline = the parent of the revert commit, if it is a merge
+ *      merge_options = the merge options (or null for defaults)
+ *
+ * Returns: zero on success, -1 on failure.
  */
 //GIT_EXTERN
 int git_revert_commit(libgit2_d.types.git_index** out_, libgit2_d.types.git_repository* repo, libgit2_d.types.git_commit* revert_commit, libgit2_d.types.git_commit* our_commit, uint mainline, const (libgit2_d.merge.git_merge_options)* merge_options);
@@ -98,10 +102,12 @@ int git_revert_commit(libgit2_d.types.git_index** out_, libgit2_d.types.git_repo
  * Reverts the given commit, producing changes in the index and working
  * directory.
  *
- * @param repo the repository to revert
- * @param commit the commit to revert
- * @param given_opts the revert options (or null for defaults)
- * @return zero on success, -1 on failure.
+ * Params:
+ *      repo = the repository to revert
+ *      commit = the commit to revert
+ *      given_opts = the revert options (or null for defaults)
+ *
+ * Returns: zero on success, -1 on failure.
  */
 //GIT_EXTERN
 int git_revert(libgit2_d.types.git_repository* repo, libgit2_d.types.git_commit* commit, const (.git_revert_options)* given_opts);

@@ -26,8 +26,10 @@ public:
  * This object is empty, so you'll have to add a mailmap file before you can do
  * anything with it. The mailmap must be freed with 'git_mailmap_free'.
  *
- * @param out_ pointer to store the new mailmap
- * @return 0 on success, or an error code
+ * Params:
+ *      out_ = pointer to store the new mailmap
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_mailmap_new(libgit2_d.types.git_mailmap** out_);
@@ -35,7 +37,8 @@ int git_mailmap_new(libgit2_d.types.git_mailmap** out_);
 /**
  * Free the mailmap and its associated memory.
  *
- * @param mm the mailmap to free
+ * Params:
+ *      mm = the mailmap to free
  */
 //GIT_EXTERN
 void git_mailmap_free(libgit2_d.types.git_mailmap* mm);
@@ -44,12 +47,14 @@ void git_mailmap_free(libgit2_d.types.git_mailmap* mm);
  * Add a single entry to the given mailmap object. If the entry already exists,
  * it will be replaced with the new entry.
  *
- * @param mm mailmap to add the entry to
- * @param real_name the real name to use, or NULL
- * @param real_email the real email to use, or NULL
- * @param replace_name the name to replace, or NULL
- * @param replace_email the email to replace
- * @return 0 on success, or an error code
+ * Params:
+ *      mm = mailmap to add the entry to
+ *      real_name = the real name to use, or NULL
+ *      real_email = the real email to use, or NULL
+ *      replace_name = the name to replace, or NULL
+ *      replace_email = the email to replace
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_mailmap_add_entry(libgit2_d.types.git_mailmap* mm, const (char)* real_name, const (char)* real_email, const (char)* replace_name, const (char)* replace_email);
@@ -57,10 +62,12 @@ int git_mailmap_add_entry(libgit2_d.types.git_mailmap* mm, const (char)* real_na
 /**
  * Create a new mailmap instance containing a single mailmap file
  *
- * @param out_ pointer to store the new mailmap
- * @param buf buffer to parse the mailmap from
- * @param len the length of the input buffer
- * @return 0 on success, or an error code
+ * Params:
+ *      out_ = pointer to store the new mailmap
+ *      buf = buffer to parse the mailmap from
+ *      len = the length of the input buffer
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_mailmap_from_buffer(libgit2_d.types.git_mailmap** out_, const (char)* buf, size_t len);
@@ -75,9 +82,11 @@ int git_mailmap_from_buffer(libgit2_d.types.git_mailmap** out_, const (char)* bu
  * 	   [NOTE: 'mailmap.blob' defaults to 'HEAD:.mailmap' in bare repositories]
  *  3. The path in the 'mailmap.file' config entry, if set.
  *
- * @param out_ pointer to store the new mailmap
- * @param repo repository to load mailmap information from
- * @return 0 on success, or an error code
+ * Params:
+ *      out_ = pointer to store the new mailmap
+ *      repo = repository to load mailmap information from
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_mailmap_from_repository(libgit2_d.types.git_mailmap** out_, libgit2_d.types.git_repository* repo);
@@ -87,12 +96,14 @@ int git_mailmap_from_repository(libgit2_d.types.git_mailmap** out_, libgit2_d.ty
  *
  * The lifetime of the strings are tied to `mm`, `name`, and `email` parameters.
  *
- * @param real_name pointer to store the real name
- * @param real_email pointer to store the real email
- * @param mm the mailmap to perform a lookup with (may be NULL)
- * @param name the name to look up
- * @param email the email to look up
- * @return 0 on success, or an error code
+ * Params:
+ *      real_name = pointer to store the real name
+ *      real_email = pointer to store the real email
+ *      mm = the mailmap to perform a lookup with (may be NULL)
+ *      name = the name to look up
+ *      email = the email to look up
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_mailmap_resolve(const (char)** real_name, const (char)** real_email, const (libgit2_d.types.git_mailmap)* mm, const (char)* name, const (char)* email);
@@ -102,10 +113,12 @@ int git_mailmap_resolve(const (char)** real_name, const (char)** real_email, con
  *
  * Call `git_signature_free()` to free the data.
  *
- * @param out_ new signature
- * @param mm mailmap to resolve with
- * @param sig signature to resolve
- * @return 0 or an error code
+ * Params:
+ *      out_ = new signature
+ *      mm = mailmap to resolve with
+ *      sig = signature to resolve
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_mailmap_resolve_signature(libgit2_d.types.git_signature** out_, const (libgit2_d.types.git_mailmap)* mm, const (libgit2_d.types.git_signature)* sig);

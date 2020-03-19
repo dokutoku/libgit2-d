@@ -438,9 +438,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_checkout_options` with default values. Equivalent to creating
  * an instance with GIT_CHECKOUT_OPTIONS_INIT.
  *
- * @param opts The `git_checkout_options` struct to initialize.
- * @param version The struct version; pass `GIT_CHECKOUT_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_checkout_options` struct to initialize.
+ *      version = The struct version; pass `GIT_CHECKOUT_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_checkout_options_init(.git_checkout_options* opts, uint version_);
@@ -456,11 +458,11 @@ int git_checkout_options_init(.git_checkout_options* opts, uint version_);
  * then update `HEAD` using `git_repository_set_head` to point to the
  * branch you checked out.
  *
- * @param repo repository to check out (must be non-bare)
- * @param opts specifies checkout options (may be null)
- * @return 0 on success, git_error_code.GIT_EUNBORNBRANCH if HEAD points to a non
- *         existing branch, non-zero value returned by `notify_cb`, or
- *         other error code < 0 (use git_error_last for error details)
+ * Params:
+ *      repo = repository to check out (must be non-bare)
+ *      opts = specifies checkout options (may be null)
+ *
+ * Returns: 0 on success, git_error_code.GIT_EUNBORNBRANCH if HEAD points to a non existing branch, non-zero value returned by `notify_cb`, or other error code < 0 (use git_error_last for error details)
  */
 //GIT_EXTERN
 int git_checkout_head(libgit2_d.types.git_repository* repo, const (.git_checkout_options)* opts);
@@ -468,11 +470,12 @@ int git_checkout_head(libgit2_d.types.git_repository* repo, const (.git_checkout
 /**
  * Updates files in the working tree to match the content of the index.
  *
- * @param repo repository into which to check out (must be non-bare)
- * @param index index to be checked out (or null to use repository index)
- * @param opts specifies checkout options (may be null)
- * @return 0 on success, non-zero return value from `notify_cb`, or error
- *         code < 0 (use git_error_last for error details)
+ * Params:
+ *      repo = repository into which to check out (must be non-bare)
+ *      index = index to be checked out (or null to use repository index)
+ *      opts = specifies checkout options (may be null)
+ *
+ * Returns: 0 on success, non-zero return value from `notify_cb`, or error code < 0 (use git_error_last for error details)
  */
 //GIT_EXTERN
 int git_checkout_index(libgit2_d.types.git_repository* repo, libgit2_d.types.git_index* index, const (.git_checkout_options)* opts);
@@ -481,12 +484,12 @@ int git_checkout_index(libgit2_d.types.git_repository* repo, libgit2_d.types.git
  * Updates files in the index and working tree to match the content of the
  * tree pointed at by the treeish.
  *
- * @param repo repository to check out (must be non-bare)
- * @param treeish a commit, tag or tree which content will be used to update
- * the working directory (or null to use HEAD)
- * @param opts specifies checkout options (may be null)
- * @return 0 on success, non-zero return value from `notify_cb`, or error
- *         code < 0 (use git_error_last for error details)
+ * Params:
+ *      repo = repository to check out (must be non-bare)
+ *      treeish = a commit, tag or tree which content will be used to update the working directory (or null to use HEAD)
+ *      opts = specifies checkout options (may be null)
+ *
+ * Returns: 0 on success, non-zero return value from `notify_cb`, or error code < 0 (use git_error_last for error details)
  */
 //GIT_EXTERN
 int git_checkout_tree(libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_object)* treeish, const (.git_checkout_options)* opts);

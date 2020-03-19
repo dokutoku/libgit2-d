@@ -218,9 +218,11 @@ enum git_index_stage_t
  *
  * The index must be freed once it's no longer in use.
  *
- * @param out_ the pointer for the new index
- * @param index_path the path to the index file in disk
- * @return 0 or an error code
+ * Params:
+ *      out_ = the pointer for the new index
+ *      index_path = the path to the index file in disk
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_open(libgit2_d.types.git_index** out_, const (char)* index_path);
@@ -233,8 +235,10 @@ int git_index_open(libgit2_d.types.git_index** out_, const (char)* index_path);
  *
  * The index must be freed once it's no longer in use.
  *
- * @param out_ the pointer for the new index
- * @return 0 or an error code
+ * Params:
+ *      out_ = the pointer for the new index
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_new(libgit2_d.types.git_index** out_);
@@ -242,7 +246,8 @@ int git_index_new(libgit2_d.types.git_index** out_);
 /**
  * Free an existing index object.
  *
- * @param index an existing index object
+ * Params:
+ *      index = an existing index object
  */
 //GIT_EXTERN
 void git_index_free(libgit2_d.types.git_index* index);
@@ -250,8 +255,10 @@ void git_index_free(libgit2_d.types.git_index* index);
 /**
  * Get the repository this index relates to
  *
- * @param index The index
- * @return A pointer to the repository
+ * Params:
+ *      index = The index
+ *
+ * Returns: A pointer to the repository
  */
 //GIT_EXTERN
 libgit2_d.types.git_repository* git_index_owner(const (libgit2_d.types.git_index)* index);
@@ -259,8 +266,10 @@ libgit2_d.types.git_repository* git_index_owner(const (libgit2_d.types.git_index
 /**
  * Read index capabilities flags.
  *
- * @param index An existing index object
- * @return A combination of GIT_INDEX_CAPABILITY values
+ * Params:
+ *      index = An existing index object
+ *
+ * Returns: A combination of GIT_INDEX_CAPABILITY values
  */
 //GIT_EXTERN
 int git_index_caps(const (libgit2_d.types.git_index)* index);
@@ -272,9 +281,11 @@ int git_index_caps(const (libgit2_d.types.git_index)* index);
  * capabilities will be read from the config of the owner object,
  * looking at `core.ignorecase`, `core.filemode`, `core.symlinks`.
  *
- * @param index An existing index object
- * @param caps A combination of GIT_INDEX_CAPABILITY values
- * @return 0 on success, -1 on failure
+ * Params:
+ *      index = An existing index object
+ *      caps = A combination of GIT_INDEX_CAPABILITY values
+ *
+ * Returns: 0 on success, -1 on failure
  */
 //GIT_EXTERN
 int git_index_set_caps(libgit2_d.types.git_index* index, int caps);
@@ -286,8 +297,10 @@ int git_index_set_caps(libgit2_d.types.git_index* index, int caps);
  * with version 2 may be written instead, if the extension data in
  * version 3 is not necessary.
  *
- * @param index An existing index object
- * @return the index version
+ * Params:
+ *      index = An existing index object
+ *
+ * Returns: the index version
  */
 //GIT_EXTERN
 uint git_index_version(libgit2_d.types.git_index* index);
@@ -299,9 +312,11 @@ uint git_index_version(libgit2_d.types.git_index* index);
  * write an index with version 3 instead, if necessary to accurately
  * represent the index.
  *
- * @param index An existing index object
- * @param version_ The new version number
- * @return 0 on success, -1 on failure
+ * Params:
+ *      index = An existing index object
+ *      version_ = The new version number
+ *
+ * Returns: 0 on success, -1 on failure
  */
 //GIT_EXTERN
 int git_index_set_version(libgit2_d.types.git_index* index, uint version_);
@@ -319,9 +334,11 @@ int git_index_set_version(libgit2_d.types.git_index* index, uint version_);
  * loaded.  Purely in-memory index data will be untouched.  Be aware: if
  * there are changes on disk, unwritten in-memory changes are discarded.
  *
- * @param index an existing index object
- * @param force if true, always reload, vs. only read if file has changed
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *      force = if true, always reload, vs. only read if file has changed
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_read(libgit2_d.types.git_index* index, int force);
@@ -330,8 +347,10 @@ int git_index_read(libgit2_d.types.git_index* index, int force);
  * Write an existing index object from memory back to disk
  * using an atomic file lock.
  *
- * @param index an existing index object
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_write(libgit2_d.types.git_index* index);
@@ -339,8 +358,10 @@ int git_index_write(libgit2_d.types.git_index* index);
 /**
  * Get the full path to the index file on disk.
  *
- * @param index an existing index object
- * @return path to index file or null for in-memory index
+ * Params:
+ *      index = an existing index object
+ *
+ * Returns: path to index file or null for in-memory index
  */
 //GIT_EXTERN
 const (char)* git_index_path(const (libgit2_d.types.git_index)* index);
@@ -352,8 +373,10 @@ const (char)* git_index_path(const (libgit2_d.types.git_index)* index);
  * last 20 bytes which are the checksum itself). In cases where the
  * index does not exist on-disk, it will be zeroed out.
  *
- * @param index an existing index object
- * @return a pointer to the checksum of the index
+ * Params:
+ *      index = an existing index object
+ *
+ * Returns: a pointer to the checksum of the index
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_index_checksum(libgit2_d.types.git_index* index);
@@ -363,9 +386,11 @@ const (libgit2_d.oid.git_oid)* git_index_checksum(libgit2_d.types.git_index* ind
  *
  * The current index contents will be replaced by the specified tree.
  *
- * @param index an existing index object
- * @param tree tree to read
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *      tree = tree to read
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_read_tree(libgit2_d.types.git_index* index, const (libgit2_d.types.git_tree)* tree);
@@ -384,10 +409,11 @@ int git_index_read_tree(libgit2_d.types.git_index* index, const (libgit2_d.types
  *
  * The index must not contain any file in conflict.
  *
- * @param out_ Pointer where to store the OID of the written tree
- * @param index Index to write
- * @return 0 on success, git_error_code.GIT_EUNMERGED when the index is not clean
- * or an error code
+ * Params:
+ *      out_ = Pointer where to store the OID of the written tree
+ *      index = Index to write
+ *
+ * Returns: 0 on success, git_error_code.GIT_EUNMERGED when the index is not clean or an error code
  */
 //GIT_EXTERN
 int git_index_write_tree(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_index* index);
@@ -401,11 +427,12 @@ int git_index_write_tree(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_index*
  *
  * The index must not contain any file in conflict.
  *
- * @param out_ Pointer where to store OID of the the written tree
- * @param index Index to write
- * @param repo Repository where to write the tree
- * @return 0 on success, git_error_code.GIT_EUNMERGED when the index is not clean
- * or an error code
+ * Params:
+ *      out_ = Pointer where to store OID of the the written tree
+ *      index = Index to write
+ *      repo = Repository where to write the tree
+ *
+ * Returns: 0 on success, git_error_code.GIT_EUNMERGED when the index is not clean or an error code
  */
 //GIT_EXTERN
 int git_index_write_tree_to(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_index* index, libgit2_d.types.git_repository* repo);
@@ -425,8 +452,10 @@ int git_index_write_tree_to(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_ind
 /**
  * Get the count of entries currently in the index
  *
- * @param index an existing index object
- * @return integer of count of current entries
+ * Params:
+ *      index = an existing index object
+ *
+ * Returns: integer of count of current entries
  */
 //GIT_EXTERN
 size_t git_index_entrycount(const (libgit2_d.types.git_index)* index);
@@ -437,8 +466,10 @@ size_t git_index_entrycount(const (libgit2_d.types.git_index)* index);
  * This clears the index object in memory; changes must be explicitly
  * written to disk for them to take effect persistently.
  *
- * @param index an existing index object
- * @return 0 on success, error code < 0 on failure
+ * Params:
+ *      index = an existing index object
+ *
+ * Returns: 0 on success, error code < 0 on failure
  */
 //GIT_EXTERN
 int git_index_clear(libgit2_d.types.git_index* index);
@@ -450,9 +481,11 @@ int git_index_clear(libgit2_d.types.git_index* index);
  * `git_index_entry` struct is a publicly defined struct, you should
  * be able to make your own permanent copy of the data if necessary.
  *
- * @param index an existing index object
- * @param n the position of the entry
- * @return a pointer to the entry; null if out of bounds
+ * Params:
+ *      index = an existing index object
+ *      n = the position of the entry
+ *
+ * Returns: a pointer to the entry; null if out of bounds
  */
 //GIT_EXTERN
 const (.git_index_entry)* git_index_get_byindex(libgit2_d.types.git_index* index, size_t n);
@@ -464,10 +497,12 @@ const (.git_index_entry)* git_index_get_byindex(libgit2_d.types.git_index* index
  * `git_index_entry` struct is a publicly defined struct, you should
  * be able to make your own permanent copy of the data if necessary.
  *
- * @param index an existing index object
- * @param path path to search
- * @param stage stage to search
- * @return a pointer to the entry; null if it was not found
+ * Params:
+ *      index = an existing index object
+ *      path = path to search
+ *      stage = stage to search
+ *
+ * Returns: a pointer to the entry; null if it was not found
  */
 //GIT_EXTERN
 const (.git_index_entry)* git_index_get_bypath(libgit2_d.types.git_index* index, const (char)* path, int stage);
@@ -475,10 +510,12 @@ const (.git_index_entry)* git_index_get_bypath(libgit2_d.types.git_index* index,
 /**
  * Remove an entry from the index
  *
- * @param index an existing index object
- * @param path path to search
- * @param stage stage to search
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *      path = path to search
+ *      stage = stage to search
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_remove(libgit2_d.types.git_index* index, const (char)* path, int stage);
@@ -486,10 +523,12 @@ int git_index_remove(libgit2_d.types.git_index* index, const (char)* path, int s
 /**
  * Remove all entries from the index under a given directory
  *
- * @param index an existing index object
- * @param dir container directory path
- * @param stage stage to search
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *      dir = container directory path
+ *      stage = stage to search
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_remove_directory(libgit2_d.types.git_index* index, const (char)* dir, int stage);
@@ -504,9 +543,11 @@ int git_index_remove_directory(libgit2_d.types.git_index* index, const (char)* d
  * A full copy (including the 'path' string) of the given
  * 'source_entry' will be inserted on the index.
  *
- * @param index an existing index object
- * @param source_entry new entry object
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *      source_entry = new entry object
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_add(libgit2_d.types.git_index* index, const (.git_index_entry)* source_entry);
@@ -518,8 +559,10 @@ int git_index_add(libgit2_d.types.git_index* index, const (.git_index_entry)* so
  *
  *    (entry->flags & GIT_INDEX_ENTRY_STAGEMASK) >> GIT_INDEX_ENTRY_STAGESHIFT
  *
- * @param entry The entry
- * @return the stage number
+ * Params:
+ *      entry = The entry
+ *
+ * Returns: the stage number
  */
 //GIT_EXTERN
 int git_index_entry_stage(const (.git_index_entry)* entry);
@@ -528,8 +571,10 @@ int git_index_entry_stage(const (.git_index_entry)* entry);
  * Return whether the given index entry is a conflict (has a high stage
  * entry).  This is simply shorthand for `git_index_entry_stage > 0`.
  *
- * @param entry The entry
- * @return 1 if the entry is a conflict entry, 0 otherwise
+ * Params:
+ *      entry = The entry
+ *
+ * Returns: 1 if the entry is a conflict entry, 0 otherwise
  */
 //GIT_EXTERN
 int git_index_entry_is_conflict(const (.git_index_entry)* entry);
@@ -549,8 +594,9 @@ int git_index_entry_is_conflict(const (.git_index_entry)* entry);
  * callers to modify the index while iterating without affecting the
  * iterator.
  *
- * @param iterator_out The newly created iterator
- * @param index The index to iterate
+ * Params:
+ *      iterator_out = The newly created iterator
+ *      index = The index to iterate
  */
 //GIT_EXTERN
 int git_index_iterator_new(libgit2_d.types.git_index_iterator** iterator_out, libgit2_d.types.git_index* index);
@@ -558,9 +604,11 @@ int git_index_iterator_new(libgit2_d.types.git_index_iterator** iterator_out, li
 /**
  * Return the next index entry in-order from the iterator.
  *
- * @param out_ Pointer to store the index entry in
- * @param iterator The iterator
- * @return 0, git_error_code.GIT_ITEROVER on iteration completion or an error code
+ * Params:
+ *      out_ = Pointer to store the index entry in
+ *      iterator = The iterator
+ *
+ * Returns: 0, git_error_code.GIT_ITEROVER on iteration completion or an error code
  */
 //GIT_EXTERN
 int git_index_iterator_next(const (.git_index_entry)** out_, libgit2_d.types.git_index_iterator* iterator);
@@ -568,7 +616,8 @@ int git_index_iterator_next(const (.git_index_entry)** out_, libgit2_d.types.git
 /**
  * Free the index iterator
  *
- * @param iterator The iterator to free
+ * Params:
+ *      iterator = The iterator to free
  */
 //GIT_EXTERN
 void git_index_iterator_free(libgit2_d.types.git_index_iterator* iterator);
@@ -599,9 +648,11 @@ void git_index_iterator_free(libgit2_d.types.git_index_iterator* iterator);
  * file will no longer be marked as conflicting.  The data about
  * the conflict will be moved to the "resolve undo" (REUC) section.
  *
- * @param index an existing index object
- * @param path filename to add
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *      path = filename to add
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_add_bypath(libgit2_d.types.git_index* index, const (char)* path);
@@ -627,11 +678,13 @@ int git_index_add_bypath(libgit2_d.types.git_index* index, const (char)* path);
  * file will no longer be marked as conflicting.  The data about
  * the conflict will be moved to the "resolve undo" (REUC) section.
  *
- * @param index an existing index object
- * @param entry filename to add
- * @param buffer data to be written into the blob
- * @param len length of the data
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *      entry = filename to add
+ *      buffer = data to be written into the blob
+ *      len = length of the data
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_add_from_buffer(libgit2_d.types.git_index* index, const (.git_index_entry)* entry, const (void)* buffer, size_t len);
@@ -646,9 +699,11 @@ int git_index_add_from_buffer(libgit2_d.types.git_index* index, const (.git_inde
  * file will no longer be marked as conflicting.  The data about
  * the conflict will be moved to the "resolve undo" (REUC) section.
  *
- * @param index an existing index object
- * @param path filename to remove
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *      path = filename to remove
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_remove_bypath(libgit2_d.types.git_index* index, const (char)* path);
@@ -690,14 +745,14 @@ int git_index_remove_bypath(libgit2_d.types.git_index* index, const (char)* path
  * greater than zero will skip the item, and less than zero will abort the
  * scan and return that value to the caller.
  *
- * @param index an existing index object
- * @param pathspec array of path patterns
- * @param flags combination of git_index_add_option_t flags
- * @param callback notification callback for each added/updated path (also
- *                 gets index of matching pathspec entry); can be null;
- *                 return 0 to add, >0 to skip, <0 to abort scan.
- * @param payload payload passed through to callback function
- * @return 0 on success, negative callback return value, or error code
+ * Params:
+ *      index = an existing index object
+ *      pathspec = array of path patterns
+ *      flags = combination of git_index_add_option_t flags
+ *      callback = notification callback for each added/updated path (also gets index of matching pathspec entry); can be null; return 0 to add, >0 to skip, <0 to abort scan.
+ *      payload = payload passed through to callback function
+ *
+ * Returns: 0 on success, negative callback return value, or error code
  */
 //GIT_EXTERN
 int git_index_add_all(libgit2_d.types.git_index* index, const (libgit2_d.strarray.git_strarray)* pathspec, uint flags, .git_index_matched_path_cb callback, void* payload);
@@ -709,13 +764,13 @@ int git_index_add_all(libgit2_d.types.git_index* index, const (libgit2_d.strarra
  * item in the index immediately *before* it is removed.  Return 0 to
  * remove the item, > 0 to skip the item, and < 0 to abort the scan.
  *
- * @param index An existing index object
- * @param pathspec array of path patterns
- * @param callback notification callback for each removed path (also
- *                 gets index of matching pathspec entry); can be null;
- *                 return 0 to add, >0 to skip, <0 to abort scan.
- * @param payload payload passed through to callback function
- * @return 0 on success, negative callback return value, or error code
+ * Params:
+ *      index = An existing index object
+ *      pathspec = array of path patterns
+ *      callback = notification callback for each removed path (also gets index of matching pathspec entry); can be null; return 0 to add, >0 to skip, <0 to abort scan.
+ *      payload = payload passed through to callback function
+ *
+ * Returns: 0 on success, negative callback return value, or error code
  */
 //GIT_EXTERN
 int git_index_remove_all(libgit2_d.types.git_index* index, const (libgit2_d.strarray.git_strarray)* pathspec, .git_index_matched_path_cb callback, void* payload);
@@ -735,13 +790,13 @@ int git_index_remove_all(libgit2_d.types.git_index* index, const (libgit2_d.stra
  * or removed depending on working directory state).  Return 0 to proceed
  * with updating the item, > 0 to skip the item, and < 0 to abort the scan.
  *
- * @param index An existing index object
- * @param pathspec array of path patterns
- * @param callback notification callback for each updated path (also
- *                 gets index of matching pathspec entry); can be null;
- *                 return 0 to add, >0 to skip, <0 to abort scan.
- * @param payload payload passed through to callback function
- * @return 0 on success, negative callback return value, or error code
+ * Params:
+ *      index = An existing index object
+ *      pathspec = array of path patterns
+ *      callback = notification callback for each updated path (also gets index of matching pathspec entry); can be null; return 0 to add, >0 to skip, <0 to abort scan.
+ *      payload = payload passed through to callback function
+ *
+ * Returns: 0 on success, negative callback return value, or error code
  */
 //GIT_EXTERN
 int git_index_update_all(libgit2_d.types.git_index* index, const (libgit2_d.strarray.git_strarray)* pathspec, .git_index_matched_path_cb callback, void* payload);
@@ -750,11 +805,12 @@ int git_index_update_all(libgit2_d.types.git_index* index, const (libgit2_d.stra
  * Find the first position of any entries which point to given
  * path in the Git index.
  *
- * @param at_pos the address to which the position of the index entry is written
- * (optional)
- * @param index an existing index object
- * @param path path to search
- * @return a zero-based position in the index if found; git_error_code.GIT_ENOTFOUND otherwise
+ * Params:
+ *      at_pos = the address to which the position of the index entry is written (optional)
+ *      index = an existing index object
+ *      path = path to search
+ *
+ * Returns: a zero-based position in the index if found; git_error_code.GIT_ENOTFOUND otherwise
  */
 //GIT_EXTERN
 int git_index_find(size_t* at_pos, libgit2_d.types.git_index* index, const (char)* path);
@@ -763,11 +819,12 @@ int git_index_find(size_t* at_pos, libgit2_d.types.git_index* index, const (char
  * Find the first position of any entries matching a prefix. To find the first
  * position of a path inside a given folder, suffix the prefix with a '/'.
  *
- * @param at_pos the address to which the position of the index entry is written
- * (optional)
- * @param index an existing index object
- * @param prefix the prefix to search for
- * @return 0 with valid value in at_pos; an error code otherwise
+ * Params:
+ *      at_pos = the address to which the position of the index entry is written (optional)
+ *      index = an existing index object
+ *      prefix = the prefix to search for
+ *
+ * Returns: 0 with valid value in at_pos; an error code otherwise
  */
 //GIT_EXTERN
 int git_index_find_prefix(size_t* at_pos, libgit2_d.types.git_index* index, const (char)* prefix);
@@ -790,11 +847,13 @@ int git_index_find_prefix(size_t* at_pos, libgit2_d.types.git_index* index, cons
  * trees during the merge.  For example, ancestor_entry may be null to
  * indicate that a file was added in both branches and must be resolved.
  *
- * @param index an existing index object
- * @param ancestor_entry the entry data for the ancestor of the conflict
- * @param our_entry the entry data for our side of the merge conflict
- * @param their_entry the entry data for their side of the merge conflict
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *      ancestor_entry = the entry data for the ancestor of the conflict
+ *      our_entry = the entry data for our side of the merge conflict
+ *      their_entry = the entry data for their side of the merge conflict
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_conflict_add(libgit2_d.types.git_index* index, const (.git_index_entry)* ancestor_entry, const (.git_index_entry)* our_entry, const (.git_index_entry)* their_entry);
@@ -806,12 +865,14 @@ int git_index_conflict_add(libgit2_d.types.git_index* index, const (.git_index_e
  * `git_index_entry` struct is a publicly defined struct, you should
  * be able to make your own permanent copy of the data if necessary.
  *
- * @param ancestor_out Pointer to store the ancestor entry
- * @param our_out Pointer to store the our entry
- * @param their_out Pointer to store the their entry
- * @param index an existing index object
- * @param path path to search
- * @return 0 or an error code
+ * Params:
+ *      ancestor_out = Pointer to store the ancestor entry
+ *      our_out = Pointer to store the our entry
+ *      their_out = Pointer to store the their entry
+ *      index = an existing index object
+ *      path = path to search
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_conflict_get(const (.git_index_entry)** ancestor_out, const (.git_index_entry)** our_out, const (.git_index_entry)** their_out, libgit2_d.types.git_index* index, const (char)* path);
@@ -819,9 +880,11 @@ int git_index_conflict_get(const (.git_index_entry)** ancestor_out, const (.git_
 /**
  * Removes the index entries that represent a conflict of a single file.
  *
- * @param index an existing index object
- * @param path path to remove conflicts for
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *      path = path to remove conflicts for
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_conflict_remove(libgit2_d.types.git_index* index, const (char)* path);
@@ -829,8 +892,10 @@ int git_index_conflict_remove(libgit2_d.types.git_index* index, const (char)* pa
 /**
  * Remove all conflicts in the index (entries with a stage greater than 0).
  *
- * @param index an existing index object
- * @return 0 or an error code
+ * Params:
+ *      index = an existing index object
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_conflict_cleanup(libgit2_d.types.git_index* index);
@@ -838,7 +903,7 @@ int git_index_conflict_cleanup(libgit2_d.types.git_index* index);
 /**
  * Determine if the index contains entries representing file conflicts.
  *
- * @return 1 if at least one conflict is found, 0 otherwise.
+ * Returns: 1 if at least one conflict is found, 0 otherwise.
  */
 //GIT_EXTERN
 int git_index_has_conflicts(const (libgit2_d.types.git_index)* index);
@@ -848,9 +913,11 @@ int git_index_has_conflicts(const (libgit2_d.types.git_index)* index);
  *
  * The index must not be modified while iterating; the results are undefined.
  *
- * @param iterator_out The newly created conflict iterator
- * @param index The index to scan
- * @return 0 or an error code
+ * Params:
+ *      iterator_out = The newly created conflict iterator
+ *      index = The index to scan
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_index_conflict_iterator_new(libgit2_d.types.git_index_conflict_iterator** iterator_out, libgit2_d.types.git_index* index);
@@ -859,11 +926,12 @@ int git_index_conflict_iterator_new(libgit2_d.types.git_index_conflict_iterator*
  * Returns the current conflict (ancestor, ours and theirs entry) and
  * advance the iterator internally to the next value.
  *
- * @param ancestor_out Pointer to store the ancestor side of the conflict
- * @param our_out Pointer to store our side of the conflict
- * @param their_out Pointer to store their side of the conflict
- * @return 0 (no error), git_error_code.GIT_ITEROVER (iteration is done) or an error code
- *         (negative value)
+ * Params:
+ *      ancestor_out = Pointer to store the ancestor side of the conflict
+ *      our_out = Pointer to store our side of the conflict
+ *      their_out = Pointer to store their side of the conflict
+ *
+ * Returns: 0 (no error), git_error_code.GIT_ITEROVER (iteration is done) or an error code (negative value)
  */
 //GIT_EXTERN
 int git_index_conflict_next(const (.git_index_entry)** ancestor_out, const (.git_index_entry)** our_out, const (.git_index_entry)** their_out, libgit2_d.types.git_index_conflict_iterator* iterator);
@@ -871,7 +939,8 @@ int git_index_conflict_next(const (.git_index_entry)** ancestor_out, const (.git
 /**
  * Frees a `git_index_conflict_iterator`.
  *
- * @param iterator pointer to the iterator
+ * Params:
+ *      iterator = pointer to the iterator
  */
 //GIT_EXTERN
 void git_index_conflict_iterator_free(libgit2_d.types.git_index_conflict_iterator* iterator);

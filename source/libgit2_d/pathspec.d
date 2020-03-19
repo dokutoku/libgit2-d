@@ -77,9 +77,11 @@ enum git_pathspec_flag_t
 /**
  * Compile a pathspec
  *
- * @param out_ Output of the compiled pathspec
- * @param pathspec A git_strarray of the paths to match
- * @return 0 on success, <0 on failure
+ * Params:
+ *      out_ = Output of the compiled pathspec
+ *      pathspec = A git_strarray of the paths to match
+ *
+ * Returns: 0 on success, <0 on failure
  */
 //GIT_EXTERN
 int git_pathspec_new(.git_pathspec** out_, const (libgit2_d.strarray.git_strarray)* pathspec);
@@ -87,7 +89,8 @@ int git_pathspec_new(.git_pathspec** out_, const (libgit2_d.strarray.git_strarra
 /**
  * Free a pathspec
  *
- * @param ps The compiled pathspec
+ * Params:
+ *      ps = The compiled pathspec
  */
 //GIT_EXTERN
 void git_pathspec_free(.git_pathspec* ps);
@@ -100,10 +103,12 @@ void git_pathspec_free(.git_pathspec* ps);
  * explicitly pass flags to control case sensitivity or else this will
  * fall back on being case sensitive.
  *
- * @param ps The compiled pathspec
- * @param flags Combination of git_pathspec_flag_t options to control match
- * @param path The pathname to attempt to match
- * @return 1 is path matches spec, 0 if it does not
+ * Params:
+ *      ps = The compiled pathspec
+ *      flags = Combination of git_pathspec_flag_t options to control match
+ *      path = The pathname to attempt to match
+ *
+ * Returns: 1 is path matches spec, 0 if it does not
  */
 //GIT_EXTERN
 int git_pathspec_matches_path(const (.git_pathspec)* ps, uint flags, const (char)* path);
@@ -123,12 +128,13 @@ int git_pathspec_matches_path(const (.git_pathspec)* ps, uint flags, const (char
  * pathspecs with no match (if you used the `git_pathspec_flag_t.GIT_PATHSPEC_FIND_FAILURES`
  * flag).  You must call `git_pathspec_match_list_free()` on this object.
  *
- * @param out_ Output list of matches; pass null to just get return value
- * @param repo The repository in which to match; bare repo is an error
- * @param flags Combination of git_pathspec_flag_t options to control match
- * @param ps Pathspec to be matched
- * @return 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and
- *         the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag was given
+ * Params:
+ *      out_ = Output list of matches; pass null to just get return value
+ *      repo = The repository in which to match; bare repo is an error
+ *      flags = Combination of git_pathspec_flag_t options to control match
+ *      ps = Pathspec to be matched
+ *
+ * Returns: 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag was given
  */
 //GIT_EXTERN
 int git_pathspec_match_workdir(.git_pathspec_match_list** out_, libgit2_d.types.git_repository* repo, uint flags, .git_pathspec* ps);
@@ -149,12 +155,13 @@ int git_pathspec_match_workdir(.git_pathspec_match_list** out_, libgit2_d.types.
  * pathspecs with no match (if you used the `git_pathspec_flag_t.GIT_PATHSPEC_FIND_FAILURES`
  * flag).  You must call `git_pathspec_match_list_free()` on this object.
  *
- * @param out_ Output list of matches; pass null to just get return value
- * @param index The index to match against
- * @param flags Combination of git_pathspec_flag_t options to control match
- * @param ps Pathspec to be matched
- * @return 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and
- *         the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag is used
+ * Params:
+ *      out_ = Output list of matches; pass null to just get return value
+ *      index = The index to match against
+ *      flags = Combination of git_pathspec_flag_t options to control match
+ *      ps = Pathspec to be matched
+ *
+ * Returns: 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag is used
  */
 //GIT_EXTERN
 int git_pathspec_match_index(.git_pathspec_match_list** out_, libgit2_d.types.git_index* index, uint flags, .git_pathspec* ps);
@@ -170,12 +177,13 @@ int git_pathspec_match_index(.git_pathspec_match_list** out_, libgit2_d.types.gi
  * pathspecs with no match (if you used the `git_pathspec_flag_t.GIT_PATHSPEC_FIND_FAILURES`
  * flag).  You must call `git_pathspec_match_list_free()` on this object.
  *
- * @param out_ Output list of matches; pass null to just get return value
- * @param tree The root-level tree to match against
- * @param flags Combination of git_pathspec_flag_t options to control match
- * @param ps Pathspec to be matched
- * @return 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and
- *         the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag is used
+ * Params:
+ *      out_ = Output list of matches; pass null to just get return value
+ *      tree = The root-level tree to match against
+ *      flags = Combination of git_pathspec_flag_t options to control match
+ *      ps = Pathspec to be matched
+ *
+ * Returns: 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag is used
  */
 //GIT_EXTERN
 int git_pathspec_match_tree(.git_pathspec_match_list** out_, libgit2_d.types.git_tree* tree, uint flags, .git_pathspec* ps);
@@ -191,12 +199,13 @@ int git_pathspec_match_tree(.git_pathspec_match_list** out_, libgit2_d.types.git
  * pathspecs with no match (if you used the `git_pathspec_flag_t.GIT_PATHSPEC_FIND_FAILURES`
  * flag).  You must call `git_pathspec_match_list_free()` on this object.
  *
- * @param out_ Output list of matches; pass null to just get return value
- * @param diff A generated diff list
- * @param flags Combination of git_pathspec_flag_t options to control match
- * @param ps Pathspec to be matched
- * @return 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and
- *         the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag is used
+ * Params:
+ *      out_ = Output list of matches; pass null to just get return value
+ *      diff = A generated diff list
+ *      flags = Combination of git_pathspec_flag_t options to control match
+ *      ps = Pathspec to be matched
+ *
+ * Returns: 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag is used
  */
 //GIT_EXTERN
 int git_pathspec_match_diff(.git_pathspec_match_list** out_, libgit2_d.diff.git_diff* diff, uint flags, .git_pathspec* ps);
@@ -204,7 +213,8 @@ int git_pathspec_match_diff(.git_pathspec_match_list** out_, libgit2_d.diff.git_
 /**
  * Free memory associates with a git_pathspec_match_list
  *
- * @param m The git_pathspec_match_list to be freed
+ * Params:
+ *      m = The git_pathspec_match_list to be freed
  */
 //GIT_EXTERN
 void git_pathspec_match_list_free(.git_pathspec_match_list* m);
@@ -212,8 +222,10 @@ void git_pathspec_match_list_free(.git_pathspec_match_list* m);
 /**
  * Get the number of items in a match list.
  *
- * @param m The git_pathspec_match_list object
- * @return Number of items in match list
+ * Params:
+ *      m = The git_pathspec_match_list object
+ *
+ * Returns: Number of items in match list
  */
 //GIT_EXTERN
 size_t git_pathspec_match_list_entrycount(const (.git_pathspec_match_list)* m);
@@ -224,9 +236,11 @@ size_t git_pathspec_match_list_entrycount(const (.git_pathspec_match_list)* m);
  * This routine cannot be used if the match list was generated by
  * `git_pathspec_match_diff`.  If so, it will always return null.
  *
- * @param m The git_pathspec_match_list object
- * @param pos The index into the list
- * @return The filename of the match
+ * Params:
+ *      m = The git_pathspec_match_list object
+ *      pos = The index into the list
+ *
+ * Returns: The filename of the match
  */
 //GIT_EXTERN
 const (char)* git_pathspec_match_list_entry(const (.git_pathspec_match_list)* m, size_t pos);
@@ -237,9 +251,11 @@ const (char)* git_pathspec_match_list_entry(const (.git_pathspec_match_list)* m,
  * This routine can only be used if the match list was generated by
  * `git_pathspec_match_diff`.  Otherwise it will always return null.
  *
- * @param m The git_pathspec_match_list object
- * @param pos The index into the list
- * @return The filename of the match
+ * Params:
+ *      m = The git_pathspec_match_list object
+ *      pos = The index into the list
+ *
+ * Returns: The filename of the match
  */
 //GIT_EXTERN
 const (libgit2_d.diff.git_diff_delta)* git_pathspec_match_list_diff_entry(const (.git_pathspec_match_list)* m, size_t pos);
@@ -250,8 +266,10 @@ const (libgit2_d.diff.git_diff_delta)* git_pathspec_match_list_diff_entry(const 
  * This will be zero unless you passed git_pathspec_flag_t.GIT_PATHSPEC_FIND_FAILURES when
  * generating the git_pathspec_match_list.
  *
- * @param m The git_pathspec_match_list object
- * @return Number of items in original pathspec that had no matches
+ * Params:
+ *      m = The git_pathspec_match_list object
+ *
+ * Returns: Number of items in original pathspec that had no matches
  */
 //GIT_EXTERN
 size_t git_pathspec_match_list_failed_entrycount(const (.git_pathspec_match_list)* m);
@@ -261,9 +279,11 @@ size_t git_pathspec_match_list_failed_entrycount(const (.git_pathspec_match_list
  *
  * This will be return null for positions out of range.
  *
- * @param m The git_pathspec_match_list object
- * @param pos The index into the failed items
- * @return The pathspec pattern that didn't match anything
+ * Params:
+ *      m = The git_pathspec_match_list object
+ *      pos = The index into the failed items
+ *
+ * Returns: The pathspec pattern that didn't match anything
  */
 //GIT_EXTERN
 const (char)* git_pathspec_match_list_failed_entry(const (.git_pathspec_match_list)* m, size_t pos);

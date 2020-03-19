@@ -29,11 +29,11 @@ public:
  *
  * This would add three rules to the ignores.
  *
- * @param repo The repository to add ignore rules to.
- * @param rules Text of rules, a la the contents of a .gitignore file.
- *              It is okay to have multiple rules in the text; if so,
- *              each rule should be terminated with a newline.
- * @return 0 on success
+ * Params:
+ *      repo = The repository to add ignore rules to.
+ *      rules = Text of rules, a la the contents of a .gitignore file. It is okay to have multiple rules in the text; if so, each rule should be terminated with a newline.
+ *
+ * Returns: 0 on success
  */
 //GIT_EXTERN
 int git_ignore_add_rule(libgit2_d.types.git_repository* repo, const (char)* rules);
@@ -46,8 +46,10 @@ int git_ignore_add_rule(libgit2_d.types.git_repository* repo, const (char)* rule
  *
  * The default internal ignores ignore ".", ".." and ".git" entries.
  *
- * @param repo The repository to remove ignore rules from.
- * @return 0 on success
+ * Params:
+ *      repo = The repository to remove ignore rules from.
+ *
+ * Returns: 0 on success
  */
 //GIT_EXTERN
 int git_ignore_clear_internal_rules(libgit2_d.types.git_repository* repo);
@@ -62,11 +64,12 @@ int git_ignore_clear_internal_rules(libgit2_d.types.git_repository* repo);
  * One way to think of this is if you were to do "git check-ignore --no-index"
  * on the given file, would it be shown or not?
  *
- * @param ignored boolean returning 0 if the file is not ignored, 1 if it is
- * @param repo a repository object
- * @param path the file to check ignores for, relative to the repo's workdir.
- * @return 0 if ignore rules could be processed for the file (regardless
- *         of whether it exists or not), or an error < 0 if they could not.
+ * Params:
+ *      ignored = boolean returning 0 if the file is not ignored, 1 if it is
+ *      repo = a repository object
+ *      path = the file to check ignores for, relative to the repo's workdir.
+ *
+ * Returns: 0 if ignore rules could be processed for the file (regardless of whether it exists or not), or an error < 0 if they could not.
  */
 //GIT_EXTERN
 int git_ignore_path_is_ignored(int* ignored, libgit2_d.types.git_repository* repo, const (char)* path);

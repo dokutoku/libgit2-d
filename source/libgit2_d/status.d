@@ -221,9 +221,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_status_options` with default values. Equivalent to
  * creating an instance with `GIT_STATUS_OPTIONS_INIT`.
  *
- * @param opts The `git_status_options` struct to initialize.
- * @param version The struct version; pass `GIT_STATUS_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_status_options` struct to initialize.
+ *      version = The struct version; pass `GIT_STATUS_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_status_options_init(.git_status_options* opts, uint version_);
@@ -259,10 +261,12 @@ struct git_status_entry
  * If the callback returns a non-zero value, this function will stop looping
  * and return that value to caller.
  *
- * @param repo A repository object
- * @param callback The function to call on each file
- * @param payload Pointer to pass through to callback function
- * @return 0 on success, non-zero callback return value, or error code
+ * Params:
+ *      repo = A repository object
+ *      callback = The function to call on each file
+ *      payload = Pointer to pass through to callback function
+ *
+ * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
 int git_status_foreach(libgit2_d.types.git_repository* repo, .git_status_cb callback, void* payload);
@@ -280,11 +284,13 @@ int git_status_foreach(libgit2_d.types.git_repository* repo, .git_status_cb call
  * not be accurate.  To do rename detection properly, this must be called
  * with no `pathspec` so that all files can be considered.
  *
- * @param repo Repository object
- * @param opts Status options structure
- * @param callback The function to call on each file
- * @param payload Pointer to pass through to callback function
- * @return 0 on success, non-zero callback return value, or error code
+ * Params:
+ *      repo = Repository object
+ *      opts = Status options structure
+ *      callback = The function to call on each file
+ *      payload = Pointer to pass through to callback function
+ *
+ * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
 int git_status_foreach_ext(libgit2_d.types.git_repository* repo, const (.git_status_options)* opts, .git_status_cb callback, void* payload);
@@ -307,13 +313,12 @@ int git_status_foreach_ext(libgit2_d.types.git_repository* repo, const (.git_sta
  * detection, there is no choice but to do a full `git_status_list_new` and
  * scan through looking for the path that you are interested in.
  *
- * @param status_flags Output combination of git_status_t values for file
- * @param repo A repository object
- * @param path The exact path to retrieve status for relative to the
- * repository working directory
- * @return 0 on success, git_error_code.GIT_ENOTFOUND if the file is not found in the HEAD,
- *      index, and work tree, git_error_code.GIT_EAMBIGUOUS if `path` matches multiple files
- *      or if it refers to a folder, and -1 on other errors.
+ * Params:
+ *      status_flags = Output combination of git_status_t values for file
+ *      repo = A repository object
+ *      path = The exact path to retrieve status for relative to the repository working directory
+ *
+ * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if the file is not found in the HEAD, index, and work tree, git_error_code.GIT_EAMBIGUOUS if `path` matches multiple files or if it refers to a folder, and -1 on other errors.
  */
 //GIT_EXTERN
 int git_status_file(uint* status_flags, libgit2_d.types.git_repository* repo, const (char)* path);
@@ -326,10 +331,12 @@ int git_status_file(uint* status_flags, libgit2_d.types.git_repository* repo, co
  * not be accurate.  To do rename detection properly, this must be called
  * with no `pathspec` so that all files can be considered.
  *
- * @param out_ Pointer to store the status results in
- * @param repo Repository object
- * @param opts Status options structure
- * @return 0 on success or error code
+ * Params:
+ *      out_ = Pointer to store the status results in
+ *      repo = Repository object
+ *      opts = Status options structure
+ *
+ * Returns: 0 on success or error code
  */
 //GIT_EXTERN
 int git_status_list_new(libgit2_d.types.git_status_list** out_, libgit2_d.types.git_repository* repo, const (.git_status_options)* opts);
@@ -340,8 +347,10 @@ int git_status_list_new(libgit2_d.types.git_status_list** out_, libgit2_d.types.
  * If there are no changes in status (at least according the options given
  * when the status list was created), this can return 0.
  *
- * @param statuslist Existing status list object
- * @return the number of status entries
+ * Params:
+ *      statuslist = Existing status list object
+ *
+ * Returns: the number of status entries
  */
 //GIT_EXTERN
 size_t git_status_list_entrycount(libgit2_d.types.git_status_list* statuslist);
@@ -351,9 +360,11 @@ size_t git_status_list_entrycount(libgit2_d.types.git_status_list* statuslist);
  *
  * The entry is not modifiable and should not be freed.
  *
- * @param statuslist Existing status list object
- * @param idx Position of the entry
- * @return Pointer to the entry; null if out of bounds
+ * Params:
+ *      statuslist = Existing status list object
+ *      idx = Position of the entry
+ *
+ * Returns: Pointer to the entry; null if out of bounds
  */
 //GIT_EXTERN
 const (.git_status_entry)* git_status_byindex(libgit2_d.types.git_status_list* statuslist, size_t idx);
@@ -361,7 +372,8 @@ const (.git_status_entry)* git_status_byindex(libgit2_d.types.git_status_list* s
 /**
  * Free an existing status list
  *
- * @param statuslist Existing status list object
+ * Params:
+ *      statuslist = Existing status list object
  */
 //GIT_EXTERN
 void git_status_list_free(libgit2_d.types.git_status_list* statuslist);
@@ -376,11 +388,12 @@ void git_status_list_free(libgit2_d.types.git_status_list* statuslist);
  * One way to think of this is if you were to do "git add ." on the
  * directory containing the file, would it be added or not?
  *
- * @param ignored Boolean returning 0 if the file is not ignored, 1 if it is
- * @param repo A repository object
- * @param path The file to check ignores for, rooted at the repo's workdir.
- * @return 0 if ignore rules could be processed for the file (regardless
- *         of whether it exists or not), or an error < 0 if they could not.
+ * Params:
+ *      ignored = Boolean returning 0 if the file is not ignored, 1 if it is
+ *      repo = A repository object
+ *      path = The file to check ignores for, rooted at the repo's workdir.
+ *
+ * Returns: 0 if ignore rules could be processed for the file (regardless of whether it exists or not), or an error < 0 if they could not.
  */
 //GIT_EXTERN
 int git_status_should_ignore(int* ignored, libgit2_d.types.git_repository* repo, const (char)* path);

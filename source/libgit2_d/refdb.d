@@ -26,10 +26,11 @@ public:
  * Before the Ref DB can be used for read/writing, a custom database
  * backend must be manually set using `git_refdb_set_backend()`
  *
- * @param out_ location to store the database pointer, if opened.
- *			Set to null if the open failed.
- * @param repo the repository
- * @return 0 or an error code
+ * Params:
+ *      out_ = location to store the database pointer, if opened. Set to null if the open failed.
+ *      repo = the repository
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_refdb_new(libgit2_d.types.git_refdb** out_, libgit2_d.types.git_repository* repo);
@@ -41,10 +42,11 @@ int git_refdb_new(libgit2_d.types.git_refdb** out_, libgit2_d.types.git_reposito
  *  - git_refdb_dir: read and write loose and packed refs
  *      from disk, assuming the repository dir as the folder
  *
- * @param out_ location to store the database pointer, if opened.
- *			Set to null if the open failed.
- * @param repo the repository
- * @return 0 or an error code
+ * Params:
+ *      out_ = location to store the database pointer, if opened. Set to null if the open failed.
+ *      repo = the repository
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_refdb_open(libgit2_d.types.git_refdb** out_, libgit2_d.types.git_repository* repo);
@@ -60,7 +62,8 @@ int git_refdb_compress(libgit2_d.types.git_refdb* refdb);
 /**
  * Close an open reference database.
  *
- * @param refdb reference database pointer or null
+ * Params:
+ *      refdb = reference database pointer or null
  */
 //GIT_EXTERN
 void git_refdb_free(libgit2_d.types.git_refdb* refdb);

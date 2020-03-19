@@ -29,10 +29,11 @@ public:
 /**
  * Create a backend for the packfiles.
  *
- * @param out_ location to store the odb backend pointer
- * @param objects_dir the Git repository's objects directory
+ * Params:
+ *      out_ = location to store the odb backend pointer
+ *      objects_dir = the Git repository's objects directory
  *
- * @return 0 or an error code
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_odb_backend_pack(libgit2_d.types.git_odb_backend** out_, const (char)* objects_dir);
@@ -40,14 +41,15 @@ int git_odb_backend_pack(libgit2_d.types.git_odb_backend** out_, const (char)* o
 /**
  * Create a backend for loose objects
  *
- * @param out_ location to store the odb backend pointer
- * @param objects_dir the Git repository's objects directory
- * @param compression_level zlib compression level to use
- * @param do_fsync whether to do an fsync() after writing
- * @param dir_mode permissions to use creating a directory or 0 for defaults
- * @param file_mode permissions to use creating a file or 0 for defaults
+ * Params:
+ *      out_ = location to store the odb backend pointer
+ *      objects_dir = the Git repository's objects directory
+ *      compression_level = zlib compression level to use
+ *      do_fsync = whether to do an fsync() after writing
+ *      dir_mode = permissions to use creating a directory or 0 for defaults
+ *      file_mode = permissions to use creating a file or 0 for defaults
  *
- * @return 0 or an error code
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_odb_backend_loose(libgit2_d.types.git_odb_backend** out_, const (char)* objects_dir, int compression_level, int do_fsync, uint dir_mode, uint file_mode);
@@ -58,10 +60,11 @@ int git_odb_backend_loose(libgit2_d.types.git_odb_backend** out_, const (char)* 
  * This can be useful for inspecting the contents of a single
  * packfile.
  *
- * @param out_ location to store the odb backend pointer
- * @param index_file path to the packfile's .idx file
+ * Params:
+ *      out_ = location to store the odb backend pointer
+ *      index_file = path to the packfile's .idx file
  *
- * @return 0 or an error code
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_odb_backend_one_pack(libgit2_d.types.git_odb_backend** out_, const (char)* index_file);

@@ -83,8 +83,10 @@ struct git_allocator
  * "stdalloc" allocator functions. The structure can then be used with
  * `git_allocator_setup`.
  *
- * @param allocator The allocator that is to be initialized.
- * @return An error code or 0.
+ * Params:
+ *      allocator = The allocator that is to be initialized.
+ *
+ * Returns: An error code or 0.
  */
 int git_stdalloc_init_allocator(.git_allocator* allocator);
 
@@ -95,7 +97,9 @@ int git_stdalloc_init_allocator(.git_allocator* allocator);
  * allocator functions. Note that this allocator is only available on Windows
  * platforms and only if libgit2 is being compiled with "-DMSVC_CRTDBG".
  *
- * @param allocator The allocator that is to be initialized.
- * @return An error code or 0.
+ * Params:
+ *      allocator = The allocator that is to be initialized.
+ *
+ * Returns: An error code or 0.
  */
 int git_win32_crtdbg_init_allocator(.git_allocator* allocator);

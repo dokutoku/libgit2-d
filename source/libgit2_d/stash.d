@@ -53,19 +53,14 @@ enum git_stash_flags
 /**
  * Save the local modifications to a new stash.
  *
- * @param out_ Object id of the commit containing the stashed state.
- * This commit is also the target of the direct reference refs/stash.
+ * Params:
+ *      out_ = Object id of the commit containing the stashed state. This commit is also the target of the direct reference refs/stash.
+ *      repo = The owning repository.
+ *      stasher = The identity of the person performing the stashing.
+ *      message = Optional description along with the stashed state.
+ *      flags = Flags to control the stashing process. (see GIT_STASH_* above)
  *
- * @param repo The owning repository.
- *
- * @param stasher The identity of the person performing the stashing.
- *
- * @param message Optional description along with the stashed state.
- *
- * @param flags Flags to control the stashing process. (see GIT_STASH_* above)
- *
- * @return 0 on success, git_error_code.GIT_ENOTFOUND where there's nothing to stash,
- * or error code.
+ * Returns: 0 on success, git_error_code.GIT_ENOTFOUND where there's nothing to stash, or error code.
  */
 //GIT_EXTERN
 int git_stash_save(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_signature)* stasher, const (char)* message, uint flags);
@@ -186,9 +181,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_stash_apply_options` with default values. Equivalent to
  * creating an instance with `GIT_STASH_APPLY_OPTIONS_INIT`.
  *
- * @param opts The `git_stash_apply_options` struct to initialize.
- * @param version The struct version; pass `GIT_STASH_APPLY_OPTIONS_VERSION`.
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      opts = The `git_stash_apply_options` struct to initialize.
+ *      version = The struct version; pass `GIT_STASH_APPLY_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_stash_apply_options_init(.git_stash_apply_options* opts, uint version_);
@@ -210,14 +207,12 @@ int git_stash_apply_options_init(.git_stash_apply_options* opts, uint version_);
  *
  * Note that a minimum checkout strategy of `git_checkout_strategy_t.GIT_CHECKOUT_SAFE` is implied.
  *
- * @param repo The owning repository.
- * @param index The position within the stash list. 0 points to the
- *              most recent stashed state.
- * @param options Optional options to control how stashes are applied.
+ * Params:
+ *      repo = The owning repository.
+ *      index = The position within the stash list. 0 points to the most recent stashed state.
+ *      options = Optional options to control how stashes are applied.
  *
- * @return 0 on success, git_error_code.GIT_ENOTFOUND if there's no stashed state for the
- *         given index, git_error_code.GIT_EMERGECONFLICT if changes exist in the working
- *         directory, or an error code
+ * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if there's no stashed state for the given index, git_error_code.GIT_EMERGECONFLICT if changes exist in the working directory, or an error code
  */
 //GIT_EXTERN
 int git_stash_apply(libgit2_d.types.git_repository* repo, size_t index, const (.git_stash_apply_options)* options);
@@ -226,12 +221,13 @@ int git_stash_apply(libgit2_d.types.git_repository* repo, size_t index, const (.
  * This is a callback function you can provide to iterate over all the
  * stashed states that will be invoked per entry.
  *
- * @param index The position within the stash list. 0 points to the
- *              most recent stashed state.
- * @param message The stash message.
- * @param stash_id The commit oid of the stashed state.
- * @param payload Extra parameter to callback function.
- * @return 0 to continue iterating or non-zero to stop.
+ * Params:
+ *      index = The position within the stash list. 0 points to the most recent stashed state.
+ *      message = The stash message.
+ *      stash_id = The commit oid of the stashed state.
+ *      payload = Extra parameter to callback function.
+ *
+ * Returns: 0 to continue iterating or non-zero to stop.
  */
 alias git_stash_cb = int function(size_t index, const (char)* message, const (libgit2_d.oid.git_oid)* stash_id, void* payload);
 
@@ -240,14 +236,12 @@ alias git_stash_cb = int function(size_t index, const (char)* message, const (li
  *
  * If the callback returns a non-zero value, this will stop looping.
  *
- * @param repo Repository where to find the stash.
+ * Params:
+ *      repo = Repository where to find the stash.
+ *      callback = Callback to invoke per found stashed state. The most recent stash state will be enumerated first.
+ *      payload = Extra parameter to callback function.
  *
- * @param callback Callback to invoke per found stashed state. The most
- *                 recent stash state will be enumerated first.
- *
- * @param payload Extra parameter to callback function.
- *
- * @return 0 on success, non-zero callback return value, or error code.
+ * Returns: 0 on success, non-zero callback return value, or error code.
  */
 //GIT_EXTERN
 int git_stash_foreach(libgit2_d.types.git_repository* repo, .git_stash_cb callback, void* payload);
@@ -255,13 +249,11 @@ int git_stash_foreach(libgit2_d.types.git_repository* repo, .git_stash_cb callba
 /**
  * Remove a single stashed state from the stash list.
  *
- * @param repo The owning repository.
+ * Params:
+ *      repo = The owning repository.
+ *      index = The position within the stash list. 0 points to the most recent stashed state.
  *
- * @param index The position within the stash list. 0 points to the
- * most recent stashed state.
- *
- * @return 0 on success, git_error_code.GIT_ENOTFOUND if there's no stashed state for the given
- * index, or error code.
+ * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if there's no stashed state for the given index, or error code.
  */
 //GIT_EXTERN
 int git_stash_drop(libgit2_d.types.git_repository* repo, size_t index);
@@ -270,13 +262,12 @@ int git_stash_drop(libgit2_d.types.git_repository* repo, size_t index);
  * Apply a single stashed state from the stash list and remove it from the list
  * if successful.
  *
- * @param repo The owning repository.
- * @param index The position within the stash list. 0 points to the
- *              most recent stashed state.
- * @param options Optional options to control how stashes are applied.
+ * Params:
+ *      repo = The owning repository.
+ *      index = The position within the stash list. 0 points to the most recent stashed state.
+ *      options = Optional options to control how stashes are applied.
  *
- * @return 0 on success, git_error_code.GIT_ENOTFOUND if there's no stashed state for the given
- * index, or error code. (see git_stash_apply() above for details)
+ * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if there's no stashed state for the given index, or error code. (see git_stash_apply() above for details)
  */
 //GIT_EXTERN
 int git_stash_pop(libgit2_d.types.git_repository* repo, size_t index, const (.git_stash_apply_options)* options);

@@ -57,12 +57,12 @@ struct git_stream_registration
 	/**
 	 * Called to create a new connection to a given host.
 	 *
-	 * @param out_ The created stream
-	 * @param host The hostname to connect to; may be a hostname or
-	 *             IP address
-	 * @param port The port to connect to; may be a port number or
-	 *             service name
-	 * @return 0 or an error code
+	 * Params:
+	 *      out_ = The created stream
+	 *      host = The hostname to connect to; may be a hostname or IP address
+	 *      port = The port to connect to; may be a port number or service name
+	 *
+	 * Returns: 0 or an error code
 	 */
 	int function(.git_stream** out_, const (char)* host, const (char)* port) init;
 
@@ -72,11 +72,12 @@ struct git_stream_registration
 	 * TLS stream over an HTTP CONNECT session.  If this is unset, then
 	 * HTTP CONNECT proxies will not be supported.
 	 *
-	 * @param out_ The created stream
-	 * @param in An existing stream to add TLS to
-	 * @param host The hostname that the stream is connected to,
-	 *             for certificate validation
-	 * @return 0 or an error code
+	 * Params:
+	 *      out_ = The created stream
+	 *      in = An existing stream to add TLS to
+	 *      host = The hostname that the stream is connected to, for certificate validation
+	 *
+	 * Returns: 0 or an error code
 	 */
 	int function(.git_stream** out_, .git_stream* in_, const (char)* host) wrap;
 }
@@ -106,9 +107,11 @@ enum git_stream_t
  *
  * The type parameter may be a bitwise AND of types.
  *
- * @param type the type or types of stream to register
- * @param registration the registration data
- * @return 0 or an error code
+ * Params:
+ *      type = the type or types of stream to register
+ *      registration = the registration data
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_stream_register(.git_stream_t type, .git_stream_registration* registration);

@@ -28,12 +28,14 @@ public:
  * Note: angle brackets ('<' and '>') characters are not allowed
  * to be used in either the `name` or the `email` parameter.
  *
- * @param out_ new signature, in case of error null
- * @param name name of the person
- * @param email email of the person
- * @param time time (in seconds from epoch) when the action happened
- * @param offset timezone offset (in minutes) for the time
- * @return 0 or an error code
+ * Params:
+ *      out_ = new signature, in case of error null
+ *      name = name of the person
+ *      email = email of the person
+ *      time = time (in seconds from epoch) when the action happened
+ *      offset = timezone offset (in minutes) for the time
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_signature_new(libgit2_d.types.git_signature** out_, const (char)* name, const (char)* email, libgit2_d.types.git_time_t time, int offset);
@@ -43,10 +45,12 @@ int git_signature_new(libgit2_d.types.git_signature** out_, const (char)* name, 
  *
  * Call `git_signature_free()` to free the data.
  *
- * @param out_ new signature, in case of error null
- * @param name name of the person
- * @param email email of the person
- * @return 0 or an error code
+ * Params:
+ *      out_ = new signature, in case of error null
+ *      name = name of the person
+ *      email = email of the person
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_signature_now(libgit2_d.types.git_signature** out_, const (char)* name, const (char)* email);
@@ -59,9 +63,11 @@ int git_signature_now(libgit2_d.types.git_signature** out_, const (char)* name, 
  * based on that information.  It will return git_error_code.GIT_ENOTFOUND if either the
  * user.name or user.email are not set.
  *
- * @param out_ new signature
- * @param repo repository pointer
- * @return 0 on success, git_error_code.GIT_ENOTFOUND if config is missing, or error code
+ * Params:
+ *      out_ = new signature
+ *      repo = repository pointer
+ *
+ * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if config is missing, or error code
  */
 //GIT_EXTERN
 int git_signature_default(libgit2_d.types.git_signature** out_, libgit2_d.types.git_repository* repo);
@@ -73,9 +79,11 @@ int git_signature_default(libgit2_d.types.git_signature** out_, libgit2_d.types.
  * `tzoffset` is the timezone offset in `hhmm` format (note the lack
  * of a colon separator).
  *
- * @param out_ new signature
- * @param buf signature string
- * @return 0 on success, or an error code
+ * Params:
+ *      out_ = new signature
+ *      buf = signature string
+ *
+ * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
 int git_signature_from_buffer(libgit2_d.types.git_signature** out_, const (char)* buf);
@@ -86,9 +94,11 @@ int git_signature_from_buffer(libgit2_d.types.git_signature** out_, const (char)
  *
  * Call `git_signature_free()` to free the data.
  *
- * @param dest pointer where to store the copy
- * @param sig signature to duplicate
- * @return 0 or an error code
+ * Params:
+ *      dest = pointer where to store the copy
+ *      sig = signature to duplicate
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_signature_dup(libgit2_d.types.git_signature** dest, const (libgit2_d.types.git_signature)* sig);
@@ -100,7 +110,8 @@ int git_signature_dup(libgit2_d.types.git_signature** dest, const (libgit2_d.typ
  * manually, but be sure to free the "name" and "email" strings in addition
  * to the structure itself.
  *
- * @param sig signature to free
+ * Params:
+ *      sig = signature to free
  */
 //GIT_EXTERN
 void git_signature_free(libgit2_d.types.git_signature* sig);

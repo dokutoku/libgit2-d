@@ -29,11 +29,12 @@ public:
  * the other as its upstream, the `ahead` and `behind` values will be
  * what git would report for the branches.
  *
- * @param ahead number of unique from commits in `upstream`
- * @param behind number of unique from commits in `local`
- * @param repo the repository where the commits exist
- * @param local the commit for local
- * @param upstream the commit for upstream
+ * Params:
+ *      ahead = number of unique from commits in `upstream`
+ *      behind = number of unique from commits in `local`
+ *      repo = the repository where the commits exist
+ *      local = the commit for local
+ *      upstream = the commit for upstream
  */
 //GIT_EXTERN
 int git_graph_ahead_behind(size_t* ahead, size_t* behind, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* local, const (libgit2_d.oid.git_oid)* upstream);
@@ -44,10 +45,11 @@ int git_graph_ahead_behind(size_t* ahead, size_t* behind, libgit2_d.types.git_re
  * Note that a commit is not considered a descendant of itself, in contrast
  * to `git merge-base --is-ancestor`.
  *
- * @param commit a previously loaded commit.
- * @param ancestor a potential ancestor commit.
- * @return 1 if the given commit is a descendant of the potential ancestor,
- * 0 if not, error code otherwise.
+ * Params:
+ *      commit = a previously loaded commit.
+ *      ancestor = a potential ancestor commit.
+ *
+ * Returns: 1 if the given commit is a descendant of the potential ancestor, 0 if not, error code otherwise.
  */
 //GIT_EXTERN
 int git_graph_descendant_of(libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* commit, const (libgit2_d.oid.git_oid)* ancestor);

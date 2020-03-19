@@ -26,10 +26,12 @@ public:
  * The resulting git_annotated_commit must be freed with
  * `git_annotated_commit_free`.
  *
- * @param out_ pointer to store the git_annotated_commit result in
- * @param repo repository that contains the given reference
- * @param ref_ reference to use to lookup the git_annotated_commit
- * @return 0 on success or error code
+ * Params:
+ *      out_ = pointer to store the git_annotated_commit result in
+ *      repo = repository that contains the given reference
+ *      ref_ = reference to use to lookup the git_annotated_commit
+ *
+ * Returns: 0 on success or error code
  */
 //GIT_EXTERN
 int git_annotated_commit_from_ref(libgit2_d.types.git_annotated_commit** out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_reference)* ref_);
@@ -39,12 +41,14 @@ int git_annotated_commit_from_ref(libgit2_d.types.git_annotated_commit** out_, l
  * The resulting git_annotated_commit must be freed with
  * `git_annotated_commit_free`.
  *
- * @param out_ pointer to store the git_annotated_commit result in
- * @param repo repository that contains the given commit
- * @param branch_name name of the (remote) branch
- * @param remote_url url of the remote
- * @param id the commit object id of the remote branch
- * @return 0 on success or error code
+ * Params:
+ *      out_ = pointer to store the git_annotated_commit result in
+ *      repo = repository that contains the given commit
+ *      branch_name = name of the (remote) branch
+ *      remote_url = url of the remote
+ *      id = the commit object id of the remote branch
+ *
+ * Returns: 0 on success or error code
  */
 //GIT_EXTERN
 int git_annotated_commit_from_fetchhead(libgit2_d.types.git_annotated_commit** out_, libgit2_d.types.git_repository* repo, const (char)* branch_name, const (char)* remote_url, const (libgit2_d.oid.git_oid)* id);
@@ -62,10 +66,12 @@ int git_annotated_commit_from_fetchhead(libgit2_d.types.git_annotated_commit** o
  * most specific function (eg `git_annotated_commit_from_ref`)
  * instead of this one when that data is known.
  *
- * @param out_ pointer to store the git_annotated_commit result in
- * @param repo repository that contains the given commit
- * @param id the commit object id to lookup
- * @return 0 on success or error code
+ * Params:
+ *      out_ = pointer to store the git_annotated_commit result in
+ *      repo = repository that contains the given commit
+ *      id = the commit object id to lookup
+ *
+ * Returns: 0 on success or error code
  */
 //GIT_EXTERN
 int git_annotated_commit_lookup(libgit2_d.types.git_annotated_commit** out_, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id);
@@ -77,10 +83,12 @@ int git_annotated_commit_lookup(libgit2_d.types.git_annotated_commit** out_, lib
  * http://git-scm.com/docs/git-rev-parse.html#_specifying_revisions for
  * information on the syntax accepted.
  *
- * @param out_ pointer to store the git_annotated_commit result in
- * @param repo repository that contains the given commit
- * @param revspec the extended sha syntax string to use to lookup the commit
- * @return 0 on success or error code
+ * Params:
+ *      out_ = pointer to store the git_annotated_commit result in
+ *      repo = repository that contains the given commit
+ *      revspec = the extended sha syntax string to use to lookup the commit
+ *
+ * Returns: 0 on success or error code
  */
 //GIT_EXTERN
 int git_annotated_commit_from_revspec(libgit2_d.types.git_annotated_commit** out_, libgit2_d.types.git_repository* repo, const (char)* revspec);
@@ -88,8 +96,10 @@ int git_annotated_commit_from_revspec(libgit2_d.types.git_annotated_commit** out
 /**
  * Gets the commit ID that the given `git_annotated_commit` refers to.
  *
- * @param commit the given annotated commit
- * @return commit id
+ * Params:
+ *      commit = the given annotated commit
+ *
+ * Returns: commit id
  */
 //GIT_EXTERN
 const (libgit2_d.oid.git_oid)* git_annotated_commit_id(const (libgit2_d.types.git_annotated_commit)* commit);
@@ -97,8 +107,10 @@ const (libgit2_d.oid.git_oid)* git_annotated_commit_id(const (libgit2_d.types.gi
 /**
  * Get the refname that the given `git_annotated_commit` refers to.
  *
- * @param commit the given annotated commit
- * @return ref name.
+ * Params:
+ *      commit = the given annotated commit
+ *
+ * Returns: ref name.
  */
 //GIT_EXTERN
 const (char)* git_annotated_commit_ref(const (libgit2_d.types.git_annotated_commit)* commit);
@@ -106,7 +118,8 @@ const (char)* git_annotated_commit_ref(const (libgit2_d.types.git_annotated_comm
 /**
  * Frees a `git_annotated_commit`.
  *
- * @param commit annotated commit to free
+ * Params:
+ *      commit = annotated commit to free
  */
 //GIT_EXTERN
 void git_annotated_commit_free(libgit2_d.types.git_annotated_commit* commit);

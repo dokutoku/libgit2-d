@@ -115,9 +115,11 @@ pure nothrow @safe @nogc
  * Initializes a `git_odb_backend` with default values. Equivalent to
  * creating an instance with GIT_ODB_BACKEND_INIT.
  *
- * @param backend the `git_odb_backend` struct to initialize.
- * @param version Version the struct; pass `GIT_ODB_BACKEND_VERSION`
- * @return Zero on success; -1 on failure.
+ * Params:
+ *      backend = the `git_odb_backend` struct to initialize.
+ *      version = Version the struct; pass `GIT_ODB_BACKEND_VERSION`
+ *
+ * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_odb_init_backend(.git_odb_backend* backend, uint version_);
@@ -130,9 +132,11 @@ int git_odb_init_backend(.git_odb_backend* backend, uint version_);
  * return this data to libgit2, then they should use the corresponding
  * git_odb_backend_data_free function.
  *
- * @param backend the ODB backend that is allocating this memory
- * @param len the number of bytes to allocate
- * @return the allocated buffer on success or NULL if out of memory
+ * Params:
+ *      backend = the ODB backend that is allocating this memory
+ *      len = the number of bytes to allocate
+ *
+ * Returns: the allocated buffer on success or NULL if out of memory
  */
 //GIT_EXTERN
 void* git_odb_backend_data_alloc(.git_odb_backend* backend, size_t len);
@@ -143,8 +147,9 @@ void* git_odb_backend_data_alloc(.git_odb_backend* backend, size_t len);
  * to libgit2 because the backend encountered an error in the read
  * function after allocation and did not return this data to libgit2.
  *
- * @param backend the ODB backend that is freeing this memory
- * @param data the buffer to free
+ * Params:
+ *      backend = the ODB backend that is freeing this memory
+ *      data = the buffer to free
  */
 //GIT_EXTERN
 void git_odb_backend_data_free(.git_odb_backend* backend, void* data);

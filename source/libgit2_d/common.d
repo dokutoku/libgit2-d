@@ -73,10 +73,12 @@ enum GIT_OID_HEX_ZERO = "0000000000000000000000000000000000000000";
  * Return the version of the libgit2 library
  * being currently used.
  *
- * @param major Store the major version number
- * @param minor Store the minor version number
- * @param rev Store the revision (patch) number
- * @return 0 on success or an error code on failure
+ * Params:
+ *      major = Store the major version number
+ *      minor = Store the minor version number
+ *      rev = Store the revision (patch) number
+ *
+ * Returns: 0 on success or an error code on failure
  */
 //GIT_EXTERN
 int git_libgit2_version(int* major, int* minor, int* rev);
@@ -117,7 +119,7 @@ enum git_feature_t
 /**
  * Query compile time options for libgit2.
  *
- * @return A combination of GIT_FEATURE_* values.
+ * Returns: A combination of GIT_FEATURE_* values.
  *
  * - git_feature_t.GIT_FEATURE_THREADS
  *   Libgit2 was compiled with thread support. Note that thread support is
@@ -370,9 +372,11 @@ enum git_libgit2_opt_t
  *		> authentication, use expect/continue when POSTing data.
  *		> This option is not available on Windows.
  *
- * @param option Option key
- * @param ... value to set the option
- * @return 0 on success, <0 on failure
+ * Params:
+ *      option = Option key
+ *      ... = value to set the option
+ *
+ * Returns: 0 on success, <0 on failure
  */
 //GIT_EXTERN
 int git_libgit2_opts(int option, ...);
