@@ -46,6 +46,13 @@ deprecated:
  */
 version (GIT_DEPRECATE_HARD) {
 } else {
+	/*
+	 * The credential structures are now opaque by default, and their
+	 * definition has moved into the `sys/credential.h` header; include
+	 * them here for backward compatibility.
+	 */
+	//public import import libgit2_d.credential;
+
 	/**
 	 * @file git2/deprecated.h
 	 * @brief libgit2 deprecated functions and values

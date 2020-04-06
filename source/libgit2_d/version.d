@@ -9,10 +9,10 @@ module libgit2_d.version_;
 
 public:
 
-enum LIBGIT2_VERSION = "0.99.0";
-enum LIBGIT2_VER_MAJOR = 0;
-enum LIBGIT2_VER_MINOR = 99;
+enum LIBGIT2_VERSION = "1.0.0";
+enum LIBGIT2_VER_MAJOR = 1;
+enum LIBGIT2_VER_MINOR = 0;
 enum LIBGIT2_VER_REVISION = 0;
 enum LIBGIT2_VER_PATCH = 0;
 
-enum LIBGIT2_SOVERSION = "0.99";
+enum LIBGIT2_SOVERSION = "1.0";

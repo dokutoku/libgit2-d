@@ -66,6 +66,12 @@ struct git_refdb_backend
 	 * Queries the refdb backend for the existence of a reference.
 	 *
 	 * A refdb implementation must provide this function.
+	 *
+	 * Params:
+	 *      exists = The implementation shall set this to `0` if a ref does not exist, otherwise to `1`.
+	 *      ref_name = The reference's name that should be checked for existence.
+	 *
+	 * Returns: `0` on success, a negative error value code.
 	 */
 	int function(int* exists, .git_refdb_backend* backend, const (char)* ref_name) exists;
 
@@ -73,6 +79,12 @@ struct git_refdb_backend
 	 * Queries the refdb backend for a given reference.
 	 *
 	 * A refdb implementation must provide this function.
+	 *
+	 * Params:
+	 *      out_ = The implementation shall set this to the allocated reference, if it could be found, otherwise to `NULL`.
+	 *      ref_name = The reference's name that should be checked for existence.
+	 *
+	 * Returns: `0` on success, `GIT_ENOTFOUND` if the reference does exist, otherwise a negative error code.
 	 */
 	int function(libgit2_d.types.git_reference** out_, .git_refdb_backend* backend, const (char)* ref_name) lookup;
 
@@ -80,6 +92,12 @@ struct git_refdb_backend
 	 * Allocate an iterator object for the backend.
 	 *
 	 * A refdb implementation must provide this function.
+	 *
+	 * Params:
+	 *      out = The implementation shall set this to the allocated reference iterator. A custom structure may be used with an embedded `git_reference_iterator` structure. Both `next` and `next_name` functions of `git_reference_iterator` need to be populated.
+	 *      glob = A pattern to filter references by. If given, the iterator shall only return references that match the glob when passed to `wildmatch`.
+	 *
+	 * Returns: `0` on success, otherwise a negative error code.
 	 */
 	int function(.git_reference_iterator** iter,  .git_refdb_backend* backend, const (char)* glob) iterator;
 
@@ -87,6 +105,16 @@ struct git_refdb_backend
 	 * Writes the given reference to the refdb.
 	 *
 	 * A refdb implementation must provide this function.
+	 *
+	 * Params:
+	 *      ref_ = The reference to persist. May either be a symbolic or direct reference.
+	 *      force = Whether to write the reference if a reference with the same name already exists.
+	 *      who = The person updating the reference. Shall be used to create a reflog entry.
+	 *      message = The message detailing what kind of reference update is performed. Shall be used to create a reflog entry.
+	 *      old = If not `NULL` and `force` is not set, then the implementation needs to ensure that the reference is currently at the given OID before writing the new value. If both `old` and `old_target` are `NULL`, then the reference should not exist at the point of writing.
+	 *      old_target = If not `NULL` and `force` is not set, then the implementation needs to ensure that the symbolic reference is currently at the given target before writing the new value. If both `old` and `old_target` are `NULL`, then the reference should not exist at the point of writing.
+	 *
+	 * Returns: `0` on success, otherwise a negative error code.
 	 */
 	int function(.git_refdb_backend* backend, const (libgit2_d.types.git_reference)* ref_, int force, const (libgit2_d.types.git_signature)* who, const (char)* message, const (libgit2_d.oid.git_oid)* old, const (char)* old_target) write;
 
@@ -94,6 +122,16 @@ struct git_refdb_backend
 	 * Rename a reference in the refdb.
 	 *
 	 * A refdb implementation must provide this function.
+	 *
+	 * Params:
+	 *      out_ = The implementation shall set this to the newly created reference or `NULL` on error.
+	 *      old_name = The current name of the reference that is to be renamed.
+	 *      new_name = The new name that the old reference shall be renamed to.
+	 *      force = Whether to write the reference if a reference with the target name already exists.
+	 *      who = The person updating the reference. Shall be used to create a reflog entry.
+	 *      message = The message detailing what kind of reference update is performed. Shall be used to create a reflog entry.
+	 *
+	 * Returns: `0` on success, otherwise a negative error code.
 	 */
 	int function(libgit2_d.types.git_reference** out_, .git_refdb_backend* backend, const (char)* old_name, const (char)* new_name, int force, const (libgit2_d.types.git_signature)* who, const (char)* message) rename;
 
@@ -103,6 +141,13 @@ struct git_refdb_backend
 	 * If it exists, its reflog should be deleted as well.
 	 *
 	 * A refdb implementation must provide this function.
+	 *
+	 * Params:
+	 *      ref_name = The name of the reference name that shall be deleted.
+	 *      old_id = If not `NULL` and `force` is not set, then the implementation needs to ensure that the reference is currently at the given OID before writing the new value.
+	 *      old_target = If not `NULL` and `force` is not set, then the implementation needs to ensure that the symbolic reference is currently at the given target before writing the new value.
+	 *
+	 * Returns: `0` on success, otherwise a negative error code.
 	 */
 	int function(.git_refdb_backend* backend, const (char)* ref_name, const (libgit2_d.oid.git_oid)* old_id, const (char)* old_target) del;
 
@@ -114,13 +159,20 @@ struct git_refdb_backend
 	 *
 	 * A refdb implementation may provide this function; if it is not
 	 * provided, nothing will be done.
+	 *
+	 * Returns: `0` on success a negative error code otherwise
 	 */
 	int function(.git_refdb_backend* backend) compress;
 
 	/**
 	 * Query whether a particular reference has a log (may be empty)
 	 *
+	 * Shall return 1 if it has a reflog, 0 it it doesn't and negative in
+	 * case an error occurred.
+	 *
 	 * A refdb implementation must provide this function.
+	 *
+	 * Returns: `0` on success, `1` if the reflog for the given reference exists, a negative error code otherwise
 	 */
 	int function(.git_refdb_backend* backend, const (char)* refname) has_log;
 
@@ -129,6 +181,8 @@ struct git_refdb_backend
 	 * will be appended to on writes.
 	 *
 	 * A refdb implementation must provide this function.
+	 *
+	 * Returns: `0` on success, a negative error code otherwise
 	 */
 	int function(.git_refdb_backend* backend, const (char)* refname) ensure_log;
 
@@ -144,6 +198,8 @@ struct git_refdb_backend
 	 * Read the reflog for the given reference name.
 	 *
 	 * A refdb implementation must provide this function.
+	 *
+	 * Returns: `0` on success, a negative error code otherwise
 	 */
 	int function(libgit2_d.types.git_reflog** out_, .git_refdb_backend* backend, const (char)* name) reflog_read;
 
@@ -151,6 +207,11 @@ struct git_refdb_backend
 	 * Write a reflog to disk.
 	 *
 	 * A refdb implementation must provide this function.
+	 *
+	 * Params:
+	 *      reflog = The complete reference log for a given reference. Note that this may contain entries that have already been written to disk.
+	 *
+	 * Returns: `0` on success, a negative error code otherwise
 	 */
 	int function(.git_refdb_backend* backend, libgit2_d.types.git_reflog* reflog) reflog_write;
 
@@ -158,6 +219,12 @@ struct git_refdb_backend
 	 * Rename a reflog.
 	 *
 	 * A refdb implementation must provide this function.
+	 *
+	 * Params:
+	 *      old_name = The name of old reference whose reflog shall be renamed from.
+	 *      new_name = The name of new reference whose reflog shall be renamed to.
+	 *
+	 * Returns: `0` on success, a negative error code otherwise
 	 */
 	int function(.git_refdb_backend* _backend, const (char)* old_name, const (char)* new_name) reflog_rename;
 
@@ -165,16 +232,25 @@ struct git_refdb_backend
 	 * Remove a reflog.
 	 *
 	 * A refdb implementation must provide this function.
+	 *
+	 * Params:
+	 *      name = The name of the reference whose reflog shall be deleted.
+	 *
+	 * Returns: `0` on success, a negative error code otherwise
 	 */
 	int function(.git_refdb_backend* backend, const (char)* name) reflog_delete;
 
 	/**
 	 * Lock a reference.
 	 *
-	 * The opaque parameter will be passed to the unlock function.
-	 *
 	 * A refdb implementation may provide this function; if it is not
 	 * provided, the transaction API will fail to work.
+	 *
+	 * Params:
+	 *      payload_out = Opaque parameter that will be passed verbosely to `unlock`.
+	 *      refname = Reference that shall be locked.
+	 *
+	 * Returns: `0` on success, a negative error code otherwise
 	 */
 	int function(void** payload_out, .git_refdb_backend* backend, const (char)* refname) lock;
 
@@ -187,6 +263,16 @@ struct git_refdb_backend
 	 *
 	 * A refdb implementation must provide this function if a `lock`
 	 * implementation is provided.
+	 *
+	 * Params:
+	 *      payload = The payload returned by `lock`.
+	 *      success = `1` if a reference should be updated, `2` if a reference should be deleted, `0` if the lock must be discarded.
+	 *      update_reflog = `1` in case the reflog should be updated, `0` otherwise.
+	 *      ref = The reference which should be unlocked.
+	 *      who = The person updating the reference. Shall be used to create a reflog entry in case `update_reflog` is set.
+	 *      message = The message detailing what kind of reference update is performed. Shall be used to create a reflog entry in case `update_reflog` is set.
+	 *
+	 * Returns: `0` on success, a negative error code otherwise
 	 */
 	int function(.git_refdb_backend* backend, void* payload, int success, int update_reflog, const (libgit2_d.types.git_reference)* ref_, const (libgit2_d.types.git_signature)* sig, const (char)* message) unlock;
 }
