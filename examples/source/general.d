@@ -804,7 +804,7 @@ private void reference_listing(libgit2_d.types.git_repository* repo)
 			libgit2_d.refs.git_reference_free(ref_);
 		}
 
-		libgit2_d.strarray.git_strarray_free(&ref_list);
+		libgit2_d.strarray.git_strarray_dispose(&ref_list);
 	}
 
 /**

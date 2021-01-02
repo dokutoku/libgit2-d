@@ -11,6 +11,7 @@ private static import libgit2_d.example.blame;
 private static import libgit2_d.example.cat_file;
 private static import libgit2_d.example.checkout;
 private static import libgit2_d.example.clone;
+private static import libgit2_d.example.commit;
 private static import libgit2_d.example.common;
 private static import libgit2_d.example.config;
 private static import libgit2_d.example.describe;
@@ -24,6 +25,7 @@ private static import libgit2_d.example.log;
 private static import libgit2_d.example.ls_files;
 private static import libgit2_d.example.ls_remote;
 private static import libgit2_d.example.merge;
+private static import libgit2_d.example.push;
 private static import libgit2_d.example.remote;
 private static import libgit2_d.example.rev_list;
 private static import libgit2_d.example.rev_parse;
@@ -56,6 +58,7 @@ public static immutable .commands_t[] commands =
 	{"cat-file".ptr, &libgit2_d.example.cat_file.lg2_cat_file, 1},
 	{"checkout".ptr, &libgit2_d.example.checkout.lg2_checkout, 1},
 	{"clone".ptr, &libgit2_d.example.clone.lg2_clone, 0},
+	{"commit".ptr, &libgit2_d.example.commit.lg2_commit, 1},
 	{"config".ptr, &libgit2_d.example.config.lg2_config, 1},
 	{"describe".ptr, &libgit2_d.example.describe.lg2_describe, 1},
 	{"diff".ptr, &libgit2_d.example.diff.lg2_diff, 1},
@@ -68,6 +71,7 @@ public static immutable .commands_t[] commands =
 	{"ls-files".ptr, &libgit2_d.example.ls_files.lg2_ls_files, 1},
 	{"ls-remote".ptr, &libgit2_d.example.ls_remote.lg2_ls_remote, 1},
 	{"merge".ptr, &libgit2_d.example.merge.lg2_merge, 1},
+	{"push".ptr, &libgit2_d.example.push.lg2_push, 1},
 	{"remote".ptr, &libgit2_d.example.remote.lg2_remote, 1},
 	{"rev-list".ptr, &libgit2_d.example.rev_list.lg2_rev_list, 1},
 	{"rev-parse".ptr, &libgit2_d.example.rev_parse.lg2_rev_parse, 1},

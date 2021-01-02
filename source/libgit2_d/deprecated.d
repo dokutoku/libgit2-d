@@ -31,6 +31,7 @@ private static import libgit2_d.repository;
 private static import libgit2_d.revert;
 private static import libgit2_d.stash;
 private static import libgit2_d.status;
+private static import libgit2_d.strarray;
 private static import libgit2_d.submodule;
 private static import libgit2_d.trace;
 private static import libgit2_d.types;
@@ -111,8 +112,10 @@ version (GIT_DEPRECATE_HARD) {
 	//GIT_EXTERN
 	int git_blob_create_frombuffer(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (void)* buffer, size_t len);
 
-	/**
-	 * Deprecated in favor of @see git_blob_filter
+	/** Deprecated in favor of `git_blob_filter`.
+	 *
+	 * @deprecated Use git_blob_filter
+	 * @see git_blob_filter
 	 */
 	//GIT_EXTERN
 	int git_blob_filtered_content(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_blob* blob, const (char)* as_path, int check_for_binary_data);
@@ -245,7 +248,7 @@ version (GIT_DEPRECATE_HARD) {
 	void giterr_set_str(int error_class, const (char)* string_);
 
 	/**
-	 * Indicates that an out-of-memory situation occured.  This is an alias
+	 * Indicates that an out-of-memory situation occurred.  This is an alias
 	 * of `git_error_set_oom` and is preserved for backward compatibility.
 	 *
 	 * This function is deprecated, but there is no plan to remove this
@@ -527,6 +530,44 @@ version (GIT_DEPRECATE_HARD) {
 	 * Callback for listing the remote heads
 	 */
 	alias git_headlist_cb = int function(libgit2_d.types.git_remote_head* rhead, void* payload);
+
+	/**@}*/
+
+	/** @name Deprecated String Array Functions
+	*
+	* These types are retained for backward compatibility.  The newer
+	* versions of these values should be preferred in all new code.
+	*
+	* There is no plan to remove these backward compatibility values at
+	* this time.
+	*/
+	/**@{*/
+
+	/**
+	* Copy a string array object from source to target.
+	*
+	* This function is deprecated, but there is no plan to remove this
+	* function at this time.
+	*
+	* @param tgt target
+	* @param src source
+	* @return 0 on success, < 0 on allocation failure
+	*/
+	//GIT_EXTERN
+	int git_strarray_copy(libgit2_d.strarray.git_strarray* tgt, const (libgit2_d.strarray.git_strarray)* src);
+
+	/**
+	* Free the memory referred to by the git_strarray.  This is an alias of
+	* `git_strarray_dispose` and is preserved for backward compatibility.
+	*
+	* This function is deprecated, but there is no plan to remove this
+	* function at this time.
+	*
+	* @deprecated Use git_strarray_dispose
+	* @see git_strarray_dispose
+	*/
+	//GIT_EXTERN
+	void git_strarray_free(libgit2_d.strarray.git_strarray* array);
 
 	/**@}*/
 

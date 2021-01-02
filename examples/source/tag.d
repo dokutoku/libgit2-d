@@ -266,7 +266,7 @@ private void action_list_tags(.tag_state* state)
 			.each_tag(tag_names.strings[i], state);
 		}
 
-		libgit2_d.strarray.git_strarray_free(&tag_names);
+		libgit2_d.strarray.git_strarray_dispose(&tag_names);
 	}
 
 nothrow @nogc

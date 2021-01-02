@@ -22,7 +22,7 @@ nothrow @nogc:
 public:
 
 /**
- * Creates a `git_annotated_commit` from the given reference.
+ * Creates a `git_annotated_commit` from a revision string.
  * The resulting git_annotated_commit must be freed with
  * `git_annotated_commit_free`.
  *

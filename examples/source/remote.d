@@ -170,7 +170,7 @@ private int cmd_rename(libgit2_d.types.git_repository* repo, .remote_opts* o)
 			core.stdc.stdio.puts(problems.strings[0]);
 		}
 
-		libgit2_d.strarray.git_strarray_free(&problems);
+		libgit2_d.strarray.git_strarray_dispose(&problems);
 
 		return retval;
 	}
@@ -271,7 +271,7 @@ private int cmd_show(libgit2_d.types.git_repository* repo, .remote_opts* o)
 			libgit2_d.remote.git_remote_free(remote);
 		}
 
-		libgit2_d.strarray.git_strarray_free(&remotes);
+		libgit2_d.strarray.git_strarray_dispose(&remotes);
 
 		return 0;
 	}

@@ -178,7 +178,7 @@ int git_packbuilder_write_buf(libgit2_d.buffer.git_buf* buf, libgit2_d.types.git
  *
  * Params:
  *      pb = The packbuilder
- *      path = to the directory where the packfile and index should be stored
+ *      path = Path to the directory where the packfile and index should be stored, or NULL for default location
  *      mode = permissions to use creating a packfile or 0 for defaults
  *      progress_cb = function to call with progress information from the indexer (optional)
  *      progress_cb_payload = payload for the progress callback (optional)

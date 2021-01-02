@@ -302,7 +302,7 @@ private int guess_refish(libgit2_d.types.git_annotated_commit** out_, libgit2_d.
 
 		scope (exit) {
 			libgit2_d.refs.git_reference_free(remote_ref);
-			libgit2_d.strarray.git_strarray_free(&remotes);
+			libgit2_d.strarray.git_strarray_dispose(&remotes);
 		}
 
 		int error = libgit2_d.remote.git_remote_list(&remotes, repo);

@@ -72,7 +72,8 @@ public int lg2_add(libgit2_d.types.git_repository* repo, int argc, char** argv)
 		libgit2_d.example.args.args_info args = libgit2_d.example.args.ARGS_INFO_INIT(argc, argv);
 
 		/* Parse the options & arguments. */
-		.index_options options;
+		.index_options options = .index_options.init;
+		options.mode = .index_mode.INDEX_ADD;
 		.parse_opts(null, &options, &args);
 
 		libgit2_d.strarray.git_strarray array = libgit2_d.strarray.git_strarray.init;

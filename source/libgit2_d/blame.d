@@ -69,6 +69,11 @@ enum git_blame_flag_t
 	 * from the working directory, or HEAD in a bare repository.
 	 */
 	GIT_BLAME_USE_MAILMAP = 1 << 5,
+
+	/**
+	 * Ignore whitespace differences
+	 */
+	GIT_BLAME_IGNORE_WHITESPACE = 1 << 6,
 }
 
 /**

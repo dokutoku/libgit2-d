@@ -174,6 +174,8 @@ enum git_libgit2_opt_t
 	GIT_OPT_SET_PACK_MAX_OBJECTS,
 	GIT_OPT_DISABLE_PACK_KEEP_FILE_CHECKS,
 	GIT_OPT_ENABLE_HTTP_EXPECT_CONTINUE,
+	GIT_OPT_GET_MWINDOW_FILE_LIMIT,
+	GIT_OPT_SET_MWINDOW_FILE_LIMIT,
 }
 
 /**
@@ -195,8 +197,18 @@ enum git_libgit2_opt_t
  *
  *	* opts(GIT_OPT_SET_MWINDOW_MAPPED_LIMIT, size_t):
  *
- *		>Set the maximum amount of memory that can be mapped at any time
- *		by the library
+ *		> Set the maximum amount of memory that can be mapped at any time
+ *		> by the library
+ *
+ *	* opts(GIT_OPT_GET_MWINDOW_FILE_LIMIT, size_t *):
+ *
+ *		> Get the maximum number of files that will be mapped at any time by the
+ *		> library
+ *
+ *	* opts(GIT_OPT_SET_MWINDOW_FILE_LIMIT, size_t):
+ *
+ *		> Set the maximum number of files that can be mapped at any time
+ *		> by the library. The default (0) is unlimited.
  *
  *	* opts(GIT_OPT_GET_SEARCH_PATH, int level, git_buf *buf)
  *
