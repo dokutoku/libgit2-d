@@ -268,7 +268,7 @@ struct git_refdb_backend
 	 *      payload = The payload returned by `lock`.
 	 *      success = `1` if a reference should be updated, `2` if a reference should be deleted, `0` if the lock must be discarded.
 	 *      update_reflog = `1` in case the reflog should be updated, `0` otherwise.
-	 *      ref = The reference which should be unlocked.
+	 *      ref_ = The reference which should be unlocked.
 	 *      who = The person updating the reference. Shall be used to create a reflog entry in case `update_reflog` is set.
 	 *      message = The message detailing what kind of reference update is performed. Shall be used to create a reflog entry in case `update_reflog` is set.
 	 *

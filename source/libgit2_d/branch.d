@@ -161,8 +161,8 @@ int git_branch_lookup(libgit2_d.types.git_reference** out_, libgit2_d.types.git_
  * of it.
  *
  * Params:
- *      out_ = Pointer to the abbreviated reference name. Owned by ref, do not free.
- *      ref = A reference object, ideally pointing to a branch
+ *      out_ = Pointer to the abbreviated reference name. Owned by ref_, do not free.
+ *      ref_ = A reference object, ideally pointing to a branch
  *
  * Returns: 0 on success; GIT_EINVALID if the reference isn't either a local or remote branch, otherwise an error code.
  */
