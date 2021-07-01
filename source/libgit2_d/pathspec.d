@@ -74,6 +74,18 @@ enum git_pathspec_flag_t
 	GIT_PATHSPEC_FAILURES_ONLY = 1u << 5,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_PATHSPEC_DEFAULT = .git_pathspec_flag_t.GIT_PATHSPEC_DEFAULT,
+	GIT_PATHSPEC_IGNORE_CASE = .git_pathspec_flag_t.GIT_PATHSPEC_IGNORE_CASE,
+	GIT_PATHSPEC_USE_CASE = .git_pathspec_flag_t.GIT_PATHSPEC_USE_CASE,
+	GIT_PATHSPEC_NO_GLOB = .git_pathspec_flag_t.GIT_PATHSPEC_NO_GLOB,
+	GIT_PATHSPEC_NO_MATCH_ERROR = .git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR,
+	GIT_PATHSPEC_FIND_FAILURES = .git_pathspec_flag_t.GIT_PATHSPEC_FIND_FAILURES,
+	GIT_PATHSPEC_FAILURES_ONLY = .git_pathspec_flag_t.GIT_PATHSPEC_FAILURES_ONLY,
+}
+
 /**
  * Compile a pathspec
  *

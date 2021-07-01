@@ -123,6 +123,19 @@ enum git_object_t
 	GIT_OBJECT_REF_DELTA = 7,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_OBJECT_ANY = .git_object_t.GIT_OBJECT_ANY,
+	GIT_OBJECT_INVALID = .git_object_t.GIT_OBJECT_INVALID,
+	GIT_OBJECT_COMMIT = .git_object_t.GIT_OBJECT_COMMIT,
+	GIT_OBJECT_TREE = .git_object_t.GIT_OBJECT_TREE,
+	GIT_OBJECT_BLOB = .git_object_t.GIT_OBJECT_BLOB,
+	GIT_OBJECT_TAG = .git_object_t.GIT_OBJECT_TAG,
+	GIT_OBJECT_OFS_DELTA = .git_object_t.GIT_OBJECT_OFS_DELTA,
+	GIT_OBJECT_REF_DELTA = .git_object_t.GIT_OBJECT_REF_DELTA,
+}
+
 /**
  * An open object database handle.
  */
@@ -349,6 +362,15 @@ enum git_reference_t
 	GIT_REFERENCE_ALL = GIT_REFERENCE_DIRECT | GIT_REFERENCE_SYMBOLIC,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_REFERENCE_INVALID = .git_reference_t.GIT_REFERENCE_INVALID,
+	GIT_REFERENCE_DIRECT = .git_reference_t.GIT_REFERENCE_DIRECT,
+	GIT_REFERENCE_SYMBOLIC = .git_reference_t.GIT_REFERENCE_SYMBOLIC,
+	GIT_REFERENCE_ALL = .git_reference_t.GIT_REFERENCE_ALL,
+}
+
 /**
  * Basic type of any Git branch.
  */
@@ -357,6 +379,14 @@ enum git_branch_t
 	GIT_BRANCH_LOCAL = 1,
 	GIT_BRANCH_REMOTE = 2,
 	GIT_BRANCH_ALL = GIT_BRANCH_LOCAL | GIT_BRANCH_REMOTE,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_BRANCH_LOCAL = .git_branch_t.GIT_BRANCH_LOCAL,
+	GIT_BRANCH_REMOTE = .git_branch_t.GIT_BRANCH_REMOTE,
+	GIT_BRANCH_ALL = .git_branch_t.GIT_BRANCH_ALL,
 }
 
 /**
@@ -370,6 +400,17 @@ enum git_filemode_t
 	GIT_FILEMODE_BLOB_EXECUTABLE = std.conv.octal!(100755),
 	GIT_FILEMODE_LINK = std.conv.octal!(120000),
 	GIT_FILEMODE_COMMIT = std.conv.octal!(160000),
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_FILEMODE_UNREADABLE = .git_filemode_t.GIT_FILEMODE_UNREADABLE,
+	GIT_FILEMODE_TREE = .git_filemode_t.GIT_FILEMODE_TREE,
+	GIT_FILEMODE_BLOB = .git_filemode_t.GIT_FILEMODE_BLOB,
+	GIT_FILEMODE_BLOB_EXECUTABLE = .git_filemode_t.GIT_FILEMODE_BLOB_EXECUTABLE,
+	GIT_FILEMODE_LINK = .git_filemode_t.GIT_FILEMODE_LINK,
+	GIT_FILEMODE_COMMIT = .git_filemode_t.GIT_FILEMODE_COMMIT,
 }
 
 /**
@@ -446,6 +487,17 @@ enum git_submodule_update_t
 	GIT_SUBMODULE_UPDATE_DEFAULT = 0,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_SUBMODULE_UPDATE_CHECKOUT = .git_submodule_update_t.GIT_SUBMODULE_UPDATE_CHECKOUT,
+	GIT_SUBMODULE_UPDATE_REBASE = .git_submodule_update_t.GIT_SUBMODULE_UPDATE_REBASE,
+	GIT_SUBMODULE_UPDATE_MERGE = .git_submodule_update_t.GIT_SUBMODULE_UPDATE_MERGE,
+	GIT_SUBMODULE_UPDATE_NONE = .git_submodule_update_t.GIT_SUBMODULE_UPDATE_NONE,
+
+	GIT_SUBMODULE_UPDATE_DEFAULT = .git_submodule_update_t.GIT_SUBMODULE_UPDATE_DEFAULT,
+}
+
 /**
  * Submodule ignore values
  *
@@ -501,6 +553,16 @@ enum git_submodule_ignore_t
 	GIT_SUBMODULE_IGNORE_ALL = 4,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_SUBMODULE_IGNORE_UNSPECIFIED = .git_submodule_ignore_t.GIT_SUBMODULE_IGNORE_UNSPECIFIED,
+	GIT_SUBMODULE_IGNORE_NONE = .git_submodule_ignore_t.GIT_SUBMODULE_IGNORE_NONE,
+	GIT_SUBMODULE_IGNORE_UNTRACKED = .git_submodule_ignore_t.GIT_SUBMODULE_IGNORE_UNTRACKED,
+	GIT_SUBMODULE_IGNORE_DIRTY = .git_submodule_ignore_t.GIT_SUBMODULE_IGNORE_DIRTY,
+	GIT_SUBMODULE_IGNORE_ALL = .git_submodule_ignore_t.GIT_SUBMODULE_IGNORE_ALL,
+}
+
 /**
  * Options for submodule recurse.
  *
@@ -516,6 +578,14 @@ enum git_submodule_recurse_t
 	GIT_SUBMODULE_RECURSE_NO = 0,
 	GIT_SUBMODULE_RECURSE_YES = 1,
 	GIT_SUBMODULE_RECURSE_ONDEMAND = 2,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_SUBMODULE_RECURSE_NO = .git_submodule_recurse_t.GIT_SUBMODULE_RECURSE_NO,
+	GIT_SUBMODULE_RECURSE_YES = .git_submodule_recurse_t.GIT_SUBMODULE_RECURSE_YES,
+	GIT_SUBMODULE_RECURSE_ONDEMAND = .git_submodule_recurse_t.GIT_SUBMODULE_RECURSE_ONDEMAND,
 }
 
 /**

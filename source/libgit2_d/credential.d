@@ -81,6 +81,18 @@ enum git_credential_t
 	GIT_CREDENTIAL_SSH_MEMORY = 1u << 6,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_CREDENTIAL_USERPASS_PLAINTEXT = .git_credential_t.GIT_CREDENTIAL_USERPASS_PLAINTEXT,
+	GIT_CREDENTIAL_SSH_KEY = .git_credential_t.GIT_CREDENTIAL_SSH_KEY,
+	GIT_CREDENTIAL_SSH_CUSTOM = .git_credential_t.GIT_CREDENTIAL_SSH_CUSTOM,
+	GIT_CREDENTIAL_DEFAULT = .git_credential_t.GIT_CREDENTIAL_DEFAULT,
+	GIT_CREDENTIAL_SSH_INTERACTIVE = .git_credential_t.GIT_CREDENTIAL_SSH_INTERACTIVE,
+	GIT_CREDENTIAL_USERNAME = .git_credential_t.GIT_CREDENTIAL_USERNAME,
+	GIT_CREDENTIAL_SSH_MEMORY = .git_credential_t.GIT_CREDENTIAL_SSH_MEMORY,
+}
+
 /**
  * The base structure for all credential types
  */

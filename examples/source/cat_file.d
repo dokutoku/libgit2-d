@@ -163,6 +163,15 @@ public enum catfile_mode
 	SHOW_PRETTY = 4,
 }
 
+//Declaration name in C language
+public enum
+{
+	SHOW_TYPE = .catfile_mode.SHOW_TYPE,
+	SHOW_SIZE = .catfile_mode.SHOW_SIZE,
+	SHOW_NONE = .catfile_mode.SHOW_NONE,
+	SHOW_PRETTY = .catfile_mode.SHOW_PRETTY,
+}
+
 /**
  * Forward declarations for option-parsing helper
  */

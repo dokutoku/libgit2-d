@@ -63,6 +63,12 @@ enum git_apply_flags_t
 	GIT_APPLY_CHECK = 1 << 0,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_APPLY_CHECK = .git_apply_flags_t.GIT_APPLY_CHECK,
+}
+
 /**
  * Apply options structure
  *
@@ -154,6 +160,14 @@ enum git_apply_location_t
 	 * This is the equivalent of `git apply --index`.
 	 */
 	GIT_APPLY_LOCATION_BOTH = 2,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_APPLY_LOCATION_WORKDIR = .git_apply_location_t.GIT_APPLY_LOCATION_WORKDIR,
+	GIT_APPLY_LOCATION_INDEX = .git_apply_location_t.GIT_APPLY_LOCATION_INDEX,
+	GIT_APPLY_LOCATION_BOTH = .git_apply_location_t.GIT_APPLY_LOCATION_BOTH,
 }
 
 /**

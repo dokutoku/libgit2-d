@@ -87,6 +87,14 @@ enum git_revparse_mode_t
 	GIT_REVPARSE_MERGE_BASE = 1 << 2,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_REVPARSE_SINGLE = .git_revparse_mode_t.GIT_REVPARSE_SINGLE,
+	GIT_REVPARSE_RANGE = .git_revparse_mode_t.GIT_REVPARSE_RANGE,
+	GIT_REVPARSE_MERGE_BASE = .git_revparse_mode_t.GIT_REVPARSE_MERGE_BASE,
+}
+
 /**
  * Git Revision Spec: output of a `git_revparse` operation
  */

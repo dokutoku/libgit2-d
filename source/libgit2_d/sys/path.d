@@ -35,6 +35,14 @@ enum git_path_gitfile
 	GIT_PATH_GITFILE_GITATTRIBUTES,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_PATH_GITFILE_GITIGNORE = .git_path_gitfile.GIT_PATH_GITFILE_GITIGNORE,
+	GIT_PATH_GITFILE_GITMODULES = .git_path_gitfile.GIT_PATH_GITFILE_GITMODULES,
+	GIT_PATH_GITFILE_GITATTRIBUTES = .git_path_gitfile.GIT_PATH_GITFILE_GITATTRIBUTES,
+}
+
 /**
  * The kinds of checks to perform according to which filesystem we are trying to
  * protect.
@@ -55,6 +63,14 @@ enum git_path_fs
 	 * Do HFS-specific checks only
 	 */
 	GIT_PATH_FS_HFS,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_PATH_FS_GENERIC = .git_path_fs.GIT_PATH_FS_GENERIC,
+	GIT_PATH_FS_NTFS = .git_path_fs.GIT_PATH_FS_NTFS,
+	GIT_PATH_FS_HFS = .git_path_fs.GIT_PATH_FS_HFS,
 }
 
 /**

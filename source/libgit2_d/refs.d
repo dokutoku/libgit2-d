@@ -758,6 +758,15 @@ enum git_reference_format_t
 	GIT_REFERENCE_FORMAT_REFSPEC_SHORTHAND = 1u << 2,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_REFERENCE_FORMAT_NORMAL = .git_reference_format_t.GIT_REFERENCE_FORMAT_NORMAL,
+	GIT_REFERENCE_FORMAT_ALLOW_ONELEVEL = .git_reference_format_t.GIT_REFERENCE_FORMAT_ALLOW_ONELEVEL,
+	GIT_REFERENCE_FORMAT_REFSPEC_PATTERN = .git_reference_format_t.GIT_REFERENCE_FORMAT_REFSPEC_PATTERN,
+	GIT_REFERENCE_FORMAT_REFSPEC_SHORTHAND = .git_reference_format_t.GIT_REFERENCE_FORMAT_REFSPEC_SHORTHAND,
+}
+
 /**
  * Normalize reference name and check validity.
  *

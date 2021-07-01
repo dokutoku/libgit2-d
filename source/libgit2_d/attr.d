@@ -134,6 +134,15 @@ enum git_attr_value_t
 	GIT_ATTR_VALUE_STRING,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_ATTR_VALUE_UNSPECIFIED = .git_attr_value_t.GIT_ATTR_VALUE_UNSPECIFIED,
+	GIT_ATTR_VALUE_TRUE = .git_attr_value_t.GIT_ATTR_VALUE_TRUE,
+	GIT_ATTR_VALUE_FALSE = .git_attr_value_t.GIT_ATTR_VALUE_FALSE,
+	GIT_ATTR_VALUE_STRING = .git_attr_value_t.GIT_ATTR_VALUE_STRING,
+}
+
 /**
  * Return the value type for a given attribute.
  *

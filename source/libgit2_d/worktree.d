@@ -246,6 +246,14 @@ enum git_worktree_prune_t
 	GIT_WORKTREE_PRUNE_WORKING_TREE = 1u << 2,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_WORKTREE_PRUNE_VALID = .git_worktree_prune_t.GIT_WORKTREE_PRUNE_VALID,
+	GIT_WORKTREE_PRUNE_LOCKED = .git_worktree_prune_t.GIT_WORKTREE_PRUNE_LOCKED,
+	GIT_WORKTREE_PRUNE_WORKING_TREE = .git_worktree_prune_t.GIT_WORKTREE_PRUNE_WORKING_TREE,
+}
+
 /**
  * Worktree prune options structure
  *

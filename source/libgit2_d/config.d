@@ -71,6 +71,18 @@ enum git_config_level_t
 	GIT_CONFIG_HIGHEST_LEVEL = -1,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_CONFIG_LEVEL_PROGRAMDATA = .git_config_level_t.GIT_CONFIG_LEVEL_PROGRAMDATA,
+	GIT_CONFIG_LEVEL_SYSTEM = .git_config_level_t.GIT_CONFIG_LEVEL_SYSTEM,
+	GIT_CONFIG_LEVEL_XDG = .git_config_level_t.GIT_CONFIG_LEVEL_XDG,
+	GIT_CONFIG_LEVEL_GLOBAL = .git_config_level_t.GIT_CONFIG_LEVEL_GLOBAL,
+	GIT_CONFIG_LEVEL_LOCAL = .git_config_level_t.GIT_CONFIG_LEVEL_LOCAL,
+	GIT_CONFIG_LEVEL_APP = .git_config_level_t.GIT_CONFIG_LEVEL_APP,
+	GIT_CONFIG_HIGHEST_LEVEL = .git_config_level_t.GIT_CONFIG_HIGHEST_LEVEL,
+}
+
 /**
  * An entry in a configuration file
  */
@@ -136,6 +148,15 @@ enum git_configmap_t
 	GIT_CONFIGMAP_TRUE = 1,
 	GIT_CONFIGMAP_INT32,
 	GIT_CONFIGMAP_STRING,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_CONFIGMAP_FALSE = .git_configmap_t.GIT_CONFIGMAP_FALSE,
+	GIT_CONFIGMAP_TRUE = .git_configmap_t.GIT_CONFIGMAP_TRUE,
+	GIT_CONFIGMAP_INT32 = .git_configmap_t.GIT_CONFIGMAP_INT32,
+	GIT_CONFIGMAP_STRING = .git_configmap_t.GIT_CONFIGMAP_STRING,
 }
 
 /**

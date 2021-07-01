@@ -41,6 +41,16 @@ public enum subcmd
 	subcmd_show,
 }
 
+//Declaration name in C language
+public enum
+{
+	subcmd_add = .subcmd.subcmd_add,
+	subcmd_remove = .subcmd.subcmd_remove,
+	subcmd_rename = .subcmd.subcmd_rename,
+	subcmd_seturl = .subcmd.subcmd_seturl,
+	subcmd_show = .subcmd.subcmd_show,
+}
+
 public struct remote_opts
 {
 	.subcmd cmd;

@@ -35,6 +35,14 @@ enum git_describe_strategy_t
 	GIT_DESCRIBE_ALL,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_DESCRIBE_DEFAULT = .git_describe_strategy_t.GIT_DESCRIBE_DEFAULT,
+	GIT_DESCRIBE_TAGS = .git_describe_strategy_t.GIT_DESCRIBE_TAGS,
+	GIT_DESCRIBE_ALL = .git_describe_strategy_t.GIT_DESCRIBE_ALL,
+}
+
 /**
  * Describe options structure
  *

@@ -139,6 +139,14 @@ enum git_blob_filter_flag_t
 	GIT_BLOB_FILTER_ATTTRIBUTES_FROM_HEAD = 1 << 2,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_BLOB_FILTER_CHECK_FOR_BINARY = .git_blob_filter_flag_t.GIT_BLOB_FILTER_CHECK_FOR_BINARY,
+	GIT_BLOB_FILTER_NO_SYSTEM_ATTRIBUTES = .git_blob_filter_flag_t.GIT_BLOB_FILTER_NO_SYSTEM_ATTRIBUTES,
+	GIT_BLOB_FILTER_ATTTRIBUTES_FROM_HEAD = .git_blob_filter_flag_t.GIT_BLOB_FILTER_ATTTRIBUTES_FROM_HEAD,
+}
+
 /**
  * The options used when applying filter options to a file.
  */

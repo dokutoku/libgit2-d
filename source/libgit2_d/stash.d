@@ -50,6 +50,15 @@ enum git_stash_flags
 	GIT_STASH_INCLUDE_IGNORED = 1 << 2,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_STASH_DEFAULT = .git_stash_flags.GIT_STASH_DEFAULT,
+	GIT_STASH_KEEP_INDEX = .git_stash_flags.GIT_STASH_KEEP_INDEX,
+	GIT_STASH_INCLUDE_UNTRACKED = .git_stash_flags.GIT_STASH_INCLUDE_UNTRACKED,
+	GIT_STASH_INCLUDE_IGNORED = .git_stash_flags.GIT_STASH_INCLUDE_IGNORED,
+}
+
 /**
  * Save the local modifications to a new stash.
  *
@@ -77,6 +86,13 @@ enum git_stash_apply_flags
 	 * but also the index's changes.
 	 */
 	GIT_STASH_APPLY_REINSTATE_INDEX = 1 << 0,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_STASH_APPLY_DEFAULT = .git_stash_apply_flags.GIT_STASH_APPLY_DEFAULT,
+	GIT_STASH_APPLY_REINSTATE_INDEX = .git_stash_apply_flags.GIT_STASH_APPLY_REINSTATE_INDEX,
 }
 
 /**
@@ -120,6 +136,19 @@ enum git_stash_apply_progress_t
 	 * The stash was applied successfully.
 	 */
 	GIT_STASH_APPLY_PROGRESS_DONE,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_STASH_APPLY_PROGRESS_NONE = .git_stash_apply_progress_t.GIT_STASH_APPLY_PROGRESS_NONE,
+	GIT_STASH_APPLY_PROGRESS_LOADING_STASH = .git_stash_apply_progress_t.GIT_STASH_APPLY_PROGRESS_LOADING_STASH,
+	GIT_STASH_APPLY_PROGRESS_ANALYZE_INDEX = .git_stash_apply_progress_t.GIT_STASH_APPLY_PROGRESS_ANALYZE_INDEX,
+	GIT_STASH_APPLY_PROGRESS_ANALYZE_MODIFIED = .git_stash_apply_progress_t.GIT_STASH_APPLY_PROGRESS_ANALYZE_MODIFIED,
+	GIT_STASH_APPLY_PROGRESS_ANALYZE_UNTRACKED = .git_stash_apply_progress_t.GIT_STASH_APPLY_PROGRESS_ANALYZE_UNTRACKED,
+	GIT_STASH_APPLY_PROGRESS_CHECKOUT_UNTRACKED = .git_stash_apply_progress_t.GIT_STASH_APPLY_PROGRESS_CHECKOUT_UNTRACKED,
+	GIT_STASH_APPLY_PROGRESS_CHECKOUT_MODIFIED = .git_stash_apply_progress_t.GIT_STASH_APPLY_PROGRESS_CHECKOUT_MODIFIED,
+	GIT_STASH_APPLY_PROGRESS_DONE = .git_stash_apply_progress_t.GIT_STASH_APPLY_PROGRESS_DONE,
 }
 
 /**

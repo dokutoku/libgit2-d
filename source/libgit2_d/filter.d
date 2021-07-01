@@ -37,6 +37,15 @@ enum git_filter_mode_t
 	GIT_FILTER_CLEAN = GIT_FILTER_TO_ODB,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_FILTER_TO_WORKTREE = .git_filter_mode_t.GIT_FILTER_TO_WORKTREE,
+	GIT_FILTER_SMUDGE = .git_filter_mode_t.GIT_FILTER_SMUDGE,
+	GIT_FILTER_TO_ODB = .git_filter_mode_t.GIT_FILTER_TO_ODB,
+	GIT_FILTER_CLEAN = .git_filter_mode_t.GIT_FILTER_CLEAN,
+}
+
 /**
  * Filter option flags.
  */
@@ -58,6 +67,15 @@ enum git_filter_flag_t
 	 * Load attributes from `.gitattributes` in the root of HEAD
 	 */
 	GIT_FILTER_ATTRIBUTES_FROM_HEAD = 1u << 2,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_FILTER_DEFAULT = .git_filter_flag_t.GIT_FILTER_DEFAULT,
+	GIT_FILTER_ALLOW_UNSAFE = .git_filter_flag_t.GIT_FILTER_ALLOW_UNSAFE,
+	GIT_FILTER_NO_SYSTEM_ATTRIBUTES = .git_filter_flag_t.GIT_FILTER_NO_SYSTEM_ATTRIBUTES,
+	GIT_FILTER_ATTRIBUTES_FROM_HEAD = .git_filter_flag_t.GIT_FILTER_ATTRIBUTES_FROM_HEAD,
 }
 
 /**

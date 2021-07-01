@@ -58,6 +58,13 @@ enum git_packbuilder_stage_t
 	GIT_PACKBUILDER_DELTAFICATION = 1,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_PACKBUILDER_ADDING_OBJECTS = .git_packbuilder_stage_t.GIT_PACKBUILDER_ADDING_OBJECTS,
+	GIT_PACKBUILDER_DELTAFICATION = .git_packbuilder_stage_t.GIT_PACKBUILDER_DELTAFICATION,
+}
+
 /**
  * Initialize a new packbuilder
  *

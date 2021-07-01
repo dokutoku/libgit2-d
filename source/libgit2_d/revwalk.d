@@ -54,6 +54,15 @@ enum git_sort_t
 	GIT_SORT_REVERSE = 1 << 2,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_SORT_NONE = .git_sort_t.GIT_SORT_NONE,
+	GIT_SORT_TOPOLOGICAL = .git_sort_t.GIT_SORT_TOPOLOGICAL,
+	GIT_SORT_TIME = .git_sort_t.GIT_SORT_TIME,
+	GIT_SORT_REVERSE = .git_sort_t.GIT_SORT_REVERSE,
+}
+
 /**
  * Allocate a new revision walker to iterate through a repo.
  *

@@ -60,6 +60,18 @@ enum git_trace_level_t
 	GIT_TRACE_TRACE = 6,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_TRACE_NONE = .git_trace_level_t.GIT_TRACE_NONE,
+	GIT_TRACE_FATAL = .git_trace_level_t.GIT_TRACE_FATAL,
+	GIT_TRACE_ERROR = .git_trace_level_t.GIT_TRACE_ERROR,
+	GIT_TRACE_WARN = .git_trace_level_t.GIT_TRACE_WARN,
+	GIT_TRACE_INFO = .git_trace_level_t.GIT_TRACE_INFO,
+	GIT_TRACE_DEBUG = .git_trace_level_t.GIT_TRACE_DEBUG,
+	GIT_TRACE_TRACE = .git_trace_level_t.GIT_TRACE_TRACE,
+}
+
 /**
  * An instance for a tracing function
  */

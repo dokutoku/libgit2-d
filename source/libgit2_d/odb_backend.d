@@ -79,6 +79,14 @@ enum git_odb_stream_t
 	GIT_STREAM_RW = GIT_STREAM_RDONLY | GIT_STREAM_WRONLY,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_STREAM_RDONLY = .git_odb_stream_t.GIT_STREAM_RDONLY,
+	GIT_STREAM_WRONLY = .git_odb_stream_t.GIT_STREAM_WRONLY,
+	GIT_STREAM_RW = .git_odb_stream_t.GIT_STREAM_RW,
+}
+
 /**
  * A stream to read/write from a backend.
  *

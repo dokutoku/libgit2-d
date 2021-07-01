@@ -98,6 +98,13 @@ enum git_stream_t
 	GIT_STREAM_TLS = 2,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_STREAM_STANDARD = .git_stream_t.GIT_STREAM_STANDARD,
+	GIT_STREAM_TLS = .git_stream_t.GIT_STREAM_TLS,
+}
+
 /**
  * Register stream constructors for the library to use
  *

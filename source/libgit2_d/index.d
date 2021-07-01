@@ -97,6 +97,13 @@ enum git_index_entry_flag_t
 	GIT_INDEX_ENTRY_VALID = 0x8000,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_INDEX_ENTRY_EXTENDED = .git_index_entry_flag_t.GIT_INDEX_ENTRY_EXTENDED,
+	GIT_INDEX_ENTRY_VALID = .git_index_entry_flag_t.GIT_INDEX_ENTRY_VALID,
+}
+
 pragma(inline, true)
 pure nothrow @safe @nogc
 ushort GIT_INDEX_ENTRY_STAGE(const ref .git_index_entry E)
@@ -143,6 +150,17 @@ enum git_index_entry_extended_flag_t
 	GIT_INDEX_ENTRY_UPTODATE = 1 << 2,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_INDEX_ENTRY_INTENT_TO_ADD = .git_index_entry_extended_flag_t.GIT_INDEX_ENTRY_INTENT_TO_ADD,
+	GIT_INDEX_ENTRY_SKIP_WORKTREE = .git_index_entry_extended_flag_t.GIT_INDEX_ENTRY_SKIP_WORKTREE,
+
+	GIT_INDEX_ENTRY_EXTENDED_FLAGS = .git_index_entry_extended_flag_t.GIT_INDEX_ENTRY_EXTENDED_FLAGS,
+
+	GIT_INDEX_ENTRY_UPTODATE = .git_index_entry_extended_flag_t.GIT_INDEX_ENTRY_UPTODATE,
+}
+
 /**
  * Capabilities of system that affect index actions.
  */
@@ -152,6 +170,15 @@ enum git_index_capability_t
 	GIT_INDEX_CAPABILITY_NO_FILEMODE = 2,
 	GIT_INDEX_CAPABILITY_NO_SYMLINKS = 4,
 	GIT_INDEX_CAPABILITY_FROM_OWNER = -1,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_INDEX_CAPABILITY_IGNORE_CASE = .git_index_capability_t.GIT_INDEX_CAPABILITY_IGNORE_CASE,
+	GIT_INDEX_CAPABILITY_NO_FILEMODE = .git_index_capability_t.GIT_INDEX_CAPABILITY_NO_FILEMODE,
+	GIT_INDEX_CAPABILITY_NO_SYMLINKS = .git_index_capability_t.GIT_INDEX_CAPABILITY_NO_SYMLINKS,
+	GIT_INDEX_CAPABILITY_FROM_OWNER = .git_index_capability_t.GIT_INDEX_CAPABILITY_FROM_OWNER,
 }
 
 /**
@@ -168,6 +195,15 @@ enum git_index_add_option_t
 	GIT_INDEX_ADD_FORCE = 1u << 0,
 	GIT_INDEX_ADD_DISABLE_PATHSPEC_MATCH = 1u << 1,
 	GIT_INDEX_ADD_CHECK_PATHSPEC = 1u << 2,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_INDEX_ADD_DEFAULT = .git_index_add_option_t.GIT_INDEX_ADD_DEFAULT,
+	GIT_INDEX_ADD_FORCE = .git_index_add_option_t.GIT_INDEX_ADD_FORCE,
+	GIT_INDEX_ADD_DISABLE_PATHSPEC_MATCH = .git_index_add_option_t.GIT_INDEX_ADD_DISABLE_PATHSPEC_MATCH,
+	GIT_INDEX_ADD_CHECK_PATHSPEC = .git_index_add_option_t.GIT_INDEX_ADD_CHECK_PATHSPEC,
 }
 
 /**
@@ -202,6 +238,16 @@ enum git_index_stage_t
 	 * The "theirs" side of a conflict.
 	 */
 	GIT_INDEX_STAGE_THEIRS = 3,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_INDEX_STAGE_ANY = .git_index_stage_t.GIT_INDEX_STAGE_ANY,
+	GIT_INDEX_STAGE_NORMAL = .git_index_stage_t.GIT_INDEX_STAGE_NORMAL,
+	GIT_INDEX_STAGE_ANCESTOR = .git_index_stage_t.GIT_INDEX_STAGE_ANCESTOR,
+	GIT_INDEX_STAGE_OURS = .git_index_stage_t.GIT_INDEX_STAGE_OURS,
+	GIT_INDEX_STAGE_THEIRS = .git_index_stage_t.GIT_INDEX_STAGE_THEIRS,
 }
 
 /**

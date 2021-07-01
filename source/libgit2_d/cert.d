@@ -50,6 +50,15 @@ enum git_cert_t
 	GIT_CERT_STRARRAY,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_CERT_NONE = .git_cert_t.GIT_CERT_NONE,
+	GIT_CERT_X509 = .git_cert_t.GIT_CERT_X509,
+	GIT_CERT_HOSTKEY_LIBSSH2 = .git_cert_t.GIT_CERT_HOSTKEY_LIBSSH2,
+	GIT_CERT_STRARRAY = .git_cert_t.GIT_CERT_STRARRAY,
+}
+
 /**
  * Parent type for `git_cert_hostkey` and `git_cert_x509`.
  */
@@ -93,6 +102,14 @@ enum git_cert_ssh_t
 	 * SHA-256 is available
 	 */
 	GIT_CERT_SSH_SHA256 = 1 << 2,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_CERT_SSH_MD5 = .git_cert_ssh_t.GIT_CERT_SSH_MD5,
+	GIT_CERT_SSH_SHA1 = .git_cert_ssh_t.GIT_CERT_SSH_SHA1,
+	GIT_CERT_SSH_SHA256 = .git_cert_ssh_t.GIT_CERT_SSH_SHA256,
 }
 
 /**

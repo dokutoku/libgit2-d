@@ -42,6 +42,14 @@ enum git_reset_t
 	GIT_RESET_HARD = 3,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_RESET_SOFT = .git_reset_t.GIT_RESET_SOFT,
+	GIT_RESET_MIXED = .git_reset_t.GIT_RESET_MIXED,
+	GIT_RESET_HARD = .git_reset_t.GIT_RESET_HARD,
+}
+
 /**
  * Sets the current head to the specified commit oid and optionally
  * resets the index and working tree to match.

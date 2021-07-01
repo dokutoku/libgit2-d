@@ -38,6 +38,12 @@ enum git_transport_flags_t
 	GIT_TRANSPORTFLAGS_NONE = 0,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_TRANSPORTFLAGS_NONE = .git_transport_flags_t.GIT_TRANSPORTFLAGS_NONE,
+}
+
 struct git_transport
 {
 	/**
@@ -316,6 +322,15 @@ enum git_smart_service_t
 	GIT_SERVICE_UPLOADPACK = 2,
 	GIT_SERVICE_RECEIVEPACK_LS = 3,
 	GIT_SERVICE_RECEIVEPACK = 4,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_SERVICE_UPLOADPACK_LS = .git_smart_service_t.GIT_SERVICE_UPLOADPACK_LS,
+	GIT_SERVICE_UPLOADPACK = .git_smart_service_t.GIT_SERVICE_UPLOADPACK,
+	GIT_SERVICE_RECEIVEPACK_LS = .git_smart_service_t.GIT_SERVICE_RECEIVEPACK_LS,
+	GIT_SERVICE_RECEIVEPACK = .git_smart_service_t.GIT_SERVICE_RECEIVEPACK,
 }
 
 /**

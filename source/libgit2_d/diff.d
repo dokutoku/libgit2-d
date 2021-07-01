@@ -223,6 +223,41 @@ enum git_diff_option_t
 	GIT_DIFF_SHOW_BINARY = 1u << 30,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_DIFF_NORMAL = .git_diff_option_t.GIT_DIFF_NORMAL,
+	GIT_DIFF_REVERSE = .git_diff_option_t.GIT_DIFF_REVERSE,
+	GIT_DIFF_INCLUDE_IGNORED = .git_diff_option_t.GIT_DIFF_INCLUDE_IGNORED,
+	GIT_DIFF_RECURSE_IGNORED_DIRS = .git_diff_option_t.GIT_DIFF_RECURSE_IGNORED_DIRS,
+	GIT_DIFF_INCLUDE_UNTRACKED = .git_diff_option_t.GIT_DIFF_INCLUDE_UNTRACKED,
+	GIT_DIFF_RECURSE_UNTRACKED_DIRS = .git_diff_option_t.GIT_DIFF_RECURSE_UNTRACKED_DIRS,
+	GIT_DIFF_INCLUDE_UNMODIFIED = .git_diff_option_t.GIT_DIFF_INCLUDE_UNMODIFIED,
+	GIT_DIFF_INCLUDE_TYPECHANGE = .git_diff_option_t.GIT_DIFF_INCLUDE_TYPECHANGE,
+	GIT_DIFF_INCLUDE_TYPECHANGE_TREES = .git_diff_option_t.GIT_DIFF_INCLUDE_TYPECHANGE_TREES,
+	GIT_DIFF_IGNORE_FILEMODE = .git_diff_option_t.GIT_DIFF_IGNORE_FILEMODE,
+	GIT_DIFF_IGNORE_SUBMODULES = .git_diff_option_t.GIT_DIFF_IGNORE_SUBMODULES,
+	GIT_DIFF_IGNORE_CASE = .git_diff_option_t.GIT_DIFF_IGNORE_CASE,
+	GIT_DIFF_INCLUDE_CASECHANGE = .git_diff_option_t.GIT_DIFF_INCLUDE_CASECHANGE,
+	GIT_DIFF_DISABLE_PATHSPEC_MATCH = .git_diff_option_t.GIT_DIFF_DISABLE_PATHSPEC_MATCH,
+	GIT_DIFF_SKIP_BINARY_CHECK = .git_diff_option_t.GIT_DIFF_SKIP_BINARY_CHECK,
+	GIT_DIFF_ENABLE_FAST_UNTRACKED_DIRS = .git_diff_option_t.GIT_DIFF_ENABLE_FAST_UNTRACKED_DIRS,
+	GIT_DIFF_UPDATE_INDEX = .git_diff_option_t.GIT_DIFF_UPDATE_INDEX,
+	GIT_DIFF_INCLUDE_UNREADABLE = .git_diff_option_t.GIT_DIFF_INCLUDE_UNREADABLE,
+	GIT_DIFF_INCLUDE_UNREADABLE_AS_UNTRACKED = .git_diff_option_t.GIT_DIFF_INCLUDE_UNREADABLE_AS_UNTRACKED,
+	GIT_DIFF_INDENT_HEURISTIC = .git_diff_option_t.GIT_DIFF_INDENT_HEURISTIC,
+	GIT_DIFF_FORCE_TEXT = .git_diff_option_t.GIT_DIFF_FORCE_TEXT,
+	GIT_DIFF_FORCE_BINARY = .git_diff_option_t.GIT_DIFF_FORCE_BINARY,
+	GIT_DIFF_IGNORE_WHITESPACE = .git_diff_option_t.GIT_DIFF_IGNORE_WHITESPACE,
+	GIT_DIFF_IGNORE_WHITESPACE_CHANGE = .git_diff_option_t.GIT_DIFF_IGNORE_WHITESPACE_CHANGE,
+	GIT_DIFF_IGNORE_WHITESPACE_EOL = .git_diff_option_t.GIT_DIFF_IGNORE_WHITESPACE_EOL,
+	GIT_DIFF_SHOW_UNTRACKED_CONTENT = .git_diff_option_t.GIT_DIFF_SHOW_UNTRACKED_CONTENT,
+	GIT_DIFF_SHOW_UNMODIFIED = .git_diff_option_t.GIT_DIFF_SHOW_UNMODIFIED,
+	GIT_DIFF_PATIENCE = .git_diff_option_t.GIT_DIFF_PATIENCE,
+	GIT_DIFF_MINIMAL = .git_diff_option_t.GIT_DIFF_MINIMAL,
+	GIT_DIFF_SHOW_BINARY = .git_diff_option_t.GIT_DIFF_SHOW_BINARY,
+}
+
 /**
  * The diff object that contains all individual file deltas.
  *
@@ -273,6 +308,15 @@ enum git_diff_flag_t
 	 * file exists at this side of the delta
 	 */
 	GIT_DIFF_FLAG_EXISTS = 1u << 3,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_DIFF_FLAG_BINARY = .git_diff_flag_t.GIT_DIFF_FLAG_BINARY,
+	GIT_DIFF_FLAG_NOT_BINARY = .git_diff_flag_t.GIT_DIFF_FLAG_NOT_BINARY,
+	GIT_DIFF_FLAG_VALID_ID = .git_diff_flag_t.GIT_DIFF_FLAG_VALID_ID,
+	GIT_DIFF_FLAG_EXISTS = .git_diff_flag_t.GIT_DIFF_FLAG_EXISTS,
 }
 
 /**
@@ -341,6 +385,22 @@ enum git_delta_t
 	 * entry in the index is conflicted
 	 */
 	GIT_DELTA_CONFLICTED = 10,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_DELTA_UNMODIFIED = .git_delta_t.GIT_DELTA_UNMODIFIED,
+	GIT_DELTA_ADDED = .git_delta_t.GIT_DELTA_ADDED,
+	GIT_DELTA_DELETED = .git_delta_t.GIT_DELTA_DELETED,
+	GIT_DELTA_MODIFIED = .git_delta_t.GIT_DELTA_MODIFIED,
+	GIT_DELTA_RENAMED = .git_delta_t.GIT_DELTA_RENAMED,
+	GIT_DELTA_COPIED = .git_delta_t.GIT_DELTA_COPIED,
+	GIT_DELTA_IGNORED = .git_delta_t.GIT_DELTA_IGNORED,
+	GIT_DELTA_UNTRACKED = .git_delta_t.GIT_DELTA_UNTRACKED,
+	GIT_DELTA_TYPECHANGE = .git_delta_t.GIT_DELTA_TYPECHANGE,
+	GIT_DELTA_UNREADABLE = .git_delta_t.GIT_DELTA_UNREADABLE,
+	GIT_DELTA_CONFLICTED = .git_delta_t.GIT_DELTA_CONFLICTED,
 }
 
 /**
@@ -657,6 +717,14 @@ enum git_diff_binary_t
 	GIT_DIFF_BINARY_DELTA,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_DIFF_BINARY_NONE = .git_diff_binary_t.GIT_DIFF_BINARY_NONE,
+	GIT_DIFF_BINARY_LITERAL = .git_diff_binary_t.GIT_DIFF_BINARY_LITERAL,
+	GIT_DIFF_BINARY_DELTA = .git_diff_binary_t.GIT_DIFF_BINARY_DELTA,
+}
+
 /**
  * The contents of one of the files in a binary diff.
  */
@@ -803,6 +871,20 @@ enum git_diff_line_t
 	 * For "Binary files x and y differ"
 	 */
 	GIT_DIFF_LINE_BINARY = 'B',
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_DIFF_LINE_CONTEXT = .git_diff_line_t.GIT_DIFF_LINE_CONTEXT,
+	GIT_DIFF_LINE_ADDITION = .git_diff_line_t.GIT_DIFF_LINE_ADDITION,
+	GIT_DIFF_LINE_DELETION = .git_diff_line_t.GIT_DIFF_LINE_DELETION,
+	GIT_DIFF_LINE_CONTEXT_EOFNL = .git_diff_line_t.GIT_DIFF_LINE_CONTEXT_EOFNL,
+	GIT_DIFF_LINE_ADD_EOFNL = .git_diff_line_t.GIT_DIFF_LINE_ADD_EOFNL,
+	GIT_DIFF_LINE_DEL_EOFNL = .git_diff_line_t.GIT_DIFF_LINE_DEL_EOFNL,
+	GIT_DIFF_LINE_FILE_HDR = .git_diff_line_t.GIT_DIFF_LINE_FILE_HDR,
+	GIT_DIFF_LINE_HUNK_HDR = .git_diff_line_t.GIT_DIFF_LINE_HUNK_HDR,
+	GIT_DIFF_LINE_BINARY = .git_diff_line_t.GIT_DIFF_LINE_BINARY,
 }
 
 /**
@@ -973,6 +1055,27 @@ enum git_diff_find_t
 	 * records in the final result, pass this flag to have them removed.
 	 */
 	GIT_DIFF_FIND_REMOVE_UNMODIFIED = 1u << 16,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_DIFF_FIND_BY_CONFIG = .git_diff_find_t.GIT_DIFF_FIND_BY_CONFIG,
+	GIT_DIFF_FIND_RENAMES = .git_diff_find_t.GIT_DIFF_FIND_RENAMES,
+	GIT_DIFF_FIND_RENAMES_FROM_REWRITES = .git_diff_find_t.GIT_DIFF_FIND_RENAMES_FROM_REWRITES,
+	GIT_DIFF_FIND_COPIES = .git_diff_find_t.GIT_DIFF_FIND_COPIES,
+	GIT_DIFF_FIND_COPIES_FROM_UNMODIFIED = .git_diff_find_t.GIT_DIFF_FIND_COPIES_FROM_UNMODIFIED,
+	GIT_DIFF_FIND_REWRITES = .git_diff_find_t.GIT_DIFF_FIND_REWRITES,
+	GIT_DIFF_BREAK_REWRITES = .git_diff_find_t.GIT_DIFF_BREAK_REWRITES,
+	GIT_DIFF_FIND_AND_BREAK_REWRITES = .git_diff_find_t.GIT_DIFF_FIND_AND_BREAK_REWRITES,
+	GIT_DIFF_FIND_FOR_UNTRACKED = .git_diff_find_t.GIT_DIFF_FIND_FOR_UNTRACKED,
+	GIT_DIFF_FIND_ALL = .git_diff_find_t.GIT_DIFF_FIND_ALL,
+	GIT_DIFF_FIND_IGNORE_LEADING_WHITESPACE = .git_diff_find_t.GIT_DIFF_FIND_IGNORE_LEADING_WHITESPACE,
+	GIT_DIFF_FIND_IGNORE_WHITESPACE = .git_diff_find_t.GIT_DIFF_FIND_IGNORE_WHITESPACE,
+	GIT_DIFF_FIND_DONT_IGNORE_WHITESPACE = .git_diff_find_t.GIT_DIFF_FIND_DONT_IGNORE_WHITESPACE,
+	GIT_DIFF_FIND_EXACT_MATCH_ONLY = .git_diff_find_t.GIT_DIFF_FIND_EXACT_MATCH_ONLY,
+	GIT_DIFF_BREAK_REWRITES_FOR_RENAMES_ONLY = .git_diff_find_t.GIT_DIFF_BREAK_REWRITES_FOR_RENAMES_ONLY,
+	GIT_DIFF_FIND_REMOVE_UNMODIFIED = .git_diff_find_t.GIT_DIFF_FIND_REMOVE_UNMODIFIED,
 }
 
 /**
@@ -1407,6 +1510,17 @@ enum git_diff_format_t
 	GIT_DIFF_FORMAT_PATCH_ID = 6u,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_DIFF_FORMAT_PATCH = .git_diff_format_t.GIT_DIFF_FORMAT_PATCH,
+	GIT_DIFF_FORMAT_PATCH_HEADER = .git_diff_format_t.GIT_DIFF_FORMAT_PATCH_HEADER,
+	GIT_DIFF_FORMAT_RAW = .git_diff_format_t.GIT_DIFF_FORMAT_RAW,
+	GIT_DIFF_FORMAT_NAME_ONLY = .git_diff_format_t.GIT_DIFF_FORMAT_NAME_ONLY,
+	GIT_DIFF_FORMAT_NAME_STATUS = .git_diff_format_t.GIT_DIFF_FORMAT_NAME_STATUS,
+	GIT_DIFF_FORMAT_PATCH_ID = .git_diff_format_t.GIT_DIFF_FORMAT_PATCH_ID,
+}
+
 /**
  * Iterate over a diff generating formatted text output.
  *
@@ -1596,6 +1710,16 @@ enum git_diff_stats_format_t
 	GIT_DIFF_STATS_INCLUDE_SUMMARY = 1u << 3,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_DIFF_STATS_NONE = .git_diff_stats_format_t.GIT_DIFF_STATS_NONE,
+	GIT_DIFF_STATS_FULL = .git_diff_stats_format_t.GIT_DIFF_STATS_FULL,
+	GIT_DIFF_STATS_SHORT = .git_diff_stats_format_t.GIT_DIFF_STATS_SHORT,
+	GIT_DIFF_STATS_NUMBER = .git_diff_stats_format_t.GIT_DIFF_STATS_NUMBER,
+	GIT_DIFF_STATS_INCLUDE_SUMMARY = .git_diff_stats_format_t.GIT_DIFF_STATS_INCLUDE_SUMMARY,
+}
+
 /**
  * Accumulate diff statistics for all patches.
  *
@@ -1679,6 +1803,13 @@ enum git_diff_format_email_flags_t
 	 * Don't insert "[PATCH]" in the subject header
 	 */
 	GIT_DIFF_FORMAT_EMAIL_EXCLUDE_SUBJECT_PATCH_MARKER = 1 << 0,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_DIFF_FORMAT_EMAIL_NONE = .git_diff_format_email_flags_t.GIT_DIFF_FORMAT_EMAIL_NONE,
+	GIT_DIFF_FORMAT_EMAIL_EXCLUDE_SUBJECT_PATCH_MARKER = .git_diff_format_email_flags_t.GIT_DIFF_FORMAT_EMAIL_EXCLUDE_SUBJECT_PATCH_MARKER,
 }
 
 /**

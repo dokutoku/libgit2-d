@@ -118,6 +118,15 @@ enum git_merge_flag_t
 	GIT_MERGE_NO_RECURSIVE = 1 << 3,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_MERGE_FIND_RENAMES = .git_merge_flag_t.GIT_MERGE_FIND_RENAMES,
+	GIT_MERGE_FAIL_ON_CONFLICT = .git_merge_flag_t.GIT_MERGE_FAIL_ON_CONFLICT,
+	GIT_MERGE_SKIP_REUC = .git_merge_flag_t.GIT_MERGE_SKIP_REUC,
+	GIT_MERGE_NO_RECURSIVE = .git_merge_flag_t.GIT_MERGE_NO_RECURSIVE,
+}
+
 /**
  * Merge file favor options for `git_merge_options` instruct the file-level
  * merging functionality how to deal with conflicting regions of the files.
@@ -153,6 +162,15 @@ enum git_merge_file_favor_t
 	 * record a conflict.
 	 */
 	GIT_MERGE_FILE_FAVOR_UNION = 3,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_MERGE_FILE_FAVOR_NORMAL = .git_merge_file_favor_t.GIT_MERGE_FILE_FAVOR_NORMAL,
+	GIT_MERGE_FILE_FAVOR_OURS = .git_merge_file_favor_t.GIT_MERGE_FILE_FAVOR_OURS,
+	GIT_MERGE_FILE_FAVOR_THEIRS = .git_merge_file_favor_t.GIT_MERGE_FILE_FAVOR_THEIRS,
+	GIT_MERGE_FILE_FAVOR_UNION = .git_merge_file_favor_t.GIT_MERGE_FILE_FAVOR_UNION,
 }
 
 /**
@@ -204,6 +222,20 @@ enum git_merge_file_flag_t
 	 * Take extra time to find minimal diff
 	 */
 	GIT_MERGE_FILE_DIFF_MINIMAL = 1 << 7,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_MERGE_FILE_DEFAULT = .git_merge_file_flag_t.GIT_MERGE_FILE_DEFAULT,
+	GIT_MERGE_FILE_STYLE_MERGE = .git_merge_file_flag_t.GIT_MERGE_FILE_STYLE_MERGE,
+	GIT_MERGE_FILE_STYLE_DIFF3 = .git_merge_file_flag_t.GIT_MERGE_FILE_STYLE_DIFF3,
+	GIT_MERGE_FILE_SIMPLIFY_ALNUM = .git_merge_file_flag_t.GIT_MERGE_FILE_SIMPLIFY_ALNUM,
+	GIT_MERGE_FILE_IGNORE_WHITESPACE = .git_merge_file_flag_t.GIT_MERGE_FILE_IGNORE_WHITESPACE,
+	GIT_MERGE_FILE_IGNORE_WHITESPACE_CHANGE = .git_merge_file_flag_t.GIT_MERGE_FILE_IGNORE_WHITESPACE_CHANGE,
+	GIT_MERGE_FILE_IGNORE_WHITESPACE_EOL = .git_merge_file_flag_t.GIT_MERGE_FILE_IGNORE_WHITESPACE_EOL,
+	GIT_MERGE_FILE_DIFF_PATIENCE = .git_merge_file_flag_t.GIT_MERGE_FILE_DIFF_PATIENCE,
+	GIT_MERGE_FILE_DIFF_MINIMAL = .git_merge_file_flag_t.GIT_MERGE_FILE_DIFF_MINIMAL,
 }
 
 enum GIT_MERGE_CONFLICT_MARKER_SIZE = 7;
@@ -444,6 +476,16 @@ enum git_merge_analysis_t
 	GIT_MERGE_ANALYSIS_UNBORN = 1 << 3,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_MERGE_ANALYSIS_NONE = .git_merge_analysis_t.GIT_MERGE_ANALYSIS_NONE,
+	GIT_MERGE_ANALYSIS_NORMAL = .git_merge_analysis_t.GIT_MERGE_ANALYSIS_NORMAL,
+	GIT_MERGE_ANALYSIS_UP_TO_DATE = .git_merge_analysis_t.GIT_MERGE_ANALYSIS_UP_TO_DATE,
+	GIT_MERGE_ANALYSIS_FASTFORWARD = .git_merge_analysis_t.GIT_MERGE_ANALYSIS_FASTFORWARD,
+	GIT_MERGE_ANALYSIS_UNBORN = .git_merge_analysis_t.GIT_MERGE_ANALYSIS_UNBORN,
+}
+
 /**
  * The user's stated preference for merges.
  */
@@ -466,6 +508,14 @@ enum git_merge_preference_t
 	 * the user only wants fast-forward merges.
 	 */
 	GIT_MERGE_PREFERENCE_FASTFORWARD_ONLY = 1 << 1,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_MERGE_PREFERENCE_NONE = .git_merge_preference_t.GIT_MERGE_PREFERENCE_NONE,
+	GIT_MERGE_PREFERENCE_NO_FASTFORWARD = .git_merge_preference_t.GIT_MERGE_PREFERENCE_NO_FASTFORWARD,
+	GIT_MERGE_PREFERENCE_FASTFORWARD_ONLY = .git_merge_preference_t.GIT_MERGE_PREFERENCE_FASTFORWARD_ONLY,
 }
 
 /**

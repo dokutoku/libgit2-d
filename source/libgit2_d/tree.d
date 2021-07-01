@@ -468,6 +468,13 @@ enum git_treewalk_mode
 	GIT_TREEWALK_POST = 1,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_TREEWALK_PRE = .git_treewalk_mode.GIT_TREEWALK_PRE,
+	GIT_TREEWALK_POST = .git_treewalk_mode.GIT_TREEWALK_POST,
+}
+
 /**
  * Traverse the entries in a tree and its subtrees in post or pre order.
  *
@@ -515,6 +522,13 @@ enum git_tree_update_t
 	 * Remove an entry from the specified path
 	 */
 	GIT_TREE_UPDATE_REMOVE,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_TREE_UPDATE_UPSERT = .git_tree_update_t.GIT_TREE_UPDATE_UPSERT,
+	GIT_TREE_UPDATE_REMOVE = .git_tree_update_t.GIT_TREE_UPDATE_REMOVE,
 }
 
 /**

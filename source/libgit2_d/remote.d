@@ -61,6 +61,13 @@ enum git_remote_create_flags
 	GIT_REMOTE_CREATE_SKIP_DEFAULT_FETCHSPEC = 1 << 1,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_REMOTE_CREATE_SKIP_INSTEADOF = .git_remote_create_flags.GIT_REMOTE_CREATE_SKIP_INSTEADOF,
+	GIT_REMOTE_CREATE_SKIP_DEFAULT_FETCHSPEC = .git_remote_create_flags.GIT_REMOTE_CREATE_SKIP_DEFAULT_FETCHSPEC,
+}
+
 /**
  * Remote creation options structure
  *
@@ -509,6 +516,14 @@ enum git_remote_completion_t
 	GIT_REMOTE_COMPLETION_ERROR,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_REMOTE_COMPLETION_DOWNLOAD = .git_remote_completion_t.GIT_REMOTE_COMPLETION_DOWNLOAD,
+	GIT_REMOTE_COMPLETION_INDEXING = .git_remote_completion_t.GIT_REMOTE_COMPLETION_INDEXING,
+	GIT_REMOTE_COMPLETION_ERROR = .git_remote_completion_t.GIT_REMOTE_COMPLETION_ERROR,
+}
+
 /**
  * Push network progress notification function
  */
@@ -733,6 +748,14 @@ enum git_fetch_prune_t
 	GIT_FETCH_NO_PRUNE,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_FETCH_PRUNE_UNSPECIFIED = .git_fetch_prune_t.GIT_FETCH_PRUNE_UNSPECIFIED,
+	GIT_FETCH_PRUNE = .git_fetch_prune_t.GIT_FETCH_PRUNE,
+	GIT_FETCH_NO_PRUNE = .git_fetch_prune_t.GIT_FETCH_NO_PRUNE,
+}
+
 /**
  * Automatic tag following option
  *
@@ -760,6 +783,15 @@ enum git_remote_autotag_option_t
 	 * Ask for the all the tags.
 	 */
 	GIT_REMOTE_DOWNLOAD_TAGS_ALL,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_REMOTE_DOWNLOAD_TAGS_UNSPECIFIED = .git_remote_autotag_option_t.GIT_REMOTE_DOWNLOAD_TAGS_UNSPECIFIED,
+	GIT_REMOTE_DOWNLOAD_TAGS_AUTO = .git_remote_autotag_option_t.GIT_REMOTE_DOWNLOAD_TAGS_AUTO,
+	GIT_REMOTE_DOWNLOAD_TAGS_NONE = .git_remote_autotag_option_t.GIT_REMOTE_DOWNLOAD_TAGS_NONE,
+	GIT_REMOTE_DOWNLOAD_TAGS_ALL = .git_remote_autotag_option_t.GIT_REMOTE_DOWNLOAD_TAGS_ALL,
 }
 
 /**

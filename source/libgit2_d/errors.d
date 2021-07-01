@@ -175,6 +175,41 @@ enum git_error_code
 	GIT_EAPPLYFAIL = -35,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_OK = .git_error_code.GIT_OK,
+	GIT_ERROR = .git_error_code.GIT_ERROR,
+	GIT_ENOTFOUND = .git_error_code.GIT_ENOTFOUND,
+	GIT_EEXISTS = .git_error_code.GIT_EEXISTS,
+	GIT_EAMBIGUOUS = .git_error_code.GIT_EAMBIGUOUS,
+	GIT_EBUFS = .git_error_code.GIT_EBUFS,
+	GIT_EUSER = .git_error_code.GIT_EUSER,
+	GIT_EBAREREPO = .git_error_code.GIT_EBAREREPO,
+	GIT_EUNBORNBRANCH = .git_error_code.GIT_EUNBORNBRANCH,
+	GIT_EUNMERGED = .git_error_code.GIT_EUNMERGED,
+	GIT_ENONFASTFORWARD = .git_error_code.GIT_ENONFASTFORWARD,
+	GIT_EINVALIDSPEC = .git_error_code.GIT_EINVALIDSPEC,
+	GIT_ECONFLICT = .git_error_code.GIT_ECONFLICT,
+	GIT_ELOCKED = .git_error_code.GIT_ELOCKED,
+	GIT_EMODIFIED = .git_error_code.GIT_EMODIFIED,
+	GIT_EAUTH = .git_error_code.GIT_EAUTH,
+	GIT_ECERTIFICATE = .git_error_code.GIT_ECERTIFICATE,
+	GIT_EAPPLIED = .git_error_code.GIT_EAPPLIED,
+	GIT_EPEEL = .git_error_code.GIT_EPEEL,
+	GIT_EEOF = .git_error_code.GIT_EEOF,
+	GIT_EINVALID = .git_error_code.GIT_EINVALID,
+	GIT_EUNCOMMITTED = .git_error_code.GIT_EUNCOMMITTED,
+	GIT_EDIRECTORY = .git_error_code.GIT_EDIRECTORY,
+	GIT_EMERGECONFLICT = .git_error_code.GIT_EMERGECONFLICT,
+	GIT_PASSTHROUGH = .git_error_code.GIT_PASSTHROUGH,
+	GIT_ITEROVER = .git_error_code.GIT_ITEROVER,
+	GIT_RETRY = .git_error_code.GIT_RETRY,
+	GIT_EMISMATCH = .git_error_code.GIT_EMISMATCH,
+	GIT_EINDEXDIRTY = .git_error_code.GIT_EINDEXDIRTY,
+	GIT_EAPPLYFAIL = .git_error_code.GIT_EAPPLYFAIL,
+}
+
 /**
  * Structure to store extra details of the last error that occurred.
  *
@@ -228,6 +263,47 @@ enum git_error_t
 	GIT_ERROR_SHA1,
 	GIT_ERROR_HTTP,
 	GIT_ERROR_INTERNAL,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_ERROR_NONE = .git_error_t.GIT_ERROR_NONE,
+	GIT_ERROR_NOMEMORY = .git_error_t.GIT_ERROR_NOMEMORY,
+	GIT_ERROR_OS = .git_error_t.GIT_ERROR_OS,
+	GIT_ERROR_INVALID = .git_error_t.GIT_ERROR_INVALID,
+	GIT_ERROR_REFERENCE = .git_error_t.GIT_ERROR_REFERENCE,
+	GIT_ERROR_ZLIB = .git_error_t.GIT_ERROR_ZLIB,
+	GIT_ERROR_REPOSITORY = .git_error_t.GIT_ERROR_REPOSITORY,
+	GIT_ERROR_CONFIG = .git_error_t.GIT_ERROR_CONFIG,
+	GIT_ERROR_REGEX = .git_error_t.GIT_ERROR_REGEX,
+	GIT_ERROR_ODB = .git_error_t.GIT_ERROR_ODB,
+	GIT_ERROR_INDEX = .git_error_t.GIT_ERROR_INDEX,
+	GIT_ERROR_OBJECT = .git_error_t.GIT_ERROR_OBJECT,
+	GIT_ERROR_NET = .git_error_t.GIT_ERROR_NET,
+	GIT_ERROR_TAG = .git_error_t.GIT_ERROR_TAG,
+	GIT_ERROR_TREE = .git_error_t.GIT_ERROR_TREE,
+	GIT_ERROR_INDEXER = .git_error_t.GIT_ERROR_INDEXER,
+	GIT_ERROR_SSL = .git_error_t.GIT_ERROR_SSL,
+	GIT_ERROR_SUBMODULE = .git_error_t.GIT_ERROR_SUBMODULE,
+	GIT_ERROR_THREAD = .git_error_t.GIT_ERROR_THREAD,
+	GIT_ERROR_STASH = .git_error_t.GIT_ERROR_STASH,
+	GIT_ERROR_CHECKOUT = .git_error_t.GIT_ERROR_CHECKOUT,
+	GIT_ERROR_FETCHHEAD = .git_error_t.GIT_ERROR_FETCHHEAD,
+	GIT_ERROR_MERGE = .git_error_t.GIT_ERROR_MERGE,
+	GIT_ERROR_SSH = .git_error_t.GIT_ERROR_SSH,
+	GIT_ERROR_FILTER = .git_error_t.GIT_ERROR_FILTER,
+	GIT_ERROR_REVERT = .git_error_t.GIT_ERROR_REVERT,
+	GIT_ERROR_CALLBACK = .git_error_t.GIT_ERROR_CALLBACK,
+	GIT_ERROR_CHERRYPICK = .git_error_t.GIT_ERROR_CHERRYPICK,
+	GIT_ERROR_DESCRIBE = .git_error_t.GIT_ERROR_DESCRIBE,
+	GIT_ERROR_REBASE = .git_error_t.GIT_ERROR_REBASE,
+	GIT_ERROR_FILESYSTEM = .git_error_t.GIT_ERROR_FILESYSTEM,
+	GIT_ERROR_PATCH = .git_error_t.GIT_ERROR_PATCH,
+	GIT_ERROR_WORKTREE = .git_error_t.GIT_ERROR_WORKTREE,
+	GIT_ERROR_SHA1 = .git_error_t.GIT_ERROR_SHA1,
+	GIT_ERROR_HTTP = .git_error_t.GIT_ERROR_HTTP,
+	GIT_ERROR_INTERNAL = .git_error_t.GIT_ERROR_INTERNAL,
 }
 
 /**

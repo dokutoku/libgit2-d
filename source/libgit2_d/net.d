@@ -34,6 +34,13 @@ enum git_direction
 	GIT_DIRECTION_PUSH = 1,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_DIRECTION_FETCH = .git_direction.GIT_DIRECTION_FETCH,
+	GIT_DIRECTION_PUSH = .git_direction.GIT_DIRECTION_PUSH,
+}
+
 /**
  * Description of a reference advertised by a remote server, given out
  * on `ls` calls.

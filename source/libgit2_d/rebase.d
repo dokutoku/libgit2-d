@@ -133,6 +133,17 @@ enum git_rebase_operation_t
 	GIT_REBASE_OPERATION_EXEC,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_REBASE_OPERATION_PICK = .git_rebase_operation_t.GIT_REBASE_OPERATION_PICK,
+	GIT_REBASE_OPERATION_REWORD = .git_rebase_operation_t.GIT_REBASE_OPERATION_REWORD,
+	GIT_REBASE_OPERATION_EDIT = .git_rebase_operation_t.GIT_REBASE_OPERATION_EDIT,
+	GIT_REBASE_OPERATION_SQUASH = .git_rebase_operation_t.GIT_REBASE_OPERATION_SQUASH,
+	GIT_REBASE_OPERATION_FIXUP = .git_rebase_operation_t.GIT_REBASE_OPERATION_FIXUP,
+	GIT_REBASE_OPERATION_EXEC = .git_rebase_operation_t.GIT_REBASE_OPERATION_EXEC,
+}
+
 enum GIT_REBASE_OPTIONS_VERSION = 1;
 
 pragma(inline, true)

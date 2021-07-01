@@ -45,6 +45,15 @@ enum git_hashsig_option_t
 	GIT_HASHSIG_ALLOW_SMALL_FILES = 1 << 2,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_HASHSIG_NORMAL = .git_hashsig_option_t.GIT_HASHSIG_NORMAL,
+	GIT_HASHSIG_IGNORE_WHITESPACE = .git_hashsig_option_t.GIT_HASHSIG_IGNORE_WHITESPACE,
+	GIT_HASHSIG_SMART_WHITESPACE = .git_hashsig_option_t.GIT_HASHSIG_SMART_WHITESPACE,
+	GIT_HASHSIG_ALLOW_SMALL_FILES = .git_hashsig_option_t.GIT_HASHSIG_ALLOW_SMALL_FILES,
+}
+
 /**
  * Compute a similarity signature for a text buffer
  *

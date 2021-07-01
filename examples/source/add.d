@@ -45,6 +45,13 @@ public enum index_mode
 	INDEX_ADD,
 }
 
+//Declaration name in C language
+public enum
+{
+	INDEX_NONE = .index_mode.INDEX_NONE,
+	INDEX_ADD = .index_mode.INDEX_ADD,
+}
+
 public struct index_options
 {
 	int dry_run;

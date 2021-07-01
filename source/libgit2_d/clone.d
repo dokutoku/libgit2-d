@@ -54,6 +54,15 @@ enum git_clone_local_t
 	GIT_CLONE_LOCAL_NO_LINKS,
 }
 
+//Declaration name in C language
+enum
+{
+	GIT_CLONE_LOCAL_AUTO = .git_clone_local_t.GIT_CLONE_LOCAL_AUTO,
+	GIT_CLONE_LOCAL = .git_clone_local_t.GIT_CLONE_LOCAL,
+	GIT_CLONE_NO_LOCAL = .git_clone_local_t.GIT_CLONE_NO_LOCAL,
+	GIT_CLONE_LOCAL_NO_LINKS = .git_clone_local_t.GIT_CLONE_LOCAL_NO_LINKS,
+}
+
 /**
  * The signature of a function matching git_remote_create, with an additional
  * void* as a callback payload.

@@ -34,6 +34,15 @@ enum subcmd
 	SUBCMD_PUSH,
 }
 
+//Declaration name in C language
+enum
+{
+	SUBCMD_APPLY = .subcmd.SUBCMD_APPLY,
+	SUBCMD_LIST = .subcmd.SUBCMD_LIST,
+	SUBCMD_POP = .subcmd.SUBCMD_POP,
+	SUBCMD_PUSH = .subcmd.SUBCMD_PUSH,
+}
+
 struct opts
 {
 	.subcmd cmd;
