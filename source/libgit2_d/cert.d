@@ -109,7 +109,7 @@ struct git_cert_hostkey
 	 * A hostkey type from libssh2, either
 	 * `git_cert_ssh_t.GIT_CERT_SSH_MD5` or `git_cert_ssh_t.GIT_CERT_SSH_SHA1`
 	 */
-	.git_cert_ssh_t type;
+	.git_cert_ssh_t type = cast(.git_cert_ssh_t)(0);
 
 	/**
 	 * Hostkey hash. If type has `git_cert_ssh_t.GIT_CERT_SSH_MD5` set, this will

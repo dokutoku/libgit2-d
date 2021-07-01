@@ -218,7 +218,7 @@ struct git_odb_expand_id
 	 * The (optional) type of the object to search for; leave as `0` or set
 	 * to `git_object_t.GIT_OBJECT_ANY` to query for any object matching the ID.
 	 */
-	libgit2_d.types.git_object_t type;
+	libgit2_d.types.git_object_t type = cast(libgit2_d.types.git_object_t)(0);
 }
 
 /**

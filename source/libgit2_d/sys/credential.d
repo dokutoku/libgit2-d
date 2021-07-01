@@ -28,7 +28,7 @@ struct git_credential
 	/**
 	 * A type of credential
 	 */
-	libgit2_d.credential.git_credential_t credtype;
+	libgit2_d.credential.git_credential_t credtype = cast(libgit2_d.credential.git_credential_t)(0);
 
 	/**
 	 * The deallocator for this type of credentials

@@ -94,7 +94,7 @@ struct git_config_entry
 	/**
 	 * Which config file this was found in
 	 */
-	.git_config_level_t level;
+	.git_config_level_t level = cast(.git_config_level_t)(0);
 
 	/**
 	 * Free function for this entry

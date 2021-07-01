@@ -74,7 +74,7 @@ public struct diff_options
 	int no_index;
 	int cache;
 	int output;
-	libgit2_d.diff.git_diff_format_t format;
+	libgit2_d.diff.git_diff_format_t format = cast(libgit2_d.diff.git_diff_format_t)(0);
 	const (char)* treeish1;
 	const (char)* treeish2;
 	const (char)* dir;

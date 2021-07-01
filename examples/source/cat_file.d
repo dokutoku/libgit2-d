@@ -170,13 +170,7 @@ public struct catfile_options
 {
 	const (char)* dir;
 	const (char)* rev;
-
-	version (none) {
-		.catfile_mode action;
-	} else {
-		int action;
-	}
-
+	.catfile_mode action = cast(.catfile_mode)(0);
 	int verbose;
 }
 
