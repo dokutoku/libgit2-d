@@ -386,6 +386,8 @@ int git_treebuilder_insert(const (libgit2_d.types.git_tree_entry)** out_, libgit
  * Params:
  *      bld = Tree builder
  *      filename = Filename of the entry to remove
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_treebuilder_remove(libgit2_d.types.git_treebuilder* bld, const (char)* filename);
@@ -576,6 +578,8 @@ struct git_tree_update
  *      baseline = the tree to base these changes on
  *      nupdates = the number of elements in the update list
  *      updates = the list of updates to perform
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_tree_create_updated(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, libgit2_d.types.git_tree* baseline, size_t nupdates, const (.git_tree_update)* updates);

@@ -68,7 +68,7 @@ struct git_indexer_progress
  * than zero to cancel the indexing or download.
  *
  * Params:
- *      stats = Structure containing information about the state of the tran    sfer
+ *      stats = Structure containing information about the state of the transfer
  *      payload = Payload provided by caller
  */
 alias git_indexer_progress_cb = int function(const (.git_indexer_progress)* stats, void* payload);

@@ -184,7 +184,7 @@ int git_reference_symbolic_create(libgit2_d.types.git_reference** out_, libgit2_
  *
  * The message for the reflog will be ignored if the reference does
  * not belong in the standard set (HEAD, branches and remote-tracking
- * branches) and and it does not have a reflog.
+ * branches) and it does not have a reflog.
  *
  * Params:
  *      out_ = Pointer to the newly created reference
@@ -224,7 +224,7 @@ int git_reference_create(libgit2_d.types.git_reference** out_, libgit2_d.types.g
  *
  * The message for the reflog will be ignored if the reference does
  * not belong in the standard set (HEAD, branches and remote-tracking
- * branches) and and it does not have a reflog.
+ * branches) and it does not have a reflog.
  *
  * It will return git_error_code.GIT_EMODIFIED if the reference's value at the time
  * of updating does not match the one passed through `current_id`
@@ -359,7 +359,7 @@ libgit2_d.types.git_repository* git_reference_owner(const (libgit2_d.types.git_r
  *
  * The message for the reflog will be ignored if the reference does
  * not belong in the standard set (HEAD, branches and remote-tracking
- * branches) and and it does not have a reflog.
+ * branches) and it does not have a reflog.
  *
  * Params:
  *      out_ = Pointer to the newly created reference

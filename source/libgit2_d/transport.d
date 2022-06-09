@@ -21,7 +21,7 @@ nothrow @nogc:
 public:
 
 /**
- * Callback for messages recieved by the transport.
+ * Callback for messages received by the transport.
  *
  * Return a negative value to cancel the network operation.
  *

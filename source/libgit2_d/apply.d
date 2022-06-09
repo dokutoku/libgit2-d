@@ -134,6 +134,8 @@ int git_apply_options_init(.git_apply_options* opts, uint version_);
  *      preimage = the tree to apply the diff to
  *      diff = the diff to apply
  *      options = the options for the apply (or null for defaults)
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_apply_to_tree(libgit2_d.types.git_index** out_, libgit2_d.types.git_repository* repo, libgit2_d.types.git_tree* preimage, libgit2_d.diff.git_diff* diff, const (.git_apply_options)* options);
@@ -179,6 +181,8 @@ enum
  *      diff = the diff to apply
  *      location = the location to apply (workdir, index or both)
  *      options = the options for the apply (or null for defaults)
+ *
+ * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_apply(libgit2_d.types.git_repository* repo, libgit2_d.diff.git_diff* diff, .git_apply_location_t location, const (.git_apply_options)* options);

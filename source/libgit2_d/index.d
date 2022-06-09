@@ -474,7 +474,7 @@ int git_index_write_tree(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_index*
  * The index must not contain any file in conflict.
  *
  * Params:
- *      out_ = Pointer where to store OID of the the written tree
+ *      out_ = Pointer where to store OID of the written tree
  *      index = Index to write
  *      repo = Repository where to write the tree
  *
@@ -855,7 +855,7 @@ int git_index_update_all(libgit2_d.types.git_index* index, const (libgit2_d.stra
  *      index = an existing index object
  *      path = path to search
  *
- * Returns: a zero-based position in the index if found; git_error_code.GIT_ENOTFOUND otherwise
+ * Returns: 0 with valid value in at_pos; an error code otherwise
  */
 //GIT_EXTERN
 int git_index_find(size_t* at_pos, libgit2_d.types.git_index* index, const (char)* path);

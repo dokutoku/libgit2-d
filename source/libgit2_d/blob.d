@@ -149,6 +149,9 @@ enum
 
 /**
  * The options used when applying filter options to a file.
+ *
+ * Initialize with `GIT_BLOB_FILTER_OPTIONS_INIT`. Alternatively, you can
+ * use `git_blob_filter_options_init`.
  */
 struct git_blob_filter_options
 {
@@ -176,6 +179,21 @@ pure nothrow @safe @nogc
 
 		return OUTPUT;
 	}
+
+/**
+ * Initialize git_blob_filter_options structure
+ *
+ * Initializes a `git_blob_filter_options` with default values. Equivalent
+ * to creating an instance with `GIT_BLOB_FILTER_OPTIONS_INIT`.
+ *
+ * Params:
+ *      opts = The `git_blob_filter_options` struct to initialize.
+ *      version_ = The struct version; pass `GIT_BLOB_FILTER_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
+ */
+//GIT_EXTERN
+int git_blob_filter_options_init(.git_blob_filter_options* opts, uint version_);
 
 /**
  * Get a buffer with the filtered content of a blob.
@@ -279,7 +297,7 @@ int git_blob_create_from_stream_commit(libgit2_d.oid.git_oid* out_, libgit2_d.ty
  *
  * Params:
  *      id = return the id of the written blob
- *      repo = repository where to blob will be written
+ *      repo = repository where the blob will be written
  *      buffer = data to be written into the blob
  *      len = length of the data
  *
