@@ -9,7 +9,7 @@ module libgit2_d.transport;
 
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/transport.h
  * @brief Git transport interfaces and functions
  * @defgroup git_transport interfaces and functions
@@ -24,7 +24,8 @@ public:
  * Callback for messages received by the transport.
  *
  * Return a negative value to cancel the network operation.
- *
+ */
+/*
  * Params:
  *      str = The message from the transport
  *      len = The length of the message
@@ -37,4 +38,4 @@ alias git_transport_message_cb = int function(const (char)* str, int len, void* 
  */
 alias git_transport_cb = int function(libgit2_d.types.git_transport** out_, libgit2_d.types.git_remote* owner, void* param);
 
-/** @} */
+/* @} */

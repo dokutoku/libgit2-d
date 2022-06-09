@@ -12,7 +12,7 @@ private static import libgit2_d.indexer;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/pack.h
  * @brief Git pack management routines
  *
@@ -212,12 +212,13 @@ const (libgit2_d.oid.git_oid)* git_packbuilder_hash(libgit2_d.types.git_packbuil
  *
  * @see git_packbuilder_foreach
  *
+ * Returns: non-zero to terminate the iteration
+ */
+/*
  * Params:
  *      buf = A pointer to the object's data
  *      size = The size of the underlying object
  *      payload = Payload passed to git_packbuilder_foreach
- *
- * Returns: non-zero to terminate the iteration
  */
 alias git_packbuilder_foreach_cb = int function(void* buf, size_t size, void* payload);
 
@@ -283,4 +284,4 @@ int git_packbuilder_set_callbacks(libgit2_d.types.git_packbuilder* pb, .git_pack
 //GIT_EXTERN
 void git_packbuilder_free(libgit2_d.types.git_packbuilder* pb);
 
-/** @} */
+/* @} */

@@ -9,7 +9,7 @@ module libgit2_d.message;
 
 private static import libgit2_d.buffer;
 
-/**
+/*
  * @file git2/message.h
  * @brief Git message management routines
  * @ingroup Git
@@ -82,4 +82,4 @@ int git_message_trailers(.git_message_trailer_array* arr, const (char)* message)
 //GIT_EXTERN
 void git_message_trailer_array_free(.git_message_trailer_array* arr);
 
-/** @} */
+/* @} */

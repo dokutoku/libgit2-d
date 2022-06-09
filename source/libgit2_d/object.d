@@ -11,7 +11,7 @@ private static import libgit2_d.buffer;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/object.h
  * @brief Git revision object management routines
  * @defgroup git_object Git revision object management routines
@@ -243,4 +243,4 @@ int git_object_peel(libgit2_d.types.git_object** peeled, const (libgit2_d.types.
 //GIT_EXTERN
 int git_object_dup(libgit2_d.types.git_object** dest, libgit2_d.types.git_object* source);
 
-/** @} */
+/* @} */

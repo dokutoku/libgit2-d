@@ -13,7 +13,7 @@ private static import libgit2_d.merge;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/rebase.h
  * @brief Git rebase routines
  * @defgroup git_rebase Git merge routines
@@ -205,7 +205,7 @@ struct git_rebase_operation
  *
  * Params:
  *      opts = The `git_rebase_options` struct to initialize.
- *      version = The struct version; pass `GIT_REBASE_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_REBASE_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -396,4 +396,4 @@ int git_rebase_finish(libgit2_d.types.git_rebase* rebase, const (libgit2_d.types
 //GIT_EXTERN
 void git_rebase_free(libgit2_d.types.git_rebase* rebase);
 
-/** @} */
+/* @} */

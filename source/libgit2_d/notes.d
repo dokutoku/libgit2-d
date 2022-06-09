@@ -11,7 +11,7 @@ private static import libgit2_d.buffer;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/notes.h
  * @brief Git notes management routines
  * @defgroup git_note Git notes management routines
@@ -273,4 +273,4 @@ int git_note_default_ref(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_rep
 //GIT_EXTERN
 int git_note_foreach(libgit2_d.types.git_repository* repo, const (char)* notes_ref, .git_note_foreach_cb note_cb, void* payload);
 
-/** @} */
+/* @} */

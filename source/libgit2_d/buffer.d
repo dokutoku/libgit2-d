@@ -7,7 +7,7 @@
 module libgit2_d.buffer;
 
 
-/**
+/*
  * @file git2/buffer.h
  * @brief Buffer export structure
  *
@@ -155,4 +155,4 @@ int git_buf_is_binary(const (.git_buf)* buf);
 //GIT_EXTERN
 int git_buf_contains_nul(const (.git_buf)* buf);
 
-/** @} */
+/* @} */

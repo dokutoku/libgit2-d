@@ -17,7 +17,7 @@ private static import core.stdc.config;
 	//#include <inttypes.h>
 //#endif
 
-/** Declare a function's takes printf style arguments. */
+/* Declare a function's takes printf style arguments. */
 //#if defined(__GNUC__)
 	//#define GIT_FORMAT_PRINTF(a, b) __attribute__((format(printf, a, b)))
 //#else
@@ -36,7 +36,7 @@ version (Cygwin) {
 	//#include <netinet/in.h>
 //#endif
 
-/**
+/*
  * @file git2/common.h
  * @brief Git common platform definitions
  * @defgroup git_common Git common platform definitions
@@ -443,4 +443,4 @@ enum
 //GIT_EXTERN
 int git_libgit2_opts(int option, ...);
 
-/** @} */
+/* @} */

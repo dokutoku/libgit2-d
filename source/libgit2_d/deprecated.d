@@ -54,14 +54,14 @@ version (GIT_DEPRECATE_HARD) {
 	 */
 	//public import import libgit2_d.credential;
 
-	/**
+	/*
 	 * @file git2/deprecated.h
 	 * @brief libgit2 deprecated functions and values
 	 * @ingroup Git
 	 * @{
 	 */
 
-	/** @name Deprecated Attribute Constants
+	/* @name Deprecated Attribute Constants
 	 *
 	 * These enumeration values are retained for backward compatibility.
 	 * The newer versions of these functions should be preferred in all
@@ -70,7 +70,7 @@ version (GIT_DEPRECATE_HARD) {
 	 * There is no plan to remove these backward compatibility values at
 	 * this time.
 	 */
-	/**@{*/
+	/*@{*/
 
 	enum GIT_ATTR_UNSPECIFIED_T = libgit2_d.attr.git_attr_value_t.GIT_ATTR_VALUE_UNSPECIFIED;
 	enum GIT_ATTR_TRUE_T = libgit2_d.attr.git_attr_value_t.GIT_ATTR_VALUE_TRUE;
@@ -85,9 +85,9 @@ version (GIT_DEPRECATE_HARD) {
 
 	alias git_attr_t = libgit2_d.attr.git_attr_value_t;
 
-	/**@}*/
+	/*@}*/
 
-	/** @name Deprecated Blob Functions
+	/* @name Deprecated Blob Functions
 	 *
 	 * These functions are retained for backward compatibility.  The newer
 	 * versions of these functions should be preferred in all new code.
@@ -95,7 +95,7 @@ version (GIT_DEPRECATE_HARD) {
 	 * There is no plan to remove these backward compatibility values at
 	 * this time.
 	 */
-	/**@{*/
+	/*@{*/
 
 	//GIT_EXTERN
 	int git_blob_create_fromworkdir(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* relative_path);
@@ -112,7 +112,7 @@ version (GIT_DEPRECATE_HARD) {
 	//GIT_EXTERN
 	int git_blob_create_frombuffer(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (void)* buffer, size_t len);
 
-	/** Deprecated in favor of `git_blob_filter`.
+	/* Deprecated in favor of `git_blob_filter`.
 	 *
 	 * @deprecated Use git_blob_filter
 	 * @see git_blob_filter
@@ -120,9 +120,9 @@ version (GIT_DEPRECATE_HARD) {
 	//GIT_EXTERN
 	int git_blob_filtered_content(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_blob* blob, const (char)* as_path, int check_for_binary_data);
 
-	/**@}*/
+	/*@}*/
 
-	/** @name Deprecated Buffer Functions
+	/* @name Deprecated Buffer Functions
 	 *
 	 * These functions and enumeration values are retained for backward
 	 * compatibility.  The newer versions of these functions should be
@@ -131,7 +131,7 @@ version (GIT_DEPRECATE_HARD) {
 	 * There is no plan to remove these backward compatibility values at
 	 * this time.
 	 */
-	/**@{*/
+	/*@{*/
 
 	/**
 	 * Free the memory referred to by the git_buf.  This is an alias of
@@ -146,11 +146,11 @@ version (GIT_DEPRECATE_HARD) {
 	//GIT_EXTERN
 	void git_buf_free(libgit2_d.buffer.git_buf* buffer);
 
-	/**@}*/
+	/*@}*/
 
-	/** @name Deprecated Config Functions and Constants
+	/* @name Deprecated Config Functions and Constants
 	 */
-	/**@{*/
+	/*@{*/
 
 	enum GIT_CVAR_FALSE = libgit2_d.config.git_configmap_t.GIT_CONFIGMAP_FALSE;
 	enum GIT_CVAR_TRUE = libgit2_d.config.git_configmap_t.GIT_CONFIGMAP_TRUE;
@@ -159,9 +159,9 @@ version (GIT_DEPRECATE_HARD) {
 
 	alias git_cvar_map = libgit2_d.config.git_configmap;
 
-	/**@}*/
+	/*@}*/
 
-	/** @name Deprecated Error Functions and Constants
+	/* @name Deprecated Error Functions and Constants
 	 *
 	 * These functions and enumeration values are retained for backward
 	 * compatibility.  The newer versions of these functions and values
@@ -170,7 +170,7 @@ version (GIT_DEPRECATE_HARD) {
 	 * There is no plan to remove these backward compatibility values at
 	 * this time.
 	 */
-	/**@{*/
+	/*@{*/
 
 	enum GITERR_NONE = libgit2_d.errors.git_error_t.GIT_ERROR_NONE;
 	enum GITERR_NOMEMORY = libgit2_d.errors.git_error_t.GIT_ERROR_NOMEMORY;
@@ -260,9 +260,9 @@ version (GIT_DEPRECATE_HARD) {
 	//GIT_EXTERN
 	void giterr_set_oom();
 
-	/**@}*/
+	/*@}*/
 
-	/** @name Deprecated Index Functions and Constants
+	/* @name Deprecated Index Functions and Constants
 	 *
 	 * These functions and enumeration values are retained for backward
 	 * compatibility.  The newer versions of these values should be
@@ -271,7 +271,7 @@ version (GIT_DEPRECATE_HARD) {
 	 * There is no plan to remove these backward compatibility values at
 	 * this time.
 	 */
-	/**@{*/
+	/*@{*/
 
 	enum GIT_IDXENTRY_NAMEMASK = libgit2_d.index.GIT_INDEX_ENTRY_NAMEMASK;
 	enum GIT_IDXENTRY_STAGEMASK = libgit2_d.index.GIT_INDEX_ENTRY_STAGEMASK;
@@ -309,9 +309,9 @@ version (GIT_DEPRECATE_HARD) {
 	//GIT_EXTERN
 	int git_index_add_frombuffer(libgit2_d.types.git_index* index, const (libgit2_d.index.git_index_entry)* entry, const (void)* buffer, size_t len);
 
-	/**@}*/
+	/*@}*/
 
-	/** @name Deprecated Object Constants
+	/* @name Deprecated Object Constants
 	 *
 	 * These enumeration values are retained for backward compatibility.  The
 	 * newer versions of these values should be preferred in all new code.
@@ -319,7 +319,7 @@ version (GIT_DEPRECATE_HARD) {
 	 * There is no plan to remove these backward compatibility values at
 	 * this time.
 	 */
-	/**@{*/
+	/*@{*/
 
 	alias git_otype = libgit2_d.types.git_object_t;
 
@@ -351,9 +351,9 @@ version (GIT_DEPRECATE_HARD) {
 	//GIT_EXTERN
 	size_t git_object__size(libgit2_d.types.git_object_t type);
 
-	/**@}*/
+	/*@}*/
 
-	/** @name Deprecated Reference Constants
+	/* @name Deprecated Reference Constants
 	 *
 	 * These enumeration values are retained for backward compatibility.  The
 	 * newer versions of these values should be preferred in all new code.
@@ -361,9 +361,9 @@ version (GIT_DEPRECATE_HARD) {
 	 * There is no plan to remove these backward compatibility values at
 	 * this time.
 	 */
-	/**@{*/
+	/*@{*/
 
-	/** Basic type of any Git reference. */
+	/* Basic type of any Git reference. */
 	alias git_ref_t = libgit2_d.types.git_reference_t;
 	alias git_reference_normalize_t = libgit2_d.refs.git_reference_format_t;
 
@@ -380,9 +380,9 @@ version (GIT_DEPRECATE_HARD) {
 	//GIT_EXTERN
 	int git_tag_create_frombuffer(libgit2_d.oid.git_oid* oid, libgit2_d.types.git_repository* repo, const (char)* buffer, int force);
 
-	/**@}*/
+	/*@}*/
 
-	/** @name Deprecated Credential Types
+	/* @name Deprecated Credential Types
 	 *
 	 * These types are retained for backward compatibility.  The newer
 	 * versions of these values should be preferred in all new code.
@@ -455,9 +455,9 @@ version (GIT_DEPRECATE_HARD) {
 	//GIT_EXTERN
 	int git_cred_userpass(libgit2_d.credential.git_credential** out_, const (char)* url, const (char)* user_from_url, uint allowed_types, void* payload);
 
-	/**@}*/
+	/*@}*/
 
-	/** @name Deprecated Trace Callback Types
+	/* @name Deprecated Trace Callback Types
 	 *
 	 * These types are retained for backward compatibility.  The newer
 	 * versions of these values should be preferred in all new code.
@@ -465,13 +465,13 @@ version (GIT_DEPRECATE_HARD) {
 	 * There is no plan to remove these backward compatibility values at
 	 * this time.
 	 */
-	/**@{*/
+	/*@{*/
 
 	alias git_trace_callback = libgit2_d.trace.git_trace_cb;
 
-	/**@}*/
+	/*@}*/
 
-	/** @name Deprecated Object ID Types
+	/* @name Deprecated Object ID Types
 	 *
 	 * These types are retained for backward compatibility.  The newer
 	 * versions of these values should be preferred in all new code.
@@ -479,14 +479,14 @@ version (GIT_DEPRECATE_HARD) {
 	 * There is no plan to remove these backward compatibility values at
 	 * this time.
 	 */
-	/**@{*/
+	/*@{*/
 
 	//GIT_EXTERN
 	int git_oid_iszero(const (libgit2_d.oid.git_oid)* id);
 
-	/**@}*/
+	/*@}*/
 
-	/** @name Deprecated Transfer Progress Types
+	/* @name Deprecated Transfer Progress Types
 	 *
 	 * These types are retained for backward compatibility.  The newer
 	 * versions of these values should be preferred in all new code.
@@ -494,7 +494,7 @@ version (GIT_DEPRECATE_HARD) {
 	 * There is no plan to remove these backward compatibility values at
 	 * this time.
 	 */
-	/**@{*/
+	/*@{*/
 
 	/**
 	 * This structure is used to provide callers information about the
@@ -531,47 +531,47 @@ version (GIT_DEPRECATE_HARD) {
 	 */
 	alias git_headlist_cb = int function(libgit2_d.types.git_remote_head* rhead, void* payload);
 
-	/**@}*/
+	/*@}*/
 
-	/** @name Deprecated String Array Functions
-	*
-	* These types are retained for backward compatibility.  The newer
-	* versions of these values should be preferred in all new code.
-	*
-	* There is no plan to remove these backward compatibility values at
-	* this time.
-	*/
-	/**@{*/
+	/* @name Deprecated String Array Functions
+	 *
+	 * These types are retained for backward compatibility.  The newer
+	 * versions of these values should be preferred in all new code.
+	 *
+	 * There is no plan to remove these backward compatibility values at
+	 * this time.
+	 */
+	/*@{*/
 
 	/**
-	* Copy a string array object from source to target.
-	*
-	* This function is deprecated, but there is no plan to remove this
-	* function at this time.
-	*
-	* @param tgt target
-	* @param src source
-	* @return 0 on success, < 0 on allocation failure
-	*/
+	 * Copy a string array object from source to target.
+	 *
+	 * This function is deprecated, but there is no plan to remove this
+	 * function at this time.
+	 *
+	 * @param tgt target
+	 * @param src source
+	 * @return 0 on success, < 0 on allocation failure
+	 */
 	//GIT_EXTERN
 	int git_strarray_copy(libgit2_d.strarray.git_strarray* tgt, const (libgit2_d.strarray.git_strarray)* src);
 
 	/**
-	* Free the memory referred to by the git_strarray.  This is an alias of
-	* `git_strarray_dispose` and is preserved for backward compatibility.
-	*
-	* This function is deprecated, but there is no plan to remove this
-	* function at this time.
-	*
-	* @deprecated Use git_strarray_dispose
-	* @see git_strarray_dispose
-	*/
+	 * Free the memory referred to by the git_strarray.  This is an alias of
+	 * `git_strarray_dispose` and is preserved for backward compatibility.
+	 *
+	 * This function is deprecated, but there is no plan to remove this
+	 * function at this time.
+	 *
+	 * @deprecated Use git_strarray_dispose
+	 * @see git_strarray_dispose
+	 */
 	//GIT_EXTERN
 	void git_strarray_free(libgit2_d.strarray.git_strarray* array);
 
-	/**@}*/
+	/*@}*/
 
-	/** @name Deprecated Options Initialization Functions
+	/* @name Deprecated Options Initialization Functions
 	 *
 	 * These functions are retained for backward compatibility.  The newer
 	 * versions of these functions should be preferred in all new code.
@@ -579,7 +579,7 @@ version (GIT_DEPRECATE_HARD) {
 	 * There is no plan to remove these backward compatibility functions at
 	 * this time.
 	 */
-	/**@{*/
+	/*@{*/
 
 	//GIT_EXTERN
 	int git_blame_init_options(libgit2_d.blame.git_blame_options* opts, uint version_);
@@ -659,7 +659,7 @@ version (GIT_DEPRECATE_HARD) {
 	//GIT_EXTERN
 	int git_worktree_prune_init_options(libgit2_d.worktree.git_worktree_prune_options* opts, uint version_);
 
-	/**@}*/
+	/*@}*/
 
-	/** @} */
+	/* @} */
 }

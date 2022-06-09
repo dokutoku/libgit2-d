@@ -12,7 +12,7 @@ private static import libgit2_d.filter;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/sys/filter.h
  * @brief Git filter backend and plugin routines
  * @defgroup git_backend Git custom backend APIs
@@ -301,7 +301,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      filter = the `git_filter` struct to initialize.
- *      version = Version the struct; pass `GIT_FILTER_VERSION`
+ *      version_ = Version the struct; pass `GIT_FILTER_VERSION`
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -354,4 +354,4 @@ int git_filter_register(const (char)* name, .git_filter* filter, int priority);
 //GIT_EXTERN
 int git_filter_unregister(const (char)* name);
 
-/** @} */
+/* @} */

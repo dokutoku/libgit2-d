@@ -10,7 +10,7 @@ module libgit2_d.blame;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/blame.h
  * @brief Git blame routines
  * @defgroup git_blame Git blame routines
@@ -161,7 +161,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_blame_options` struct to initialize.
- *      version = The struct version; pass `GIT_BLAME_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_BLAME_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -287,4 +287,4 @@ int git_blame_buffer(.git_blame** out_, .git_blame* reference, const (char)* buf
 //GIT_EXTERN
 void git_blame_free(.git_blame* blame);
 
-/** @} */
+/* @} */

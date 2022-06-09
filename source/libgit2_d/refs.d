@@ -11,7 +11,7 @@ private static import libgit2_d.oid;
 private static import libgit2_d.strarray;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/refs.h
  * @brief Git reference management routines
  * @defgroup git_reference Git reference management routines
@@ -407,6 +407,7 @@ int git_reference_set_target(libgit2_d.types.git_reference** out_, libgit2_d.typ
  * the reflog if it exists.
  *
  * Params:
+ *      new_ref = ?
  *      ref_ = The reference to rename
  *      new_name = The new name for the reference
  *      force = Overwrite an existing reference
@@ -443,6 +444,7 @@ int git_reference_delete(libgit2_d.types.git_reference* ref_);
  * looking at its old value.
  *
  * Params:
+ *      repo = ?
  *      name = The reference to remove
  *
  * Returns: 0 or an error code
@@ -471,11 +473,12 @@ int git_reference_list(libgit2_d.strarray.git_strarray* array, libgit2_d.types.g
  *
  * @see git_reference_foreach
  *
+ * Returns: non-zero to terminate the iteration
+ */
+/*
  * Params:
  *      reference = The reference object
  *      payload = Payload passed to git_reference_foreach
- *
- * Returns: non-zero to terminate the iteration
  */
 alias git_reference_foreach_cb = int function(libgit2_d.types.git_reference* reference, void* payload);
 
@@ -484,11 +487,12 @@ alias git_reference_foreach_cb = int function(libgit2_d.types.git_reference* ref
  *
  * @see git_reference_foreach_name
  *
+ * Returns: non-zero to terminate the iteration
+ */
+/*
  * Params:
  *      name = The reference name
  *      payload = Payload passed to git_reference_foreach_name
- *
- * Returns: non-zero to terminate the iteration
  */
 alias git_reference_foreach_name_cb = int function(const (char)* name, void* payload);
 
@@ -845,4 +849,4 @@ int git_reference_is_valid_name(const (char)* refname);
 //GIT_EXTERN
 const (char)* git_reference_shorthand(const (libgit2_d.types.git_reference)* ref_);
 
-/** @} */
+/* @} */

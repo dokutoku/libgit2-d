@@ -9,7 +9,7 @@ module libgit2_d.net;
 
 private static import libgit2_d.oid;
 
-/**
+/*
  * @file git2/net.h
  * @brief Git networking declarations
  * @ingroup Git
@@ -63,4 +63,4 @@ struct git_remote_head
 	char* symref_target;
 }
 
-/** @} */
+/* @} */

@@ -11,7 +11,7 @@ private static import libgit2_d.checkout;
 private static import libgit2_d.merge;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/cherrypick.h
  * @brief Git cherry-pick routines
  * @defgroup git_cherrypick Git cherry-pick routines
@@ -72,7 +72,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_cherrypick_options` struct to initialize.
- *      version = The struct version; pass `GIT_CHERRYPICK_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_CHERRYPICK_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -112,4 +112,4 @@ int git_cherrypick_commit(libgit2_d.types.git_index** out_, libgit2_d.types.git_
 //GIT_EXTERN
 int git_cherrypick(libgit2_d.types.git_repository* repo, libgit2_d.types.git_commit* commit, const (.git_cherrypick_options)* cherrypick_options);
 
-/** @} */
+/* @} */

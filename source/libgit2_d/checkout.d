@@ -11,7 +11,7 @@ private static import libgit2_d.diff;
 private static import libgit2_d.strarray;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/checkout.h
  * @brief Git checkout routines
  * @defgroup git_checkout Git checkout routines
@@ -22,7 +22,7 @@ extern (C):
 nothrow @nogc:
 public:
 
-/**
+/*
  * Checkout behavior flags
  *
  * In libgit2, checkout is used to update the working directory and index
@@ -480,7 +480,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_checkout_options` struct to initialize.
- *      version = The struct version; pass `GIT_CHECKOUT_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_CHECKOUT_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -534,4 +534,4 @@ int git_checkout_index(libgit2_d.types.git_repository* repo, libgit2_d.types.git
 //GIT_EXTERN
 int git_checkout_tree(libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_object)* treeish, const (.git_checkout_options)* opts);
 
-/** @} */
+/* @} */

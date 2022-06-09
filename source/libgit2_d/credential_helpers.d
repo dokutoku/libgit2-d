@@ -9,7 +9,7 @@ module libgit2_d.credential_helpers;
 
 private static import libgit2_d.credential;
 
-/**
+/*
  * @file git2/credential_helpers.h
  * @brief Utility functions for credential management
  * @defgroup git_credential_helpers credential management helpers
@@ -44,4 +44,4 @@ struct git_credential_userpass_payload
 //GIT_EXTERN
 int git_credential_userpass(libgit2_d.credential.git_credential** out_, const (char)* url, const (char)* user_from_url, uint allowed_types, void* payload);
 
-/** @} */
+/* @} */

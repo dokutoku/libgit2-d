@@ -9,7 +9,7 @@ module libgit2_d.attr;
 
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/attr.h
  * @brief Git attribute management routines
  * @defgroup git_attr Git attribute management routines
@@ -184,7 +184,7 @@ enum GIT_ATTR_CHECK_INDEX_ONLY = 2;
  * Normally, attribute checks include looking in the /etc (or system
  * equivalent) directory for a `gitattributes` file.  Passing this
  * flag will cause attribute checks to ignore that file.
- * equivalent) directory for a `gitattributes` file.  Passing the
+ * equivalent\) directory for a `gitattributes` file.  Passing the
  * `GIT_ATTR_CHECK_NO_SYSTEM` flag will cause attribute checks to
  * ignore that file.
  *
@@ -243,12 +243,13 @@ int git_attr_get_many(const (char)** values_out, libgit2_d.types.git_repository*
  *
  * @see git_attr_foreach.
  *
+ * Returns: 0 to continue looping, non-zero to stop. This value will be returned from git_attr_foreach.
+ */
+/*
  * Params:
  *      name = The attribute name.
  *      value = The attribute value. May be NULL if the attribute is explicitly set to UNSPECIFIED using the '!' sign.
  *      payload = A user-specified pointer.
- *
- * Returns: 0 to continue looping, non-zero to stop. This value will be returned from git_attr_foreach.
  */
 alias git_attr_foreach_cb = int function(const (char)* name, const (char)* value, void* payload);
 
@@ -296,4 +297,4 @@ int git_attr_cache_flush(libgit2_d.types.git_repository* repo);
 //GIT_EXTERN
 int git_attr_add_macro(libgit2_d.types.git_repository* repo, const (char)* name, const (char)* values);
 
-/** @} */
+/* @} */

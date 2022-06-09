@@ -16,7 +16,7 @@ private static import libgit2_d.sys.credential;
 private static import libgit2_d.transport;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/sys/transport.h
  * @brief Git custom transport registration interfaces and functions
  * @defgroup git_transport Git custom transport registration
@@ -149,7 +149,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = the `git_transport` struct to initialize
- *      version = Version of struct; pass `GIT_TRANSPORT_VERSION`
+ *      version_ = Version of struct; pass `GIT_TRANSPORT_VERSION`
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -444,6 +444,7 @@ struct git_smart_subtransport_definition
  * Params:
  *      out_ = The newly created subtransport
  *      owner = The smart transport to own this subtransport
+ *      param = ?
  *
  * Returns: 0 or an error code
  */
@@ -456,6 +457,7 @@ int git_smart_subtransport_http(.git_smart_subtransport** out_, .git_transport* 
  * Params:
  *      out_ = The newly created subtransport
  *      owner = The smart transport to own this subtransport
+ *      param = ?
  *
  * Returns: 0 or an error code
  */
@@ -468,10 +470,11 @@ int git_smart_subtransport_git(.git_smart_subtransport** out_, .git_transport* o
  * Params:
  *      out_ = The newly created subtransport
  *      owner = The smart transport to own this subtransport
+ *      param = ?
  *
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
 int git_smart_subtransport_ssh(.git_smart_subtransport** out_, .git_transport* owner, void* param);
 
-/** @} */
+/* @} */

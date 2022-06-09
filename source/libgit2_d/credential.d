@@ -9,7 +9,7 @@ module libgit2_d.credential;
 
 private static import libgit2_d.sys.credential;
 
-/**
+/*
  * @file git2/credential.h
  * @brief Git authentication & credential management
  * @defgroup git_credential Authentication & credential management
@@ -138,14 +138,15 @@ alias git_credential_ssh_custom = libgit2_d.sys.credential.git_credential_ssh_cu
  * an error. As such, it's easy to get in a loop if you fail to stop providing
  * the same incorrect credentials.
  *
+ * Returns: 0 for success, < 0 to indicate an error, > 0 to indicate no credential was acquired
+ */
+/*
  * Params:
  *      out_ = The newly created credential object.
  *      url = The resource for which we are demanding a credential.
  *      username_from_url = The username that was embedded in a "user\@host" remote url, or NULL if not included.
  *      allowed_types = A bitmask stating which credential types are OK to return.
  *      payload = The payload provided when specifying this callback.
- *
- * Returns: 0 for success, < 0 to indicate an error, > 0 to indicate no credential was acquired
  */
 alias git_credential_acquire_cb = int function(.git_credential** out_, const (char)* url, const (char)* username_from_url, uint allowed_types, void* payload);
 
@@ -276,6 +277,7 @@ alias git_credential_ssh_interactive_cb = void function(const (char)* name, int 
  * The supplied credential parameter will be internally duplicated.
  *
  * Params:
+ *      out_ = ?
  *      username = Username to use to authenticate.
  *      prompt_callback = The callback method used for prompts.
  *      payload = Additional data to pass to the callback.
@@ -323,4 +325,4 @@ alias git_credential_sign_cb = int function(.LIBSSH2_SESSION* session, ubyte** s
 //GIT_EXTERN
 int git_credential_ssh_custom_new(.git_credential** out_, const (char)* username, const (char)* publickey, size_t publickey_len, .git_credential_sign_cb sign_callback, void* payload);
 
-/** @} */
+/* @} */

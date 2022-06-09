@@ -12,7 +12,7 @@ private static import libgit2_d.oid;
 private static import libgit2_d.types;
 private static import std.conv;
 
-/**
+/*
  * @file git2/repository.h
  * @brief Git repository management routines
  * @defgroup git_repository Git repository management routines
@@ -403,7 +403,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_repository_init_options` struct to initialize.
- *      version = The struct version; pass `GIT_REPOSITORY_INIT_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_REPOSITORY_INIT_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -802,14 +802,15 @@ int git_repository_state_cleanup(libgit2_d.types.git_repository* repo);
  *
  * @see git_repository_fetchhead_foreach
  *
+ * Returns: non-zero to terminate the iteration
+ */
+/*
  * Params:
  *      ref_name = The reference name
  *      remote_url = The remote URL
  *      oid = The reference target OID
  *      is_merge = Was the reference the result of a merge
  *      payload = Payload passed to git_repository_fetchhead_foreach
- *
- * Returns: non-zero to terminate the iteration
  */
 alias git_repository_fetchhead_foreach_cb = int function(const (char)* ref_name, const (char)* remote_url, const (libgit2_d.oid.git_oid)* oid, uint is_merge, void* payload);
 
@@ -833,11 +834,12 @@ int git_repository_fetchhead_foreach(libgit2_d.types.git_repository* repo, .git_
  *
  * @see git_repository_mergehead_foreach
  *
+ * Returns: non-zero to terminate the iteration
+ */
+/*
  * Params:
  *      oid = The merge OID
  *      payload = Payload passed to git_repository_mergehead_foreach
- *
- * Returns: non-zero to terminate the iteration
  */
 alias git_repository_mergehead_foreach_cb = int function(const (libgit2_d.oid.git_oid)* oid, void* payload);
 
@@ -1078,4 +1080,4 @@ int git_repository_ident(const (char)** name, const (char)** email, const (libgi
 //GIT_EXTERN
 int git_repository_set_ident(libgit2_d.types.git_repository* repo, const (char)* name, const (char)* email);
 
-/** @} */
+/* @} */

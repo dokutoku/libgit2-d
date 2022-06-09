@@ -10,7 +10,7 @@ module libgit2_d.sys.refs;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/sys/refs.h
  * @brief Low-level Git ref creation
  * @defgroup git_backend Git custom backend APIs
@@ -46,4 +46,4 @@ libgit2_d.types.git_reference* git_reference__alloc(const (char)* name, const (l
 //GIT_EXTERN
 libgit2_d.types.git_reference* git_reference__alloc_symbolic(const (char)* name, const (char)* target);
 
-/** @} */
+/* @} */

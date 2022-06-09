@@ -19,7 +19,7 @@ private static import libgit2_d.strarray;
 private static import libgit2_d.transport;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/remote.h
  * @brief Git remote management functions
  * @defgroup git_remote remote management functions
@@ -126,7 +126,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_remote_create_options` struct to initialize.
- *      version = The struct version; pass `GIT_REMOTE_CREATE_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_REMOTE_CREATE_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -557,7 +557,8 @@ struct git_push_update
 
 /**
  * Callback used to inform of upcoming updates.
- *
+ */
+/*
  * Params:
  *      updates = an array containing the updates which will be sent as commands to the destination.
  *      len = number of elements in `updates`
@@ -572,12 +573,13 @@ alias git_push_negotiation = int function(const (.git_push_update)** updates, si
  * not `null`, the update was rejected by the remote server
  * and `status` contains the reason given.
  *
+ * Returns: 0 on success, otherwise an error
+ */
+/*
  * Params:
  *      refname = refname specifying to the remote ref
  *      status = status message sent from the remote
  *      data = data provided by the caller
- *
- * Returns: 0 on success, otherwise an error
  */
 alias git_push_update_reference_cb = int function(const (char)* refname, const (char)* status, void* data);
 
@@ -587,13 +589,14 @@ alias git_push_update_reference_cb = int function(const (char)* refname, const (
  * If you return git_error_code.GIT_PASSTHROUGH, you don't need to write anything to
  * url_resolved.
  *
+ * Returns: 0 on success, git_error_code.GIT_PASSTHROUGH or an error
+ */
+/*
  * Params:
  *      url_resolved = The buffer to write the resolved URL to
  *      url = The URL to resolve
  *      direction = git_direction.GIT_DIRECTION_FETCH or git_direction.GIT_DIRECTION_PUSH
  *      payload = Payload provided by the caller
- *
- * Returns: 0 on success, git_error_code.GIT_PASSTHROUGH or an error
  */
 alias git_url_resolve_cb = int function(libgit2_d.buffer.git_buf* url_resolved, const (char)* url, int direction, void* payload);
 
@@ -871,7 +874,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_fetch_options` struct to initialize.
- *      version = The struct version; pass `GIT_FETCH_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_FETCH_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -938,7 +941,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_push_options` struct to initialize.
- *      version = The struct version; pass `GIT_PUSH_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_PUSH_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -1150,4 +1153,4 @@ int git_remote_delete(libgit2_d.types.git_repository* repo, const (char)* name);
 //GIT_EXTERN
 int git_remote_default_branch(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_remote* remote);
 
-/** @} */
+/* @} */

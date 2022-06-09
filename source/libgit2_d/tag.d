@@ -11,7 +11,7 @@ private static import libgit2_d.oid;
 private static import libgit2_d.strarray;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/tag.h
  * @brief Git tag parsing routines
  * @defgroup git_tag Git tag management
@@ -174,8 +174,6 @@ const (char)* git_tag_message(const (libgit2_d.types.git_tag)* tag);
  *
  * Params:
  *      oid = Pointer where to store the OID of the newly created tag. If the tag already exists, this parameter will be the oid of the existing tag, and the function will return a git_error_code.GIT_EEXISTS error code.
- *
- * Params:
  *      repo = Repository where to store the tag
  *      tag_name = Name for the tag; this name is validated for consistency. It should also not conflict with an already existing tag name
  *      target = Object to which this tag points. This object must belong to the given `repo`.
@@ -302,12 +300,13 @@ int git_tag_list_match(libgit2_d.strarray.git_strarray* tag_names, const (char)*
  *
  * @see git_tag_foreach
  *
+ * Returns: non-zero to terminate the iteration
+ */
+/*
  * Params:
  *      name = The tag name
  *      oid = The tag's OID
  *      payload = Payload passed to git_tag_foreach
- *
- * Returns: non-zero to terminate the iteration
  */
 alias git_tag_foreach_cb = int function(const (char)* name, libgit2_d.oid.git_oid* oid, void* payload);
 
@@ -348,4 +347,4 @@ int git_tag_peel(libgit2_d.types.git_object** tag_target_out, const (libgit2_d.t
 //GIT_EXTERN
 int git_tag_dup(libgit2_d.types.git_tag** out_, libgit2_d.types.git_tag* source);
 
-/** @} */
+/* @} */

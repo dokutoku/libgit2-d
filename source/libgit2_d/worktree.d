@@ -11,7 +11,7 @@ private static import libgit2_d.buffer;
 private static import libgit2_d.strarray;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/worktrees.h
  * @brief Git worktree related functions
  * @defgroup git_commit Git worktree related functions
@@ -135,7 +135,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_worktree_add_options` struct to initialize.
- *      version = The struct version; pass `GIT_WORKTREE_ADD_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_WORKTREE_ADD_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -292,7 +292,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_worktree_prune_options` struct to initialize.
- *      version = The struct version; pass `GIT_WORKTREE_PRUNE_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_WORKTREE_PRUNE_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -332,4 +332,4 @@ int git_worktree_is_prunable(libgit2_d.types.git_worktree* wt, .git_worktree_pru
 //GIT_EXTERN
 int git_worktree_prune(libgit2_d.types.git_worktree* wt, .git_worktree_prune_options* opts);
 
-/** @} */
+/* @} */

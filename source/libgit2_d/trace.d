@@ -7,7 +7,7 @@
 module libgit2_d.trace;
 
 
-/**
+/*
  * @file git2/trace.h
  * @brief Git tracing configuration routines
  * @defgroup git_trace Git tracing configuration routines
@@ -91,4 +91,4 @@ alias git_trace_cb = void function(.git_trace_level_t level, const (char)* msg);
 //GIT_EXTERN
 int git_trace_set(.git_trace_level_t level, .git_trace_cb cb);
 
-/** @} */
+/* @} */

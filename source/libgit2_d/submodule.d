@@ -14,7 +14,7 @@ private static import libgit2_d.remote;
 private static import libgit2_d.types;
 private static import std.traits;
 
-/**
+/*
  * @file git2/submodule.h
  * @brief Git submodule management utilities
  *
@@ -158,12 +158,13 @@ bool GIT_SUBMODULE_STATUS_IS_WD_DIRTY(T)(S)
 /**
  * Function pointer to receive each submodule
  *
+ * Returns: 0 on success or error code
+ */
+/*
  * Params:
  *      sm = git_submodule currently being visited
  *      name = name of the submodule
  *      payload = value you passed to the foreach function as payload
- *
- * Returns: 0 on success or error code
  */
 alias git_submodule_cb = int function(libgit2_d.types.git_submodule* sm, const (char)* name, void* payload);
 
@@ -234,7 +235,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_submodule_update_options` struct to initialize.
- *      version = The struct version; pass `GIT_SUBMODULE_UPDATE_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_SUBMODULE_UPDATE_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -751,4 +752,4 @@ int git_submodule_status(uint* status, libgit2_d.types.git_repository* repo, con
 //GIT_EXTERN
 int git_submodule_location(uint* location_status, libgit2_d.types.git_submodule* submodule);
 
-/** @} */
+/* @} */

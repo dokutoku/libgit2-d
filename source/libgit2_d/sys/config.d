@@ -10,7 +10,7 @@ module libgit2_d.sys.config;
 private static import libgit2_d.config;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/sys/config.h
  * @brief Git config backend routines
  * @defgroup git_backend Git custom backend APIs
@@ -119,7 +119,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      backend = the `git_config_backend` struct to initialize.
- *      version = Version of struct; pass `GIT_CONFIG_BACKEND_VERSION`
+ *      version_ = Version of struct; pass `GIT_CONFIG_BACKEND_VERSION`
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -148,4 +148,4 @@ int git_config_init_backend(.git_config_backend* backend, uint version_);
 //GIT_EXTERN
 int git_config_add_backend(libgit2_d.types.git_config* cfg, .git_config_backend* file, libgit2_d.config.git_config_level_t level, const (libgit2_d.types.git_repository)* repo, int force);
 
-/** @} */
+/* @} */

@@ -10,7 +10,7 @@ module libgit2_d.sys.commit;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/sys/commit.h
  * @brief Low-level Git commit creation
  * @defgroup git_backend Git custom backend APIs
@@ -58,4 +58,4 @@ alias git_commit_parent_callback = const (libgit2_d.oid.git_oid)* function(size_
 //GIT_EXTERN
 int git_commit_create_from_callback(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* update_ref, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2_d.oid.git_oid)* tree, .git_commit_parent_callback parent_cb, void* parent_payload);
 
-/** @} */
+/* @} */

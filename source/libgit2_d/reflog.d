@@ -10,7 +10,7 @@ module libgit2_d.reflog;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/reflog.h
  * @brief Git reflog management routines
  * @defgroup git_reflog Git reflog management routines
@@ -195,4 +195,4 @@ const (char)* git_reflog_entry_message(const (libgit2_d.types.git_reflog_entry)*
 //GIT_EXTERN
 void git_reflog_free(libgit2_d.types.git_reflog* reflog);
 
-/** @} */
+/* @} */

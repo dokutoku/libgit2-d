@@ -10,7 +10,7 @@ module libgit2_d.transaction;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/transaction.h
  * @brief Git transactional reference routines
  * @defgroup git_transaction Git transactional reference routines
@@ -141,4 +141,4 @@ int git_transaction_commit(libgit2_d.types.git_transaction* tx);
 //GIT_EXTERN
 void git_transaction_free(libgit2_d.types.git_transaction* tx);
 
-/** @} */
+/* @} */

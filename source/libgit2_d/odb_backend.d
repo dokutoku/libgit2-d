@@ -11,7 +11,7 @@ private static import libgit2_d.indexer;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/backend.h
  * @brief Git custom backend functions
  * @defgroup git_odb Git object database routines

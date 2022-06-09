@@ -9,7 +9,7 @@ module libgit2_d.revparse;
 
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/revparse.h
  * @brief Git revision parsing routines
  * @defgroup git_revparse Git revision parsing routines
@@ -133,4 +133,4 @@ struct git_revspec
 //GIT_EXTERN
 int git_revparse(.git_revspec* revspec, libgit2_d.types.git_repository* repo, const (char)* spec);
 
-/** @} */
+/* @} */

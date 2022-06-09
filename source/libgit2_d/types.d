@@ -18,7 +18,7 @@ private static import libgit2_d.sys.refdb_backend;
 private static import libgit2_d.sys.transport;
 private static import std.conv;
 
-/**
+/*
  * @file git2/types.h
  * @brief libgit2 base & compatibility types
  * @ingroup Git
@@ -603,4 +603,4 @@ struct git_writestream
  */
 struct git_mailmap;
 
-/** @} */
+/* @} */

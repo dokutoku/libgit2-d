@@ -10,7 +10,7 @@ module libgit2_d.apply;
 private static import libgit2_d.diff;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/apply.h
  * @brief Git patch application routines
  * @defgroup git_apply Git patch application routines
@@ -29,7 +29,8 @@ public:
  * - returns > 0, the delta will not be applied, but the apply process
  *      continues
  * - returns 0, the delta is applied, and the apply process continues.
- *
+ */
+/*
  * Params:
  *      delta = The delta to be applied
  *      payload = User-specified payload
@@ -44,7 +45,8 @@ alias git_apply_delta_cb = int function(const (libgit2_d.diff.git_diff_delta)* d
  * - returns > 0, the hunk will not be applied, but the apply process
  *      continues
  * - returns 0, the hunk is applied, and the apply process continues.
- *
+ */
+/*
  * Params:
  *      hunk = The hunk to be applied
  *      payload = User-specified payload
@@ -187,4 +189,4 @@ enum
 //GIT_EXTERN
 int git_apply(libgit2_d.types.git_repository* repo, libgit2_d.diff.git_diff* diff, .git_apply_location_t location, const (.git_apply_options)* options);
 
-/** @} */
+/* @} */

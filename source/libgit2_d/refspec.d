@@ -11,7 +11,7 @@ private static import libgit2_d.buffer;
 private static import libgit2_d.net;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/refspec.h
  * @brief Git refspec attributes
  * @defgroup git_refspec Git refspec attributes

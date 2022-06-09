@@ -66,7 +66,8 @@ struct git_indexer_progress
 /**
  * Type for progress callbacks during indexing.  Return a value less
  * than zero to cancel the indexing or download.
- *
+ */
+/*
  * Params:
  *      stats = Structure containing information about the state of the transfer
  *      payload = Payload provided by caller
@@ -116,11 +117,12 @@ pure nothrow @safe @nogc
  * Initializes a `git_indexer_options` with default values. Equivalent to
  * creating an instance with GIT_INDEXER_OPTIONS_INIT.
  *
+ * Returns: Zero on success; -1 on failure.
+ */
+/*
  * Params:
  *      opts = the `git_indexer_options` struct to initialize.
- *      version = Version of struct; pass `GIT_INDEXER_OPTIONS_VERSION`
- *
- * Returns: Zero on success; -1 on failure.
+ *      version_ = Version of struct; pass `GIT_INDEXER_OPTIONS_VERSION`
  */
 //GIT_EXTERN
 int git_indexer_options_init(.git_indexer_options* opts, uint version_);
@@ -157,6 +159,7 @@ int git_indexer_append(.git_indexer* idx, const (void)* data, size_t size, .git_
  *
  * Params:
  *      idx = the indexer
+ *      stats = ?
  */
 //GIT_EXTERN
 int git_indexer_commit(.git_indexer* idx, .git_indexer_progress* stats);

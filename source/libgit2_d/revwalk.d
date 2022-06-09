@@ -10,7 +10,7 @@ module libgit2_d.revwalk;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/revwalk.h
  * @brief Git revision traversal routines
  * @defgroup git_revwalk Git revision traversal routines
@@ -328,7 +328,8 @@ libgit2_d.types.git_repository* git_revwalk_repository(libgit2_d.types.git_revwa
  * This is a callback function that user can provide to hide a
  * commit and its parents. If the callback function returns non-zero value,
  * then this commit and its parents will be hidden.
- *
+ */
+/*
  * Params:
  *      commit_id = oid of Commit
  *      payload = User-specified pointer to data to be passed as data payload
@@ -346,4 +347,4 @@ alias git_revwalk_hide_cb = int function(const (libgit2_d.oid.git_oid)* commit_i
 //GIT_EXTERN
 int git_revwalk_add_hide_cb(libgit2_d.types.git_revwalk* walk, .git_revwalk_hide_cb hide_cb, void* payload);
 
-/** @} */
+/* @} */

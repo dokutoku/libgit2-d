@@ -10,7 +10,7 @@ module libgit2_d.annotated_commit;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/annotated_commit.h
  * @brief Git annotated commit routines
  * @defgroup git_annotated_commit Git annotated commit routines
@@ -124,4 +124,4 @@ const (char)* git_annotated_commit_ref(const (libgit2_d.types.git_annotated_comm
 //GIT_EXTERN
 void git_annotated_commit_free(libgit2_d.types.git_annotated_commit* commit);
 
-/** @} */
+/* @} */

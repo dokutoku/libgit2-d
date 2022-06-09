@@ -11,7 +11,7 @@ private static import libgit2_d.buffer;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/commit.h
  * @brief Git commit parsing, formatting routines
  * @defgroup git_commit Git commit parsing, formatting routines
@@ -462,6 +462,7 @@ int git_commit_create_buffer(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git
  *
  * Params:
  *      out_ = the resulting commit id
+ *      repo = ?
  *      commit_content = the content of the unsigned commit object
  *      signature = the signature to add to the commit. Leave `NULL` to create a commit without adding a signature field.
  *      signature_field = which header field should contain this signature. Leave `NULL` for the default of "gpgsig"
@@ -502,4 +503,4 @@ int git_commit_dup(libgit2_d.types.git_commit** out_, libgit2_d.types.git_commit
  */
 alias git_commit_signing_cb = int function(libgit2_d.buffer.git_buf* signature, libgit2_d.buffer.git_buf* signature_field, const (char)* commit_content, void* payload);
 
-/** @} */
+/* @} */

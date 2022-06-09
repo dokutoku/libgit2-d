@@ -9,7 +9,7 @@ module libgit2_d.mailmap;
 
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/mailmap.h
  * @brief Mailmap parsing routines
  * @defgroup git_mailmap Git mailmap routines
@@ -123,4 +123,4 @@ int git_mailmap_resolve(const (char)** real_name, const (char)** real_email, con
 //GIT_EXTERN
 int git_mailmap_resolve_signature(libgit2_d.types.git_signature** out_, const (libgit2_d.types.git_mailmap)* mm, const (libgit2_d.types.git_signature)* sig);
 
-/** @} */
+/* @} */

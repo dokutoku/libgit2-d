@@ -10,7 +10,7 @@ module libgit2_d.graph;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/graph.h
  * @brief Git graph traversal routines
  * @defgroup git_revwalk Git graph traversal routines
@@ -46,6 +46,7 @@ int git_graph_ahead_behind(size_t* ahead, size_t* behind, libgit2_d.types.git_re
  * to `git merge-base --is-ancestor`.
  *
  * Params:
+ *      repo = ?
  *      commit = a previously loaded commit.
  *      ancestor = a potential ancestor commit.
  *
@@ -54,4 +55,4 @@ int git_graph_ahead_behind(size_t* ahead, size_t* behind, libgit2_d.types.git_re
 //GIT_EXTERN
 int git_graph_descendant_of(libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* commit, const (libgit2_d.oid.git_oid)* ancestor);
 
-/** @} */
+/* @} */

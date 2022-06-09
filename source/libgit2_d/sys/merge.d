@@ -12,7 +12,7 @@ private static import libgit2_d.index;
 private static import libgit2_d.merge;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/sys/merge.h
  * @brief Git merge driver backend and plugin routines
  * @defgroup git_merge Git merge driver APIs
@@ -192,4 +192,4 @@ int git_merge_driver_register(const (char)* name, .git_merge_driver* driver);
 //GIT_EXTERN
 int git_merge_driver_unregister(const (char)* name);
 
-/** @} */
+/* @} */

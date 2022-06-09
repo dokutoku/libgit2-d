@@ -11,7 +11,7 @@ private static import libgit2_d.buffer;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/blob.h
  * @brief Git blob load and write routines
  * @defgroup git_blob Git blob load and write routines
@@ -332,4 +332,4 @@ int git_blob_is_binary(const (libgit2_d.types.git_blob)* blob);
 //GIT_EXTERN
 int git_blob_dup(libgit2_d.types.git_blob** out_, libgit2_d.types.git_blob* source);
 
-/** @} */
+/* @} */

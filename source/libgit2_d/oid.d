@@ -7,7 +7,7 @@
 module libgit2_d.oid;
 
 
-/**
+/*
  * @file git2/oid.h
  * @brief Git object id routines
  * @defgroup git_oid Git object id routines
@@ -314,4 +314,4 @@ int git_oid_shorten_add(.git_oid_shorten* os, const (char)* text_id);
 //GIT_EXTERN
 void git_oid_shorten_free(.git_oid_shorten* os);
 
-/** @} */
+/* @} */

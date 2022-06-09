@@ -39,4 +39,4 @@ struct git_oidarray
 //GIT_EXTERN
 void git_oidarray_free(.git_oidarray* array);
 
-/** @} */
+/* @} */

@@ -11,7 +11,7 @@ private static import libgit2_d.diff;
 private static import libgit2_d.strarray;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/status.h
  * @brief Git file status routines
  * @defgroup git_status Git file status routines
@@ -274,7 +274,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_status_options` struct to initialize.
- *      version = The struct version; pass `GIT_STATUS_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_STATUS_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -449,4 +449,4 @@ void git_status_list_free(libgit2_d.types.git_status_list* statuslist);
 //GIT_EXTERN
 int git_status_should_ignore(int* ignored, libgit2_d.types.git_repository* repo, const (char)* path);
 
-/** @} */
+/* @} */

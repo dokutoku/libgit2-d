@@ -9,7 +9,7 @@ module libgit2_d.sys.credential;
 
 private static import libgit2_d.credential;
 
-/**
+/*
  * @file git2/sys/cred.h
  * @brief Git credentials low-level implementation
  * @defgroup git_credential Git credentials low-level implementation

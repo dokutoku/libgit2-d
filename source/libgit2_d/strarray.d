@@ -7,7 +7,7 @@
 module libgit2_d.strarray;
 
 
-/**
+/*
  * @file git2/strarray.h
  * @brief Git string array routines
  * @defgroup git_strarray Git string array routines
@@ -56,4 +56,4 @@ void git_strarray_dispose(.git_strarray* array);
 //GIT_EXTERN
 int git_strarray_copy(.git_strarray* tgt, const (.git_strarray)* src);
 
-/** @} */
+/* @} */

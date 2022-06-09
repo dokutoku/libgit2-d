@@ -39,4 +39,4 @@ int git_libgit2_init();
 //GIT_EXTERN
 int git_libgit2_shutdown();
 
-/** @} */
+/* @} */

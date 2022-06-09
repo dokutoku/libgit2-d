@@ -11,7 +11,7 @@ private static import libgit2_d.indexer;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/odb.h
  * @brief Git object database routines
  * @defgroup git_odb Git object database routines
@@ -610,4 +610,4 @@ size_t git_odb_num_backends(libgit2_d.types.git_odb* odb);
 //GIT_EXTERN
 int git_odb_get_backend(libgit2_d.types.git_odb_backend** out_, libgit2_d.types.git_odb* odb, size_t pos);
 
-/** @} */
+/* @} */

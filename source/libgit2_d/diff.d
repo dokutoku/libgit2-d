@@ -12,7 +12,7 @@ private static import libgit2_d.oid;
 private static import libgit2_d.strarray;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/diff.h
  * @brief Git tree and file differencing routines.
  * @ingroup Git
@@ -522,12 +522,14 @@ alias git_diff_notify_cb = int function(const (.git_diff)* diff_so_far, const (.
  *
  * Called before each file comparison.
  *
+ * Returns: Non-zero to abort the diff.
+ */
+/*
  * Params:
  *      diff_so_far = The diff being generated.
  *      old_path = The path to the old file or null.
  *      new_path = The path to the new file or null.
- *
- * Returns: Non-zero to abort the diff.
+ *      payload = ?
  */
 alias git_diff_progress_cb = int function(const (.git_diff)* diff_so_far, const (char)* old_path, const (char)* new_path, void* payload);
 
@@ -666,7 +668,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_diff_options` struct to initialize.
- *      version = The struct version; pass `GIT_DIFF_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_DIFF_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -675,7 +677,8 @@ int git_diff_options_init(.git_diff_options* opts, uint version_);
 
 /**
  * When iterating over a diff, callback that will be made per file.
- *
+ */
+/*
  * Params:
  *      delta = A pointer to the delta data for the file
  *      progress = Goes from 0 to 1 over the diff
@@ -945,10 +948,10 @@ struct git_diff_line
  * of lines of file and hunk headers.
  */
 alias git_diff_line_cb = int function(
-    const (.git_diff_delta)* delta, /**< delta that contains this data */
-    const (.git_diff_hunk)* hunk,   /**< hunk containing this data */
-    const (.git_diff_line)* line,   /**< line data */
-    void* payload);              /**< user reference data */
+    const (.git_diff_delta)* delta, /*< delta that contains this data */
+    const (.git_diff_hunk)* hunk,   /*< hunk containing this data */
+    const (.git_diff_line)* line,   /*< line data */
+    void* payload);              /*< user reference data */
 
 /**
  * Flags to control the behavior of diff rename/copy detection.
@@ -1176,20 +1179,20 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_diff_find_options` struct to initialize.
- *      version = The struct version; pass `GIT_DIFF_FIND_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_DIFF_FIND_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
 int git_diff_find_options_init(.git_diff_find_options* opts, uint version_);
 
-/**
+/*
  * @name Diff Generator Functions
  *
  * These are the functions you would use to create (or destroy) a
  * git_diff from various objects in a repository.
  */
-/**@{*/
+/*@{*/
 
 /**
  * Deallocate a diff.
@@ -1361,15 +1364,15 @@ int git_diff_merge(.git_diff* onto, const (.git_diff)* from);
 //GIT_EXTERN
 int git_diff_find_similar(.git_diff* diff, const (.git_diff_find_options)* options);
 
-/**@}*/
+/*@}*/
 
-/**
+/*
  * @name Diff Processor Functions
  *
  * These are the functions you apply to a diff to process it
  * or read it in some way.
  */
-/**@{*/
+/*@{*/
 
 /**
  * Query how many diff records are there in a diff.
@@ -1552,7 +1555,7 @@ int git_diff_print(.git_diff* diff, .git_diff_format_t format, .git_diff_line_cb
 //GIT_EXTERN
 int git_diff_to_buf(libgit2_d.buffer.git_buf* out_, .git_diff* diff, .git_diff_format_t format);
 
-/**@}*/
+/*@}*/
 
 /*
  * Misc
@@ -1918,7 +1921,7 @@ int git_diff_commit_as_email(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git
  *
  * Params:
  *      opts = The `git_blame_options` struct to initialize.
- *      version = The struct version; pass `GIT_DIFF_FORMAT_EMAIL_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_DIFF_FORMAT_EMAIL_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -1960,7 +1963,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_diff_patchid_options` struct to initialize.
- *      version = The struct version; pass `GIT_DIFF_PATCHID_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_DIFF_PATCHID_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -1989,4 +1992,4 @@ int git_diff_patchid_options_init(.git_diff_patchid_options* opts, uint version_
 //GIT_EXTERN
 int git_diff_patchid(libgit2_d.oid.git_oid* out_, .git_diff* diff, .git_diff_patchid_options* opts);
 
-/** @} */
+/* @} */

@@ -10,7 +10,7 @@ module libgit2_d.sys.mempack;
 private static import libgit2_d.buffer;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/sys/mempack.h
  * @brief Custom ODB backend that permits packing objects in-memory
  * @defgroup git_backend Git custom backend APIs

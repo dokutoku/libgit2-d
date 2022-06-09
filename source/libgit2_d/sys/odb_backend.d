@@ -12,7 +12,7 @@ private static import libgit2_d.odb;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/sys/backend.h
  * @brief Git custom backend implementors functions
  * @defgroup git_backend Git custom backend APIs
@@ -117,7 +117,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      backend = the `git_odb_backend` struct to initialize.
- *      version = Version the struct; pass `GIT_ODB_BACKEND_VERSION`
+ *      version_ = Version the struct; pass `GIT_ODB_BACKEND_VERSION`
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -162,16 +162,16 @@ deprecated:
 version (GIT_DEPRECATE_HARD) {
 } else {
 	/**
-	* Allocate memory for an ODB object from a custom backend.  This is
-	* an alias of `git_odb_backend_data_alloc` and is preserved for
-	* backward compatibility.
-	*
-	* This function is deprecated, but there is no plan to remove this
-	* function at this time.
-	*
-	* @deprecated git_odb_backend_data_alloc
-	* @see git_odb_backend_data_alloc
-	*/
+	 * Allocate memory for an ODB object from a custom backend.  This is
+	 * an alias of `git_odb_backend_data_alloc` and is preserved for
+	 * backward compatibility.
+	 *
+	 * This function is deprecated, but there is no plan to remove this
+	 * function at this time.
+	 *
+	 * @deprecated git_odb_backend_data_alloc
+	 * @see git_odb_backend_data_alloc
+	 */
 	//GIT_EXTERN
 	void* git_odb_backend_malloc(.git_odb_backend* backend, size_t len);
 }

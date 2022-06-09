@@ -12,7 +12,7 @@ private static import libgit2_d.strarray;
 private static import libgit2_d.types;
 private static import std.traits;
 
-/**
+/*
  * @file git2/index.h
  * @brief Git index parsing and manipulation routines
  * @defgroup git_index Git index parsing and manipulation routines
@@ -483,15 +483,15 @@ int git_index_write_tree(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_index*
 //GIT_EXTERN
 int git_index_write_tree_to(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_index* index, libgit2_d.types.git_repository* repo);
 
-/**@}*/
+/*@}*/
 
-/**
+/*
  * @name Raw Index Entry Functions
  *
  * These functions work on index entries, and allow for raw manipulation
  * of the entries.
  */
-/**@{*/
+/*@{*/
 
 /* Index entry manipulation */
 
@@ -625,13 +625,13 @@ int git_index_entry_stage(const (.git_index_entry)* entry);
 //GIT_EXTERN
 int git_index_entry_is_conflict(const (.git_index_entry)* entry);
 
-/**@}*/
+/*@}*/
 
-/** @name Index Entry Iteration Functions
+/* @name Index Entry Iteration Functions
  *
  * These functions provide an iterator for index entries.
  */
-/**@{*/
+/*@{*/
 
 /**
  * Create an iterator that will return every entry contained in the
@@ -668,15 +668,15 @@ int git_index_iterator_next(const (.git_index_entry)** out_, libgit2_d.types.git
 //GIT_EXTERN
 void git_index_iterator_free(libgit2_d.types.git_index_iterator* iterator);
 
-/**@}*/
+/*@}*/
 
-/**
+/*
  * @name Workdir Index Entry Functions
  *
  * These functions work on index entries specifically in the working
  * directory (ie, stage 0).
  */
-/**@{*/
+/*@{*/
 
 /**
  * Add or update an index entry from a file on disk
@@ -874,14 +874,14 @@ int git_index_find(size_t* at_pos, libgit2_d.types.git_index* index, const (char
 //GIT_EXTERN
 int git_index_find_prefix(size_t* at_pos, libgit2_d.types.git_index* index, const (char)* prefix);
 
-/**@}*/
+/*@}*/
 
-/**
+/*
  * @name Conflict Index Entry Functions
  *
  * These functions work on conflict index entries specifically (ie, stages 1-3)
  */
-/**@{*/
+/*@{*/
 
 /**
  * Add or update index entries to represent a conflict.  Any staged
@@ -975,6 +975,7 @@ int git_index_conflict_iterator_new(libgit2_d.types.git_index_conflict_iterator*
  *      ancestor_out = Pointer to store the ancestor side of the conflict
  *      our_out = Pointer to store our side of the conflict
  *      their_out = Pointer to store their side of the conflict
+ *      iterator = ?
  *
  * Returns: 0 (no error), git_error_code.GIT_ITEROVER (iteration is done) or an error code (negative value)
  */
@@ -990,4 +991,4 @@ int git_index_conflict_next(const (.git_index_entry)** ancestor_out, const (.git
 //GIT_EXTERN
 void git_index_conflict_iterator_free(libgit2_d.types.git_index_conflict_iterator* iterator);
 
-/** @} */
+/* @} */

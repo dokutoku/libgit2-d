@@ -10,7 +10,7 @@ module libgit2_d.sys.index;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/sys/index.h
  * @brief Low-level Git index manipulation routines
  * @defgroup git_backend Git custom backend APIs
@@ -41,12 +41,12 @@ struct git_index_reuc_entry
 	char* path;
 }
 
-/**
+/*
  * @name Conflict Name entry functions
  *
  * These functions work on rename conflict entries.
  */
-/**@{*/
+/*@{*/
 
 /**
  * Get the count of filename conflict entries currently in the index.
@@ -97,15 +97,15 @@ int git_index_name_add(libgit2_d.types.git_index* index, const (char)* ancestor,
 //GIT_EXTERN
 int git_index_name_clear(libgit2_d.types.git_index* index);
 
-/**@}*/
+/*@}*/
 
-/**
+/*
  * @name Resolve Undo (REUC) index entry manipulation.
  *
  * These functions work on the Resolve Undo index extension and contains
  * data about the original files that led to a merge conflict.
  */
-/**@{*/
+/*@{*/
 
 /**
  * Get the count of resolve undo entries currently in the index.
@@ -212,6 +212,6 @@ int git_index_reuc_remove(libgit2_d.types.git_index* index, size_t n);
 //GIT_EXTERN
 int git_index_reuc_clear(libgit2_d.types.git_index* index);
 
-/**@}*/
+/*@}*/
 
-/** @} */
+/* @} */

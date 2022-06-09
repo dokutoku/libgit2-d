@@ -7,7 +7,7 @@
 module libgit2_d.errors;
 
 
-/**
+/*
  * @file git2/errors.h
  * @brief Git error handling routines and variables
  * @ingroup Git
@@ -359,4 +359,4 @@ int git_error_set_str(int error_class, const (char)* string_);
 //GIT_EXTERN
 void git_error_set_oom();
 
-/** @} */
+/* @} */

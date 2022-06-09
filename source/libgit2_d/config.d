@@ -11,7 +11,7 @@ private static import libgit2_d.buffer;
 private static import libgit2_d.sys.config;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/config.h
  * @brief Git config management routines
  * @defgroup git_config Git config management routines
@@ -127,7 +127,8 @@ void git_config_entry_free(.git_config_entry*);
 
 /**
  * A config enumeration callback
- *
+ */
+/*
  * Params:
  *      entry = the entry currently being enumerated
  *      payload = a user-specified pointer
@@ -448,7 +449,7 @@ int git_config_get_bool(int* out_, const (libgit2_d.types.git_config)* cfg, cons
 /**
  * Get the value of a path config variable.
  *
- * A leading '~' will be expanded to the global search path (which
+ * A leading '~' will be expanded to the global search path \(which
  * defaults to the user's home directory but can be overridden via
  * `git_libgit2_opts()`.
  *
@@ -838,7 +839,7 @@ int git_config_parse_int64(long* out_, const (char)* value);
 /**
  * Parse a string value as a path.
  *
- * A leading '~' will be expanded to the global search path (which
+ * A leading '~' will be expanded to the global search path \(which
  * defaults to the user's home directory but can be overridden via
  * `git_libgit2_opts()`.
  *
@@ -892,4 +893,4 @@ int git_config_backend_foreach_match(libgit2_d.types.git_config_backend* backend
 //GIT_EXTERN
 int git_config_lock(libgit2_d.types.git_transaction** tx, libgit2_d.types.git_config* cfg);
 
-/** @} */
+/* @} */

@@ -9,7 +9,7 @@ module libgit2_d.signature;
 
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/signature.h
  * @brief Git signature creation
  * @defgroup libgit2_d.types.git_signature Git signature creation
@@ -116,4 +116,4 @@ int git_signature_dup(libgit2_d.types.git_signature** dest, const (libgit2_d.typ
 //GIT_EXTERN
 void git_signature_free(libgit2_d.types.git_signature* sig);
 
-/** @} */
+/* @} */

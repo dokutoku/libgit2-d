@@ -10,7 +10,7 @@ module libgit2_d.sys.diff;
 private static import libgit2_d.diff;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/sys/diff.h
  * @brief Low-level Git diff utilities
  * @ingroup Git
@@ -34,7 +34,7 @@ package(libgit2_d):
  * buffer (after any existing content).
  */
 //GIT_EXTERN
-/**< payload must be a `git_buf *` */
+/*< payload must be a `git_buf *` */
 int git_diff_print_callback__to_buf(const (libgit2_d.diff.git_diff_delta)* delta, const (libgit2_d.diff.git_diff_hunk)* hunk, const (libgit2_d.diff.git_diff_line)* line, void* payload);
 
 /**
@@ -52,7 +52,7 @@ int git_diff_print_callback__to_buf(const (libgit2_d.diff.git_diff_delta)* delta
  * data to `stdout`.
  */
 //GIT_EXTERN
-/**< payload must be a `FILE *` */
+/*< payload must be a `FILE *` */
 int git_diff_print_callback__to_file_handle(const (libgit2_d.diff.git_diff_delta)* delta, const (libgit2_d.diff.git_diff_hunk)* hunk, const (libgit2_d.diff.git_diff_line)* line, void* payload);
 
 /**
@@ -109,4 +109,4 @@ int git_diff_get_perfdata(.git_diff_perfdata* out_, const (libgit2_d.diff.git_di
 //GIT_EXTERN
 int git_status_list_get_perfdata(.git_diff_perfdata* out_, const (libgit2_d.types.git_status_list)* status);
 
-/** @} */
+/* @} */

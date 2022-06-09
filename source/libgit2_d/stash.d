@@ -11,7 +11,7 @@ private static import libgit2_d.checkout;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/stash.h
  * @brief Git stash management routines
  * @ingroup Git
@@ -212,7 +212,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_stash_apply_options` struct to initialize.
- *      version = The struct version; pass `GIT_STASH_APPLY_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_STASH_APPLY_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -250,13 +250,14 @@ int git_stash_apply(libgit2_d.types.git_repository* repo, size_t index, const (.
  * This is a callback function you can provide to iterate over all the
  * stashed states that will be invoked per entry.
  *
+ * Returns: 0 to continue iterating or non-zero to stop.
+ */
+/*
  * Params:
  *      index = The position within the stash list. 0 points to the most recent stashed state.
  *      message = The stash message.
  *      stash_id = The commit oid of the stashed state.
  *      payload = Extra parameter to callback function.
- *
- * Returns: 0 to continue iterating or non-zero to stop.
  */
 alias git_stash_cb = int function(size_t index, const (char)* message, const (libgit2_d.oid.git_oid)* stash_id, void* payload);
 
@@ -301,4 +302,4 @@ int git_stash_drop(libgit2_d.types.git_repository* repo, size_t index);
 //GIT_EXTERN
 int git_stash_pop(libgit2_d.types.git_repository* repo, size_t index, const (.git_stash_apply_options)* options);
 
-/** @} */
+/* @} */

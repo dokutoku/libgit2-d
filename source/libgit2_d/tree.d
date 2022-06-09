@@ -11,7 +11,7 @@ private static import libgit2_d.buffer;
 private static import libgit2_d.oid;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/tree.h
  * @brief Git tree parsing, loading routines
  * @defgroup git_tree Git tree parsing, loading routines
@@ -584,4 +584,4 @@ struct git_tree_update
 //GIT_EXTERN
 int git_tree_create_updated(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, libgit2_d.types.git_tree* baseline, size_t nupdates, const (.git_tree_update)* updates);
 
-/** @} */
+/* @} */

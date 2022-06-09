@@ -10,7 +10,7 @@ module libgit2_d.branch;
 private static import libgit2_d.buffer;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/branch.h
  * @brief Git branch parsing routines
  * @defgroup git_branch Git branch management
@@ -35,6 +35,7 @@ public:
  *
  * Params:
  *      out_ = Pointer where to store the underlying reference.
+ *      repo = ?
  *      branch_name = Name for the branch; this name is validated for consistency. It should also not conflict with an already existing branch name.
  *      target = Commit to which this branch should point. This object must belong to the given `repo`.
  *      force = Overwrite existing branch.
@@ -280,4 +281,4 @@ int git_branch_remote_name(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_r
 //GIT_EXTERN
 int git_branch_upstream_remote(libgit2_d.buffer.git_buf* buf, libgit2_d.types.git_repository* repo, const (char)* refname);
 
-/** @} */
+/* @} */

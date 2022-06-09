@@ -14,7 +14,7 @@ private static import libgit2_d.oid;
 private static import libgit2_d.oidarray;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/merge.h
  * @brief Git merge routines
  * @defgroup git_merge Git merge routines
@@ -306,7 +306,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_merge_file_options` struct to initialize.
- *      version = The struct version; pass `GIT_MERGE_FILE_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_MERGE_FILE_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -432,7 +432,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_merge_options` struct to initialize.
- *      version = The struct version; pass `GIT_MERGE_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_MERGE_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -524,6 +524,7 @@ enum
  *
  * Params:
  *      analysis_out = analysis enumeration that the result is written into
+ *      preference_out = ?
  *      repo = the repository to merge
  *      their_heads = the heads to merge into
  *      their_heads_len = the number of heads to merge
@@ -539,6 +540,7 @@ int git_merge_analysis(.git_merge_analysis_t* analysis_out, .git_merge_preferenc
  *
  * Params:
  *      analysis_out = analysis enumeration that the result is written into
+ *      preference_out = ?
  *      repo = the repository to merge
  *      our_ref = the reference to perform the analysis from
  *      their_heads = the heads to merge into
@@ -732,4 +734,4 @@ int git_merge_commits(libgit2_d.types.git_index** out_, libgit2_d.types.git_repo
 //GIT_EXTERN
 int git_merge(libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_annotated_commit)** their_heads, size_t their_heads_len, const (.git_merge_options)* merge_opts, const (libgit2_d.checkout.git_checkout_options)* checkout_opts);
 
-/** @} */
+/* @} */

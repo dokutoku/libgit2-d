@@ -10,7 +10,7 @@ module libgit2_d.describe;
 private static import libgit2_d.buffer;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/describe.h
  * @brief Git describing routines
  * @defgroup git_describe Git describing routines
@@ -108,7 +108,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_describe_options` struct to initialize.
- *      version = The struct version; pass `GIT_DESCRIBE_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_DESCRIBE_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -169,7 +169,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_describe_format_options` struct to initialize.
- *      version = The struct version; pass `GIT_DESCRIBE_FORMAT_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_DESCRIBE_FORMAT_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -226,4 +226,4 @@ int git_describe_format(libgit2_d.buffer.git_buf* out_, const (.git_describe_res
 //GIT_EXTERN
 void git_describe_result_free(.git_describe_result* result);
 
-/** @} */
+/* @} */

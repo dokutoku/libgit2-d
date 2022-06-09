@@ -7,7 +7,7 @@
 module libgit2_d.cert;
 
 
-/**
+/*
  * @file git2/cert.h
  * @brief Git certificate objects
  * @defgroup git_cert Certificate objects
@@ -73,13 +73,14 @@ struct git_cert
 /**
  * Callback for the user's custom certificate checks.
  *
+ * Returns: 0 to proceed with the connection, < 0 to fail the connection or > 0 to indicate that the callback refused to act and that the existing validity determination should be honored
+ */
+/*
  * Params:
  *      cert = The host certificate
  *      valid = Whether the libgit2 checks (OpenSSL or WinHTTP) think this certificate is valid
  *      host = Hostname of the host libgit2 connected to
  *      payload = Payload provided by the caller
- *
- * Returns: 0 to proceed with the connection, < 0 to fail the connection or > 0 to indicate that the callback refused to act and that the existing validity determination should be honored
  */
 alias git_transport_certificate_check_cb = int function(.git_cert* cert, int valid, const (char)* host, void* payload);
 
@@ -168,4 +169,4 @@ struct git_cert_x509
 	size_t len;
 }
 
-/** @} */
+/* @} */

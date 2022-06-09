@@ -11,7 +11,7 @@ private static import libgit2_d.checkout;
 private static import libgit2_d.strarray;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/reset.h
  * @brief Git reset management routines
  * @ingroup Git
@@ -110,4 +110,4 @@ int git_reset_from_annotated(libgit2_d.types.git_repository* repo, const (libgit
 //GIT_EXTERN
 int git_reset_default(libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_object)* target, const (libgit2_d.strarray.git_strarray)* pathspecs);
 
-/** @} */
+/* @} */

@@ -127,7 +127,7 @@ deprecated:
 
 version (GIT_DEPRECATE_HARD) {
 } else {
-	/** @name Deprecated TLS Stream Registration Functions
+	/* @name Deprecated TLS Stream Registration Functions
 	 *
 	 * These functions are retained for backward compatibility.  The newer
 	 * versions of these values should be preferred in all new code.
@@ -135,9 +135,9 @@ version (GIT_DEPRECATE_HARD) {
 	 * There is no plan to remove these backward compatibility values at
 	 * this time.
 	 */
-	/**@{*/
+	/*@{*/
 
-	/**
+	/*
 	 * @deprecated Provide a git_stream_registration to git_stream_register
 	 * @see git_stream_registration
 	 */

@@ -9,7 +9,7 @@ module libgit2_d.refdb;
 
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/refdb.h
  * @brief Git custom refs backend functions
  * @defgroup git_refdb Git custom refs backend API
@@ -68,4 +68,4 @@ int git_refdb_compress(libgit2_d.types.git_refdb* refdb);
 //GIT_EXTERN
 void git_refdb_free(libgit2_d.types.git_refdb* refdb);
 
-/** @} */
+/* @} */

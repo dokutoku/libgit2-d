@@ -9,7 +9,7 @@ module libgit2_d.sys.repository;
 
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/sys/repository.h
  * @brief Git repository custom implementation routines
  * @defgroup git_backend Git custom backend APIs
@@ -200,4 +200,4 @@ int git_repository_submodule_cache_all(libgit2_d.types.git_repository* repo);
 //GIT_EXTERN
 int git_repository_submodule_cache_clear(libgit2_d.types.git_repository* repo);
 
-/** @} */
+/* @} */

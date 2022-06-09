@@ -11,7 +11,7 @@ private static import libgit2_d.buffer;
 private static import libgit2_d.sys.filter;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/filter.h
  * @brief Git filter APIs
  *
@@ -235,4 +235,4 @@ int git_filter_list_stream_blob(.git_filter_list* filters, libgit2_d.types.git_b
 //GIT_EXTERN
 void git_filter_list_free(.git_filter_list* filters);
 
-/** @} */
+/* @} */

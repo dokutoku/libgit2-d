@@ -11,7 +11,7 @@ private static import libgit2_d.buffer;
 private static import libgit2_d.diff;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/patch.h
  * @brief Patch handling routines.
  * @ingroup Git
@@ -258,4 +258,4 @@ int git_patch_print(.git_patch* patch, libgit2_d.diff.git_diff_line_cb print_cb,
 //GIT_EXTERN
 int git_patch_to_buf(libgit2_d.buffer.git_buf* out_, .git_patch* patch);
 
-/**@}*/
+/*@}*/

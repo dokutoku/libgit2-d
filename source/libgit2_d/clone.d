@@ -11,7 +11,7 @@ private static import libgit2_d.checkout;
 private static import libgit2_d.remote;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/clone.h
  * @brief Git cloning routines
  * @defgroup git_clone Git cloning routines
@@ -71,14 +71,15 @@ enum
  * override the remote creation and customization process during a clone
  * operation.
  *
+ * Returns: 0, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code
+ */
+/*
  * Params:
  *      out_ = the resulting remote
  *      repo = the repository in which to create the remote
  *      name = the remote's name
  *      url = the remote's url
  *      payload = an opaque payload
- *
- * Returns: 0, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code
  */
 alias git_remote_create_cb = int function(libgit2_d.types.git_remote** out_, libgit2_d.types.git_repository* repo, const (char)* name, const (char)* url, void* payload);
 
@@ -90,13 +91,14 @@ alias git_remote_create_cb = int function(libgit2_d.types.git_remote** out_, lib
  * to override the repository creation and customization process
  * during a clone operation.
  *
+ * Returns: 0, or a negative value to indicate error
+ */
+/*
  * Params:
  *      out_ = the resulting repository
  *      path = path in which to create the repository
  *      bare = whether the repository is bare. This is the value from the clone options
  *      payload = payload specified by the options
- *
- * Returns: 0, or a negative value to indicate error
  */
 alias git_repository_create_cb = int function(libgit2_d.types.git_repository** out_, const (char)* path, int bare, void* payload);
 
@@ -202,7 +204,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_clone_options` struct to initialize.
- *      version = The struct version; pass `GIT_CLONE_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_CLONE_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -227,4 +229,4 @@ int git_clone_options_init(.git_clone_options* opts, uint version_);
 //GIT_EXTERN
 int git_clone(libgit2_d.types.git_repository** out_, const (char)* url, const (char)* local_path, const (.git_clone_options)* options);
 
-/** @} */
+/* @} */

@@ -11,7 +11,7 @@ private static import libgit2_d.checkout;
 private static import libgit2_d.merge;
 private static import libgit2_d.types;
 
-/**
+/*
  * @file git2/revert.h
  * @brief Git revert routines
  * @defgroup git_revert Git revert routines
@@ -72,7 +72,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_revert_options` struct to initialize.
- *      version = The struct version; pass `GIT_REVERT_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_REVERT_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
@@ -112,4 +112,4 @@ int git_revert_commit(libgit2_d.types.git_index** out_, libgit2_d.types.git_repo
 //GIT_EXTERN
 int git_revert(libgit2_d.types.git_repository* repo, libgit2_d.types.git_commit* commit, const (.git_revert_options)* given_opts);
 
-/** @} */
+/* @} */

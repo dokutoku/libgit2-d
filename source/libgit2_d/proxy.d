@@ -114,7 +114,7 @@ pure nothrow @safe @nogc
  *
  * Params:
  *      opts = The `git_proxy_options` struct to initialize.
- *      version = The struct version; pass `GIT_PROXY_OPTIONS_VERSION`.
+ *      version_ = The struct version; pass `GIT_PROXY_OPTIONS_VERSION`.
  *
  * Returns: Zero on success; -1 on failure.
  */
