@@ -133,7 +133,7 @@ void git_config_entry_free(.git_config_entry*);
  *      entry = the entry currently being enumerated
  *      payload = a user-specified pointer
  */
-alias git_config_foreach_cb = int function(const (.git_config_entry)*, void* payload);
+alias git_config_foreach_cb = int function(const (.git_config_entry)* entry, void* payload);
 
 /**
  * An opaque structure for a configuration iterator
