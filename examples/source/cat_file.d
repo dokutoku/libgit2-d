@@ -197,7 +197,7 @@ public int lg2_cat_file(libgit2_d.types.git_repository* repo, int argc, char** a
 
 	do
 	{
-		.catfile_options o = {".", null, 0, 0};
+		.catfile_options o = {".", null, cast(.catfile_mode)(0), 0};
 
 		.parse_opts(&o, argc, argv);
 

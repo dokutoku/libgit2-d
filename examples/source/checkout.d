@@ -35,7 +35,7 @@ package:
 
 /* Define the printf format specifer to use for size_t output */
 //#if defined(_MSC_VER) || defined(__MINGW32__)
-version (Windows) {
+version (none) {
 	enum PRIuZ = "Iu";
 	enum PRIxZ = "Ix";
 	enum PRIdZ = "Id";

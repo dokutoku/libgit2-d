@@ -797,8 +797,6 @@ private void reference_listing(libgit2_d.types.git_repository* repo)
 				default:
 					core.stdc.stdio.fprintf(core.stdc.stdio.stderr, "Unexpected reference type\n");
 					core.stdc.stdlib.exit(1);
-
-					break;
 			}
 
 			libgit2_d.refs.git_reference_free(ref_);
