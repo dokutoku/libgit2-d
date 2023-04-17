@@ -7,6 +7,8 @@
 module libgit2.sys.path;
 
 
+private import libgit2.common: GIT_EXTERN;
+
 extern (C):
 nothrow @nogc:
 package(libgit2):
@@ -91,5 +93,5 @@ enum
  *
  * Returns: 0 in case the file does not match, a positive value if it does; -1 in case of an error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_path_is_gitfile(const (char)* path, size_t pathlen, .git_path_gitfile gitfile, .git_path_fs fs);

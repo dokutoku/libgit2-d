@@ -17,6 +17,8 @@ private static import core.stdc.config;
 	//#include <inttypes.h>
 //#endif
 
+enum GIT_EXTERN;
+
 /* Declare a function's takes printf style arguments. */
 //#if defined(__GNUC__)
 	//#define GIT_FORMAT_PRINTF(a, b) __attribute__((format(printf, a, b)))
@@ -80,7 +82,7 @@ enum GIT_OID_HEX_ZERO = "0000000000000000000000000000000000000000";
  *
  * Returns: 0 on success or an error code on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_libgit2_version(int* major, int* minor, int* rev);
 
 /**
@@ -143,7 +145,7 @@ enum
  *   Libgit2 supports the SSH protocol for network operations. This requires
  *   the libssh2 library to be found when compiling libgit2
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_libgit2_features();
 
 /**
@@ -440,7 +442,7 @@ enum
  *
  * Returns: 0 on success, <0 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_libgit2_opts(int option, ...);
 
 /* @} */

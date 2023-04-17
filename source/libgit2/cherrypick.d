@@ -10,6 +10,7 @@ module libgit2.cherrypick;
 private static import libgit2.checkout;
 private static import libgit2.merge;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/cherrypick.h
@@ -76,7 +77,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_cherrypick_options_init(.git_cherrypick_options* opts, uint version_);
 
 /**
@@ -95,7 +96,7 @@ int git_cherrypick_options_init(.git_cherrypick_options* opts, uint version_);
  *
  * Returns: zero on success, -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_cherrypick_commit(libgit2.types.git_index** out_, libgit2.types.git_repository* repo, libgit2.types.git_commit* cherrypick_commit, libgit2.types.git_commit* our_commit, uint mainline, const (libgit2.merge.git_merge_options)* merge_options);
 
 /**
@@ -109,7 +110,7 @@ int git_cherrypick_commit(libgit2.types.git_index** out_, libgit2.types.git_repo
  *
  * Returns: zero on success, -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_cherrypick(libgit2.types.git_repository* repo, libgit2.types.git_commit* commit, const (.git_cherrypick_options)* cherrypick_options);
 
 /* @} */

@@ -18,6 +18,7 @@ private static import libgit2.proxy;
 private static import libgit2.strarray;
 private static import libgit2.transport;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/remote.h
@@ -42,7 +43,7 @@ public:
  *
  * Returns: 0, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_create(libgit2.types.git_remote** out_, libgit2.types.git_repository* repo, const (char)* name, const (char)* url);
 
 /**
@@ -130,7 +131,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_create_options_init(.git_remote_create_options* opts, uint version_);
 
 /**
@@ -147,7 +148,7 @@ int git_remote_create_options_init(.git_remote_create_options* opts, uint versio
  *
  * Returns: 0, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_create_with_opts(libgit2.types.git_remote** out_, const (char)* url, const (.git_remote_create_options)* opts);
 
 /**
@@ -163,7 +164,7 @@ int git_remote_create_with_opts(libgit2.types.git_remote** out_, const (char)* u
  *
  * Returns: 0, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_create_with_fetchspec(libgit2.types.git_remote** out_, libgit2.types.git_repository* repo, const (char)* name, const (char)* url, const (char)* fetch);
 
 /**
@@ -179,7 +180,7 @@ int git_remote_create_with_fetchspec(libgit2.types.git_remote** out_, libgit2.ty
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_create_anonymous(libgit2.types.git_remote** out_, libgit2.types.git_repository* repo, const (char)* url);
 
 /**
@@ -198,7 +199,7 @@ int git_remote_create_anonymous(libgit2.types.git_remote** out_, libgit2.types.g
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_create_detached(libgit2.types.git_remote** out_, const (char)* url);
 
 /**
@@ -214,7 +215,7 @@ int git_remote_create_detached(libgit2.types.git_remote** out_, const (char)* ur
  *
  * Returns: 0, git_error_code.GIT_ENOTFOUND, git_error_code.GIT_EINVALIDSPEC or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_lookup(libgit2.types.git_remote** out_, libgit2.types.git_repository* repo, const (char)* name);
 
 /**
@@ -229,7 +230,7 @@ int git_remote_lookup(libgit2.types.git_remote** out_, libgit2.types.git_reposit
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_dup(libgit2.types.git_remote** dest, libgit2.types.git_remote* source);
 
 /**
@@ -240,7 +241,7 @@ int git_remote_dup(libgit2.types.git_remote** dest, libgit2.types.git_remote* so
  *
  * Returns: a pointer to the repository
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_repository* git_remote_owner(const (libgit2.types.git_remote)* remote);
 
 /**
@@ -251,7 +252,7 @@ libgit2.types.git_repository* git_remote_owner(const (libgit2.types.git_remote)*
  *
  * Returns: a pointer to the name or null for in-memory remotes
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_remote_name(const (libgit2.types.git_remote)* remote);
 
 /**
@@ -265,7 +266,7 @@ const (char)* git_remote_name(const (libgit2.types.git_remote)* remote);
  *
  * Returns: a pointer to the url
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_remote_url(const (libgit2.types.git_remote)* remote);
 
 /**
@@ -279,7 +280,7 @@ const (char)* git_remote_url(const (libgit2.types.git_remote)* remote);
  *
  * Returns: a pointer to the url or null if no special url for pushing is set
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_remote_pushurl(const (libgit2.types.git_remote)* remote);
 
 /**
@@ -295,7 +296,7 @@ const (char)* git_remote_pushurl(const (libgit2.types.git_remote)* remote);
  *
  * Returns: 0 or an error value
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_set_url(libgit2.types.git_repository* repo, const (char)* remote, const (char)* url);
 
 /**
@@ -310,7 +311,7 @@ int git_remote_set_url(libgit2.types.git_repository* repo, const (char)* remote,
  *      remote = the remote's name
  *      url = the url to set
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_set_pushurl(libgit2.types.git_repository* repo, const (char)* remote, const (char)* url);
 
 /**
@@ -326,7 +327,7 @@ int git_remote_set_pushurl(libgit2.types.git_repository* repo, const (char)* rem
  *
  * Returns: 0, git_error_code.GIT_EINVALIDSPEC if refspec is invalid or an error value
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_add_fetch(libgit2.types.git_repository* repo, const (char)* remote, const (char)* refspec);
 
 /**
@@ -339,7 +340,7 @@ int git_remote_add_fetch(libgit2.types.git_repository* repo, const (char)* remot
  *      array = pointer to the array in which to store the strings
  *      remote = the remote to query
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_get_fetch_refspecs(libgit2.strarray.git_strarray* array, const (libgit2.types.git_remote)* remote);
 
 /**
@@ -355,7 +356,7 @@ int git_remote_get_fetch_refspecs(libgit2.strarray.git_strarray* array, const (l
  *
  * Returns: 0, git_error_code.GIT_EINVALIDSPEC if refspec is invalid or an error value
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_add_push(libgit2.types.git_repository* repo, const (char)* remote, const (char)* refspec);
 
 /**
@@ -368,7 +369,7 @@ int git_remote_add_push(libgit2.types.git_repository* repo, const (char)* remote
  *      array = pointer to the array in which to store the strings
  *      remote = the remote to query
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_get_push_refspecs(libgit2.strarray.git_strarray* array, const (libgit2.types.git_remote)* remote);
 
 /**
@@ -379,7 +380,7 @@ int git_remote_get_push_refspecs(libgit2.strarray.git_strarray* array, const (li
  *
  * Returns: the amount of refspecs configured in this remote
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_remote_refspec_count(const (libgit2.types.git_remote)* remote);
 
 /**
@@ -391,7 +392,7 @@ size_t git_remote_refspec_count(const (libgit2.types.git_remote)* remote);
  *
  * Returns: the nth refspec
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.types.git_refspec)* git_remote_get_refspec(const (libgit2.types.git_remote)* remote, size_t n);
 
 /**
@@ -410,7 +411,7 @@ const (libgit2.types.git_refspec)* git_remote_get_refspec(const (libgit2.types.g
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_connect(libgit2.types.git_remote* remote, libgit2.net.git_direction direction, const (.git_remote_callbacks)* callbacks, const (libgit2.proxy.git_proxy_options)* proxy_opts, const (libgit2.strarray.git_strarray)* custom_headers);
 
 /**
@@ -435,7 +436,7 @@ int git_remote_connect(libgit2.types.git_remote* remote, libgit2.net.git_directi
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_ls(const (libgit2.types.git_remote_head)*** out_, size_t* size, libgit2.types.git_remote* remote);
 
 /**
@@ -449,7 +450,7 @@ int git_remote_ls(const (libgit2.types.git_remote_head)*** out_, size_t* size, l
  *
  * Returns: 1 if it's connected, 0 otherwise.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_connected(const (libgit2.types.git_remote)* remote);
 
 /**
@@ -463,7 +464,7 @@ int git_remote_connected(const (libgit2.types.git_remote)* remote);
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_stop(libgit2.types.git_remote* remote);
 
 /**
@@ -476,7 +477,7 @@ int git_remote_stop(libgit2.types.git_remote* remote);
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_disconnect(libgit2.types.git_remote* remote);
 
 /**
@@ -488,7 +489,7 @@ int git_remote_disconnect(libgit2.types.git_remote* remote);
  * Params:
  *      remote = the remote to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_remote_free(libgit2.types.git_remote* remote);
 
 /**
@@ -502,7 +503,7 @@ void git_remote_free(libgit2.types.git_remote* remote);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_list(libgit2.strarray.git_strarray* out_, libgit2.types.git_repository* repo);
 
 /**
@@ -727,7 +728,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_init_callbacks(.git_remote_callbacks* opts, uint version_);
 
 /**
@@ -878,7 +879,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_fetch_options_init(.git_fetch_options* opts, uint version_);
 
 /**
@@ -945,7 +946,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_push_options_init(.git_push_options* opts, uint version_);
 
 /**
@@ -965,7 +966,7 @@ int git_push_options_init(.git_push_options* opts, uint version_);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_download(libgit2.types.git_remote* remote, const (libgit2.strarray.git_strarray)* refspecs, const (.git_fetch_options)* opts);
 
 /**
@@ -982,7 +983,7 @@ int git_remote_download(libgit2.types.git_remote* remote, const (libgit2.strarra
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_upload(libgit2.types.git_remote* remote, const (libgit2.strarray.git_strarray)* refspecs, const (.git_push_options)* opts);
 
 /**
@@ -997,7 +998,7 @@ int git_remote_upload(libgit2.types.git_remote* remote, const (libgit2.strarray.
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_update_tips(libgit2.types.git_remote* remote, const (.git_remote_callbacks)* callbacks, int update_fetchhead, .git_remote_autotag_option_t download_tags, const (char)* reflog_message);
 
 /**
@@ -1014,7 +1015,7 @@ int git_remote_update_tips(libgit2.types.git_remote* remote, const (.git_remote_
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_fetch(libgit2.types.git_remote* remote, const (libgit2.strarray.git_strarray)* refspecs, const (.git_fetch_options)* opts, const (char)* reflog_message);
 
 /**
@@ -1026,7 +1027,7 @@ int git_remote_fetch(libgit2.types.git_remote* remote, const (libgit2.strarray.g
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_prune(libgit2.types.git_remote* remote, const (.git_remote_callbacks)* callbacks);
 
 /**
@@ -1039,13 +1040,13 @@ int git_remote_prune(libgit2.types.git_remote* remote, const (.git_remote_callba
  *      refspecs = the refspecs to use for pushing. If null or an empty array, the configured refspecs will be used
  *      opts = options to use for this push
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_push(libgit2.types.git_remote* remote, const (libgit2.strarray.git_strarray)* refspecs, const (.git_push_options)* opts);
 
 /**
  * Get the statistics structure that is filled in by the fetch operation.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.indexer.git_indexer_progress)* git_remote_stats(libgit2.types.git_remote* remote);
 
 /**
@@ -1056,7 +1057,7 @@ const (libgit2.indexer.git_indexer_progress)* git_remote_stats(libgit2.types.git
  *
  * Returns: the auto-follow setting
  */
-//GIT_EXTERN
+@GIT_EXTERN
 .git_remote_autotag_option_t git_remote_autotag(const (libgit2.types.git_remote)* remote);
 
 /**
@@ -1070,7 +1071,7 @@ const (libgit2.indexer.git_indexer_progress)* git_remote_stats(libgit2.types.git
  *      remote = the name of the remote
  *      value = the new value to take.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_set_autotag(libgit2.types.git_repository* repo, const (char)* remote, .git_remote_autotag_option_t value);
 
 /**
@@ -1081,7 +1082,7 @@ int git_remote_set_autotag(libgit2.types.git_repository* repo, const (char)* rem
  *
  * Returns: the ref-prune setting
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_prune_refs(const (libgit2.types.git_remote)* remote);
 
 /**
@@ -1104,7 +1105,7 @@ int git_remote_prune_refs(const (libgit2.types.git_remote)* remote);
  *
  * Returns: 0, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_rename(libgit2.strarray.git_strarray* problems, libgit2.types.git_repository* repo, const (char)* name, const (char)* new_name);
 
 /**
@@ -1115,7 +1116,7 @@ int git_remote_rename(libgit2.strarray.git_strarray* problems, libgit2.types.git
  *
  * Returns: 1 if the reference name is acceptable; 0 if it isn't
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_is_valid_name(const (char)* remote_name);
 
 /**
@@ -1130,7 +1131,7 @@ int git_remote_is_valid_name(const (char)* remote_name);
  *
  * Returns: 0 on success, or an error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_delete(libgit2.types.git_repository* repo, const (char)* name);
 
 /**
@@ -1150,7 +1151,7 @@ int git_remote_delete(libgit2.types.git_repository* repo, const (char)* name);
  *
  * Returns: 0, git_error_code.GIT_ENOTFOUND if the remote does not have any references or none of them point to HEAD's commit, or an error message.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_remote_default_branch(libgit2.buffer.git_buf* out_, libgit2.types.git_remote* remote);
 
 /* @} */

@@ -10,6 +10,7 @@ module libgit2.worktree;
 private static import libgit2.buffer;
 private static import libgit2.strarray;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/worktrees.h
@@ -34,7 +35,7 @@ public:
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_worktree_list(libgit2.strarray.git_strarray* out_, libgit2.types.git_repository* repo);
 
 /**
@@ -47,7 +48,7 @@ int git_worktree_list(libgit2.strarray.git_strarray* out_, libgit2.types.git_rep
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_worktree_lookup(libgit2.types.git_worktree** out_, libgit2.types.git_repository* repo, const (char)* name);
 
 /**
@@ -61,7 +62,7 @@ int git_worktree_lookup(libgit2.types.git_worktree** out_, libgit2.types.git_rep
  *      out_ = Out-pointer for the newly allocated worktree
  *      repo = Repository to look up worktree for
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_worktree_open_from_repository(libgit2.types.git_worktree** out_, libgit2.types.git_repository* repo);
 
 /**
@@ -70,7 +71,7 @@ int git_worktree_open_from_repository(libgit2.types.git_worktree** out_, libgit2
  * Params:
  *      wt = worktree handle to close. If null nothing occurs.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_worktree_free(libgit2.types.git_worktree* wt);
 
 /**
@@ -85,7 +86,7 @@ void git_worktree_free(libgit2.types.git_worktree* wt);
  *
  * Returns: 0 when worktree is valid, error-code otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_worktree_validate(const (libgit2.types.git_worktree)* wt);
 
 /**
@@ -139,7 +140,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_worktree_add_options_init(.git_worktree_add_options* opts, uint version_);
 
 /**
@@ -158,7 +159,7 @@ int git_worktree_add_options_init(.git_worktree_add_options* opts, uint version_
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_worktree_add(libgit2.types.git_worktree** out_, libgit2.types.git_repository* repo, const (char)* name, const (char)* path, const (.git_worktree_add_options)* opts);
 
 /**
@@ -173,7 +174,7 @@ int git_worktree_add(libgit2.types.git_worktree** out_, libgit2.types.git_reposi
  *
  * Returns: 0 on success, non-zero otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_worktree_lock(libgit2.types.git_worktree* wt, const (char)* reason);
 
 /**
@@ -184,7 +185,7 @@ int git_worktree_lock(libgit2.types.git_worktree* wt, const (char)* reason);
  *
  * Returns: 0 on success, 1 if worktree was not locked, error-code otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_worktree_unlock(libgit2.types.git_worktree* wt);
 
 /**
@@ -199,7 +200,7 @@ int git_worktree_unlock(libgit2.types.git_worktree* wt);
  *
  * Returns: 0 when the working tree not locked, a value greater than zero if it is locked, less than zero if there was an error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_worktree_is_locked(libgit2.buffer.git_buf* reason, const (libgit2.types.git_worktree)* wt);
 
 /**
@@ -210,7 +211,7 @@ int git_worktree_is_locked(libgit2.buffer.git_buf* reason, const (libgit2.types.
  *
  * Returns: The worktree's name. The pointer returned is valid for the lifetime of the git_worktree
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_worktree_name(const (libgit2.types.git_worktree)* wt);
 
 /**
@@ -221,7 +222,7 @@ const (char)* git_worktree_name(const (libgit2.types.git_worktree)* wt);
  *
  * Returns: The worktree's filesystem path. The pointer returned is valid for the lifetime of the git_worktree.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_worktree_path(const (libgit2.types.git_worktree)* wt);
 
 /**
@@ -296,7 +297,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_worktree_prune_options_init(.git_worktree_prune_options* opts, uint version_);
 
 /**
@@ -313,7 +314,7 @@ int git_worktree_prune_options_init(.git_worktree_prune_options* opts, uint vers
  * flags have been passed in, this function will return a
  * positive value.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_worktree_is_prunable(libgit2.types.git_worktree* wt, .git_worktree_prune_options* opts);
 
 /**
@@ -329,7 +330,7 @@ int git_worktree_is_prunable(libgit2.types.git_worktree* wt, .git_worktree_prune
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_worktree_prune(libgit2.types.git_worktree* wt, .git_worktree_prune_options* opts);
 
 /* @} */

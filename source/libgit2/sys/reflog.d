@@ -8,13 +8,14 @@ module libgit2.sys.reflog;
 
 
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 extern (C):
 nothrow @nogc:
 package(libgit2):
 
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_reflog_entry* git_reflog_entry__alloc();
 
-//GIT_EXTERN
+@GIT_EXTERN
 void git_reflog_entry__free(libgit2.types.git_reflog_entry* entry);

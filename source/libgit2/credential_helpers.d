@@ -8,6 +8,7 @@ module libgit2.credential_helpers;
 
 
 private static import libgit2.credential;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/credential_helpers.h
@@ -41,7 +42,7 @@ struct git_credential_userpass_payload
  *      allowed_types = A bitmask stating which credential types are OK to return.
  *      payload = The payload provided when specifying this callback.  (This is interpreted as a `git_credential_userpass_payload*`.)
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_credential_userpass(libgit2.credential.git_credential** out_, const (char)* url, const (char)* user_from_url, uint allowed_types, void* payload);
 
 /* @} */

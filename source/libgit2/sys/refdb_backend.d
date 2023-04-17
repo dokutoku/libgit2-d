@@ -9,6 +9,7 @@ module libgit2.sys.refdb_backend;
 
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/refdb_backend.h
@@ -325,7 +326,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_refdb_init_backend(.git_refdb_backend* backend, uint version_);
 
 /**
@@ -341,7 +342,7 @@ int git_refdb_init_backend(.git_refdb_backend* backend, uint version_);
  *
  * Returns: 0 on success, <0 error code on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_refdb_backend_fs(.git_refdb_backend** backend_out, libgit2.types.git_repository* repo);
 
 /**
@@ -356,5 +357,5 @@ int git_refdb_backend_fs(.git_refdb_backend** backend_out, libgit2.types.git_rep
  *
  * Returns: 0 on success; error code otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_refdb_set_backend(libgit2.types.git_refdb* refdb, .git_refdb_backend* backend);

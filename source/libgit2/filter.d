@@ -10,6 +10,7 @@ module libgit2.filter;
 private static import libgit2.buffer;
 private static import libgit2.sys.filter;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/filter.h
@@ -123,7 +124,7 @@ struct git_filter_list;
  *
  * Returns: 0 on success (which could still return null if no filters are needed for the requested file), <0 on error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_filter_list_load(.git_filter_list** filters, libgit2.types.git_repository* repo, libgit2.types.git_blob* blob, /* can be null */
                      const (char)* path, .git_filter_mode_t mode, uint flags);
 
@@ -141,7 +142,7 @@ int git_filter_list_load(.git_filter_list** filters, libgit2.types.git_repositor
  *
  * Returns: 1 if the filter is in the list, 0 otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_filter_list_contains(.git_filter_list* filters, const (char)* name);
 
 /**
@@ -166,7 +167,7 @@ int git_filter_list_contains(.git_filter_list* filters, const (char)* name);
  *
  * Returns: 0 on success, an error code otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_filter_list_apply_to_data(libgit2.buffer.git_buf* out_, .git_filter_list* filters, libgit2.buffer.git_buf* in_);
 
 /**
@@ -178,7 +179,7 @@ int git_filter_list_apply_to_data(libgit2.buffer.git_buf* out_, .git_filter_list
  *      repo = the repository in which to perform the filtering
  *      path = the path of the file to filter, a relative path will be taken as relative to the workdir
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_filter_list_apply_to_file(libgit2.buffer.git_buf* out_, .git_filter_list* filters, libgit2.types.git_repository* repo, const (char)* path);
 
 /**
@@ -189,7 +190,7 @@ int git_filter_list_apply_to_file(libgit2.buffer.git_buf* out_, .git_filter_list
  *      filters = the list of filters to apply
  *      blob = the blob to filter
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_filter_list_apply_to_blob(libgit2.buffer.git_buf* out_, .git_filter_list* filters, libgit2.types.git_blob* blob);
 
 /**
@@ -200,7 +201,7 @@ int git_filter_list_apply_to_blob(libgit2.buffer.git_buf* out_, .git_filter_list
  *      data = the buffer to filter
  *      target = the stream into which the data will be written
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_filter_list_stream_data(.git_filter_list* filters, libgit2.buffer.git_buf* data, libgit2.types.git_writestream* target);
 
 /**
@@ -212,7 +213,7 @@ int git_filter_list_stream_data(.git_filter_list* filters, libgit2.buffer.git_bu
  *      path = the path of the file to filter, a relative path will be taken as relative to the workdir
  *      target = the stream into which the data will be written
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_filter_list_stream_file(.git_filter_list* filters, libgit2.types.git_repository* repo, const (char)* path, libgit2.types.git_writestream* target);
 
 /**
@@ -223,7 +224,7 @@ int git_filter_list_stream_file(.git_filter_list* filters, libgit2.types.git_rep
  *      blob = the blob to filter
  *      target = the stream into which the data will be written
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_filter_list_stream_blob(.git_filter_list* filters, libgit2.types.git_blob* blob, libgit2.types.git_writestream* target);
 
 /**
@@ -232,7 +233,7 @@ int git_filter_list_stream_blob(.git_filter_list* filters, libgit2.types.git_blo
  * Params:
  *      filters = A git_filter_list created by `git_filter_list_load`
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_filter_list_free(.git_filter_list* filters);
 
 /* @} */

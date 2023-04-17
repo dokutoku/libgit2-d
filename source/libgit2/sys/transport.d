@@ -15,6 +15,7 @@ private static import libgit2.strarray;
 private static import libgit2.sys.credential;
 private static import libgit2.transport;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/sys/transport.h
@@ -153,7 +154,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transport_init(.git_transport* opts, uint version_);
 
 /**
@@ -168,7 +169,7 @@ int git_transport_init(.git_transport* opts, uint version_);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transport_new(.git_transport** out_, libgit2.types.git_remote* owner, const (char)* url);
 
 /**
@@ -187,7 +188,7 @@ int git_transport_new(.git_transport** out_, libgit2.types.git_remote* owner, co
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transport_ssh_with_paths(.git_transport** out_, libgit2.types.git_remote* owner, void* payload);
 
 /**
@@ -205,7 +206,7 @@ int git_transport_ssh_with_paths(.git_transport** out_, libgit2.types.git_remote
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transport_register(const (char)* prefix, libgit2.transport.git_transport_cb cb, void* param);
 
 /**
@@ -221,7 +222,7 @@ int git_transport_register(const (char)* prefix, libgit2.transport.git_transport
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transport_unregister(const (char)* prefix);
 
 /*
@@ -239,7 +240,7 @@ int git_transport_unregister(const (char)* prefix);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transport_dummy(.git_transport** out_, libgit2.types.git_remote* owner, /* null */ void* payload);
 
 /**
@@ -252,7 +253,7 @@ int git_transport_dummy(.git_transport** out_, libgit2.types.git_remote* owner, 
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transport_local(.git_transport** out_, libgit2.types.git_remote* owner, /* null */ void* payload);
 
 /**
@@ -265,7 +266,7 @@ int git_transport_local(.git_transport** out_, libgit2.types.git_remote* owner, 
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transport_smart(.git_transport** out_, libgit2.types.git_remote* owner, /* (git_smart_subtransport_definition *) */ void* payload);
 
 /**
@@ -279,7 +280,7 @@ int git_transport_smart(.git_transport** out_, libgit2.types.git_remote* owner, 
  *
  * Returns: the return value of the callback: 0 for no error, git_error_code.GIT_PASSTHROUGH to indicate that there is no callback registered (or the callback refused to validate the certificate and callers should behave as if no callback was set), or < 0 for an error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transport_smart_certificate_check(.git_transport* transport, libgit2.types.git_cert* cert, int valid, const (char)* hostname);
 
 /**
@@ -293,7 +294,7 @@ int git_transport_smart_certificate_check(.git_transport* transport, libgit2.typ
  *
  * Returns: the return value of the callback: 0 for no error, git_error_code.GIT_PASSTHROUGH to indicate that there is no callback registered (or the callback refused to provide credentials and callers should behave as if no callback was set), or < 0 for an error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transport_smart_credentials(libgit2.sys.credential.git_credential** out_, .git_transport* transport, const (char)* user, int methods);
 
 /**
@@ -305,7 +306,7 @@ int git_transport_smart_credentials(libgit2.sys.credential.git_credential** out_
  *      out_ = options struct to fill
  *      transport = the transport to extract the data from.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transport_smart_proxy_options(libgit2.proxy.git_proxy_options* out_, .git_transport* transport);
 
 /*
@@ -448,7 +449,7 @@ struct git_smart_subtransport_definition
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_smart_subtransport_http(.git_smart_subtransport** out_, .git_transport* owner, void* param);
 
 /**
@@ -461,7 +462,7 @@ int git_smart_subtransport_http(.git_smart_subtransport** out_, .git_transport* 
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_smart_subtransport_git(.git_smart_subtransport** out_, .git_transport* owner, void* param);
 
 /**
@@ -474,7 +475,7 @@ int git_smart_subtransport_git(.git_smart_subtransport** out_, .git_transport* o
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_smart_subtransport_ssh(.git_smart_subtransport** out_, .git_transport* owner, void* param);
 
 /* @} */

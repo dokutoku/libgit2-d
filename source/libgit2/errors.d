@@ -7,6 +7,8 @@
 module libgit2.errors;
 
 
+private import libgit2.common: GIT_EXTERN;
+
 /*
  * @file git2/errors.h
  * @brief Git error handling routines and variables
@@ -317,13 +319,13 @@ enum
  *
  * Returns: A git_error object.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (.git_error)* git_error_last();
 
 /**
  * Clear the last library error that occurred for this thread.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_error_clear();
 
 /**
@@ -344,7 +346,7 @@ void git_error_clear();
  *
  * Returns: 0 on success or -1 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_error_set_str(int error_class, const (char)* string_);
 
 /**
@@ -356,7 +358,7 @@ int git_error_set_str(int error_class, const (char)* string_);
  * special setter function that sets the error string to a known and
  * statically allocated internal value.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_error_set_oom();
 
 /* @} */

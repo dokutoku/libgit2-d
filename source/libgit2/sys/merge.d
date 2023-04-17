@@ -11,6 +11,7 @@ private static import libgit2.buffer;
 private static import libgit2.index;
 private static import libgit2.merge;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/sys/merge.h
@@ -31,7 +32,7 @@ package(libgit2):
  *
  * Returns: Pointer to the merge driver object or null if not found
  */
-//GIT_EXTERN
+@GIT_EXTERN
 .git_merge_driver* git_merge_driver_lookup(const (char)* name);
 
 enum GIT_MERGE_DRIVER_TEXT = "text";
@@ -46,31 +47,31 @@ struct git_merge_driver_source;
 /**
  * Get the repository that the source data is coming from.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_repository* git_merge_driver_source_repo(const (.git_merge_driver_source)* src);
 
 /**
  * Gets the ancestor of the file to merge.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.index.git_index_entry)* git_merge_driver_source_ancestor(const (.git_merge_driver_source)* src);
 
 /**
  * Gets the ours side of the file to merge.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.index.git_index_entry)* git_merge_driver_source_ours(const (.git_merge_driver_source)* src);
 
 /**
  * Gets the theirs side of the file to merge.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.index.git_index_entry)* git_merge_driver_source_theirs(const (.git_merge_driver_source)* src);
 
 /**
  * Gets the merge file options that the merge was invoked with
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.merge.git_merge_file_options)* git_merge_driver_source_file_options(const (.git_merge_driver_source)* src);
 
 /**
@@ -171,7 +172,7 @@ enum GIT_MERGE_DRIVER_VERSION = 1;
  *
  * Returns: 0 on successful registry, error code <0 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_merge_driver_register(const (char)* name, .git_merge_driver* driver);
 
 /**
@@ -189,7 +190,7 @@ int git_merge_driver_register(const (char)* name, .git_merge_driver* driver);
  *
  * Returns: 0 on success, error code <0 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_merge_driver_unregister(const (char)* name);
 
 /* @} */

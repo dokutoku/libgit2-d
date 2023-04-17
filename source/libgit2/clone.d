@@ -10,6 +10,7 @@ module libgit2.clone;
 private static import libgit2.checkout;
 private static import libgit2.remote;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/clone.h
@@ -208,7 +209,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_clone_options_init(.git_clone_options* opts, uint version_);
 
 /**
@@ -226,7 +227,7 @@ int git_clone_options_init(.git_clone_options* opts, uint version_);
  *
  * Returns: 0 on success, any non-zero return value from a callback function, or a negative value to indicate an error (use `git_error_last` for a detailed error message)
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_clone(libgit2.types.git_repository** out_, const (char)* url, const (char)* local_path, const (.git_clone_options)* options);
 
 /* @} */

@@ -8,6 +8,7 @@ module libgit2.mailmap;
 
 
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/mailmap.h
@@ -31,7 +32,7 @@ public:
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_mailmap_new(libgit2.types.git_mailmap** out_);
 
 /**
@@ -40,7 +41,7 @@ int git_mailmap_new(libgit2.types.git_mailmap** out_);
  * Params:
  *      mm = the mailmap to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_mailmap_free(libgit2.types.git_mailmap* mm);
 
 /**
@@ -56,7 +57,7 @@ void git_mailmap_free(libgit2.types.git_mailmap* mm);
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_mailmap_add_entry(libgit2.types.git_mailmap* mm, const (char)* real_name, const (char)* real_email, const (char)* replace_name, const (char)* replace_email);
 
 /**
@@ -69,7 +70,7 @@ int git_mailmap_add_entry(libgit2.types.git_mailmap* mm, const (char)* real_name
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_mailmap_from_buffer(libgit2.types.git_mailmap** out_, const (char)* buf, size_t len);
 
 /**
@@ -88,7 +89,7 @@ int git_mailmap_from_buffer(libgit2.types.git_mailmap** out_, const (char)* buf,
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_mailmap_from_repository(libgit2.types.git_mailmap** out_, libgit2.types.git_repository* repo);
 
 /**
@@ -105,7 +106,7 @@ int git_mailmap_from_repository(libgit2.types.git_mailmap** out_, libgit2.types.
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_mailmap_resolve(const (char)** real_name, const (char)** real_email, const (libgit2.types.git_mailmap)* mm, const (char)* name, const (char)* email);
 
 /**
@@ -120,7 +121,7 @@ int git_mailmap_resolve(const (char)** real_name, const (char)** real_email, con
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_mailmap_resolve_signature(libgit2.types.git_signature** out_, const (libgit2.types.git_mailmap)* mm, const (libgit2.types.git_signature)* sig);
 
 /* @} */

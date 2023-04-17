@@ -10,6 +10,7 @@ module libgit2.config;
 private static import libgit2.buffer;
 private static import libgit2.sys.config;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/config.h
@@ -122,7 +123,7 @@ struct git_config_entry
 /**
  * Free a config entry
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_config_entry_free(.git_config_entry*);
 
 /**
@@ -189,7 +190,7 @@ struct git_configmap
  *
  * Returns: 0 if a global configuration file has been found. Its path will be stored in `out`.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_find_global(libgit2.buffer.git_buf* out_);
 
 /**
@@ -208,7 +209,7 @@ int git_config_find_global(libgit2.buffer.git_buf* out_);
  *
  * Returns: 0 if a xdg compatible configuration file has been found. Its path will be stored in `out`.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_find_xdg(libgit2.buffer.git_buf* out_);
 
 /**
@@ -222,7 +223,7 @@ int git_config_find_xdg(libgit2.buffer.git_buf* out_);
  *
  * Returns: 0 if a system configuration file has been found. Its path will be stored in `out`.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_find_system(libgit2.buffer.git_buf* out_);
 
 /**
@@ -235,7 +236,7 @@ int git_config_find_system(libgit2.buffer.git_buf* out_);
  *
  * Returns: 0 if a ProgramData configuration file has been found. Its path will be stored in `out`.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_find_programdata(libgit2.buffer.git_buf* out_);
 
 /**
@@ -250,7 +251,7 @@ int git_config_find_programdata(libgit2.buffer.git_buf* out_);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_open_default(libgit2.types.git_config** out_);
 
 /**
@@ -264,7 +265,7 @@ int git_config_open_default(libgit2.types.git_config** out_);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_new(libgit2.types.git_config** out_);
 
 /**
@@ -293,7 +294,7 @@ int git_config_new(libgit2.types.git_config** out_);
  *
  * Returns: 0 on success, git_error_code.GIT_EEXISTS when adding more than one file for a given priority level (and force_replace set to 0), git_error_code.GIT_ENOTFOUND when the file doesn't exist or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_add_file_ondisk(libgit2.types.git_config* cfg, const (char)* path, .git_config_level_t level, const (libgit2.types.git_repository)* repo, int force);
 
 /**
@@ -310,7 +311,7 @@ int git_config_add_file_ondisk(libgit2.types.git_config* cfg, const (char)* path
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_open_ondisk(libgit2.types.git_config** out_, const (char)* path);
 
 /**
@@ -330,7 +331,7 @@ int git_config_open_ondisk(libgit2.types.git_config** out_, const (char)* path);
  *
  * Returns: 0, git_error_code.GIT_ENOTFOUND if the passed level cannot be found in the multi-level parent config, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_open_level(libgit2.types.git_config** out_, const (libgit2.types.git_config)* parent, .git_config_level_t level);
 
 /**
@@ -346,7 +347,7 @@ int git_config_open_level(libgit2.types.git_config** out_, const (libgit2.types.
  *      out_ = pointer in which to store the config object
  *      config = the config object in which to look
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_open_global(libgit2.types.git_config** out_, libgit2.types.git_config* config);
 
 /**
@@ -365,7 +366,7 @@ int git_config_open_global(libgit2.types.git_config** out_, libgit2.types.git_co
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_snapshot(libgit2.types.git_config** out_, libgit2.types.git_config* config);
 
 /**
@@ -374,7 +375,7 @@ int git_config_snapshot(libgit2.types.git_config** out_, libgit2.types.git_confi
  * Params:
  *      cfg = the configuration to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_config_free(libgit2.types.git_config* cfg);
 
 /**
@@ -389,7 +390,7 @@ void git_config_free(libgit2.types.git_config* cfg);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_get_entry(.git_config_entry** out_, const (libgit2.types.git_config)* cfg, const (char)* name);
 
 /**
@@ -406,7 +407,7 @@ int git_config_get_entry(.git_config_entry** out_, const (libgit2.types.git_conf
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_get_int32(int* out_, const (libgit2.types.git_config)* cfg, const (char)* name);
 
 /**
@@ -423,7 +424,7 @@ int git_config_get_int32(int* out_, const (libgit2.types.git_config)* cfg, const
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_get_int64(long* out_, const (libgit2.types.git_config)* cfg, const (char)* name);
 
 /**
@@ -443,7 +444,7 @@ int git_config_get_int64(long* out_, const (libgit2.types.git_config)* cfg, cons
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_get_bool(int* out_, const (libgit2.types.git_config)* cfg, const (char)* name);
 
 /**
@@ -464,7 +465,7 @@ int git_config_get_bool(int* out_, const (libgit2.types.git_config)* cfg, const 
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_get_path(libgit2.buffer.git_buf* out_, const (libgit2.types.git_config)* cfg, const (char)* name);
 
 /**
@@ -485,7 +486,7 @@ int git_config_get_path(libgit2.buffer.git_buf* out_, const (libgit2.types.git_c
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_get_string(const (char)** out_, const (libgit2.types.git_config)* cfg, const (char)* name);
 
 /**
@@ -504,7 +505,7 @@ int git_config_get_string(const (char)** out_, const (libgit2.types.git_config)*
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_get_string_buf(libgit2.buffer.git_buf* out_, const (libgit2.types.git_config)* cfg, const (char)* name);
 
 /**
@@ -523,7 +524,7 @@ int git_config_get_string_buf(libgit2.buffer.git_buf* out_, const (libgit2.types
  *      callback = the function to be called on each value of the variable
  *      payload = opaque pointer to pass to the callback
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_get_multivar_foreach(const (libgit2.types.git_config)* cfg, const (char)* name, const (char)* regexp, .git_config_foreach_cb callback, void* payload);
 
 /**
@@ -539,7 +540,7 @@ int git_config_get_multivar_foreach(const (libgit2.types.git_config)* cfg, const
  *      name = the variable's name
  *      regexp = regular expression to filter which variables we're interested in. Use null to indicate all
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_multivar_iterator_new(.git_config_iterator** out_, const (libgit2.types.git_config)* cfg, const (char)* name, const (char)* regexp);
 
 /**
@@ -554,7 +555,7 @@ int git_config_multivar_iterator_new(.git_config_iterator** out_, const (libgit2
  *
  * Returns: 0 or an error code. git_error_code.GIT_ITEROVER if the iteration has completed
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_next(.git_config_entry** entry, .git_config_iterator* iter);
 
 /**
@@ -563,7 +564,7 @@ int git_config_next(.git_config_entry** entry, .git_config_iterator* iter);
  * Params:
  *      iter = the iterator to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_config_iterator_free(.git_config_iterator* iter);
 
 /**
@@ -577,7 +578,7 @@ void git_config_iterator_free(.git_config_iterator* iter);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_set_int32(libgit2.types.git_config* cfg, const (char)* name, int value);
 
 /**
@@ -591,7 +592,7 @@ int git_config_set_int32(libgit2.types.git_config* cfg, const (char)* name, int 
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_set_int64(libgit2.types.git_config* cfg, const (char)* name, long value);
 
 /**
@@ -605,7 +606,7 @@ int git_config_set_int64(libgit2.types.git_config* cfg, const (char)* name, long
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_set_bool(libgit2.types.git_config* cfg, const (char)* name, int value);
 
 /**
@@ -622,7 +623,7 @@ int git_config_set_bool(libgit2.types.git_config* cfg, const (char)* name, int v
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_set_string(libgit2.types.git_config* cfg, const (char)* name, const (char)* value);
 
 /**
@@ -636,7 +637,7 @@ int git_config_set_string(libgit2.types.git_config* cfg, const (char)* name, con
  *      regexp = a regular expression to indicate which values to replace
  *      value = the new value.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_set_multivar(libgit2.types.git_config* cfg, const (char)* name, const (char)* regexp, const (char)* value);
 
 /**
@@ -647,7 +648,7 @@ int git_config_set_multivar(libgit2.types.git_config* cfg, const (char)* name, c
  *      cfg = the configuration
  *      name = the variable to delete
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_delete_entry(libgit2.types.git_config* cfg, const (char)* name);
 
 /**
@@ -662,7 +663,7 @@ int git_config_delete_entry(libgit2.types.git_config* cfg, const (char)* name);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_delete_multivar(libgit2.types.git_config* cfg, const (char)* name, const (char)* regexp);
 
 /**
@@ -683,7 +684,7 @@ int git_config_delete_multivar(libgit2.types.git_config* cfg, const (char)* name
  *
  * Returns: 0 on success, non-zero callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_foreach(const (libgit2.types.git_config)* cfg, .git_config_foreach_cb callback, void* payload);
 
 /**
@@ -696,7 +697,7 @@ int git_config_foreach(const (libgit2.types.git_config)* cfg, .git_config_foreac
  *      out_ = pointer to store the iterator
  *      cfg = where to ge the variables from
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_iterator_new(.git_config_iterator** out_, const (libgit2.types.git_config)* cfg);
 
 /**
@@ -714,7 +715,7 @@ int git_config_iterator_new(.git_config_iterator** out_, const (libgit2.types.gi
  *      cfg = where to ge the variables from
  *      regexp = regular expression to match the names
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_iterator_glob_new(.git_config_iterator** out_, const (libgit2.types.git_config)* cfg, const (char)* regexp);
 
 /**
@@ -739,7 +740,7 @@ int git_config_iterator_glob_new(.git_config_iterator** out_, const (libgit2.typ
  *
  * Returns: 0 or the return value of the callback which didn't return 0
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_foreach_match(const (libgit2.types.git_config)* cfg, const (char)* regexp, .git_config_foreach_cb callback, void* payload);
 
 /**
@@ -779,7 +780,7 @@ int git_config_foreach_match(const (libgit2.types.git_config)* cfg, const (char)
  *
  * Returns: 0 on success, error code otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_get_mapped(int* out_, const (libgit2.types.git_config)* cfg, const (char)* name, const (.git_configmap)* maps, size_t map_n);
 
 /**
@@ -791,7 +792,7 @@ int git_config_get_mapped(int* out_, const (libgit2.types.git_config)* cfg, cons
  *      map_n = number of mapping objects in `maps`
  *      value = value to parse
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_lookup_map_value(int* out_, const (.git_configmap)* maps, size_t map_n, const (char)* value);
 
 /**
@@ -805,7 +806,7 @@ int git_config_lookup_map_value(int* out_, const (.git_configmap)* maps, size_t 
  *      out_ = place to store the result of the parsing
  *      value = value to parse
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_parse_bool(int* out_, const (char)* value);
 
 /**
@@ -819,7 +820,7 @@ int git_config_parse_bool(int* out_, const (char)* value);
  *      out_ = place to store the result of the parsing
  *      value = value to parse
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_parse_int32(int* out_, const (char)* value);
 
 /**
@@ -833,7 +834,7 @@ int git_config_parse_int32(int* out_, const (char)* value);
  *      out_ = place to store the result of the parsing
  *      value = value to parse
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_parse_int64(long* out_, const (char)* value);
 
 /**
@@ -850,7 +851,7 @@ int git_config_parse_int64(long* out_, const (char)* value);
  *      out_ = placae to store the result of parsing
  *      value = the path to evaluate
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_parse_path(libgit2.buffer.git_buf* out_, const (char)* value);
 
 /**
@@ -870,7 +871,7 @@ int git_config_parse_path(libgit2.buffer.git_buf* out_, const (char)* value);
  *      callback = the function to call on each variable
  *      payload = the data to pass to the callback
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_backend_foreach_match(libgit2.types.git_config_backend* backend, const (char)* regexp, .git_config_foreach_cb callback, void* payload);
 
 /**
@@ -890,7 +891,7 @@ int git_config_backend_foreach_match(libgit2.types.git_config_backend* backend, 
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_lock(libgit2.types.git_transaction** tx, libgit2.types.git_config* cfg);
 
 /* @} */

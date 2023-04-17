@@ -8,6 +8,7 @@ module libgit2.refdb;
 
 
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/refdb.h
@@ -32,7 +33,7 @@ public:
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_refdb_new(libgit2.types.git_refdb** out_, libgit2.types.git_repository* repo);
 
 /**
@@ -48,7 +49,7 @@ int git_refdb_new(libgit2.types.git_refdb** out_, libgit2.types.git_repository* 
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_refdb_open(libgit2.types.git_refdb** out_, libgit2.types.git_repository* repo);
 
 /**
@@ -56,7 +57,7 @@ int git_refdb_open(libgit2.types.git_refdb** out_, libgit2.types.git_repository*
  * This mechanism is implementation specific.  For on-disk reference
  * databases, for example, this may pack all loose references.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_refdb_compress(libgit2.types.git_refdb* refdb);
 
 /**
@@ -65,7 +66,7 @@ int git_refdb_compress(libgit2.types.git_refdb* refdb);
  * Params:
  *      refdb = reference database pointer or null
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_refdb_free(libgit2.types.git_refdb* refdb);
 
 /* @} */

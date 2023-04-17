@@ -8,6 +8,7 @@ module libgit2.sys.repository;
 
 
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/sys/repository.h
@@ -35,7 +36,7 @@ package(libgit2):
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_repository_new(libgit2.types.git_repository** out_);
 
 /**
@@ -54,7 +55,7 @@ int git_repository_new(libgit2.types.git_repository** out_);
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_repository__cleanup(libgit2.types.git_repository* repo);
 
 /**
@@ -74,7 +75,7 @@ int git_repository__cleanup(libgit2.types.git_repository* repo);
  *
  * Returns: 0 on success, < 0 on error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_repository_reinit_filesystem(libgit2.types.git_repository* repo, int recurse_submodules);
 
 /**
@@ -93,7 +94,7 @@ int git_repository_reinit_filesystem(libgit2.types.git_repository* repo, int rec
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_repository_set_config(libgit2.types.git_repository* repo, libgit2.types.git_config* config);
 
 /**
@@ -112,7 +113,7 @@ int git_repository_set_config(libgit2.types.git_repository* repo, libgit2.types.
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_repository_set_odb(libgit2.types.git_repository* repo, libgit2.types.git_odb* odb);
 
 /**
@@ -131,7 +132,7 @@ int git_repository_set_odb(libgit2.types.git_repository* repo, libgit2.types.git
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_repository_set_refdb(libgit2.types.git_repository* repo, libgit2.types.git_refdb* refdb);
 
 /**
@@ -150,7 +151,7 @@ int git_repository_set_refdb(libgit2.types.git_repository* repo, libgit2.types.g
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_repository_set_index(libgit2.types.git_repository* repo, libgit2.types.git_index* index);
 
 /**
@@ -166,7 +167,7 @@ int git_repository_set_index(libgit2.types.git_repository* repo, libgit2.types.g
  *
  * Returns: 0 on success, <0 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_repository_set_bare(libgit2.types.git_repository* repo);
 
 /**
@@ -181,7 +182,7 @@ int git_repository_set_bare(libgit2.types.git_repository* repo);
  * Params:
  *      repo = the repository whose submodules will be cached.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_repository_submodule_cache_all(libgit2.types.git_repository* repo);
 
 /**
@@ -197,7 +198,7 @@ int git_repository_submodule_cache_all(libgit2.types.git_repository* repo);
  * Params:
  *      repo = the repository whose submodule cache will be cleared
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_repository_submodule_cache_clear(libgit2.types.git_repository* repo);
 
 /* @} */

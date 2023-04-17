@@ -7,6 +7,8 @@
 module libgit2.buffer;
 
 
+private import libgit2.common: GIT_EXTERN;
+
 /*
  * @file git2/buffer.h
  * @brief Buffer export structure
@@ -91,7 +93,7 @@ pure nothrow @safe @nogc
  * Params:
  *      buffer = The buffer to deallocate
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_buf_dispose(.git_buf* buffer);
 
 /**
@@ -117,7 +119,7 @@ void git_buf_dispose(.git_buf* buffer);
  *
  * Returns: 0 on success, -1 on allocation failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_buf_grow(.git_buf* buffer, size_t target_size);
 
 /**
@@ -130,7 +132,7 @@ int git_buf_grow(.git_buf* buffer, size_t target_size);
  *
  * Returns: 0 on success, -1 on allocation failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_buf_set(.git_buf* buffer, const (void)* data, size_t datalen);
 
 /**
@@ -141,7 +143,7 @@ int git_buf_set(.git_buf* buffer, const (void)* data, size_t datalen);
  *
  * Returns: 1 if buffer looks like non-text data
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_buf_is_binary(const (.git_buf)* buf);
 
 /**
@@ -152,7 +154,7 @@ int git_buf_is_binary(const (.git_buf)* buf);
  *
  * Returns: 1 if buffer contains a NUL byte
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_buf_contains_nul(const (.git_buf)* buf);
 
 /* @} */

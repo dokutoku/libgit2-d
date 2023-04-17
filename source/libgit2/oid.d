@@ -7,6 +7,8 @@
 module libgit2.oid;
 
 
+private import libgit2.common: GIT_EXTERN;
+
 /*
  * @file git2/oid.h
  * @brief Git object id routines
@@ -54,7 +56,7 @@ struct git_oid
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_oid_fromstr(.git_oid* out_, const (char)* str);
 
 /**
@@ -66,7 +68,7 @@ int git_oid_fromstr(.git_oid* out_, const (char)* str);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_oid_fromstrp(.git_oid* out_, const (char)* str);
 
 /**
@@ -82,7 +84,7 @@ int git_oid_fromstrp(.git_oid* out_, const (char)* str);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_oid_fromstrn(.git_oid* out_, const (char)* str, size_t length);
 
 /**
@@ -94,7 +96,7 @@ int git_oid_fromstrn(.git_oid* out_, const (char)* str, size_t length);
  *
  * Returns: 0 on success or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_oid_fromraw(.git_oid* out_, const (ubyte)* raw);
 
 /**
@@ -106,7 +108,7 @@ int git_oid_fromraw(.git_oid* out_, const (ubyte)* raw);
  *
  * Returns: 0 on success or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_oid_fmt(char* out_, const (.git_oid)* id);
 
 /**
@@ -119,7 +121,7 @@ int git_oid_fmt(char* out_, const (.git_oid)* id);
  *
  * Returns: 0 on success or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_oid_nfmt(char* out_, size_t n, const (.git_oid)* id);
 
 /**
@@ -134,7 +136,7 @@ int git_oid_nfmt(char* out_, size_t n, const (.git_oid)* id);
  *
  * Returns: 0 on success, non-zero callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_oid_pathfmt(char* out_, const (.git_oid)* id);
 
 /**
@@ -150,7 +152,7 @@ int git_oid_pathfmt(char* out_, const (.git_oid)* id);
  *
  * Returns: the c-string
  */
-//GIT_EXTERN
+@GIT_EXTERN
 char* git_oid_tostr_s(const (.git_oid)* oid);
 
 /**
@@ -171,7 +173,7 @@ char* git_oid_tostr_s(const (.git_oid)* oid);
  *
  * Returns: the out buffer pointer, assuming no input parameter errors, otherwise a pointer to an empty string.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 char* git_oid_tostr(char* out_, size_t n, const (.git_oid)* id);
 
 /**
@@ -183,7 +185,7 @@ char* git_oid_tostr(char* out_, size_t n, const (.git_oid)* id);
  *
  * Returns: 0 on success or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_oid_cpy(.git_oid* out_, const (.git_oid)* src);
 
 /**
@@ -195,7 +197,7 @@ int git_oid_cpy(.git_oid* out_, const (.git_oid)* src);
  *
  * Returns: <0, 0, >0 if a < b, a == b, a > b.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_oid_cmp(const (.git_oid)* a, const (.git_oid)* b);
 
 /**
@@ -207,7 +209,7 @@ int git_oid_cmp(const (.git_oid)* a, const (.git_oid)* b);
  *
  * Returns: true if equal, false otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_oid_equal(const (.git_oid)* a, const (.git_oid)* b);
 
 /**
@@ -221,7 +223,7 @@ int git_oid_equal(const (.git_oid)* a, const (.git_oid)* b);
  *
  * Returns: 0 in case of a match
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_oid_ncmp(const (.git_oid)* a, const (.git_oid)* b, size_t len);
 
 /**
@@ -233,7 +235,7 @@ int git_oid_ncmp(const (.git_oid)* a, const (.git_oid)* b, size_t len);
  *
  * Returns: 0 in case of a match, -1 otherwise.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_oid_streq(const (.git_oid)* id, const (char)* str);
 
 /**
@@ -245,7 +247,7 @@ int git_oid_streq(const (.git_oid)* id, const (char)* str);
  *
  * Returns: -1 if str is not valid, <0 if id sorts before str, 0 if id matches str, >0 if id sorts after str.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_oid_strcmp(const (.git_oid)* id, const (char)* str);
 
 /**
@@ -253,7 +255,7 @@ int git_oid_strcmp(const (.git_oid)* id, const (char)* str);
  *
  * Returns: 1 if all zeros, 0 otherwise.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_oid_is_zero(const (.git_oid)* id);
 
 /**
@@ -275,7 +277,7 @@ struct git_oid_shorten;
  *
  * Returns: a `git_oid_shorten` instance, null if OOM
  */
-//GIT_EXTERN
+@GIT_EXTERN
 .git_oid_shorten* git_oid_shorten_new(size_t min_length);
 
 /**
@@ -302,7 +304,7 @@ struct git_oid_shorten;
  *
  * Returns: the minimal length to uniquely identify all OIDs added so far to the set; or an error code (<0) if an error occurs.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_oid_shorten_add(.git_oid_shorten* os, const (char)* text_id);
 
 /**
@@ -311,7 +313,7 @@ int git_oid_shorten_add(.git_oid_shorten* os, const (char)* text_id);
  * Params:
  *      os = a `git_oid_shorten` instance
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_oid_shorten_free(.git_oid_shorten* os);
 
 /* @} */

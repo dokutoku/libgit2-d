@@ -10,6 +10,7 @@ module libgit2.checkout;
 private static import libgit2.diff;
 private static import libgit2.strarray;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/checkout.h
@@ -484,7 +485,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_checkout_options_init(.git_checkout_options* opts, uint version_);
 
 /**
@@ -504,7 +505,7 @@ int git_checkout_options_init(.git_checkout_options* opts, uint version_);
  *
  * Returns: 0 on success, git_error_code.GIT_EUNBORNBRANCH if HEAD points to a non existing branch, non-zero value returned by `notify_cb`, or other error code < 0 (use git_error_last for error details)
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_checkout_head(libgit2.types.git_repository* repo, const (.git_checkout_options)* opts);
 
 /**
@@ -517,7 +518,7 @@ int git_checkout_head(libgit2.types.git_repository* repo, const (.git_checkout_o
  *
  * Returns: 0 on success, non-zero return value from `notify_cb`, or error code < 0 (use git_error_last for error details)
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_checkout_index(libgit2.types.git_repository* repo, libgit2.types.git_index* index, const (.git_checkout_options)* opts);
 
 /**
@@ -531,7 +532,7 @@ int git_checkout_index(libgit2.types.git_repository* repo, libgit2.types.git_ind
  *
  * Returns: 0 on success, non-zero return value from `notify_cb`, or error code < 0 (use git_error_last for error details)
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_checkout_tree(libgit2.types.git_repository* repo, const (libgit2.types.git_object)* treeish, const (.git_checkout_options)* opts);
 
 /* @} */

@@ -10,6 +10,7 @@ module libgit2.refspec;
 private static import libgit2.buffer;
 private static import libgit2.net;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/refspec.h
@@ -32,7 +33,7 @@ public:
  *
  * Returns: 0 if the refspec string could be parsed, -1 otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_refspec_parse(libgit2.types.git_refspec** refspec, const (char)* input, int is_fetch);
 
 /**
@@ -41,7 +42,7 @@ int git_refspec_parse(libgit2.types.git_refspec** refspec, const (char)* input, 
  * Params:
  *      refspec = the refspec object
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_refspec_free(libgit2.types.git_refspec* refspec);
 
 /**
@@ -52,7 +53,7 @@ void git_refspec_free(libgit2.types.git_refspec* refspec);
  *
  * Returns: the refspec's source specifier
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_refspec_src(const (libgit2.types.git_refspec)* refspec);
 
 /**
@@ -63,7 +64,7 @@ const (char)* git_refspec_src(const (libgit2.types.git_refspec)* refspec);
  *
  * Returns: the refspec's destination specifier
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_refspec_dst(const (libgit2.types.git_refspec)* refspec);
 
 /**
@@ -74,7 +75,7 @@ const (char)* git_refspec_dst(const (libgit2.types.git_refspec)* refspec);
  *
  * @returns the refspec's original string
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_refspec_string(const (libgit2.types.git_refspec)* refspec);
 
 /**
@@ -85,7 +86,7 @@ const (char)* git_refspec_string(const (libgit2.types.git_refspec)* refspec);
  *
  * Returns: 1 if force update has been set, 0 otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_refspec_force(const (libgit2.types.git_refspec)* refspec);
 
 /**
@@ -96,7 +97,7 @@ int git_refspec_force(const (libgit2.types.git_refspec)* refspec);
  *
  * Returns: git_direction.GIT_DIRECTION_FETCH or git_direction.GIT_DIRECTION_PUSH
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.net.git_direction git_refspec_direction(const (libgit2.types.git_refspec)* spec);
 
 /**
@@ -108,7 +109,7 @@ libgit2.net.git_direction git_refspec_direction(const (libgit2.types.git_refspec
  *
  * Returns: 1 if the refspec matches, 0 otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_refspec_src_matches(const (libgit2.types.git_refspec)* refspec, const (char)* refname);
 
 /**
@@ -120,7 +121,7 @@ int git_refspec_src_matches(const (libgit2.types.git_refspec)* refspec, const (c
  *
  * Returns: 1 if the refspec matches, 0 otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_refspec_dst_matches(const (libgit2.types.git_refspec)* refspec, const (char)* refname);
 
 /**
@@ -133,7 +134,7 @@ int git_refspec_dst_matches(const (libgit2.types.git_refspec)* refspec, const (c
  *
  * Returns: 0, git_error_code.GIT_EBUFS or another error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_refspec_transform(libgit2.buffer.git_buf* out_, const (libgit2.types.git_refspec)* spec, const (char)* name);
 
 /**
@@ -147,5 +148,5 @@ int git_refspec_transform(libgit2.buffer.git_buf* out_, const (libgit2.types.git
  *
  * Returns: 0, git_error_code.GIT_EBUFS or another error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_refspec_rtransform(libgit2.buffer.git_buf* out_, const (libgit2.types.git_refspec)* spec, const (char)* name);

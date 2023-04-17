@@ -10,6 +10,7 @@ module libgit2.tree;
 private static import libgit2.buffer;
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/tree.h
@@ -32,7 +33,7 @@ public:
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tree_lookup(libgit2.types.git_tree** out_, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* id);
 
 /**
@@ -49,7 +50,7 @@ int git_tree_lookup(libgit2.types.git_tree** out_, libgit2.types.git_repository*
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tree_lookup_prefix(libgit2.types.git_tree** out_, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* id, size_t len);
 
 /**
@@ -63,7 +64,7 @@ int git_tree_lookup_prefix(libgit2.types.git_tree** out_, libgit2.types.git_repo
  * Params:
  *      tree = The tree to close
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_tree_free(libgit2.types.git_tree* tree);
 
 /**
@@ -74,7 +75,7 @@ void git_tree_free(libgit2.types.git_tree* tree);
  *
  * Returns: object identity for the tree.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_tree_id(const (libgit2.types.git_tree)* tree);
 
 /**
@@ -85,7 +86,7 @@ const (libgit2.oid.git_oid)* git_tree_id(const (libgit2.types.git_tree)* tree);
  *
  * Returns: Repository that contains this tree.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_repository* git_tree_owner(const (libgit2.types.git_tree)* tree);
 
 /**
@@ -96,7 +97,7 @@ libgit2.types.git_repository* git_tree_owner(const (libgit2.types.git_tree)* tre
  *
  * Returns: the number of entries in the tree
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_tree_entrycount(const (libgit2.types.git_tree)* tree);
 
 /**
@@ -111,7 +112,7 @@ size_t git_tree_entrycount(const (libgit2.types.git_tree)* tree);
  *
  * Returns: the tree entry; null if not found
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.types.git_tree_entry)* git_tree_entry_byname(const (libgit2.types.git_tree)* tree, const (char)* filename);
 
 /**
@@ -126,7 +127,7 @@ const (libgit2.types.git_tree_entry)* git_tree_entry_byname(const (libgit2.types
  *
  * Returns: the tree entry; null if not found
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.types.git_tree_entry)* git_tree_entry_byindex(const (libgit2.types.git_tree)* tree, size_t idx);
 
 /**
@@ -143,7 +144,7 @@ const (libgit2.types.git_tree_entry)* git_tree_entry_byindex(const (libgit2.type
  *
  * Returns: the tree entry; null if not found
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.types.git_tree_entry)* git_tree_entry_byid(const (libgit2.types.git_tree)* tree, const (libgit2.oid.git_oid)* id);
 
 /**
@@ -160,7 +161,7 @@ const (libgit2.types.git_tree_entry)* git_tree_entry_byid(const (libgit2.types.g
  *
  * Returns: 0 on success; git_error_code.GIT_ENOTFOUND if the path does not exist
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tree_entry_bypath(libgit2.types.git_tree_entry** out_, const (libgit2.types.git_tree)* root, const (char)* path);
 
 /**
@@ -175,7 +176,7 @@ int git_tree_entry_bypath(libgit2.types.git_tree_entry** out_, const (libgit2.ty
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tree_entry_dup(libgit2.types.git_tree_entry** dest, const (libgit2.types.git_tree_entry)* source);
 
 /**
@@ -188,7 +189,7 @@ int git_tree_entry_dup(libgit2.types.git_tree_entry** dest, const (libgit2.types
  * Params:
  *      entry = The entry to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_tree_entry_free(libgit2.types.git_tree_entry* entry);
 
 /**
@@ -199,7 +200,7 @@ void git_tree_entry_free(libgit2.types.git_tree_entry* entry);
  *
  * Returns: the name of the file
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_tree_entry_name(const (libgit2.types.git_tree_entry)* entry);
 
 /**
@@ -210,7 +211,7 @@ const (char)* git_tree_entry_name(const (libgit2.types.git_tree_entry)* entry);
  *
  * Returns: the oid of the object
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_tree_entry_id(const (libgit2.types.git_tree_entry)* entry);
 
 /**
@@ -221,7 +222,7 @@ const (libgit2.oid.git_oid)* git_tree_entry_id(const (libgit2.types.git_tree_ent
  *
  * Returns: the type of the pointed object
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_object_t git_tree_entry_type(const (libgit2.types.git_tree_entry)* entry);
 
 /**
@@ -232,7 +233,7 @@ libgit2.types.git_object_t git_tree_entry_type(const (libgit2.types.git_tree_ent
  *
  * Returns: filemode as an integer
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_filemode_t git_tree_entry_filemode(const (libgit2.types.git_tree_entry)* entry);
 
 /**
@@ -247,7 +248,7 @@ libgit2.types.git_filemode_t git_tree_entry_filemode(const (libgit2.types.git_tr
  * Returns: filemode as an integer
  */
 
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_filemode_t git_tree_entry_filemode_raw(const (libgit2.types.git_tree_entry)* entry);
 
 /**
@@ -259,7 +260,7 @@ libgit2.types.git_filemode_t git_tree_entry_filemode_raw(const (libgit2.types.gi
  *
  * Returns: <0 if e1 is before e2, 0 if e1 == e2, >0 if e1 is after e2
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tree_entry_cmp(const (libgit2.types.git_tree_entry)* e1, const (libgit2.types.git_tree_entry)* e2);
 
 /**
@@ -274,7 +275,7 @@ int git_tree_entry_cmp(const (libgit2.types.git_tree_entry)* e1, const (libgit2.
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tree_entry_to_object(libgit2.types.git_object** object_out, libgit2.types.git_repository* repo, const (libgit2.types.git_tree_entry)* entry);
 
 /**
@@ -296,7 +297,7 @@ int git_tree_entry_to_object(libgit2.types.git_object** object_out, libgit2.type
  *
  * Returns: 0 on success; error code otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_treebuilder_new(libgit2.types.git_treebuilder** out_, libgit2.types.git_repository* repo, const (libgit2.types.git_tree)* source);
 
 /**
@@ -307,7 +308,7 @@ int git_treebuilder_new(libgit2.types.git_treebuilder** out_, libgit2.types.git_
  *
  * Returns: 0 on success; error code otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_treebuilder_clear(libgit2.types.git_treebuilder* bld);
 
 /**
@@ -318,7 +319,7 @@ int git_treebuilder_clear(libgit2.types.git_treebuilder* bld);
  *
  * Returns: the number of entries in the treebuilder
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_treebuilder_entrycount(libgit2.types.git_treebuilder* bld);
 
 /**
@@ -331,7 +332,7 @@ size_t git_treebuilder_entrycount(libgit2.types.git_treebuilder* bld);
  * Params:
  *      bld = Builder to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_treebuilder_free(libgit2.types.git_treebuilder* bld);
 
 /**
@@ -346,7 +347,7 @@ void git_treebuilder_free(libgit2.types.git_treebuilder* bld);
  *
  * Returns: pointer to the entry; null if not found
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.types.git_tree_entry)* git_treebuilder_get(libgit2.types.git_treebuilder* bld, const (char)* filename);
 
 /**
@@ -377,7 +378,7 @@ const (libgit2.types.git_tree_entry)* git_treebuilder_get(libgit2.types.git_tree
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_treebuilder_insert(const (libgit2.types.git_tree_entry)** out_, libgit2.types.git_treebuilder* bld, const (char)* filename, const (libgit2.oid.git_oid)* id, libgit2.types.git_filemode_t filemode);
 
 /**
@@ -389,7 +390,7 @@ int git_treebuilder_insert(const (libgit2.types.git_tree_entry)** out_, libgit2.
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_treebuilder_remove(libgit2.types.git_treebuilder* bld, const (char)* filename);
 
 /**
@@ -415,7 +416,7 @@ alias git_treebuilder_filter_cb = int function(const (libgit2.types.git_tree_ent
  *
  * Returns: 0 on success, non-zero callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_treebuilder_filter(libgit2.types.git_treebuilder* bld, .git_treebuilder_filter_cb filter, void* payload);
 
 /**
@@ -430,7 +431,7 @@ int git_treebuilder_filter(libgit2.types.git_treebuilder* bld, .git_treebuilder_
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_treebuilder_write(libgit2.oid.git_oid* id, libgit2.types.git_treebuilder* bld);
 
 /**
@@ -446,7 +447,7 @@ int git_treebuilder_write(libgit2.oid.git_oid* id, libgit2.types.git_treebuilder
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_treebuilder_write_with_buffer(libgit2.oid.git_oid* oid, libgit2.types.git_treebuilder* bld, libgit2.buffer.git_buf* tree);
 
 /**
@@ -496,7 +497,7 @@ enum
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tree_walk(const (libgit2.types.git_tree)* tree, .git_treewalk_mode mode, .git_treewalk_cb callback, void* payload);
 
 /**
@@ -507,7 +508,7 @@ int git_tree_walk(const (libgit2.types.git_tree)* tree, .git_treewalk_mode mode,
  *      out_ = Pointer to store the copy of the tree
  *      source = Original tree to copy
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tree_dup(libgit2.types.git_tree** out_, libgit2.types.git_tree* source);
 
 /**
@@ -581,7 +582,7 @@ struct git_tree_update
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tree_create_updated(libgit2.oid.git_oid* out_, libgit2.types.git_repository* repo, libgit2.types.git_tree* baseline, size_t nupdates, const (.git_tree_update)* updates);
 
 /* @} */

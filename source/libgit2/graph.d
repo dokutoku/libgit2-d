@@ -9,6 +9,7 @@ module libgit2.graph;
 
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/graph.h
@@ -36,7 +37,7 @@ public:
  *      local = the commit for local
  *      upstream = the commit for upstream
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_graph_ahead_behind(size_t* ahead, size_t* behind, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* local, const (libgit2.oid.git_oid)* upstream);
 
 /**
@@ -52,7 +53,7 @@ int git_graph_ahead_behind(size_t* ahead, size_t* behind, libgit2.types.git_repo
  *
  * Returns: 1 if the given commit is a descendant of the potential ancestor, 0 if not, error code otherwise.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_graph_descendant_of(libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* commit, const (libgit2.oid.git_oid)* ancestor);
 
 /* @} */

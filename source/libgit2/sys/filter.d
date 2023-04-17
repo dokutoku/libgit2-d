@@ -11,6 +11,7 @@ private static import libgit2.buffer;
 private static import libgit2.filter;
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/sys/filter.h
@@ -31,7 +32,7 @@ package(libgit2):
  *
  * Returns: Pointer to the filter object or null if not found
  */
-//GIT_EXTERN
+@GIT_EXTERN
 .git_filter* git_filter_lookup(const (char)* name);
 
 enum GIT_FILTER_CRLF = "crlf";
@@ -62,7 +63,7 @@ enum GIT_FILTER_DRIVER_PRIORITY = 200;
  * `git_filter_lookup` and `git_filter_list_push` functions to assemble
  * your own chains of filters.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_filter_list_new(libgit2.filter.git_filter_list** out_, libgit2.types.git_repository* repo, libgit2.filter.git_filter_mode_t mode, uint options);
 
 /**
@@ -78,7 +79,7 @@ int git_filter_list_new(libgit2.filter.git_filter_list** out_, libgit2.types.git
  * know the expected payload format, or you can pass null.  Some filters
  * may fail with a null payload.  Good luck!
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_filter_list_push(libgit2.filter.git_filter_list* fl, .git_filter* filter, void* payload);
 
 /**
@@ -94,7 +95,7 @@ int git_filter_list_push(libgit2.filter.git_filter_list* fl, .git_filter* filter
  *
  * Returns: The number of filters in the list
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_filter_list_length(const (libgit2.filter.git_filter_list)* fl);
 
 /**
@@ -105,20 +106,20 @@ struct git_filter_source;
 /**
  * Get the repository that the source data is coming from.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_repository* git_filter_source_repo(const (.git_filter_source)* src);
 
 /**
  * Get the path that the source data is coming from.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_filter_source_path(const (.git_filter_source)* src);
 
 /**
  * Get the file mode of the source file
  * If the mode is unknown, this will return 0
  */
-//GIT_EXTERN
+@GIT_EXTERN
 ushort git_filter_source_filemode(const (.git_filter_source)* src);
 
 /**
@@ -126,19 +127,19 @@ ushort git_filter_source_filemode(const (.git_filter_source)* src);
  * If the OID is unknown (often the case with git_filter_mode_t.GIT_FILTER_CLEAN) then
  * this will return null.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_filter_source_id(const (.git_filter_source)* src);
 
 /**
  * Get the git_filter_mode_t to be used
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.filter.git_filter_mode_t git_filter_source_mode(const (.git_filter_source)* src);
 
 /**
  * Get the combination git_filter_flag_t options to be applied
  */
-//GIT_EXTERN
+@GIT_EXTERN
 uint git_filter_source_flags(const (.git_filter_source)* src);
 
 /**
@@ -305,7 +306,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_filter_init(.git_filter* filter, uint version_);
 
 /**
@@ -333,7 +334,7 @@ int git_filter_init(.git_filter* filter, uint version_);
  *
  * Returns: 0 on successful registry, error code <0 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_filter_register(const (char)* name, .git_filter* filter, int priority);
 
 /**
@@ -351,7 +352,7 @@ int git_filter_register(const (char)* name, .git_filter* filter, int priority);
  *
  * Returns: 0 on success, error code <0 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_filter_unregister(const (char)* name);
 
 /* @} */

@@ -7,6 +7,8 @@
 module libgit2.sys.hashsig;
 
 
+private import libgit2.common: GIT_EXTERN;
+
 extern (C):
 nothrow @nogc:
 package(libgit2):
@@ -69,7 +71,7 @@ enum
  *
  * Returns: 0 on success, git_error_code.GIT_EBUFS if the buffer doesn't contain enough data to compute a valid signature (unless git_hashsig_option_t.GIT_HASHSIG_ALLOW_SMALL_FILES is set), or error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_hashsig_create(.git_hashsig** out_, const (char)* buf, size_t buflen, .git_hashsig_option_t opts);
 
 /**
@@ -85,7 +87,7 @@ int git_hashsig_create(.git_hashsig** out_, const (char)* buf, size_t buflen, .g
  *
  * Returns: 0 on success, git_error_code.GIT_EBUFS if the buffer doesn't contain enough data to compute a valid signature (unless git_hashsig_option_t.GIT_HASHSIG_ALLOW_SMALL_FILES is set), or error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_hashsig_create_fromfile(.git_hashsig** out_, const (char)* path, .git_hashsig_option_t opts);
 
 /**
@@ -94,7 +96,7 @@ int git_hashsig_create_fromfile(.git_hashsig** out_, const (char)* path, .git_ha
  * Params:
  *      sig = The similarity signature to free.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_hashsig_free(.git_hashsig* sig);
 
 /**
@@ -106,5 +108,5 @@ void git_hashsig_free(.git_hashsig* sig);
  *
  * Returns: [0 to 100] on success as the similarity score, or error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_hashsig_compare(const (.git_hashsig)* a, const (.git_hashsig)* b);

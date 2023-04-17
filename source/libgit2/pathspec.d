@@ -10,6 +10,7 @@ module libgit2.pathspec;
 private static import libgit2.diff;
 private static import libgit2.strarray;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 extern (C):
 nothrow @nogc:
@@ -95,7 +96,7 @@ enum
  *
  * Returns: 0 on success, <0 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_pathspec_new(.git_pathspec** out_, const (libgit2.strarray.git_strarray)* pathspec);
 
 /**
@@ -104,7 +105,7 @@ int git_pathspec_new(.git_pathspec** out_, const (libgit2.strarray.git_strarray)
  * Params:
  *      ps = The compiled pathspec
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_pathspec_free(.git_pathspec* ps);
 
 /**
@@ -122,7 +123,7 @@ void git_pathspec_free(.git_pathspec* ps);
  *
  * Returns: 1 is path matches spec, 0 if it does not
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_pathspec_matches_path(const (.git_pathspec)* ps, uint flags, const (char)* path);
 
 /**
@@ -148,7 +149,7 @@ int git_pathspec_matches_path(const (.git_pathspec)* ps, uint flags, const (char
  *
  * Returns: 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag was given
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_pathspec_match_workdir(.git_pathspec_match_list** out_, libgit2.types.git_repository* repo, uint flags, .git_pathspec* ps);
 
 /**
@@ -175,7 +176,7 @@ int git_pathspec_match_workdir(.git_pathspec_match_list** out_, libgit2.types.gi
  *
  * Returns: 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag is used
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_pathspec_match_index(.git_pathspec_match_list** out_, libgit2.types.git_index* index, uint flags, .git_pathspec* ps);
 
 /**
@@ -197,7 +198,7 @@ int git_pathspec_match_index(.git_pathspec_match_list** out_, libgit2.types.git_
  *
  * Returns: 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag is used
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_pathspec_match_tree(.git_pathspec_match_list** out_, libgit2.types.git_tree* tree, uint flags, .git_pathspec* ps);
 
 /**
@@ -219,7 +220,7 @@ int git_pathspec_match_tree(.git_pathspec_match_list** out_, libgit2.types.git_t
  *
  * Returns: 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag is used
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_pathspec_match_diff(.git_pathspec_match_list** out_, libgit2.diff.git_diff* diff, uint flags, .git_pathspec* ps);
 
 /**
@@ -228,7 +229,7 @@ int git_pathspec_match_diff(.git_pathspec_match_list** out_, libgit2.diff.git_di
  * Params:
  *      m = The git_pathspec_match_list to be freed
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_pathspec_match_list_free(.git_pathspec_match_list* m);
 
 /**
@@ -239,7 +240,7 @@ void git_pathspec_match_list_free(.git_pathspec_match_list* m);
  *
  * Returns: Number of items in match list
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_pathspec_match_list_entrycount(const (.git_pathspec_match_list)* m);
 
 /**
@@ -254,7 +255,7 @@ size_t git_pathspec_match_list_entrycount(const (.git_pathspec_match_list)* m);
  *
  * Returns: The filename of the match
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_pathspec_match_list_entry(const (.git_pathspec_match_list)* m, size_t pos);
 
 /**
@@ -269,7 +270,7 @@ const (char)* git_pathspec_match_list_entry(const (.git_pathspec_match_list)* m,
  *
  * Returns: The filename of the match
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.diff.git_diff_delta)* git_pathspec_match_list_diff_entry(const (.git_pathspec_match_list)* m, size_t pos);
 
 /**
@@ -283,7 +284,7 @@ const (libgit2.diff.git_diff_delta)* git_pathspec_match_list_diff_entry(const (.
  *
  * Returns: Number of items in original pathspec that had no matches
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_pathspec_match_list_failed_entrycount(const (.git_pathspec_match_list)* m);
 
 /**
@@ -297,5 +298,5 @@ size_t git_pathspec_match_list_failed_entrycount(const (.git_pathspec_match_list
  *
  * Returns: The pathspec pattern that didn't match anything
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_pathspec_match_list_failed_entry(const (.git_pathspec_match_list)* m, size_t pos);

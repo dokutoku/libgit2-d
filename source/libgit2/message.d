@@ -8,6 +8,7 @@ module libgit2.message;
 
 
 private static import libgit2.buffer;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/message.h
@@ -33,7 +34,7 @@ public:
  *
  * Returns: 0 or an error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_message_prettify(libgit2.buffer.git_buf* out_, const (char)* message, int strip_comments, char comment_char);
 
 /**
@@ -72,14 +73,14 @@ package:
  *
  * Returns: 0 on success, or non-zero on error.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_message_trailers(.git_message_trailer_array* arr, const (char)* message);
 
 /**
  * Clean's up any allocated memory in the git_message_trailer_array filled by
  * a call to git_message_trailers.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_message_trailer_array_free(.git_message_trailer_array* arr);
 
 /* @} */

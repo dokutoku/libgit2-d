@@ -8,6 +8,7 @@ module libgit2.credential;
 
 
 private static import libgit2.sys.credential;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/credential.h
@@ -159,7 +160,7 @@ alias git_credential_acquire_cb = int function(.git_credential** out_, const (ch
  * Params:
  *      cred = the object to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_credential_free(.git_credential* cred);
 
 /**
@@ -170,7 +171,7 @@ void git_credential_free(.git_credential* cred);
  *
  * Returns: 1 if the credential object has non-NULL username, 0 otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_credential_has_username(.git_credential* cred);
 
 /**
@@ -181,7 +182,7 @@ int git_credential_has_username(.git_credential* cred);
  *
  * Returns: the credential username, or NULL if not applicable
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_credential_get_username(.git_credential* cred);
 
 /**
@@ -195,7 +196,7 @@ const (char)* git_credential_get_username(.git_credential* cred);
  *
  * Returns: 0 for success or an error code for failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_credential_userpass_plaintext_new(.git_credential** out_, const (char)* username, const (char)* password);
 
 /**
@@ -207,7 +208,7 @@ int git_credential_userpass_plaintext_new(.git_credential** out_, const (char)* 
  *
  * Returns: 0 for success or an error code for failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_credential_default_new(.git_credential** out_);
 
 /**
@@ -222,7 +223,7 @@ int git_credential_default_new(.git_credential** out_);
  *
  * Returns: 0 for success or an error code for failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_credential_username_new(.git_credential** out_, const (char)* username);
 
 /**
@@ -238,7 +239,7 @@ int git_credential_username_new(.git_credential** out_, const (char)* username);
  *
  * Returns: 0 for success or an error code for failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_credential_ssh_key_new(.git_credential** out_, const (char)* username, const (char)* publickey, const (char)* privatekey, const (char)* passphrase);
 
 /**
@@ -253,7 +254,7 @@ int git_credential_ssh_key_new(.git_credential** out_, const (char)* username, c
  *
  * Returns: 0 for success or an error code for failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_credential_ssh_key_memory_new(.git_credential** out_, const (char)* username, const (char)* publickey, const (char)* privatekey, const (char)* passphrase);
 
 /*
@@ -284,7 +285,7 @@ alias git_credential_ssh_interactive_cb = void function(const (char)* name, int 
  *
  * Returns: 0 for success or an error code for failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_credential_ssh_interactive_new(.git_credential** out_, const (char)* username, .git_credential_ssh_interactive_cb prompt_callback, void* payload);
 
 /**
@@ -297,7 +298,7 @@ int git_credential_ssh_interactive_new(.git_credential** out_, const (char)* use
  *
  * Returns: 0 for success or an error code for failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_credential_ssh_key_from_agent(.git_credential** out_, const (char)* username);
 
 alias git_credential_sign_cb = int function(.LIBSSH2_SESSION* session, ubyte** sig, size_t* sig_len, const (ubyte)* data, size_t data_len, void** abstract_);
@@ -322,7 +323,7 @@ alias git_credential_sign_cb = int function(.LIBSSH2_SESSION* session, ubyte** s
  *
  * Returns: 0 for success or an error code for failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_credential_ssh_custom_new(.git_credential** out_, const (char)* username, const (char)* publickey, size_t publickey_len, .git_credential_sign_cb sign_callback, void* payload);
 
 /* @} */

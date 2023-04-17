@@ -10,6 +10,7 @@ module libgit2.stash;
 private static import libgit2.checkout;
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/stash.h
@@ -71,7 +72,7 @@ enum
  *
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND where there's nothing to stash, or error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_stash_save(libgit2.oid.git_oid* out_, libgit2.types.git_repository* repo, const (libgit2.types.git_signature)* stasher, const (char)* message, uint flags);
 
 /**
@@ -216,7 +217,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_stash_apply_options_init(.git_stash_apply_options* opts, uint version_);
 
 /**
@@ -243,7 +244,7 @@ int git_stash_apply_options_init(.git_stash_apply_options* opts, uint version_);
  *
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if there's no stashed state for the given index, git_error_code.GIT_EMERGECONFLICT if changes exist in the working directory, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_stash_apply(libgit2.types.git_repository* repo, size_t index, const (.git_stash_apply_options)* options);
 
 /**
@@ -273,7 +274,7 @@ alias git_stash_cb = int function(size_t index, const (char)* message, const (li
  *
  * Returns: 0 on success, non-zero callback return value, or error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_stash_foreach(libgit2.types.git_repository* repo, .git_stash_cb callback, void* payload);
 
 /**
@@ -285,7 +286,7 @@ int git_stash_foreach(libgit2.types.git_repository* repo, .git_stash_cb callback
  *
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if there's no stashed state for the given index, or error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_stash_drop(libgit2.types.git_repository* repo, size_t index);
 
 /**
@@ -299,7 +300,7 @@ int git_stash_drop(libgit2.types.git_repository* repo, size_t index);
  *
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if there's no stashed state for the given index, or error code. (see git_stash_apply() above for details)
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_stash_pop(libgit2.types.git_repository* repo, size_t index, const (.git_stash_apply_options)* options);
 
 /* @} */

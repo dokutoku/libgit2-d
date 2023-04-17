@@ -9,6 +9,7 @@ module libgit2.sys.config;
 
 private static import libgit2.config;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/sys/config.h
@@ -123,7 +124,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_init_backend(.git_config_backend* backend, uint version_);
 
 /**
@@ -145,7 +146,7 @@ int git_config_init_backend(.git_config_backend* backend, uint version_);
  *
  * Returns: 0 on success, git_error_code.GIT_EEXISTS when adding more than one file for a given priority level (and force_replace set to 0), or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_config_add_backend(libgit2.types.git_config* cfg, .git_config_backend* file, libgit2.config.git_config_level_t level, const (libgit2.types.git_repository)* repo, int force);
 
 /* @} */

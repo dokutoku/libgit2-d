@@ -9,6 +9,7 @@ module libgit2.sys.mempack;
 
 private static import libgit2.buffer;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/sys/mempack.h
@@ -43,7 +44,7 @@ package(libgit2):
  *
  * Returns: 0 on success; error code otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_mempack_new(libgit2.types.git_odb_backend** out_);
 
 /**
@@ -69,7 +70,7 @@ int git_mempack_new(libgit2.types.git_odb_backend** out_);
  *
  * Returns: 0 on success; error code otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_mempack_dump(libgit2.buffer.git_buf* pack, libgit2.types.git_repository* repo, libgit2.types.git_odb_backend* backend);
 
 /**
@@ -87,5 +88,5 @@ int git_mempack_dump(libgit2.buffer.git_buf* pack, libgit2.types.git_repository*
  *
  * Returns: 0 on success; error code otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_mempack_reset(libgit2.types.git_odb_backend* backend);

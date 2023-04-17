@@ -8,6 +8,7 @@ module libgit2.signature;
 
 
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/signature.h
@@ -37,7 +38,7 @@ public:
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_signature_new(libgit2.types.git_signature** out_, const (char)* name, const (char)* email, libgit2.types.git_time_t time, int offset);
 
 /**
@@ -52,7 +53,7 @@ int git_signature_new(libgit2.types.git_signature** out_, const (char)* name, co
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_signature_now(libgit2.types.git_signature** out_, const (char)* name, const (char)* email);
 
 /**
@@ -69,7 +70,7 @@ int git_signature_now(libgit2.types.git_signature** out_, const (char)* name, co
  *
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if config is missing, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_signature_default(libgit2.types.git_signature** out_, libgit2.types.git_repository* repo);
 
 /**
@@ -85,7 +86,7 @@ int git_signature_default(libgit2.types.git_signature** out_, libgit2.types.git_
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_signature_from_buffer(libgit2.types.git_signature** out_, const (char)* buf);
 
 /**
@@ -100,7 +101,7 @@ int git_signature_from_buffer(libgit2.types.git_signature** out_, const (char)* 
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_signature_dup(libgit2.types.git_signature** dest, const (libgit2.types.git_signature)* sig);
 
 /**
@@ -113,7 +114,7 @@ int git_signature_dup(libgit2.types.git_signature** dest, const (libgit2.types.g
  * Params:
  *      sig = signature to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_signature_free(libgit2.types.git_signature* sig);
 
 /* @} */

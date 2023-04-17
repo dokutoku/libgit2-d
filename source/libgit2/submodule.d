@@ -13,6 +13,7 @@ private static import libgit2.oid;
 private static import libgit2.remote;
 private static import libgit2.types;
 private static import std.traits;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/submodule.h
@@ -239,7 +240,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_update_options_init(.git_submodule_update_options* opts, uint version_);
 
 /**
@@ -256,7 +257,7 @@ int git_submodule_update_options_init(.git_submodule_update_options* opts, uint 
  *
  * Returns: 0 on success, any non-zero return value from a callback function, or a negative value to indicate an error (use `git_error_last` for a detailed error message).
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_update(libgit2.types.git_submodule* submodule, int init, .git_submodule_update_options* options);
 
 /**
@@ -286,7 +287,7 @@ int git_submodule_update(libgit2.types.git_submodule* submodule, int init, .git_
  *
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if submodule does not exist, git_error_code.GIT_EEXISTS if a repository is found in working directory only, -1 on other errors.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_lookup(libgit2.types.git_submodule** out_, libgit2.types.git_repository* repo, const (char)* name);
 
 /**
@@ -295,7 +296,7 @@ int git_submodule_lookup(libgit2.types.git_submodule** out_, libgit2.types.git_r
  * Params:
  *      submodule = Submodule object
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_submodule_free(libgit2.types.git_submodule* submodule);
 
 /**
@@ -317,7 +318,7 @@ void git_submodule_free(libgit2.types.git_submodule* submodule);
  *
  * Returns: 0 on success, -1 on error, or non-zero return value of callback
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_foreach(libgit2.types.git_repository* repo, .git_submodule_cb callback, void* payload);
 
 /**
@@ -346,7 +347,7 @@ int git_submodule_foreach(libgit2.types.git_repository* repo, .git_submodule_cb 
  *
  * Returns: 0 on success, git_error_code.GIT_EEXISTS if submodule already exists, -1 on other errors.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_add_setup(libgit2.types.git_submodule** out_, libgit2.types.git_repository* repo, const (char)* url, const (char)* path, int use_gitlink);
 
 /**
@@ -361,7 +362,7 @@ int git_submodule_add_setup(libgit2.types.git_submodule** out_, libgit2.types.gi
  *
  * Returns: 0 on success, -1 on other errors (see git_clone).
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_clone(libgit2.types.git_repository** out_, libgit2.types.git_submodule* submodule, const (.git_submodule_update_options)* opts);
 
 /**
@@ -375,7 +376,7 @@ int git_submodule_clone(libgit2.types.git_repository** out_, libgit2.types.git_s
  * Params:
  *      submodule = The submodule to finish adding.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_add_finalize(libgit2.types.git_submodule* submodule);
 
 /**
@@ -387,7 +388,7 @@ int git_submodule_add_finalize(libgit2.types.git_submodule* submodule);
  *
  * Returns: 0 on success, <0 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_add_to_index(libgit2.types.git_submodule* submodule, int write_index);
 
 /**
@@ -403,7 +404,7 @@ int git_submodule_add_to_index(libgit2.types.git_submodule* submodule, int write
  *
  * Returns: Pointer to `libgit2.types.git_repository`
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_repository* git_submodule_owner(libgit2.types.git_submodule* submodule);
 
 /**
@@ -414,7 +415,7 @@ libgit2.types.git_repository* git_submodule_owner(libgit2.types.git_submodule* s
  *
  * Returns: Pointer to the submodule name
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_submodule_name(libgit2.types.git_submodule* submodule);
 
 /**
@@ -428,7 +429,7 @@ const (char)* git_submodule_name(libgit2.types.git_submodule* submodule);
  *
  * Returns: Pointer to the submodule path
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_submodule_path(libgit2.types.git_submodule* submodule);
 
 /**
@@ -439,7 +440,7 @@ const (char)* git_submodule_path(libgit2.types.git_submodule* submodule);
  *
  * Returns: Pointer to the submodule url
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_submodule_url(libgit2.types.git_submodule* submodule);
 
 /**
@@ -452,7 +453,7 @@ const (char)* git_submodule_url(libgit2.types.git_submodule* submodule);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_resolve_url(libgit2.buffer.git_buf* out_, libgit2.types.git_repository* repo, const (char)* url);
 
 /**
@@ -463,7 +464,7 @@ int git_submodule_resolve_url(libgit2.buffer.git_buf* out_, libgit2.types.git_re
  *
  * Returns: Pointer to the submodule branch
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_submodule_branch(libgit2.types.git_submodule* submodule);
 
 /**
@@ -479,7 +480,7 @@ const (char)* git_submodule_branch(libgit2.types.git_submodule* submodule);
  *
  * Returns: 0 on success, <0 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_set_branch(libgit2.types.git_repository* repo, const (char)* name, const (char)* branch);
 
 /**
@@ -496,7 +497,7 @@ int git_submodule_set_branch(libgit2.types.git_repository* repo, const (char)* n
  *
  * Returns: 0 on success, <0 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_set_url(libgit2.types.git_repository* repo, const (char)* name, const (char)* url);
 
 /**
@@ -507,7 +508,7 @@ int git_submodule_set_url(libgit2.types.git_repository* repo, const (char)* name
  *
  * Returns: Pointer to git_oid or null if submodule is not in index.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_submodule_index_id(libgit2.types.git_submodule* submodule);
 
 /**
@@ -518,7 +519,7 @@ const (libgit2.oid.git_oid)* git_submodule_index_id(libgit2.types.git_submodule*
  *
  * Returns: Pointer to git_oid or null if submodule is not in the HEAD.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_submodule_head_id(libgit2.types.git_submodule* submodule);
 
 /**
@@ -534,7 +535,7 @@ const (libgit2.oid.git_oid)* git_submodule_head_id(libgit2.types.git_submodule* 
  *
  * Returns: Pointer to git_oid or null if submodule is not checked out.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_submodule_wd_id(libgit2.types.git_submodule* submodule);
 
 /**
@@ -561,7 +562,7 @@ const (libgit2.oid.git_oid)* git_submodule_wd_id(libgit2.types.git_submodule* su
  *
  * Returns: The current libgit2.types.git_submodule_ignore_t valyue what will be used for this submodule.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_submodule_ignore_t git_submodule_ignore(libgit2.types.git_submodule* submodule);
 
 /**
@@ -576,7 +577,7 @@ libgit2.types.git_submodule_ignore_t git_submodule_ignore(libgit2.types.git_subm
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_set_ignore(libgit2.types.git_repository* repo, const (char)* name, libgit2.types.git_submodule_ignore_t ignore);
 
 /**
@@ -590,7 +591,7 @@ int git_submodule_set_ignore(libgit2.types.git_repository* repo, const (char)* n
  *
  * Returns: The current libgit2.types.git_submodule_update_t value that will be used for this submodule.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_submodule_update_t git_submodule_update_strategy(libgit2.types.git_submodule* submodule);
 
 /**
@@ -605,7 +606,7 @@ libgit2.types.git_submodule_update_t git_submodule_update_strategy(libgit2.types
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_set_update(libgit2.types.git_repository* repo, const (char)* name, libgit2.types.git_submodule_update_t update);
 
 /**
@@ -619,7 +620,7 @@ int git_submodule_set_update(libgit2.types.git_repository* repo, const (char)* n
  *
  * Returns: 0 if fetchRecurseSubmodules is false, 1 if true
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_submodule_recurse_t git_submodule_fetch_recurse_submodules(libgit2.types.git_submodule* submodule);
 
 /**
@@ -634,7 +635,7 @@ libgit2.types.git_submodule_recurse_t git_submodule_fetch_recurse_submodules(lib
  *
  * Returns: old value for fetchRecurseSubmodules
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_set_fetch_recurse_submodules(libgit2.types.git_repository* repo, const (char)* name, libgit2.types.git_submodule_recurse_t fetch_recurse_submodules);
 
 /**
@@ -651,7 +652,7 @@ int git_submodule_set_fetch_recurse_submodules(libgit2.types.git_repository* rep
  *
  * Returns: 0 on success, <0 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_init(libgit2.types.git_submodule* submodule, int overwrite);
 
 /**
@@ -668,7 +669,7 @@ int git_submodule_init(libgit2.types.git_submodule* submodule, int overwrite);
  *
  * Returns: 0 on success, <0 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_repo_init(libgit2.types.git_repository** out_, const (libgit2.types.git_submodule)* sm, int use_gitlink);
 
 /**
@@ -679,7 +680,7 @@ int git_submodule_repo_init(libgit2.types.git_repository** out_, const (libgit2.
  * you have altered the URL for the submodule (or it has been altered by a
  * fetch of upstream changes) and you need to update your local repo.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_sync(libgit2.types.git_submodule* submodule);
 
 /**
@@ -696,7 +697,7 @@ int git_submodule_sync(libgit2.types.git_submodule* submodule);
  *
  * Returns: 0 on success, <0 if submodule repo could not be opened.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_open(libgit2.types.git_repository** repo, libgit2.types.git_submodule* submodule);
 
 /**
@@ -711,7 +712,7 @@ int git_submodule_open(libgit2.types.git_repository** repo, libgit2.types.git_su
  *
  * Returns: 0 on success, <0 on error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_reload(libgit2.types.git_submodule* submodule, int force);
 
 /**
@@ -730,7 +731,7 @@ int git_submodule_reload(libgit2.types.git_submodule* submodule, int force);
  *
  * Returns: 0 on success, <0 on error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_status(uint* status, libgit2.types.git_repository* repo, const (char)* name, libgit2.types.git_submodule_ignore_t ignore);
 
 /**
@@ -749,7 +750,7 @@ int git_submodule_status(uint* status, libgit2.types.git_repository* repo, const
  *
  * Returns: 0 on success, <0 on error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_submodule_location(uint* location_status, libgit2.types.git_submodule* submodule);
 
 /* @} */

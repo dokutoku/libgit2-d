@@ -9,6 +9,7 @@ module libgit2.sys.diff;
 
 private static import libgit2.diff;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/sys/diff.h
@@ -33,7 +34,7 @@ package(libgit2):
  * and/or `git_patch_print` function.  The data will be appended to the
  * buffer (after any existing content).
  */
-//GIT_EXTERN
+@GIT_EXTERN
 /*< payload must be a `git_buf *` */
 int git_diff_print_callback__to_buf(const (libgit2.diff.git_diff_delta)* delta, const (libgit2.diff.git_diff_hunk)* hunk, const (libgit2.diff.git_diff_line)* line, void* payload);
 
@@ -51,7 +52,7 @@ int git_diff_print_callback__to_buf(const (libgit2.diff.git_diff_delta)* delta, 
  * and/or `git_patch_print` function.  If you pass null, this will write
  * data to `stdout`.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 /*< payload must be a `FILE *` */
 int git_diff_print_callback__to_file_handle(const (libgit2.diff.git_diff_delta)* delta, const (libgit2.diff.git_diff_hunk)* hunk, const (libgit2.diff.git_diff_line)* line, void* payload);
 
@@ -100,13 +101,13 @@ pure nothrow @safe @nogc
  *
  * Returns: 0 for success, <0 for error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_get_perfdata(.git_diff_perfdata* out_, const (libgit2.diff.git_diff)* diff);
 
 /**
  * Get performance data for diffs from a git_status_list
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_status_list_get_perfdata(.git_diff_perfdata* out_, const (libgit2.types.git_status_list)* status);
 
 /* @} */

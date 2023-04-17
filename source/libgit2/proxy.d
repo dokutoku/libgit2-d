@@ -9,6 +9,7 @@ module libgit2.proxy;
 
 private static import libgit2.cert;
 private static import libgit2.credential;
+private import libgit2.common: GIT_EXTERN;
 
 extern (C):
 nothrow @nogc:
@@ -118,5 +119,5 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_proxy_options_init(.git_proxy_options* opts, uint version_);

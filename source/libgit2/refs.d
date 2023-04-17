@@ -10,6 +10,7 @@ module libgit2.refs;
 private static import libgit2.oid;
 private static import libgit2.strarray;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/refs.h
@@ -37,7 +38,7 @@ public:
  *
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND, git_error_code.GIT_EINVALIDSPEC or an error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_lookup(libgit2.types.git_reference** out_, libgit2.types.git_repository* repo, const (char)* name);
 
 /**
@@ -57,7 +58,7 @@ int git_reference_lookup(libgit2.types.git_reference** out_, libgit2.types.git_r
  *
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND, git_error_code.GIT_EINVALIDSPEC or an error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_name_to_id(libgit2.oid.git_oid* out_, libgit2.types.git_repository* repo, const (char)* name);
 
 /**
@@ -73,7 +74,7 @@ int git_reference_name_to_id(libgit2.oid.git_oid* out_, libgit2.types.git_reposi
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_dwim(libgit2.types.git_reference** out_, libgit2.types.git_repository* repo, const (char)* shorthand);
 
 /**
@@ -117,7 +118,7 @@ int git_reference_dwim(libgit2.types.git_reference** out_, libgit2.types.git_rep
  *
  * Returns: 0 on success, git_error_code.GIT_EEXISTS, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EMODIFIED or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_symbolic_create_matching(libgit2.types.git_reference** out_, libgit2.types.git_repository* repo, const (char)* name, const (char)* target, int force, const (char)* current_value, const (char)* log_message);
 
 /**
@@ -156,7 +157,7 @@ int git_reference_symbolic_create_matching(libgit2.types.git_reference** out_, l
  *
  * Returns: 0 on success, git_error_code.GIT_EEXISTS, git_error_code.GIT_EINVALIDSPEC or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_symbolic_create(libgit2.types.git_reference** out_, libgit2.types.git_repository* repo, const (char)* name, const (char)* target, int force, const (char)* log_message);
 
 /**
@@ -196,7 +197,7 @@ int git_reference_symbolic_create(libgit2.types.git_reference** out_, libgit2.ty
  *
  * Returns: 0 on success, git_error_code.GIT_EEXISTS, git_error_code.GIT_EINVALIDSPEC or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_create(libgit2.types.git_reference** out_, libgit2.types.git_repository* repo, const (char)* name, const (libgit2.oid.git_oid)* id, int force, const (char)* log_message);
 
 /**
@@ -241,7 +242,7 @@ int git_reference_create(libgit2.types.git_reference** out_, libgit2.types.git_r
  *
  * Returns: 0 on success, git_error_code.GIT_EMODIFIED if the value of the reference has changed, git_error_code.GIT_EEXISTS, git_error_code.GIT_EINVALIDSPEC or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_create_matching(libgit2.types.git_reference** out_, libgit2.types.git_repository* repo, const (char)* name, const (libgit2.oid.git_oid)* id, int force, const (libgit2.oid.git_oid)* current_id, const (char)* log_message);
 
 /**
@@ -259,7 +260,7 @@ int git_reference_create_matching(libgit2.types.git_reference** out_, libgit2.ty
  *
  * Returns: a pointer to the oid if available, null otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_reference_target(const (libgit2.types.git_reference)* ref_);
 
 /**
@@ -273,7 +274,7 @@ const (libgit2.oid.git_oid)* git_reference_target(const (libgit2.types.git_refer
  *
  * Returns: a pointer to the oid if available, null otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_reference_target_peel(const (libgit2.types.git_reference)* ref_);
 
 /**
@@ -286,7 +287,7 @@ const (libgit2.oid.git_oid)* git_reference_target_peel(const (libgit2.types.git_
  *
  * Returns: a pointer to the name if available, null otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_reference_symbolic_target(const (libgit2.types.git_reference)* ref_);
 
 /**
@@ -299,7 +300,7 @@ const (char)* git_reference_symbolic_target(const (libgit2.types.git_reference)*
  *
  * Returns: the type
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_reference_t git_reference_type(const (libgit2.types.git_reference)* ref_);
 
 /**
@@ -312,7 +313,7 @@ libgit2.types.git_reference_t git_reference_type(const (libgit2.types.git_refere
  *
  * Returns: the full name for the ref_
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_reference_name(const (libgit2.types.git_reference)* ref_);
 
 /**
@@ -333,7 +334,7 @@ const (char)* git_reference_name(const (libgit2.types.git_reference)* ref_);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_resolve(libgit2.types.git_reference** out_, const (libgit2.types.git_reference)* ref_);
 
 /**
@@ -344,7 +345,7 @@ int git_reference_resolve(libgit2.types.git_reference** out_, const (libgit2.typ
  *
  * Returns: a pointer to the repo
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_repository* git_reference_owner(const (libgit2.types.git_reference)* ref_);
 
 /**
@@ -369,7 +370,7 @@ libgit2.types.git_repository* git_reference_owner(const (libgit2.types.git_refer
  *
  * Returns: 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_symbolic_set_target(libgit2.types.git_reference** out_, libgit2.types.git_reference* ref_, const (char)* target, const (char)* log_message);
 
 /**
@@ -387,7 +388,7 @@ int git_reference_symbolic_set_target(libgit2.types.git_reference** out_, libgit
  *
  * Returns: 0 on success, git_error_code.GIT_EMODIFIED if the value of the reference has changed since it was read, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_set_target(libgit2.types.git_reference** out_, libgit2.types.git_reference* ref_, const (libgit2.oid.git_oid)* id, const (char)* log_message);
 
 /**
@@ -416,7 +417,7 @@ int git_reference_set_target(libgit2.types.git_reference** out_, libgit2.types.g
  * Returns: 0 on success, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EEXISTS or an error code
  *
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_rename(libgit2.types.git_reference** new_ref, libgit2.types.git_reference* ref_, const (char)* new_name, int force, const (char)* log_message);
 
 /**
@@ -434,7 +435,7 @@ int git_reference_rename(libgit2.types.git_reference** new_ref, libgit2.types.gi
  *
  * Returns: 0, git_error_code.GIT_EMODIFIED or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_delete(libgit2.types.git_reference* ref_);
 
 /**
@@ -449,7 +450,7 @@ int git_reference_delete(libgit2.types.git_reference* ref_);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_remove(libgit2.types.git_repository* repo, const (char)* name);
 
 /**
@@ -465,7 +466,7 @@ int git_reference_remove(libgit2.types.git_repository* repo, const (char)* name)
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_list(libgit2.strarray.git_strarray* array, libgit2.types.git_repository* repo);
 
 /**
@@ -514,7 +515,7 @@ alias git_reference_foreach_name_cb = int function(const (char)* name, void* pay
  *
  * Returns: 0 on success, non-zero callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_foreach(libgit2.types.git_repository* repo, .git_reference_foreach_cb callback, void* payload);
 
 /**
@@ -532,7 +533,7 @@ int git_reference_foreach(libgit2.types.git_repository* repo, .git_reference_for
  *
  * Returns: 0 on success, non-zero callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_foreach_name(libgit2.types.git_repository* repo, git_reference_foreach_name_cb callback, void* payload);
 
 /**
@@ -546,7 +547,7 @@ int git_reference_foreach_name(libgit2.types.git_repository* repo, git_reference
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_dup(libgit2.types.git_reference** dest, libgit2.types.git_reference* source);
 
 /**
@@ -555,7 +556,7 @@ int git_reference_dup(libgit2.types.git_reference** dest, libgit2.types.git_refe
  * Params:
  *      ref_ = git_reference
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_reference_free(libgit2.types.git_reference* ref_);
 
 /**
@@ -567,7 +568,7 @@ void git_reference_free(libgit2.types.git_reference* ref_);
  *
  * Returns: 0 if the same, else a stable but meaningless ordering.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_cmp(const (libgit2.types.git_reference)* ref1, const (libgit2.types.git_reference)* ref2);
 
 /**
@@ -579,7 +580,7 @@ int git_reference_cmp(const (libgit2.types.git_reference)* ref1, const (libgit2.
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_iterator_new(libgit2.types.git_reference_iterator** out_, libgit2.types.git_repository* repo);
 
 /**
@@ -593,7 +594,7 @@ int git_reference_iterator_new(libgit2.types.git_reference_iterator** out_, libg
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_iterator_glob_new(libgit2.types.git_reference_iterator** out_, libgit2.types.git_repository* repo, const (char)* glob);
 
 /**
@@ -605,7 +606,7 @@ int git_reference_iterator_glob_new(libgit2.types.git_reference_iterator** out_,
  *
  * Returns: 0, git_error_code.GIT_ITEROVER if there are no more; or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_next(libgit2.types.git_reference** out_, libgit2.types.git_reference_iterator* iter);
 
 /**
@@ -621,7 +622,7 @@ int git_reference_next(libgit2.types.git_reference** out_, libgit2.types.git_ref
  *
  * Returns: 0, git_error_code.GIT_ITEROVER if there are no more; or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_next_name(const (char)** out_, libgit2.types.git_reference_iterator* iter);
 
 /**
@@ -630,7 +631,7 @@ int git_reference_next_name(const (char)** out_, libgit2.types.git_reference_ite
  * Params:
  *      iter = the iterator to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_reference_iterator_free(libgit2.types.git_reference_iterator* iter);
 
 /**
@@ -653,7 +654,7 @@ void git_reference_iterator_free(libgit2.types.git_reference_iterator* iter);
  *
  * Returns: 0 on success, git_error_code.GIT_EUSER on non-zero callback, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_foreach_glob(libgit2.types.git_repository* repo, const (char)* glob, git_reference_foreach_name_cb callback, void* payload);
 
 /**
@@ -665,7 +666,7 @@ int git_reference_foreach_glob(libgit2.types.git_repository* repo, const (char)*
  *
  * Returns: 0 when no reflog can be found, 1 when it exists; otherwise an error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_has_log(libgit2.types.git_repository* repo, const (char)* refname);
 
 /**
@@ -680,7 +681,7 @@ int git_reference_has_log(libgit2.types.git_repository* repo, const (char)* refn
  *
  * Returns: 0 or an error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_ensure_log(libgit2.types.git_repository* repo, const (char)* refname);
 
 /**
@@ -691,7 +692,7 @@ int git_reference_ensure_log(libgit2.types.git_repository* repo, const (char)* r
  *
  * Returns: 1 when the reference lives in the refs/heads namespace; 0 otherwise.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_is_branch(const (libgit2.types.git_reference)* ref_);
 
 /**
@@ -702,7 +703,7 @@ int git_reference_is_branch(const (libgit2.types.git_reference)* ref_);
  *
  * Returns: 1 when the reference lives in the refs/remotes namespace; 0 otherwise.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_is_remote(const (libgit2.types.git_reference)* ref_);
 
 /**
@@ -713,7 +714,7 @@ int git_reference_is_remote(const (libgit2.types.git_reference)* ref_);
  *
  * Returns: 1 when the reference lives in the refs/tags namespace; 0 otherwise.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_is_tag(const (libgit2.types.git_reference)* ref_);
 
 /**
@@ -724,7 +725,7 @@ int git_reference_is_tag(const (libgit2.types.git_reference)* ref_);
  *
  * Returns: 1 when the reference lives in the refs/notes namespace; 0 otherwise.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_is_note(const (libgit2.types.git_reference)* ref_);
 
 /**
@@ -791,7 +792,7 @@ enum
  *
  * Returns: 0 on success, git_error_code.GIT_EBUFS if buffer is too small, git_error_code.GIT_EINVALIDSPEC or an error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_normalize_name(char* buffer_out, size_t buffer_size, const (char)* name, uint flags);
 
 /**
@@ -810,7 +811,7 @@ int git_reference_normalize_name(char* buffer_out, size_t buffer_size, const (ch
  *
  * Returns: 0 on success, git_error_code.GIT_EAMBIGUOUS, git_error_code.GIT_ENOTFOUND or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_peel(libgit2.types.git_object** out_, const (libgit2.types.git_reference)* ref_, libgit2.types.git_object_t type);
 
 /**
@@ -829,7 +830,7 @@ int git_reference_peel(libgit2.types.git_object** out_, const (libgit2.types.git
  *
  * Returns: 1 if the reference name is acceptable; 0 if it isn't
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reference_is_valid_name(const (char)* refname);
 
 /**
@@ -846,7 +847,7 @@ int git_reference_is_valid_name(const (char)* refname);
  *
  * Returns: the human-readable version of the name
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_reference_shorthand(const (libgit2.types.git_reference)* ref_);
 
 /* @} */

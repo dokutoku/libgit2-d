@@ -8,6 +8,7 @@ module libgit2.revparse;
 
 
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/revparse.h
@@ -37,7 +38,7 @@ public:
  *
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND, git_error_code.GIT_EAMBIGUOUS, git_error_code.GIT_EINVALIDSPEC or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revparse_single(libgit2.types.git_object** out_, libgit2.types.git_repository* repo, const (char)* spec);
 
 /**
@@ -62,7 +63,7 @@ int git_revparse_single(libgit2.types.git_object** out_, libgit2.types.git_repos
  *
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND, git_error_code.GIT_EAMBIGUOUS, git_error_code.GIT_EINVALIDSPEC or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revparse_ext(libgit2.types.git_object** object_out, libgit2.types.git_reference** reference_out, libgit2.types.git_repository* repo, const (char)* spec);
 
 /**
@@ -130,7 +131,7 @@ struct git_revspec
  *
  * Returns: 0 on success, GIT_INVALIDSPEC, git_error_code.GIT_ENOTFOUND, git_error_code.GIT_EAMBIGUOUS or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revparse(.git_revspec* revspec, libgit2.types.git_repository* repo, const (char)* spec);
 
 /* @} */

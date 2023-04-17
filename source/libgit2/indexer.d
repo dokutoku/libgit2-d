@@ -9,6 +9,7 @@ module libgit2.indexer;
 
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 extern (C):
 nothrow @nogc:
@@ -124,7 +125,7 @@ pure nothrow @safe @nogc
  *      opts = the `git_indexer_options` struct to initialize.
  *      version_ = Version of struct; pass `GIT_INDEXER_OPTIONS_VERSION`
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_indexer_options_init(.git_indexer_options* opts, uint version_);
 
 /**
@@ -137,7 +138,7 @@ int git_indexer_options_init(.git_indexer_options* opts, uint version_);
  *      odb = object database from which to read base objects when fixing thin packs. Pass null if no thin pack is expected (an error will be returned if there are bases missing)
  *      opts = Optional structure containing additional options. See `git_indexer_options` above.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_indexer_new(.git_indexer** out_, const (char)* path, uint mode, libgit2.types.git_odb* odb, .git_indexer_options* opts);
 
 /**
@@ -149,7 +150,7 @@ int git_indexer_new(.git_indexer** out_, const (char)* path, uint mode, libgit2.
  *      size = the size of the data in bytes
  *      stats = stat storage
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_indexer_append(.git_indexer* idx, const (void)* data, size_t size, .git_indexer_progress* stats);
 
 /**
@@ -161,7 +162,7 @@ int git_indexer_append(.git_indexer* idx, const (void)* data, size_t size, .git_
  *      idx = the indexer
  *      stats = ?
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_indexer_commit(.git_indexer* idx, .git_indexer_progress* stats);
 
 /**
@@ -173,7 +174,7 @@ int git_indexer_commit(.git_indexer* idx, .git_indexer_progress* stats);
  * Params:
  *      idx = the indexer instance
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_indexer_hash(const (.git_indexer)* idx);
 
 /**
@@ -182,5 +183,5 @@ const (libgit2.oid.git_oid)* git_indexer_hash(const (.git_indexer)* idx);
  * Params:
  *      idx = the indexer to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_indexer_free(.git_indexer* idx);

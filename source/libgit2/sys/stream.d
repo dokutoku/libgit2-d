@@ -10,6 +10,7 @@ module libgit2.sys.stream;
 private static import core.sys.posix.sys.types;
 private static import libgit2.proxy;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 extern (C):
 nothrow @nogc:
@@ -120,7 +121,7 @@ enum
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_stream_register(.git_stream_t type, .git_stream_registration* registration);
 
 deprecated:
@@ -154,6 +155,6 @@ version (GIT_DEPRECATE_HARD) {
 	 * @deprecated Provide a git_stream_registration to git_stream_register
 	 * @see git_stream_register
 	 */
-	//GIT_EXTERN
+	@GIT_EXTERN
 	int git_stream_register_tls(.git_stream_cb ctor);
 }

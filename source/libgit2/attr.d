@@ -8,6 +8,7 @@ module libgit2.attr;
 
 
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/attr.h
@@ -158,7 +159,7 @@ enum
  *
  * Returns: the value type for the attribute
  */
-//GIT_EXTERN
+@GIT_EXTERN
 .git_attr_value_t git_attr_value(const (char)* attr);
 
 /**
@@ -204,7 +205,7 @@ enum GIT_ATTR_CHECK_INCLUDE_HEAD = 1 << 3;
  *      path = The path to check for attributes.  Relative paths are interpreted relative to the repo root.  The file does not have to exist, but if it does not, then it will be treated as a plain file (not a directory).
  *      name = The name of the attribute to look up.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_attr_get(const (char)** value_out, libgit2.types.git_repository* repo, uint flags, const (char)* path, const (char)* name);
 
 /**
@@ -231,7 +232,7 @@ int git_attr_get(const (char)** value_out, libgit2.types.git_repository* repo, u
  *      num_attr = The number of attributes being looked up
  *      names = An array of num_attr strings containing attribute names.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_attr_get_many(const (char)** values_out, libgit2.types.git_repository* repo, uint flags, const (char)* path, size_t num_attr, const (char)** names);
 
 /**
@@ -265,7 +266,7 @@ alias git_attr_foreach_cb = int function(const (char)* name, const (char)* value
  *
  * Returns: 0 on success, non-zero callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_attr_foreach(libgit2.types.git_repository* repo, uint flags, const (char)* path, .git_attr_foreach_cb callback, void* payload);
 
 /**
@@ -281,7 +282,7 @@ int git_attr_foreach(libgit2.types.git_repository* repo, uint flags, const (char
  *
  * Returns: 0 on success, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_attr_cache_flush(libgit2.types.git_repository* repo);
 
 /**
@@ -294,7 +295,7 @@ int git_attr_cache_flush(libgit2.types.git_repository* repo);
  *
  *     git_attr_add_macro(repo, "binary", "-diff -crlf");
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_attr_add_macro(libgit2.types.git_repository* repo, const (char)* name, const (char)* values);
 
 /* @} */

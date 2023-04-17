@@ -9,6 +9,7 @@ module libgit2.sys.commit;
 
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/sys/commit.h
@@ -32,7 +33,7 @@ package(libgit2):
  *
  * @see git_commit_create
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_commit_create_from_ids(libgit2.oid.git_oid* id, libgit2.types.git_repository* repo, const (char)* update_ref, const (libgit2.types.git_signature)* author, const (libgit2.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2.oid.git_oid)* tree, size_t parent_count, const (libgit2.oid.git_oid)** parents);
 
 /**
@@ -55,7 +56,7 @@ alias git_commit_parent_callback = const (libgit2.oid.git_oid)* function(size_t 
  *
  * @see git_commit_create
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_commit_create_from_callback(libgit2.oid.git_oid* id, libgit2.types.git_repository* repo, const (char)* update_ref, const (libgit2.types.git_signature)* author, const (libgit2.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2.oid.git_oid)* tree, .git_commit_parent_callback parent_cb, void* parent_payload);
 
 /* @} */

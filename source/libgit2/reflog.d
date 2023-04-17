@@ -9,6 +9,7 @@ module libgit2.reflog;
 
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/reflog.h
@@ -38,7 +39,7 @@ public:
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reflog_read(libgit2.types.git_reflog** out_, libgit2.types.git_repository* repo, const (char)* name);
 
 /**
@@ -50,7 +51,7 @@ int git_reflog_read(libgit2.types.git_reflog** out_, libgit2.types.git_repositor
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reflog_write(libgit2.types.git_reflog* reflog);
 
 /**
@@ -66,7 +67,7 @@ int git_reflog_write(libgit2.types.git_reflog* reflog);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reflog_append(libgit2.types.git_reflog* reflog, const (libgit2.oid.git_oid)* id, const (libgit2.types.git_signature)* committer, const (char)* msg);
 
 /**
@@ -84,7 +85,7 @@ int git_reflog_append(libgit2.types.git_reflog* reflog, const (libgit2.oid.git_o
  *
  * Returns: 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reflog_rename(libgit2.types.git_repository* repo, const (char)* old_name, const (char)* name);
 
 /**
@@ -96,7 +97,7 @@ int git_reflog_rename(libgit2.types.git_repository* repo, const (char)* old_name
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reflog_delete(libgit2.types.git_repository* repo, const (char)* name);
 
 /**
@@ -107,7 +108,7 @@ int git_reflog_delete(libgit2.types.git_repository* repo, const (char)* name);
  *
  * Returns: the number of log entries
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_reflog_entrycount(libgit2.types.git_reflog* reflog);
 
 /**
@@ -122,7 +123,7 @@ size_t git_reflog_entrycount(libgit2.types.git_reflog* reflog);
  *
  * Returns: the entry; null if not found
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.types.git_reflog_entry)* git_reflog_entry_byindex(const (libgit2.types.git_reflog)* reflog, size_t idx);
 
 /**
@@ -139,7 +140,7 @@ const (libgit2.types.git_reflog_entry)* git_reflog_entry_byindex(const (libgit2.
  *
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if the entry doesn't exist or an error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reflog_drop(libgit2.types.git_reflog* reflog, size_t idx, int rewrite_previous_entry);
 
 /**
@@ -150,7 +151,7 @@ int git_reflog_drop(libgit2.types.git_reflog* reflog, size_t idx, int rewrite_pr
  *
  * Returns: the old oid
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_reflog_entry_id_old(const (libgit2.types.git_reflog_entry)* entry);
 
 /**
@@ -161,7 +162,7 @@ const (libgit2.oid.git_oid)* git_reflog_entry_id_old(const (libgit2.types.git_re
  *
  * Returns: the new oid at this time
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_reflog_entry_id_new(const (libgit2.types.git_reflog_entry)* entry);
 
 /**
@@ -172,7 +173,7 @@ const (libgit2.oid.git_oid)* git_reflog_entry_id_new(const (libgit2.types.git_re
  *
  * Returns: the committer
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.types.git_signature)* git_reflog_entry_committer(const (libgit2.types.git_reflog_entry)* entry);
 
 /**
@@ -183,7 +184,7 @@ const (libgit2.types.git_signature)* git_reflog_entry_committer(const (libgit2.t
  *
  * Returns: the log msg
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_reflog_entry_message(const (libgit2.types.git_reflog_entry)* entry);
 
 /**
@@ -192,7 +193,7 @@ const (char)* git_reflog_entry_message(const (libgit2.types.git_reflog_entry)* e
  * Params:
  *      reflog = reflog to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_reflog_free(libgit2.types.git_reflog* reflog);
 
 /* @} */

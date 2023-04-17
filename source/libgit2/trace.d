@@ -7,6 +7,8 @@
 module libgit2.trace;
 
 
+private import libgit2.common: GIT_EXTERN;
+
 /*
  * @file git2/trace.h
  * @brief Git tracing configuration routines
@@ -88,7 +90,7 @@ alias git_trace_cb = void function(.git_trace_level_t level, const (char)* msg);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_trace_set(.git_trace_level_t level, .git_trace_cb cb);
 
 /* @} */

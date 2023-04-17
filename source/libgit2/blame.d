@@ -9,6 +9,7 @@ module libgit2.blame;
 
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/blame.h
@@ -165,7 +166,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_blame_options_init(.git_blame_options* opts, uint version_);
 
 /**
@@ -217,7 +218,7 @@ struct git_blame;
 /**
  * Gets the number of hunks that exist in the blame structure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 uint git_blame_get_hunk_count(.git_blame* blame);
 
 /**
@@ -229,7 +230,7 @@ uint git_blame_get_hunk_count(.git_blame* blame);
  *
  * Returns: the hunk at the given index, or null on error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (.git_blame_hunk)* git_blame_get_hunk_byindex(.git_blame* blame, uint index);
 
 /**
@@ -241,7 +242,7 @@ const (.git_blame_hunk)* git_blame_get_hunk_byindex(.git_blame* blame, uint inde
  *
  * Returns: the hunk that contains the given line, or null on error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (.git_blame_hunk)* git_blame_get_hunk_byline(.git_blame* blame, size_t lineno);
 
 /**
@@ -255,7 +256,7 @@ const (.git_blame_hunk)* git_blame_get_hunk_byline(.git_blame* blame, size_t lin
  *
  * Returns: 0 on success, or an error code. (use git_error_last for information about the error.)
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_blame_file(.git_blame** out_, libgit2.types.git_repository* repo, const (char)* path, .git_blame_options* options);
 
 /**
@@ -275,7 +276,7 @@ int git_blame_file(.git_blame** out_, libgit2.types.git_repository* repo, const 
  *
  * Returns: 0 on success, or an error code. (use git_error_last for information about the error)
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_blame_buffer(.git_blame** out_, .git_blame* reference, const (char)* buffer, size_t buffer_len);
 
 /**
@@ -284,7 +285,7 @@ int git_blame_buffer(.git_blame** out_, .git_blame* reference, const (char)* buf
  * Params:
  *      blame = the blame structure to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_blame_free(.git_blame* blame);
 
 /* @} */

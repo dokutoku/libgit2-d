@@ -8,6 +8,7 @@ module libgit2.ignore;
 
 
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 extern (C):
 nothrow @nogc:
@@ -35,7 +36,7 @@ public:
  *
  * Returns: 0 on success
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_ignore_add_rule(libgit2.types.git_repository* repo, const (char)* rules);
 
 /**
@@ -51,7 +52,7 @@ int git_ignore_add_rule(libgit2.types.git_repository* repo, const (char)* rules)
  *
  * Returns: 0 on success
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_ignore_clear_internal_rules(libgit2.types.git_repository* repo);
 
 /**
@@ -71,5 +72,5 @@ int git_ignore_clear_internal_rules(libgit2.types.git_repository* repo);
  *
  * Returns: 0 if ignore rules could be processed for the file (regardless of whether it exists or not), or an error < 0 if they could not.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_ignore_path_is_ignored(int* ignored, libgit2.types.git_repository* repo, const (char)* path);

@@ -10,6 +10,7 @@ module libgit2.patch;
 private static import libgit2.buffer;
 private static import libgit2.diff;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/patch.h
@@ -51,7 +52,7 @@ struct git_patch;
  *
  * Returns: 0 on success, other value < 0 on error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_patch_from_diff(.git_patch** out_, libgit2.diff.git_diff* diff, size_t idx);
 
 /**
@@ -72,7 +73,7 @@ int git_patch_from_diff(.git_patch** out_, libgit2.diff.git_diff* diff, size_t i
  *
  * Returns: 0 on success or error code < 0
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_patch_from_blobs(.git_patch** out_, const (libgit2.types.git_blob)* old_blob, const (char)* old_as_path, const (libgit2.types.git_blob)* new_blob, const (char)* new_as_path, const (libgit2.diff.git_diff_options)* opts);
 
 /**
@@ -94,7 +95,7 @@ int git_patch_from_blobs(.git_patch** out_, const (libgit2.types.git_blob)* old_
  *
  * Returns: 0 on success or error code < 0
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_patch_from_blob_and_buffer(.git_patch** out_, const (libgit2.types.git_blob)* old_blob, const (char)* old_as_path, const (void)* buffer, size_t buffer_len, const (char)* buffer_as_path, const (libgit2.diff.git_diff_options)* opts);
 
 /**
@@ -117,26 +118,26 @@ int git_patch_from_blob_and_buffer(.git_patch** out_, const (libgit2.types.git_b
  *
  * Returns: 0 on success or error code < 0
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_patch_from_buffers(.git_patch** out_, const (void)* old_buffer, size_t old_len, const (char)* old_as_path, const (void)* new_buffer, size_t new_len, const (char)* new_as_path, const (libgit2.diff.git_diff_options)* opts);
 
 /**
  * Free a git_patch object.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_patch_free(.git_patch* patch);
 
 /**
  * Get the delta associated with a patch.  This delta points to internal
  * data and you do not have to release it when you are done with it.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.diff.git_diff_delta)* git_patch_get_delta(const (.git_patch)* patch);
 
 /**
  * Get the number of hunks in a patch
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_patch_num_hunks(const (.git_patch)* patch);
 
 /**
@@ -157,7 +158,7 @@ size_t git_patch_num_hunks(const (.git_patch)* patch);
  *
  * Returns: 0 on success, <0 on error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_patch_line_stats(size_t* total_context, size_t* total_additions, size_t* total_deletions, const (.git_patch)* patch);
 
 /**
@@ -175,7 +176,7 @@ int git_patch_line_stats(size_t* total_context, size_t* total_additions, size_t*
  *
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if hunk_idx out of range, <0 on error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_patch_get_hunk(const (libgit2.diff.git_diff_hunk)** out_, size_t* lines_in_hunk, .git_patch* patch, size_t hunk_idx);
 
 /**
@@ -187,7 +188,7 @@ int git_patch_get_hunk(const (libgit2.diff.git_diff_hunk)** out_, size_t* lines_
  *
  * Returns: Number of lines in hunk or git_error_code.GIT_ENOTFOUND if invalid hunk index
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_patch_num_lines_in_hunk(const (.git_patch)* patch, size_t hunk_idx);
 
 /**
@@ -206,7 +207,7 @@ int git_patch_num_lines_in_hunk(const (.git_patch)* patch, size_t hunk_idx);
  *
  * Returns: 0 on success, <0 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_patch_get_line_in_hunk(const (libgit2.diff.git_diff_line)** out_, .git_patch* patch, size_t hunk_idx, size_t line_of_hunk);
 
 /**
@@ -227,7 +228,7 @@ int git_patch_get_line_in_hunk(const (libgit2.diff.git_diff_line)** out_, .git_p
  *
  * Returns: The number of bytes of data
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_patch_size(.git_patch* patch, int include_context, int include_hunk_headers, int include_file_headers);
 
 /**
@@ -243,7 +244,7 @@ size_t git_patch_size(.git_patch* patch, int include_context, int include_hunk_h
  *
  * Returns: 0 on success, non-zero callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_patch_print(.git_patch* patch, libgit2.diff.git_diff_line_cb print_cb, void* payload);
 
 /**
@@ -255,7 +256,7 @@ int git_patch_print(.git_patch* patch, libgit2.diff.git_diff_line_cb print_cb, v
  *
  * Returns: 0 on success, <0 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_patch_to_buf(libgit2.buffer.git_buf* out_, .git_patch* patch);
 
 /*@}*/

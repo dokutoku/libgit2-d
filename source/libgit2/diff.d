@@ -11,6 +11,7 @@ private static import libgit2.buffer;
 private static import libgit2.oid;
 private static import libgit2.strarray;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/diff.h
@@ -672,7 +673,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_options_init(.git_diff_options* opts, uint version_);
 
 /**
@@ -1183,7 +1184,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_find_options_init(.git_diff_find_options* opts, uint version_);
 
 /*
@@ -1200,7 +1201,7 @@ int git_diff_find_options_init(.git_diff_find_options* opts, uint version_);
  * Params:
  *      diff = The previously created diff; cannot be used after free.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_diff_free(.git_diff* diff);
 
 /**
@@ -1220,7 +1221,7 @@ void git_diff_free(.git_diff* diff);
  *      new_tree = A git_tree object to diff to, or null for empty tree.
  *      opts = Structure with options to influence diff or null for defaults.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_tree_to_tree(.git_diff** diff, libgit2.types.git_repository* repo, libgit2.types.git_tree* old_tree, libgit2.types.git_tree* new_tree, const (.git_diff_options)* opts);
 
 /**
@@ -1243,7 +1244,7 @@ int git_diff_tree_to_tree(.git_diff** diff, libgit2.types.git_repository* repo, 
  *      index = The index to diff with; repo index used if null.
  *      opts = Structure with options to influence diff or null for defaults.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_tree_to_index(.git_diff** diff, libgit2.types.git_repository* repo, libgit2.types.git_tree* old_tree, libgit2.types.git_index* index, const (.git_diff_options)* opts);
 
 /**
@@ -1267,7 +1268,7 @@ int git_diff_tree_to_index(.git_diff** diff, libgit2.types.git_repository* repo,
  *      index = The index to diff from; repo index used if null.
  *      opts = Structure with options to influence diff or null for defaults.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_index_to_workdir(.git_diff** diff, libgit2.types.git_repository* repo, libgit2.types.git_index* index, const (.git_diff_options)* opts);
 
 /**
@@ -1294,7 +1295,7 @@ int git_diff_index_to_workdir(.git_diff** diff, libgit2.types.git_repository* re
  *      old_tree = A git_tree object to diff from, or null for empty tree.
  *      opts = Structure with options to influence diff or null for defaults.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_tree_to_workdir(.git_diff** diff, libgit2.types.git_repository* repo, libgit2.types.git_tree* old_tree, const (.git_diff_options)* opts);
 
 /**
@@ -1311,7 +1312,7 @@ int git_diff_tree_to_workdir(.git_diff** diff, libgit2.types.git_repository* rep
  *      old_tree = A git_tree object to diff from, or null for empty tree.
  *      opts = Structure with options to influence diff or null for defaults.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_tree_to_workdir_with_index(.git_diff** diff, libgit2.types.git_repository* repo, libgit2.types.git_tree* old_tree, const (.git_diff_options)* opts);
 
 /**
@@ -1327,7 +1328,7 @@ int git_diff_tree_to_workdir_with_index(.git_diff** diff, libgit2.types.git_repo
  *      new_index = A git_index object to diff to.
  *      opts = Structure with options to influence diff or null for defaults.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_index_to_index(.git_diff** diff, libgit2.types.git_repository* repo, libgit2.types.git_index* old_index, libgit2.types.git_index* new_index, const (.git_diff_options)* opts);
 
 /**
@@ -1344,7 +1345,7 @@ int git_diff_index_to_index(.git_diff** diff, libgit2.types.git_repository* repo
  *      onto = Diff to merge into.
  *      from = Diff to merge.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_merge(.git_diff* onto, const (.git_diff)* from);
 
 /**
@@ -1361,7 +1362,7 @@ int git_diff_merge(.git_diff* onto, const (.git_diff)* from);
  *
  * Returns: 0 on success, -1 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_find_similar(.git_diff* diff, const (.git_diff_find_options)* options);
 
 /*@}*/
@@ -1382,7 +1383,7 @@ int git_diff_find_similar(.git_diff* diff, const (.git_diff_find_options)* optio
  *
  * Returns: Count of number of deltas in the list
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_diff_num_deltas(const (.git_diff)* diff);
 
 /**
@@ -1398,7 +1399,7 @@ size_t git_diff_num_deltas(const (.git_diff)* diff);
  *
  * Returns: Count of number of deltas matching delta_t type
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_diff_num_deltas_of_type(const (.git_diff)* diff, .git_delta_t type);
 
 /**
@@ -1420,7 +1421,7 @@ size_t git_diff_num_deltas_of_type(const (.git_diff)* diff, .git_delta_t type);
  *
  * Returns: Pointer to git_diff_delta (or null if `idx` out of range)
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (.git_diff_delta)* git_diff_get_delta(const (.git_diff)* diff, size_t idx);
 
 /**
@@ -1431,7 +1432,7 @@ const (.git_diff_delta)* git_diff_get_delta(const (.git_diff)* diff, size_t idx)
  *
  * Returns: 0 if case sensitive, 1 if case is ignored
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_is_sorted_icase(const (.git_diff)* diff);
 
 /**
@@ -1458,7 +1459,7 @@ int git_diff_is_sorted_icase(const (.git_diff)* diff);
  *
  * Returns: 0 on success, non-zero callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_foreach(.git_diff* diff, .git_diff_file_cb file_cb, .git_diff_binary_cb binary_cb, .git_diff_hunk_cb hunk_cb, .git_diff_line_cb line_cb, void* payload);
 
 /**
@@ -1474,7 +1475,7 @@ int git_diff_foreach(.git_diff* diff, .git_diff_file_cb file_cb, .git_diff_binar
  *
  * Returns: The single character label for that code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 char git_diff_status_char(.git_delta_t status);
 
 /**
@@ -1538,7 +1539,7 @@ enum
  *
  * Returns: 0 on success, non-zero callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_print(.git_diff* diff, .git_diff_format_t format, .git_diff_line_cb print_cb, void* payload);
 
 /**
@@ -1552,7 +1553,7 @@ int git_diff_print(.git_diff* diff, .git_diff_format_t format, .git_diff_line_cb
  *
  * Returns: 0 on success or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_to_buf(libgit2.buffer.git_buf* out_, .git_diff* diff, .git_diff_format_t format);
 
 /*@}*/
@@ -1591,7 +1592,7 @@ int git_diff_to_buf(libgit2.buffer.git_buf* out_, .git_diff* diff, .git_diff_for
  *
  * Returns: 0 on success, non-zero callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_blobs(const (libgit2.types.git_blob)* old_blob, const (char)* old_as_path, const (libgit2.types.git_blob)* new_blob, const (char)* new_as_path, const (.git_diff_options)* options, .git_diff_file_cb file_cb, .git_diff_binary_cb binary_cb, .git_diff_hunk_cb hunk_cb, .git_diff_line_cb line_cb, void* payload);
 
 /**
@@ -1621,7 +1622,7 @@ int git_diff_blobs(const (libgit2.types.git_blob)* old_blob, const (char)* old_a
  *
  * Returns: 0 on success, non-zero callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_blob_to_buffer(const (libgit2.types.git_blob)* old_blob, const (char)* old_as_path, const (char)* buffer, size_t buffer_len, const (char)* buffer_as_path, const (.git_diff_options)* options, .git_diff_file_cb file_cb, .git_diff_binary_cb binary_cb, .git_diff_hunk_cb hunk_cb, .git_diff_line_cb line_cb, void* payload);
 
 /**
@@ -1647,7 +1648,7 @@ int git_diff_blob_to_buffer(const (libgit2.types.git_blob)* old_blob, const (cha
  *
  * Returns: 0 on success, non-zero callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_buffers(const (void)* old_buffer, size_t old_len, const (char)* old_as_path, const (void)* new_buffer, size_t new_len, const (char)* new_as_path, const (.git_diff_options)* options, .git_diff_file_cb file_cb, .git_diff_binary_cb binary_cb, .git_diff_hunk_cb hunk_cb, .git_diff_line_cb line_cb, void* payload);
 
 /**
@@ -1671,7 +1672,7 @@ int git_diff_buffers(const (void)* old_buffer, size_t old_len, const (char)* old
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_from_buffer(.git_diff** out_, const (char)* content, size_t content_len);
 
 /**
@@ -1732,7 +1733,7 @@ enum
  *
  * Returns: 0 on success; non-zero on error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_get_stats(.git_diff_stats** out_, .git_diff* diff);
 
 /**
@@ -1743,7 +1744,7 @@ int git_diff_get_stats(.git_diff_stats** out_, .git_diff* diff);
  *
  * Returns: total number of files changed in the diff
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_diff_stats_files_changed(const (.git_diff_stats)* stats);
 
 /**
@@ -1754,7 +1755,7 @@ size_t git_diff_stats_files_changed(const (.git_diff_stats)* stats);
  *
  * Returns: total number of insertions in the diff
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_diff_stats_insertions(const (.git_diff_stats)* stats);
 
 /**
@@ -1765,7 +1766,7 @@ size_t git_diff_stats_insertions(const (.git_diff_stats)* stats);
  *
  * Returns: total number of deletions in the diff
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_diff_stats_deletions(const (.git_diff_stats)* stats);
 
 /**
@@ -1779,7 +1780,7 @@ size_t git_diff_stats_deletions(const (.git_diff_stats)* stats);
  *
  * Returns: 0 on success; non-zero on error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_stats_to_buf(libgit2.buffer.git_buf* out_, const (.git_diff_stats)* stats, .git_diff_stats_format_t format, size_t width);
 
 /**
@@ -1789,7 +1790,7 @@ int git_diff_stats_to_buf(libgit2.buffer.git_buf* out_, const (.git_diff_stats)*
  *      stats = The previously created statistics object;
  * cannot be used after free.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_diff_stats_free(.git_diff_stats* stats);
 
 /**
@@ -1891,7 +1892,7 @@ pure nothrow @safe @nogc
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_format_email(libgit2.buffer.git_buf* out_, .git_diff* diff, const (.git_diff_format_email_options)* opts);
 
 /**
@@ -1910,7 +1911,7 @@ int git_diff_format_email(libgit2.buffer.git_buf* out_, .git_diff* diff, const (
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_commit_as_email(libgit2.buffer.git_buf* out_, libgit2.types.git_repository* repo, libgit2.types.git_commit* commit, size_t patch_no, size_t total_patches, uint flags, const (.git_diff_options)* diff_opts);
 
 /**
@@ -1925,7 +1926,7 @@ int git_diff_commit_as_email(libgit2.buffer.git_buf* out_, libgit2.types.git_rep
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_format_email_options_init(.git_diff_format_email_options* opts, uint version_);
 
 /**
@@ -1967,7 +1968,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_patchid_options_init(.git_diff_patchid_options* opts, uint version_);
 
 /**
@@ -1989,7 +1990,7 @@ int git_diff_patchid_options_init(.git_diff_patchid_options* opts, uint version_
  *
  * Returns: 0 on success, an error code otherwise.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_diff_patchid(libgit2.oid.git_oid* out_, .git_diff* diff, .git_diff_patchid_options* opts);
 
 /* @} */

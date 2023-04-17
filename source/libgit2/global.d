@@ -7,6 +7,8 @@
 module libgit2.global;
 
 
+private import libgit2.common: GIT_EXTERN;
+
 extern (C):
 nothrow @nogc:
 public:
@@ -23,7 +25,7 @@ public:
  *
  * Returns: the number of initializations of the library, or an error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_libgit2_init();
 
 /**
@@ -36,7 +38,7 @@ int git_libgit2_init();
  *
  * Returns: the number of remaining initializations of the library, or an error code.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_libgit2_shutdown();
 
 /* @} */

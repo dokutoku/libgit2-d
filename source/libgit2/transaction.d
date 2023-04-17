@@ -9,6 +9,7 @@ module libgit2.transaction;
 
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/transaction.h
@@ -33,7 +34,7 @@ public:
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transaction_new(libgit2.types.git_transaction** out_, libgit2.types.git_repository* repo);
 
 /**
@@ -48,7 +49,7 @@ int git_transaction_new(libgit2.types.git_transaction** out_, libgit2.types.git_
  *
  * Returns: 0 or an error message
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transaction_lock_ref(libgit2.types.git_transaction* tx, const (char)* refname);
 
 /**
@@ -66,7 +67,7 @@ int git_transaction_lock_ref(libgit2.types.git_transaction* tx, const (char)* re
  *
  * Returns: 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transaction_set_target(libgit2.types.git_transaction* tx, const (char)* refname, const (libgit2.oid.git_oid)* target, const (libgit2.types.git_signature)* sig, const (char)* msg);
 
 /**
@@ -84,7 +85,7 @@ int git_transaction_set_target(libgit2.types.git_transaction* tx, const (char)* 
  *
  * Returns: 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transaction_set_symbolic_target(libgit2.types.git_transaction* tx, const (char)* refname, const (char)* target, const (libgit2.types.git_signature)* sig, const (char)* msg);
 
 /**
@@ -100,7 +101,7 @@ int git_transaction_set_symbolic_target(libgit2.types.git_transaction* tx, const
  *
  * Returns: 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transaction_set_reflog(libgit2.types.git_transaction* tx, const (char)* refname, const (libgit2.types.git_reflog)* reflog);
 
 /**
@@ -112,7 +113,7 @@ int git_transaction_set_reflog(libgit2.types.git_transaction* tx, const (char)* 
  *
  * Returns: 0, git_error_code.GIT_ENOTFOUND if the reference is not among the locked ones, or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transaction_remove(libgit2.types.git_transaction* tx, const (char)* refname);
 
 /**
@@ -126,7 +127,7 @@ int git_transaction_remove(libgit2.types.git_transaction* tx, const (char)* refn
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_transaction_commit(libgit2.types.git_transaction* tx);
 
 /**
@@ -138,7 +139,7 @@ int git_transaction_commit(libgit2.types.git_transaction* tx);
  * Params:
  *      tx = the transaction
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_transaction_free(libgit2.types.git_transaction* tx);
 
 /* @} */

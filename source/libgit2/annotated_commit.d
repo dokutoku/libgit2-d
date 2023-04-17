@@ -9,6 +9,7 @@ module libgit2.annotated_commit;
 
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/annotated_commit.h
@@ -33,7 +34,7 @@ public:
  *
  * Returns: 0 on success or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_annotated_commit_from_ref(libgit2.types.git_annotated_commit** out_, libgit2.types.git_repository* repo, const (libgit2.types.git_reference)* ref_);
 
 /**
@@ -50,7 +51,7 @@ int git_annotated_commit_from_ref(libgit2.types.git_annotated_commit** out_, lib
  *
  * Returns: 0 on success or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_annotated_commit_from_fetchhead(libgit2.types.git_annotated_commit** out_, libgit2.types.git_repository* repo, const (char)* branch_name, const (char)* remote_url, const (libgit2.oid.git_oid)* id);
 
 /**
@@ -73,7 +74,7 @@ int git_annotated_commit_from_fetchhead(libgit2.types.git_annotated_commit** out
  *
  * Returns: 0 on success or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_annotated_commit_lookup(libgit2.types.git_annotated_commit** out_, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* id);
 
 /**
@@ -90,7 +91,7 @@ int git_annotated_commit_lookup(libgit2.types.git_annotated_commit** out_, libgi
  *
  * Returns: 0 on success or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_annotated_commit_from_revspec(libgit2.types.git_annotated_commit** out_, libgit2.types.git_repository* repo, const (char)* revspec);
 
 /**
@@ -101,7 +102,7 @@ int git_annotated_commit_from_revspec(libgit2.types.git_annotated_commit** out_,
  *
  * Returns: commit id
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_annotated_commit_id(const (libgit2.types.git_annotated_commit)* commit);
 
 /**
@@ -112,7 +113,7 @@ const (libgit2.oid.git_oid)* git_annotated_commit_id(const (libgit2.types.git_an
  *
  * Returns: ref name.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_annotated_commit_ref(const (libgit2.types.git_annotated_commit)* commit);
 
 /**
@@ -121,7 +122,7 @@ const (char)* git_annotated_commit_ref(const (libgit2.types.git_annotated_commit
  * Params:
  *      commit = annotated commit to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_annotated_commit_free(libgit2.types.git_annotated_commit* commit);
 
 /* @} */

@@ -7,6 +7,8 @@
 module libgit2.sys.openssl;
 
 
+private import libgit2.common: GIT_EXTERN;
+
 extern (C):
 nothrow @nogc:
 package(libgit2):
@@ -30,5 +32,5 @@ package(libgit2):
  *
  * Returns: 0 on success, -1 if there are errors or if libgit2 was not built with OpenSSL and threading support.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_openssl_set_locking();

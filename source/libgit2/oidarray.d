@@ -8,6 +8,7 @@ module libgit2.oidarray;
 
 
 private static import libgit2.oid;
+private import libgit2.common: GIT_EXTERN;
 
 extern (C):
 nothrow @nogc:
@@ -36,7 +37,7 @@ struct git_oidarray
  * Params:
  *      array = git_oidarray from which to free oid data
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_oidarray_free(.git_oidarray* array);
 
 /* @} */

@@ -9,6 +9,7 @@ module libgit2.sys.refs;
 
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/sys/refs.h
@@ -31,7 +32,7 @@ package(libgit2):
  *
  * Returns: the created git_reference or null on error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_reference* git_reference__alloc(const (char)* name, const (libgit2.oid.git_oid)* oid, const (libgit2.oid.git_oid)* peel);
 
 /**
@@ -43,7 +44,7 @@ libgit2.types.git_reference* git_reference__alloc(const (char)* name, const (lib
  *
  * Returns: the created git_reference or null on error
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_reference* git_reference__alloc_symbolic(const (char)* name, const (char)* target);
 
 /* @} */

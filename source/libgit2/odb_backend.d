@@ -10,6 +10,7 @@ module libgit2.odb_backend;
 private static import libgit2.indexer;
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/backend.h
@@ -35,7 +36,7 @@ public:
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_odb_backend_pack(libgit2.types.git_odb_backend** out_, const (char)* objects_dir);
 
 /**
@@ -51,7 +52,7 @@ int git_odb_backend_pack(libgit2.types.git_odb_backend** out_, const (char)* obj
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_odb_backend_loose(libgit2.types.git_odb_backend** out_, const (char)* objects_dir, int compression_level, int do_fsync, uint dir_mode, uint file_mode);
 
 /**
@@ -66,7 +67,7 @@ int git_odb_backend_loose(libgit2.types.git_odb_backend** out_, const (char)* ob
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_odb_backend_one_pack(libgit2.types.git_odb_backend** out_, const (char)* index_file);
 
 /**

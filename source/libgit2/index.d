@@ -11,6 +11,7 @@ private static import libgit2.oid;
 private static import libgit2.strarray;
 private static import libgit2.types;
 private static import std.traits;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/index.h
@@ -270,7 +271,7 @@ enum
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_open(libgit2.types.git_index** out_, const (char)* index_path);
 
 /**
@@ -286,7 +287,7 @@ int git_index_open(libgit2.types.git_index** out_, const (char)* index_path);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_new(libgit2.types.git_index** out_);
 
 /**
@@ -295,7 +296,7 @@ int git_index_new(libgit2.types.git_index** out_);
  * Params:
  *      index = an existing index object
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_index_free(libgit2.types.git_index* index);
 
 /**
@@ -306,7 +307,7 @@ void git_index_free(libgit2.types.git_index* index);
  *
  * Returns: A pointer to the repository
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_repository* git_index_owner(const (libgit2.types.git_index)* index);
 
 /**
@@ -317,7 +318,7 @@ libgit2.types.git_repository* git_index_owner(const (libgit2.types.git_index)* i
  *
  * Returns: A combination of GIT_INDEX_CAPABILITY values
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_caps(const (libgit2.types.git_index)* index);
 
 /**
@@ -333,7 +334,7 @@ int git_index_caps(const (libgit2.types.git_index)* index);
  *
  * Returns: 0 on success, -1 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_set_caps(libgit2.types.git_index* index, int caps);
 
 /**
@@ -348,7 +349,7 @@ int git_index_set_caps(libgit2.types.git_index* index, int caps);
  *
  * Returns: the index version
  */
-//GIT_EXTERN
+@GIT_EXTERN
 uint git_index_version(libgit2.types.git_index* index);
 
 /**
@@ -364,7 +365,7 @@ uint git_index_version(libgit2.types.git_index* index);
  *
  * Returns: 0 on success, -1 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_set_version(libgit2.types.git_index* index, uint version_);
 
 /**
@@ -386,7 +387,7 @@ int git_index_set_version(libgit2.types.git_index* index, uint version_);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_read(libgit2.types.git_index* index, int force);
 
 /**
@@ -398,7 +399,7 @@ int git_index_read(libgit2.types.git_index* index, int force);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_write(libgit2.types.git_index* index);
 
 /**
@@ -409,7 +410,7 @@ int git_index_write(libgit2.types.git_index* index);
  *
  * Returns: path to index file or null for in-memory index
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_index_path(const (libgit2.types.git_index)* index);
 
 /**
@@ -424,7 +425,7 @@ const (char)* git_index_path(const (libgit2.types.git_index)* index);
  *
  * Returns: a pointer to the checksum of the index
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_index_checksum(libgit2.types.git_index* index);
 
 /**
@@ -438,7 +439,7 @@ const (libgit2.oid.git_oid)* git_index_checksum(libgit2.types.git_index* index);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_read_tree(libgit2.types.git_index* index, const (libgit2.types.git_tree)* tree);
 
 /**
@@ -461,7 +462,7 @@ int git_index_read_tree(libgit2.types.git_index* index, const (libgit2.types.git
  *
  * Returns: 0 on success, git_error_code.GIT_EUNMERGED when the index is not clean or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_write_tree(libgit2.oid.git_oid* out_, libgit2.types.git_index* index);
 
 /**
@@ -480,7 +481,7 @@ int git_index_write_tree(libgit2.oid.git_oid* out_, libgit2.types.git_index* ind
  *
  * Returns: 0 on success, git_error_code.GIT_EUNMERGED when the index is not clean or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_write_tree_to(libgit2.oid.git_oid* out_, libgit2.types.git_index* index, libgit2.types.git_repository* repo);
 
 /*@}*/
@@ -503,7 +504,7 @@ int git_index_write_tree_to(libgit2.oid.git_oid* out_, libgit2.types.git_index* 
  *
  * Returns: integer of count of current entries
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_index_entrycount(const (libgit2.types.git_index)* index);
 
 /**
@@ -517,7 +518,7 @@ size_t git_index_entrycount(const (libgit2.types.git_index)* index);
  *
  * Returns: 0 on success, error code < 0 on failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_clear(libgit2.types.git_index* index);
 
 /**
@@ -533,7 +534,7 @@ int git_index_clear(libgit2.types.git_index* index);
  *
  * Returns: a pointer to the entry; null if out of bounds
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (.git_index_entry)* git_index_get_byindex(libgit2.types.git_index* index, size_t n);
 
 /**
@@ -550,7 +551,7 @@ const (.git_index_entry)* git_index_get_byindex(libgit2.types.git_index* index, 
  *
  * Returns: a pointer to the entry; null if it was not found
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (.git_index_entry)* git_index_get_bypath(libgit2.types.git_index* index, const (char)* path, int stage);
 
 /**
@@ -563,7 +564,7 @@ const (.git_index_entry)* git_index_get_bypath(libgit2.types.git_index* index, c
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_remove(libgit2.types.git_index* index, const (char)* path, int stage);
 
 /**
@@ -576,7 +577,7 @@ int git_index_remove(libgit2.types.git_index* index, const (char)* path, int sta
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_remove_directory(libgit2.types.git_index* index, const (char)* dir, int stage);
 
 /**
@@ -595,7 +596,7 @@ int git_index_remove_directory(libgit2.types.git_index* index, const (char)* dir
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_add(libgit2.types.git_index* index, const (.git_index_entry)* source_entry);
 
 /**
@@ -610,7 +611,7 @@ int git_index_add(libgit2.types.git_index* index, const (.git_index_entry)* sour
  *
  * Returns: the stage number
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_entry_stage(const (.git_index_entry)* entry);
 
 /**
@@ -622,7 +623,7 @@ int git_index_entry_stage(const (.git_index_entry)* entry);
  *
  * Returns: 1 if the entry is a conflict entry, 0 otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_entry_is_conflict(const (.git_index_entry)* entry);
 
 /*@}*/
@@ -644,7 +645,7 @@ int git_index_entry_is_conflict(const (.git_index_entry)* entry);
  *      iterator_out = The newly created iterator
  *      index = The index to iterate
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_iterator_new(libgit2.types.git_index_iterator** iterator_out, libgit2.types.git_index* index);
 
 /**
@@ -656,7 +657,7 @@ int git_index_iterator_new(libgit2.types.git_index_iterator** iterator_out, libg
  *
  * Returns: 0, git_error_code.GIT_ITEROVER on iteration completion or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_iterator_next(const (.git_index_entry)** out_, libgit2.types.git_index_iterator* iterator);
 
 /**
@@ -665,7 +666,7 @@ int git_index_iterator_next(const (.git_index_entry)** out_, libgit2.types.git_i
  * Params:
  *      iterator = The iterator to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_index_iterator_free(libgit2.types.git_index_iterator* iterator);
 
 /*@}*/
@@ -700,7 +701,7 @@ void git_index_iterator_free(libgit2.types.git_index_iterator* iterator);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_add_bypath(libgit2.types.git_index* index, const (char)* path);
 
 /**
@@ -731,7 +732,7 @@ int git_index_add_bypath(libgit2.types.git_index* index, const (char)* path);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_add_from_buffer(libgit2.types.git_index* index, const (.git_index_entry)* entry, const (void)* buffer, size_t len);
 
 /**
@@ -750,7 +751,7 @@ int git_index_add_from_buffer(libgit2.types.git_index* index, const (.git_index_
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_remove_bypath(libgit2.types.git_index* index, const (char)* path);
 
 /**
@@ -799,7 +800,7 @@ int git_index_remove_bypath(libgit2.types.git_index* index, const (char)* path);
  *
  * Returns: 0 on success, negative callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_add_all(libgit2.types.git_index* index, const (libgit2.strarray.git_strarray)* pathspec, uint flags, .git_index_matched_path_cb callback, void* payload);
 
 /**
@@ -817,7 +818,7 @@ int git_index_add_all(libgit2.types.git_index* index, const (libgit2.strarray.gi
  *
  * Returns: 0 on success, negative callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_remove_all(libgit2.types.git_index* index, const (libgit2.strarray.git_strarray)* pathspec, .git_index_matched_path_cb callback, void* payload);
 
 /**
@@ -843,7 +844,7 @@ int git_index_remove_all(libgit2.types.git_index* index, const (libgit2.strarray
  *
  * Returns: 0 on success, negative callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_update_all(libgit2.types.git_index* index, const (libgit2.strarray.git_strarray)* pathspec, .git_index_matched_path_cb callback, void* payload);
 
 /**
@@ -857,7 +858,7 @@ int git_index_update_all(libgit2.types.git_index* index, const (libgit2.strarray
  *
  * Returns: 0 with valid value in at_pos; an error code otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_find(size_t* at_pos, libgit2.types.git_index* index, const (char)* path);
 
 /**
@@ -871,7 +872,7 @@ int git_index_find(size_t* at_pos, libgit2.types.git_index* index, const (char)*
  *
  * Returns: 0 with valid value in at_pos; an error code otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_find_prefix(size_t* at_pos, libgit2.types.git_index* index, const (char)* prefix);
 
 /*@}*/
@@ -900,7 +901,7 @@ int git_index_find_prefix(size_t* at_pos, libgit2.types.git_index* index, const 
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_conflict_add(libgit2.types.git_index* index, const (.git_index_entry)* ancestor_entry, const (.git_index_entry)* our_entry, const (.git_index_entry)* their_entry);
 
 /**
@@ -919,7 +920,7 @@ int git_index_conflict_add(libgit2.types.git_index* index, const (.git_index_ent
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_conflict_get(const (.git_index_entry)** ancestor_out, const (.git_index_entry)** our_out, const (.git_index_entry)** their_out, libgit2.types.git_index* index, const (char)* path);
 
 /**
@@ -931,7 +932,7 @@ int git_index_conflict_get(const (.git_index_entry)** ancestor_out, const (.git_
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_conflict_remove(libgit2.types.git_index* index, const (char)* path);
 
 /**
@@ -942,7 +943,7 @@ int git_index_conflict_remove(libgit2.types.git_index* index, const (char)* path
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_conflict_cleanup(libgit2.types.git_index* index);
 
 /**
@@ -950,7 +951,7 @@ int git_index_conflict_cleanup(libgit2.types.git_index* index);
  *
  * Returns: 1 if at least one conflict is found, 0 otherwise.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_has_conflicts(const (libgit2.types.git_index)* index);
 
 /**
@@ -964,7 +965,7 @@ int git_index_has_conflicts(const (libgit2.types.git_index)* index);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_conflict_iterator_new(libgit2.types.git_index_conflict_iterator** iterator_out, libgit2.types.git_index* index);
 
 /**
@@ -979,7 +980,7 @@ int git_index_conflict_iterator_new(libgit2.types.git_index_conflict_iterator** 
  *
  * Returns: 0 (no error), git_error_code.GIT_ITEROVER (iteration is done) or an error code (negative value)
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_index_conflict_next(const (.git_index_entry)** ancestor_out, const (.git_index_entry)** our_out, const (.git_index_entry)** their_out, libgit2.types.git_index_conflict_iterator* iterator);
 
 /**
@@ -988,7 +989,7 @@ int git_index_conflict_next(const (.git_index_entry)** ancestor_out, const (.git
  * Params:
  *      iterator = pointer to the iterator
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_index_conflict_iterator_free(libgit2.types.git_index_conflict_iterator* iterator);
 
 /* @} */

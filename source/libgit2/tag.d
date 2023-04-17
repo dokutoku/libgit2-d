@@ -10,6 +10,7 @@ module libgit2.tag;
 private static import libgit2.oid;
 private static import libgit2.strarray;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/tag.h
@@ -32,7 +33,7 @@ public:
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tag_lookup(libgit2.types.git_tag** out_, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* id);
 
 /**
@@ -49,7 +50,7 @@ int git_tag_lookup(libgit2.types.git_tag** out_, libgit2.types.git_repository* r
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tag_lookup_prefix(libgit2.types.git_tag** out_, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* id, size_t len);
 
 /**
@@ -63,7 +64,7 @@ int git_tag_lookup_prefix(libgit2.types.git_tag** out_, libgit2.types.git_reposi
  * Params:
  *      tag = the tag to close
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_tag_free(libgit2.types.git_tag* tag);
 
 /**
@@ -74,7 +75,7 @@ void git_tag_free(libgit2.types.git_tag* tag);
  *
  * Returns: object identity for the tag.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_tag_id(const (libgit2.types.git_tag)* tag);
 
 /**
@@ -85,7 +86,7 @@ const (libgit2.oid.git_oid)* git_tag_id(const (libgit2.types.git_tag)* tag);
  *
  * Returns: Repository that contains this tag.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_repository* git_tag_owner(const (libgit2.types.git_tag)* tag);
 
 /**
@@ -100,7 +101,7 @@ libgit2.types.git_repository* git_tag_owner(const (libgit2.types.git_tag)* tag);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tag_target(libgit2.types.git_object** target_out, const (libgit2.types.git_tag)* tag);
 
 /**
@@ -111,7 +112,7 @@ int git_tag_target(libgit2.types.git_object** target_out, const (libgit2.types.g
  *
  * Returns: pointer to the OID
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_tag_target_id(const (libgit2.types.git_tag)* tag);
 
 /**
@@ -122,7 +123,7 @@ const (libgit2.oid.git_oid)* git_tag_target_id(const (libgit2.types.git_tag)* ta
  *
  * Returns: type of the tagged object
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_object_t git_tag_target_type(const (libgit2.types.git_tag)* tag);
 
 /**
@@ -133,7 +134,7 @@ libgit2.types.git_object_t git_tag_target_type(const (libgit2.types.git_tag)* ta
  *
  * Returns: name of the tag
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_tag_name(const (libgit2.types.git_tag)* tag);
 
 /**
@@ -144,7 +145,7 @@ const (char)* git_tag_name(const (libgit2.types.git_tag)* tag);
  *
  * Returns: reference to the tag's author or null when unspecified
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.types.git_signature)* git_tag_tagger(const (libgit2.types.git_tag)* tag);
 
 /**
@@ -155,7 +156,7 @@ const (libgit2.types.git_signature)* git_tag_tagger(const (libgit2.types.git_tag
  *
  * Returns: message of the tag or null when unspecified
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_tag_message(const (libgit2.types.git_tag)* tag);
 
 /**
@@ -183,7 +184,7 @@ const (char)* git_tag_message(const (libgit2.types.git_tag)* tag);
  *
  * Returns: 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code A tag object is written to the ODB, and a proper reference is written in the /refs/tags folder, pointing to it
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tag_create(libgit2.oid.git_oid* oid, libgit2.types.git_repository* repo, const (char)* tag_name, const (libgit2.types.git_object)* target, const (libgit2.types.git_signature)* tagger, const (char)* message, int force);
 
 /**
@@ -202,7 +203,7 @@ int git_tag_create(libgit2.oid.git_oid* oid, libgit2.types.git_repository* repo,
  *
  * Returns: 0 on success or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tag_annotation_create(libgit2.oid.git_oid* oid, libgit2.types.git_repository* repo, const (char)* tag_name, const (libgit2.types.git_object)* target, const (libgit2.types.git_signature)* tagger, const (char)* message);
 
 /**
@@ -216,7 +217,7 @@ int git_tag_annotation_create(libgit2.oid.git_oid* oid, libgit2.types.git_reposi
  *
  * Returns: 0 on success; error code otherwise
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tag_create_from_buffer(libgit2.oid.git_oid* oid, libgit2.types.git_repository* repo, const (char)* buffer, int force);
 
 /**
@@ -238,7 +239,7 @@ int git_tag_create_from_buffer(libgit2.oid.git_oid* oid, libgit2.types.git_repos
  *
  * Returns: 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code A proper reference is written in the /refs/tags folder, pointing to the provided target object
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tag_create_lightweight(libgit2.oid.git_oid* oid, libgit2.types.git_repository* repo, const (char)* tag_name, const (libgit2.types.git_object)* target, int force);
 
 /**
@@ -253,7 +254,7 @@ int git_tag_create_lightweight(libgit2.oid.git_oid* oid, libgit2.types.git_repos
  *
  * Returns: 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tag_delete(libgit2.types.git_repository* repo, const (char)* tag_name);
 
 /**
@@ -270,7 +271,7 @@ int git_tag_delete(libgit2.types.git_repository* repo, const (char)* tag_name);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tag_list(libgit2.strarray.git_strarray* tag_names, libgit2.types.git_repository* repo);
 
 /**
@@ -292,7 +293,7 @@ int git_tag_list(libgit2.strarray.git_strarray* tag_names, libgit2.types.git_rep
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tag_list_match(libgit2.strarray.git_strarray* tag_names, const (char)* pattern, libgit2.types.git_repository* repo);
 
 /**
@@ -318,7 +319,7 @@ alias git_tag_foreach_cb = int function(const (char)* name, libgit2.oid.git_oid*
  *      callback = Callback function
  *      payload = Pointer to callback data (optional)
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tag_foreach(libgit2.types.git_repository* repo, .git_tag_foreach_cb callback, void* payload);
 
 /**
@@ -333,7 +334,7 @@ int git_tag_foreach(libgit2.types.git_repository* repo, .git_tag_foreach_cb call
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tag_peel(libgit2.types.git_object** tag_target_out, const (libgit2.types.git_tag)* tag);
 
 /**
@@ -344,7 +345,7 @@ int git_tag_peel(libgit2.types.git_object** tag_target_out, const (libgit2.types
  *      out_ = Pointer to store the copy of the tag
  *      source = Original tag to copy
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_tag_dup(libgit2.types.git_tag** out_, libgit2.types.git_tag* source);
 
 /* @} */

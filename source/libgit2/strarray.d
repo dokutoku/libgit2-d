@@ -7,6 +7,8 @@
 module libgit2.strarray;
 
 
+private import libgit2.common: GIT_EXTERN;
+
 /*
  * @file git2/strarray.h
  * @brief Git string array routines
@@ -38,7 +40,7 @@ struct git_strarray
  * Params:
  *      array = The git_strarray that contains strings to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_strarray_dispose(.git_strarray* array);
 
 /**
@@ -53,7 +55,7 @@ void git_strarray_dispose(.git_strarray* array);
  *
  * Returns: 0 on success, < 0 on allocation failure
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_strarray_copy(.git_strarray* tgt, const (.git_strarray)* src);
 
 /* @} */

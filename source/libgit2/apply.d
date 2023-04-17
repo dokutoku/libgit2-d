@@ -9,6 +9,7 @@ module libgit2.apply;
 
 private static import libgit2.diff;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/apply.h
@@ -123,7 +124,7 @@ pure nothrow @safe @nogc
 		return OUTPUT;
 	}
 
-//GIT_EXTERN
+@GIT_EXTERN
 int git_apply_options_init(.git_apply_options* opts, uint version_);
 
 /**
@@ -139,7 +140,7 @@ int git_apply_options_init(.git_apply_options* opts, uint version_);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_apply_to_tree(libgit2.types.git_index** out_, libgit2.types.git_repository* repo, libgit2.types.git_tree* preimage, libgit2.diff.git_diff* diff, const (.git_apply_options)* options);
 
 /**
@@ -186,7 +187,7 @@ enum
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_apply(libgit2.types.git_repository* repo, libgit2.diff.git_diff* diff, .git_apply_location_t location, const (.git_apply_options)* options);
 
 /* @} */

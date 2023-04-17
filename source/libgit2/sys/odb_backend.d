@@ -11,6 +11,7 @@ private static import libgit2.indexer;
 private static import libgit2.odb;
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/sys/backend.h
@@ -121,7 +122,7 @@ pure nothrow @safe @nogc
  *
  * Returns: Zero on success; -1 on failure.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_odb_init_backend(.git_odb_backend* backend, uint version_);
 
 /**
@@ -138,7 +139,7 @@ int git_odb_init_backend(.git_odb_backend* backend, uint version_);
  *
  * Returns: the allocated buffer on success or NULL if out of memory
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void* git_odb_backend_data_alloc(.git_odb_backend* backend, size_t len);
 
 /**
@@ -151,7 +152,7 @@ void* git_odb_backend_data_alloc(.git_odb_backend* backend, size_t len);
  *      backend = the ODB backend that is freeing this memory
  *      data = the buffer to free
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_odb_backend_data_free(.git_odb_backend* backend, void* data);
 
 deprecated:
@@ -172,6 +173,6 @@ version (GIT_DEPRECATE_HARD) {
 	 * @deprecated git_odb_backend_data_alloc
 	 * @see git_odb_backend_data_alloc
 	 */
-	//GIT_EXTERN
+	@GIT_EXTERN
 	void* git_odb_backend_malloc(.git_odb_backend* backend, size_t len);
 }

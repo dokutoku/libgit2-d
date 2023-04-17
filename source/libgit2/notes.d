@@ -10,6 +10,7 @@ module libgit2.notes;
 private static import libgit2.buffer;
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/notes.h
@@ -50,7 +51,7 @@ alias git_note_iterator = git_iterator;
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_note_iterator_new(.git_note_iterator** out_, libgit2.types.git_repository* repo, const (char)* notes_ref);
 
 /**
@@ -64,7 +65,7 @@ int git_note_iterator_new(.git_note_iterator** out_, libgit2.types.git_repositor
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_note_commit_iterator_new(.git_note_iterator** out_, libgit2.types.git_commit* notes_commit);
 
 /**
@@ -73,7 +74,7 @@ int git_note_commit_iterator_new(.git_note_iterator** out_, libgit2.types.git_co
  * Params:
  *      it = pointer to the iterator
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_note_iterator_free(.git_note_iterator* it);
 
 /**
@@ -87,7 +88,7 @@ void git_note_iterator_free(.git_note_iterator* it);
  *
  * Returns: 0 (no error), git_error_code.GIT_ITEROVER (iteration is done) or an error code (negative value)
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_note_next(libgit2.oid.git_oid* note_id, libgit2.oid.git_oid* annotated_id, .git_note_iterator* it);
 
 /**
@@ -103,7 +104,7 @@ int git_note_next(libgit2.oid.git_oid* note_id, libgit2.oid.git_oid* annotated_i
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_note_read(libgit2.types.git_note** out_, libgit2.types.git_repository* repo, const (char)* notes_ref, const (libgit2.oid.git_oid)* oid);
 
 /**
@@ -119,7 +120,7 @@ int git_note_read(libgit2.types.git_note** out_, libgit2.types.git_repository* r
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_note_commit_read(libgit2.types.git_note** out_, libgit2.types.git_repository* repo, libgit2.types.git_commit* notes_commit, const (libgit2.oid.git_oid)* oid);
 
 /**
@@ -130,7 +131,7 @@ int git_note_commit_read(libgit2.types.git_note** out_, libgit2.types.git_reposi
  *
  * Returns: the author
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.types.git_signature)* git_note_author(const (libgit2.types.git_note)* note);
 
 /**
@@ -141,7 +142,7 @@ const (libgit2.types.git_signature)* git_note_author(const (libgit2.types.git_no
  *
  * Returns: the committer
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.types.git_signature)* git_note_committer(const (libgit2.types.git_note)* note);
 
 /**
@@ -152,7 +153,7 @@ const (libgit2.types.git_signature)* git_note_committer(const (libgit2.types.git
  *
  * Returns: the note message
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (char)* git_note_message(const (libgit2.types.git_note)* note);
 
 /**
@@ -163,7 +164,7 @@ const (char)* git_note_message(const (libgit2.types.git_note)* note);
  *
  * Returns: the note object's id
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_note_id(const (libgit2.types.git_note)* note);
 
 /**
@@ -181,7 +182,7 @@ const (libgit2.oid.git_oid)* git_note_id(const (libgit2.types.git_note)* note);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_note_create(libgit2.oid.git_oid* out_, libgit2.types.git_repository* repo, const (char)* notes_ref, const (libgit2.types.git_signature)* author, const (libgit2.types.git_signature)* committer, const (libgit2.oid.git_oid)* oid, const (char)* note, int force);
 
 /**
@@ -203,7 +204,7 @@ int git_note_create(libgit2.oid.git_oid* out_, libgit2.types.git_repository* rep
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_note_commit_create(libgit2.oid.git_oid* notes_commit_out, libgit2.oid.git_oid* notes_blob_out, libgit2.types.git_repository* repo, libgit2.types.git_commit* parent, const (libgit2.types.git_signature)* author, const (libgit2.types.git_signature)* committer, const (libgit2.oid.git_oid)* oid, const (char)* note, int allow_note_overwrite);
 
 /**
@@ -218,7 +219,7 @@ int git_note_commit_create(libgit2.oid.git_oid* notes_commit_out, libgit2.oid.gi
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_note_remove(libgit2.types.git_repository* repo, const (char)* notes_ref, const (libgit2.types.git_signature)* author, const (libgit2.types.git_signature)* committer, const (libgit2.oid.git_oid)* oid);
 
 /**
@@ -234,7 +235,7 @@ int git_note_remove(libgit2.types.git_repository* repo, const (char)* notes_ref,
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_note_commit_remove(libgit2.oid.git_oid* notes_commit_out, libgit2.types.git_repository* repo, libgit2.types.git_commit* notes_commit, const (libgit2.types.git_signature)* author, const (libgit2.types.git_signature)* committer, const (libgit2.oid.git_oid)* oid);
 
 /**
@@ -243,7 +244,7 @@ int git_note_commit_remove(libgit2.oid.git_oid* notes_commit_out, libgit2.types.
  * Params:
  *      note = git_note object
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_note_free(libgit2.types.git_note* note);
 
 /**
@@ -255,7 +256,7 @@ void git_note_free(libgit2.types.git_note* note);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_note_default_ref(libgit2.buffer.git_buf* out_, libgit2.types.git_repository* repo);
 
 /**
@@ -270,7 +271,7 @@ int git_note_default_ref(libgit2.buffer.git_buf* out_, libgit2.types.git_reposit
  *
  * Returns: 0 on success, non-zero callback return value, or error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_note_foreach(libgit2.types.git_repository* repo, const (char)* notes_ref, .git_note_foreach_cb note_cb, void* payload);
 
 /* @} */

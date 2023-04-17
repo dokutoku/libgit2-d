@@ -11,6 +11,7 @@ private static import libgit2.buffer;
 private static import libgit2.indexer;
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/pack.h
@@ -74,7 +75,7 @@ enum
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_packbuilder_new(libgit2.types.git_packbuilder** out_, libgit2.types.git_repository* repo);
 
 /**
@@ -90,7 +91,7 @@ int git_packbuilder_new(libgit2.types.git_packbuilder** out_, libgit2.types.git_
  *
  * Returns: number of actual threads to be used
  */
-//GIT_EXTERN
+@GIT_EXTERN
 uint git_packbuilder_set_threads(libgit2.types.git_packbuilder* pb, uint n);
 
 /**
@@ -106,7 +107,7 @@ uint git_packbuilder_set_threads(libgit2.types.git_packbuilder* pb, uint n);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_packbuilder_insert(libgit2.types.git_packbuilder* pb, const (libgit2.oid.git_oid)* id, const (char)* name);
 
 /**
@@ -120,7 +121,7 @@ int git_packbuilder_insert(libgit2.types.git_packbuilder* pb, const (libgit2.oid
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_packbuilder_insert_tree(libgit2.types.git_packbuilder* pb, const (libgit2.oid.git_oid)* id);
 
 /**
@@ -134,7 +135,7 @@ int git_packbuilder_insert_tree(libgit2.types.git_packbuilder* pb, const (libgit
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_packbuilder_insert_commit(libgit2.types.git_packbuilder* pb, const (libgit2.oid.git_oid)* id);
 
 /**
@@ -149,7 +150,7 @@ int git_packbuilder_insert_commit(libgit2.types.git_packbuilder* pb, const (libg
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_packbuilder_insert_walk(libgit2.types.git_packbuilder* pb, libgit2.types.git_revwalk* walk);
 
 /**
@@ -164,7 +165,7 @@ int git_packbuilder_insert_walk(libgit2.types.git_packbuilder* pb, libgit2.types
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_packbuilder_insert_recur(libgit2.types.git_packbuilder* pb, const (libgit2.oid.git_oid)* id, const (char)* name);
 
 /**
@@ -177,7 +178,7 @@ int git_packbuilder_insert_recur(libgit2.types.git_packbuilder* pb, const (libgi
  *      buf = Buffer where to write the packfile
  *      pb = The packbuilder
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_packbuilder_write_buf(libgit2.buffer.git_buf* buf, libgit2.types.git_packbuilder* pb);
 
 /**
@@ -192,7 +193,7 @@ int git_packbuilder_write_buf(libgit2.buffer.git_buf* buf, libgit2.types.git_pac
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_packbuilder_write(libgit2.types.git_packbuilder* pb, const (char)* path, uint mode, libgit2.indexer.git_indexer_progress_cb progress_cb, void* progress_cb_payload);
 
 /**
@@ -204,7 +205,7 @@ int git_packbuilder_write(libgit2.types.git_packbuilder* pb, const (char)* path,
  * Params:
  *      pb = The packbuilder object
  */
-//GIT_EXTERN
+@GIT_EXTERN
 const (libgit2.oid.git_oid)* git_packbuilder_hash(libgit2.types.git_packbuilder* pb);
 
 /**
@@ -232,7 +233,7 @@ alias git_packbuilder_foreach_cb = int function(void* buf, size_t size, void* pa
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_packbuilder_foreach(libgit2.types.git_packbuilder* pb, .git_packbuilder_foreach_cb cb, void* payload);
 
 /**
@@ -243,7 +244,7 @@ int git_packbuilder_foreach(libgit2.types.git_packbuilder* pb, .git_packbuilder_
  *
  * Returns: the number of objects in the packfile
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_packbuilder_object_count(libgit2.types.git_packbuilder* pb);
 
 /**
@@ -254,7 +255,7 @@ size_t git_packbuilder_object_count(libgit2.types.git_packbuilder* pb);
  *
  * Returns: the number of objects which have already been written
  */
-//GIT_EXTERN
+@GIT_EXTERN
 size_t git_packbuilder_written(libgit2.types.git_packbuilder* pb);
 
 /**
@@ -272,7 +273,7 @@ alias git_packbuilder_progress = int function(int stage, uint current, uint tota
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_packbuilder_set_callbacks(libgit2.types.git_packbuilder* pb, .git_packbuilder_progress progress_cb, void* progress_cb_payload);
 
 /**
@@ -281,7 +282,7 @@ int git_packbuilder_set_callbacks(libgit2.types.git_packbuilder* pb, .git_packbu
  * Params:
  *      pb = The packbuilder
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_packbuilder_free(libgit2.types.git_packbuilder* pb);
 
 /* @} */

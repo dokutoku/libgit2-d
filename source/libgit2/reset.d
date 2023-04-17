@@ -10,6 +10,7 @@ module libgit2.reset;
 private static import libgit2.checkout;
 private static import libgit2.strarray;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/reset.h
@@ -73,7 +74,7 @@ enum
  *
  * Returns: 0 on success or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reset(libgit2.types.git_repository* repo, const (libgit2.types.git_object)* target, .git_reset_t reset_type, const (libgit2.checkout.git_checkout_options)* checkout_opts);
 
 /**
@@ -88,7 +89,7 @@ int git_reset(libgit2.types.git_repository* repo, const (libgit2.types.git_objec
  *
  * @see git_reset
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reset_from_annotated(libgit2.types.git_repository* repo, const (libgit2.types.git_annotated_commit)* commit, .git_reset_t reset_type, const (libgit2.checkout.git_checkout_options)* checkout_opts);
 
 /**
@@ -107,7 +108,7 @@ int git_reset_from_annotated(libgit2.types.git_repository* repo, const (libgit2.
  *
  * Returns: 0 on success or an error code < 0
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_reset_default(libgit2.types.git_repository* repo, const (libgit2.types.git_object)* target, const (libgit2.strarray.git_strarray)* pathspecs);
 
 /* @} */

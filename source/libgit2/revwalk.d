@@ -9,6 +9,7 @@ module libgit2.revwalk;
 
 private static import libgit2.oid;
 private static import libgit2.types;
+private import libgit2.common: GIT_EXTERN;
 
 /*
  * @file git2/revwalk.h
@@ -83,7 +84,7 @@ enum
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revwalk_new(libgit2.types.git_revwalk** out_, libgit2.types.git_repository* repo);
 
 /**
@@ -102,7 +103,7 @@ int git_revwalk_new(libgit2.types.git_revwalk** out_, libgit2.types.git_reposito
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revwalk_reset(libgit2.types.git_revwalk* walker);
 
 /**
@@ -124,7 +125,7 @@ int git_revwalk_reset(libgit2.types.git_revwalk* walker);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revwalk_push(libgit2.types.git_revwalk* walk, const (libgit2.oid.git_oid)* id);
 
 /**
@@ -145,7 +146,7 @@ int git_revwalk_push(libgit2.types.git_revwalk* walk, const (libgit2.oid.git_oid
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revwalk_push_glob(libgit2.types.git_revwalk* walk, const (char)* glob);
 
 /**
@@ -156,7 +157,7 @@ int git_revwalk_push_glob(libgit2.types.git_revwalk* walk, const (char)* glob);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revwalk_push_head(libgit2.types.git_revwalk* walk);
 
 /**
@@ -174,7 +175,7 @@ int git_revwalk_push_head(libgit2.types.git_revwalk* walk);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revwalk_hide(libgit2.types.git_revwalk* walk, const (libgit2.oid.git_oid)* commit_id);
 
 /**
@@ -196,7 +197,7 @@ int git_revwalk_hide(libgit2.types.git_revwalk* walk, const (libgit2.oid.git_oid
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revwalk_hide_glob(libgit2.types.git_revwalk* walk, const (char)* glob);
 
 /**
@@ -207,7 +208,7 @@ int git_revwalk_hide_glob(libgit2.types.git_revwalk* walk, const (char)* glob);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revwalk_hide_head(libgit2.types.git_revwalk* walk);
 
 /**
@@ -221,7 +222,7 @@ int git_revwalk_hide_head(libgit2.types.git_revwalk* walk);
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revwalk_push_ref(libgit2.types.git_revwalk* walk, const (char)* refname);
 
 /**
@@ -235,7 +236,7 @@ int git_revwalk_push_ref(libgit2.types.git_revwalk* walk, const (char)* refname)
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revwalk_hide_ref(libgit2.types.git_revwalk* walk, const (char)* refname);
 
 /**
@@ -257,7 +258,7 @@ int git_revwalk_hide_ref(libgit2.types.git_revwalk* walk, const (char)* refname)
  *
  * Returns: 0 if the next commit was found; git_error_code.GIT_ITEROVER if there are no commits left to iterate
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revwalk_next(libgit2.oid.git_oid* out_, libgit2.types.git_revwalk* walk);
 
 /**
@@ -272,7 +273,7 @@ int git_revwalk_next(libgit2.oid.git_oid* out_, libgit2.types.git_revwalk* walk)
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revwalk_sorting(libgit2.types.git_revwalk* walk, uint sort_mode);
 
 /**
@@ -290,7 +291,7 @@ int git_revwalk_sorting(libgit2.types.git_revwalk* walk, uint sort_mode);
  * Returns: 0 or an error code
  *
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revwalk_push_range(libgit2.types.git_revwalk* walk, const (char)* range);
 
 /**
@@ -300,7 +301,7 @@ int git_revwalk_push_range(libgit2.types.git_revwalk* walk, const (char)* range)
  *
  * Returns: 0 or an error code
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revwalk_simplify_first_parent(libgit2.types.git_revwalk* walk);
 
 /**
@@ -309,7 +310,7 @@ int git_revwalk_simplify_first_parent(libgit2.types.git_revwalk* walk);
  * Params:
  *      walk = traversal handle to close. If null nothing occurs.
  */
-//GIT_EXTERN
+@GIT_EXTERN
 void git_revwalk_free(libgit2.types.git_revwalk* walk);
 
 /**
@@ -321,7 +322,7 @@ void git_revwalk_free(libgit2.types.git_revwalk* walk);
  *
  * Returns: the repository being walked
  */
-//GIT_EXTERN
+@GIT_EXTERN
 libgit2.types.git_repository* git_revwalk_repository(libgit2.types.git_revwalk* walk);
 
 /**
@@ -344,7 +345,7 @@ alias git_revwalk_hide_cb = int function(const (libgit2.oid.git_oid)* commit_id,
  *      hide_cb = callback function to hide a commit and its parents
  *      payload = data payload to be passed to callback function
  */
-//GIT_EXTERN
+@GIT_EXTERN
 int git_revwalk_add_hide_cb(libgit2.types.git_revwalk* walk, .git_revwalk_hide_cb hide_cb, void* payload);
 
 /* @} */
