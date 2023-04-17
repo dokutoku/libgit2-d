@@ -4,14 +4,14 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.submodule;
+module libgit2.submodule;
 
 
-private static import libgit2_d.buffer;
-private static import libgit2_d.checkout;
-private static import libgit2_d.oid;
-private static import libgit2_d.remote;
-private static import libgit2_d.types;
+private static import libgit2.buffer;
+private static import libgit2.checkout;
+private static import libgit2.oid;
+private static import libgit2.remote;
+private static import libgit2.types;
 private static import std.traits;
 
 /*
@@ -166,7 +166,7 @@ bool GIT_SUBMODULE_STATUS_IS_WD_DIRTY(T)(S)
  *      name = name of the submodule
  *      payload = value you passed to the foreach function as payload
  */
-alias git_submodule_cb = int function(libgit2_d.types.git_submodule* sm, const (char)* name, void* payload);
+alias git_submodule_cb = int function(libgit2.types.git_submodule* sm, const (char)* name, void* payload);
 
 /**
  * Submodule update options structure
@@ -185,7 +185,7 @@ struct git_submodule_update_options
 	 * git_checkout_strategy_t.GIT_CHECKOUT_SAFE to update files in the working
 	 * directory.
 	 */
-	libgit2_d.checkout.git_checkout_options checkout_opts;
+	libgit2.checkout.git_checkout_options checkout_opts;
 
 	/**
 	 * Options which control the fetch, including callbacks.
@@ -193,7 +193,7 @@ struct git_submodule_update_options
 	 * The callbacks to use for reporting fetch progress, and for acquiring
 	 * credentials in the event they are needed.
 	 */
-	libgit2_d.remote.git_fetch_options fetch_opts;
+	libgit2.remote.git_fetch_options fetch_opts;
 
 	/**
 	 * Allow fetching from the submodule's default remote if the target
@@ -210,17 +210,17 @@ pure nothrow @safe @nogc
 
 	do
 	{
-		libgit2_d.checkout.git_checkout_options CHECKOUT_OPTION =
+		libgit2.checkout.git_checkout_options CHECKOUT_OPTION =
 		{
-			version_: libgit2_d.checkout.GIT_CHECKOUT_OPTIONS_VERSION,
-			checkout_strategy: libgit2_d.checkout.git_checkout_strategy_t.GIT_CHECKOUT_SAFE,
+			version_: libgit2.checkout.GIT_CHECKOUT_OPTIONS_VERSION,
+			checkout_strategy: libgit2.checkout.git_checkout_strategy_t.GIT_CHECKOUT_SAFE,
 		};
 
 		.git_submodule_update_options OUTPUT =
 		{
 			version_: .GIT_SUBMODULE_UPDATE_OPTIONS_VERSION,
 			checkout_opts: CHECKOUT_OPTION,
-			fetch_opts: libgit2_d.remote.GIT_FETCH_OPTIONS_INIT(),
+			fetch_opts: libgit2.remote.GIT_FETCH_OPTIONS_INIT(),
 			allow_fetch: 1,
 		};
 
@@ -257,7 +257,7 @@ int git_submodule_update_options_init(.git_submodule_update_options* opts, uint 
  * Returns: 0 on success, any non-zero return value from a callback function, or a negative value to indicate an error (use `git_error_last` for a detailed error message).
  */
 //GIT_EXTERN
-int git_submodule_update(libgit2_d.types.git_submodule* submodule, int init, .git_submodule_update_options* options);
+int git_submodule_update(libgit2.types.git_submodule* submodule, int init, .git_submodule_update_options* options);
 
 /**
  * Lookup submodule information by name or path.
@@ -287,7 +287,7 @@ int git_submodule_update(libgit2_d.types.git_submodule* submodule, int init, .gi
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if submodule does not exist, git_error_code.GIT_EEXISTS if a repository is found in working directory only, -1 on other errors.
  */
 //GIT_EXTERN
-int git_submodule_lookup(libgit2_d.types.git_submodule** out_, libgit2_d.types.git_repository* repo, const (char)* name);
+int git_submodule_lookup(libgit2.types.git_submodule** out_, libgit2.types.git_repository* repo, const (char)* name);
 
 /**
  * Release a submodule
@@ -296,7 +296,7 @@ int git_submodule_lookup(libgit2_d.types.git_submodule** out_, libgit2_d.types.g
  *      submodule = Submodule object
  */
 //GIT_EXTERN
-void git_submodule_free(libgit2_d.types.git_submodule* submodule);
+void git_submodule_free(libgit2.types.git_submodule* submodule);
 
 /**
  * Iterate over all tracked submodules of a repository.
@@ -318,7 +318,7 @@ void git_submodule_free(libgit2_d.types.git_submodule* submodule);
  * Returns: 0 on success, -1 on error, or non-zero return value of callback
  */
 //GIT_EXTERN
-int git_submodule_foreach(libgit2_d.types.git_repository* repo, .git_submodule_cb callback, void* payload);
+int git_submodule_foreach(libgit2.types.git_repository* repo, .git_submodule_cb callback, void* payload);
 
 /**
  * Set up a new git submodule for checkout.
@@ -347,7 +347,7 @@ int git_submodule_foreach(libgit2_d.types.git_repository* repo, .git_submodule_c
  * Returns: 0 on success, git_error_code.GIT_EEXISTS if submodule already exists, -1 on other errors.
  */
 //GIT_EXTERN
-int git_submodule_add_setup(libgit2_d.types.git_submodule** out_, libgit2_d.types.git_repository* repo, const (char)* url, const (char)* path, int use_gitlink);
+int git_submodule_add_setup(libgit2.types.git_submodule** out_, libgit2.types.git_repository* repo, const (char)* url, const (char)* path, int use_gitlink);
 
 /**
  * Perform the clone step for a newly created submodule.
@@ -362,7 +362,7 @@ int git_submodule_add_setup(libgit2_d.types.git_submodule** out_, libgit2_d.type
  * Returns: 0 on success, -1 on other errors (see git_clone).
  */
 //GIT_EXTERN
-int git_submodule_clone(libgit2_d.types.git_repository** out_, libgit2_d.types.git_submodule* submodule, const (.git_submodule_update_options)* opts);
+int git_submodule_clone(libgit2.types.git_repository** out_, libgit2.types.git_submodule* submodule, const (.git_submodule_update_options)* opts);
 
 /**
  * Resolve the setup of a new git submodule.
@@ -376,7 +376,7 @@ int git_submodule_clone(libgit2_d.types.git_repository** out_, libgit2_d.types.g
  *      submodule = The submodule to finish adding.
  */
 //GIT_EXTERN
-int git_submodule_add_finalize(libgit2_d.types.git_submodule* submodule);
+int git_submodule_add_finalize(libgit2.types.git_submodule* submodule);
 
 /**
  * Add current submodule HEAD commit to index of superproject.
@@ -388,7 +388,7 @@ int git_submodule_add_finalize(libgit2_d.types.git_submodule* submodule);
  * Returns: 0 on success, <0 on failure
  */
 //GIT_EXTERN
-int git_submodule_add_to_index(libgit2_d.types.git_submodule* submodule, int write_index);
+int git_submodule_add_to_index(libgit2.types.git_submodule* submodule, int write_index);
 
 /**
  * Get the containing repository for a submodule.
@@ -401,10 +401,10 @@ int git_submodule_add_to_index(libgit2_d.types.git_submodule* submodule, int wri
  * Params:
  *      submodule = Pointer to submodule object
  *
- * Returns: Pointer to `libgit2_d.types.git_repository`
+ * Returns: Pointer to `libgit2.types.git_repository`
  */
 //GIT_EXTERN
-libgit2_d.types.git_repository* git_submodule_owner(libgit2_d.types.git_submodule* submodule);
+libgit2.types.git_repository* git_submodule_owner(libgit2.types.git_submodule* submodule);
 
 /**
  * Get the name of submodule.
@@ -415,7 +415,7 @@ libgit2_d.types.git_repository* git_submodule_owner(libgit2_d.types.git_submodul
  * Returns: Pointer to the submodule name
  */
 //GIT_EXTERN
-const (char)* git_submodule_name(libgit2_d.types.git_submodule* submodule);
+const (char)* git_submodule_name(libgit2.types.git_submodule* submodule);
 
 /**
  * Get the path to the submodule.
@@ -429,7 +429,7 @@ const (char)* git_submodule_name(libgit2_d.types.git_submodule* submodule);
  * Returns: Pointer to the submodule path
  */
 //GIT_EXTERN
-const (char)* git_submodule_path(libgit2_d.types.git_submodule* submodule);
+const (char)* git_submodule_path(libgit2.types.git_submodule* submodule);
 
 /**
  * Get the URL for the submodule.
@@ -440,7 +440,7 @@ const (char)* git_submodule_path(libgit2_d.types.git_submodule* submodule);
  * Returns: Pointer to the submodule url
  */
 //GIT_EXTERN
-const (char)* git_submodule_url(libgit2_d.types.git_submodule* submodule);
+const (char)* git_submodule_url(libgit2.types.git_submodule* submodule);
 
 /**
  * Resolve a submodule url relative to the given repository.
@@ -453,7 +453,7 @@ const (char)* git_submodule_url(libgit2_d.types.git_submodule* submodule);
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_submodule_resolve_url(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_repository* repo, const (char)* url);
+int git_submodule_resolve_url(libgit2.buffer.git_buf* out_, libgit2.types.git_repository* repo, const (char)* url);
 
 /**
  * Get the branch for the submodule.
@@ -464,7 +464,7 @@ int git_submodule_resolve_url(libgit2_d.buffer.git_buf* out_, libgit2_d.types.gi
  * Returns: Pointer to the submodule branch
  */
 //GIT_EXTERN
-const (char)* git_submodule_branch(libgit2_d.types.git_submodule* submodule);
+const (char)* git_submodule_branch(libgit2.types.git_submodule* submodule);
 
 /**
  * Set the branch for the submodule in the configuration
@@ -480,7 +480,7 @@ const (char)* git_submodule_branch(libgit2_d.types.git_submodule* submodule);
  * Returns: 0 on success, <0 on failure
  */
 //GIT_EXTERN
-int git_submodule_set_branch(libgit2_d.types.git_repository* repo, const (char)* name, const (char)* branch);
+int git_submodule_set_branch(libgit2.types.git_repository* repo, const (char)* name, const (char)* branch);
 
 /**
  * Set the URL for the submodule in the configuration
@@ -497,7 +497,7 @@ int git_submodule_set_branch(libgit2_d.types.git_repository* repo, const (char)*
  * Returns: 0 on success, <0 on failure
  */
 //GIT_EXTERN
-int git_submodule_set_url(libgit2_d.types.git_repository* repo, const (char)* name, const (char)* url);
+int git_submodule_set_url(libgit2.types.git_repository* repo, const (char)* name, const (char)* url);
 
 /**
  * Get the OID for the submodule in the index.
@@ -508,7 +508,7 @@ int git_submodule_set_url(libgit2_d.types.git_repository* repo, const (char)* na
  * Returns: Pointer to git_oid or null if submodule is not in index.
  */
 //GIT_EXTERN
-const (libgit2_d.oid.git_oid)* git_submodule_index_id(libgit2_d.types.git_submodule* submodule);
+const (libgit2.oid.git_oid)* git_submodule_index_id(libgit2.types.git_submodule* submodule);
 
 /**
  * Get the OID for the submodule in the current HEAD tree.
@@ -519,7 +519,7 @@ const (libgit2_d.oid.git_oid)* git_submodule_index_id(libgit2_d.types.git_submod
  * Returns: Pointer to git_oid or null if submodule is not in the HEAD.
  */
 //GIT_EXTERN
-const (libgit2_d.oid.git_oid)* git_submodule_head_id(libgit2_d.types.git_submodule* submodule);
+const (libgit2.oid.git_oid)* git_submodule_head_id(libgit2.types.git_submodule* submodule);
 
 /**
  * Get the OID for the submodule in the current working directory.
@@ -535,7 +535,7 @@ const (libgit2_d.oid.git_oid)* git_submodule_head_id(libgit2_d.types.git_submodu
  * Returns: Pointer to git_oid or null if submodule is not checked out.
  */
 //GIT_EXTERN
-const (libgit2_d.oid.git_oid)* git_submodule_wd_id(libgit2_d.types.git_submodule* submodule);
+const (libgit2.oid.git_oid)* git_submodule_wd_id(libgit2.types.git_submodule* submodule);
 
 /**
  * Get the ignore rule that will be used for the submodule.
@@ -559,10 +559,10 @@ const (libgit2_d.oid.git_oid)* git_submodule_wd_id(libgit2_d.types.git_submodule
  * Params:
  *      submodule = The submodule to check
  *
- * Returns: The current libgit2_d.types.git_submodule_ignore_t valyue what will be used for this submodule.
+ * Returns: The current libgit2.types.git_submodule_ignore_t valyue what will be used for this submodule.
  */
 //GIT_EXTERN
-libgit2_d.types.git_submodule_ignore_t git_submodule_ignore(libgit2_d.types.git_submodule* submodule);
+libgit2.types.git_submodule_ignore_t git_submodule_ignore(libgit2.types.git_submodule* submodule);
 
 /**
  * Set the ignore rule for the submodule in the configuration
@@ -577,21 +577,21 @@ libgit2_d.types.git_submodule_ignore_t git_submodule_ignore(libgit2_d.types.git_
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_submodule_set_ignore(libgit2_d.types.git_repository* repo, const (char)* name, libgit2_d.types.git_submodule_ignore_t ignore);
+int git_submodule_set_ignore(libgit2.types.git_repository* repo, const (char)* name, libgit2.types.git_submodule_ignore_t ignore);
 
 /**
  * Get the update rule that will be used for the submodule.
  *
  * This value controls the behavior of the `git submodule update` command.
- * There are four useful values documented with `libgit2_d.types.git_submodule_update_t`.
+ * There are four useful values documented with `libgit2.types.git_submodule_update_t`.
  *
  * Params:
  *      submodule = The submodule to check
  *
- * Returns: The current libgit2_d.types.git_submodule_update_t value that will be used for this submodule.
+ * Returns: The current libgit2.types.git_submodule_update_t value that will be used for this submodule.
  */
 //GIT_EXTERN
-libgit2_d.types.git_submodule_update_t git_submodule_update_strategy(libgit2_d.types.git_submodule* submodule);
+libgit2.types.git_submodule_update_t git_submodule_update_strategy(libgit2.types.git_submodule* submodule);
 
 /**
  * Set the update rule for the submodule in the configuration
@@ -606,7 +606,7 @@ libgit2_d.types.git_submodule_update_t git_submodule_update_strategy(libgit2_d.t
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_submodule_set_update(libgit2_d.types.git_repository* repo, const (char)* name, libgit2_d.types.git_submodule_update_t update);
+int git_submodule_set_update(libgit2.types.git_repository* repo, const (char)* name, libgit2.types.git_submodule_update_t update);
 
 /**
  * Read the fetchRecurseSubmodules rule for a submodule.
@@ -620,7 +620,7 @@ int git_submodule_set_update(libgit2_d.types.git_repository* repo, const (char)*
  * Returns: 0 if fetchRecurseSubmodules is false, 1 if true
  */
 //GIT_EXTERN
-libgit2_d.types.git_submodule_recurse_t git_submodule_fetch_recurse_submodules(libgit2_d.types.git_submodule* submodule);
+libgit2.types.git_submodule_recurse_t git_submodule_fetch_recurse_submodules(libgit2.types.git_submodule* submodule);
 
 /**
  * Set the fetchRecurseSubmodules rule for a submodule in the configuration
@@ -635,7 +635,7 @@ libgit2_d.types.git_submodule_recurse_t git_submodule_fetch_recurse_submodules(l
  * Returns: old value for fetchRecurseSubmodules
  */
 //GIT_EXTERN
-int git_submodule_set_fetch_recurse_submodules(libgit2_d.types.git_repository* repo, const (char)* name, libgit2_d.types.git_submodule_recurse_t fetch_recurse_submodules);
+int git_submodule_set_fetch_recurse_submodules(libgit2.types.git_repository* repo, const (char)* name, libgit2.types.git_submodule_recurse_t fetch_recurse_submodules);
 
 /**
  * Copy submodule info into ".git/config" file.
@@ -652,7 +652,7 @@ int git_submodule_set_fetch_recurse_submodules(libgit2_d.types.git_repository* r
  * Returns: 0 on success, <0 on failure.
  */
 //GIT_EXTERN
-int git_submodule_init(libgit2_d.types.git_submodule* submodule, int overwrite);
+int git_submodule_init(libgit2.types.git_submodule* submodule, int overwrite);
 
 /**
  * Set up the subrepository for a submodule in preparation for clone.
@@ -669,7 +669,7 @@ int git_submodule_init(libgit2_d.types.git_submodule* submodule, int overwrite);
  * Returns: 0 on success, <0 on failure.
  */
 //GIT_EXTERN
-int git_submodule_repo_init(libgit2_d.types.git_repository** out_, const (libgit2_d.types.git_submodule)* sm, int use_gitlink);
+int git_submodule_repo_init(libgit2.types.git_repository** out_, const (libgit2.types.git_submodule)* sm, int use_gitlink);
 
 /**
  * Copy submodule remote info into submodule repo.
@@ -680,14 +680,14 @@ int git_submodule_repo_init(libgit2_d.types.git_repository** out_, const (libgit
  * fetch of upstream changes) and you need to update your local repo.
  */
 //GIT_EXTERN
-int git_submodule_sync(libgit2_d.types.git_submodule* submodule);
+int git_submodule_sync(libgit2.types.git_submodule* submodule);
 
 /**
  * Open the repository for a submodule.
  *
  * This is a newly opened repository object.  The caller is responsible for
  * calling `git_repository_free()` on it when done.  Multiple calls to this
- * function will return distinct `libgit2_d.types.git_repository` objects.  This will only
+ * function will return distinct `libgit2.types.git_repository` objects.  This will only
  * work if the submodule is checked out into the working directory.
  *
  * Params:
@@ -697,7 +697,7 @@ int git_submodule_sync(libgit2_d.types.git_submodule* submodule);
  * Returns: 0 on success, <0 if submodule repo could not be opened.
  */
 //GIT_EXTERN
-int git_submodule_open(libgit2_d.types.git_repository** repo, libgit2_d.types.git_submodule* submodule);
+int git_submodule_open(libgit2.types.git_repository** repo, libgit2.types.git_submodule* submodule);
 
 /**
  * Reread submodule info from config, index, and HEAD.
@@ -712,7 +712,7 @@ int git_submodule_open(libgit2_d.types.git_repository** repo, libgit2_d.types.gi
  * Returns: 0 on success, <0 on error
  */
 //GIT_EXTERN
-int git_submodule_reload(libgit2_d.types.git_submodule* submodule, int force);
+int git_submodule_reload(libgit2.types.git_submodule* submodule, int force);
 
 /**
  * Get the status for a submodule.
@@ -720,7 +720,7 @@ int git_submodule_reload(libgit2_d.types.git_submodule* submodule, int force);
  * This looks at a submodule and tries to determine the status.  It
  * will return a combination of the `GIT_SUBMODULE_STATUS` values above.
  * How deeply it examines the working directory to do this will depend
- * on the `libgit2_d.types.git_submodule_ignore_t` value for the submodule.
+ * on the `libgit2.types.git_submodule_ignore_t` value for the submodule.
  *
  * Params:
  *      status = Combination of `GIT_SUBMODULE_STATUS` flags
@@ -731,7 +731,7 @@ int git_submodule_reload(libgit2_d.types.git_submodule* submodule, int force);
  * Returns: 0 on success, <0 on error
  */
 //GIT_EXTERN
-int git_submodule_status(uint* status, libgit2_d.types.git_repository* repo, const (char)* name, libgit2_d.types.git_submodule_ignore_t ignore);
+int git_submodule_status(uint* status, libgit2.types.git_repository* repo, const (char)* name, libgit2.types.git_submodule_ignore_t ignore);
 
 /**
  * Get the locations of submodule information.
@@ -750,6 +750,6 @@ int git_submodule_status(uint* status, libgit2_d.types.git_repository* repo, con
  * Returns: 0 on success, <0 on error
  */
 //GIT_EXTERN
-int git_submodule_location(uint* location_status, libgit2_d.types.git_submodule* submodule);
+int git_submodule_location(uint* location_status, libgit2.types.git_submodule* submodule);
 
 /* @} */

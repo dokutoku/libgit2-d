@@ -4,18 +4,18 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.types;
+module libgit2.types;
 
 
 private static import core.sys.posix.sys.types;
-private static import libgit2_d.cert;
-private static import libgit2_d.net;
-private static import libgit2_d.odb_backend;
-private static import libgit2_d.remote;
-private static import libgit2_d.sys.config;
-private static import libgit2_d.sys.odb_backend;
-private static import libgit2_d.sys.refdb_backend;
-private static import libgit2_d.sys.transport;
+private static import libgit2.cert;
+private static import libgit2.net;
+private static import libgit2.odb_backend;
+private static import libgit2.remote;
+private static import libgit2.sys.config;
+private static import libgit2.sys.odb_backend;
+private static import libgit2.sys.refdb_backend;
+private static import libgit2.sys.transport;
 private static import std.conv;
 
 /*
@@ -74,8 +74,8 @@ version (none) {
  */
 alias git_object_size_t = ulong;
 
-//public import libgit2_d.buffer;
-//public import libgit2_d.oid;
+//public import libgit2.buffer;
+//public import libgit2.oid;
 
 /**
  * Basic type (loose or packed) of any Git object.
@@ -144,7 +144,7 @@ struct git_odb;
 /**
  * A custom backend in an ODB
  */
-alias git_odb_backend = libgit2_d.sys.odb_backend.git_odb_backend;
+alias git_odb_backend = libgit2.sys.odb_backend.git_odb_backend;
 
 /**
  * An object read from the ODB
@@ -154,12 +154,12 @@ struct git_odb_object;
 /**
  * A stream to read/write from the ODB
  */
-alias git_odb_stream = libgit2_d.odb_backend.git_odb_stream;
+alias git_odb_stream = libgit2.odb_backend.git_odb_stream;
 
 /**
  * A stream to write a packfile to the ODB
  */
-alias git_odb_writepack = libgit2_d.odb_backend.git_odb_writepack;
+alias git_odb_writepack = libgit2.odb_backend.git_odb_writepack;
 
 /**
  * An open refs database handle.
@@ -169,7 +169,7 @@ struct git_refdb;
 /**
  * A custom backend for refs
  */
-alias git_refdb_backend = libgit2_d.sys.refdb_backend.git_refdb_backend;
+alias git_refdb_backend = libgit2.sys.refdb_backend.git_refdb_backend;
 
 /**
  * Representation of an existing git repository,
@@ -245,7 +245,7 @@ struct git_config;
 /**
  * Interface to access a configuration file
  */
-alias git_config_backend = libgit2_d.sys.config.git_config_backend;
+alias git_config_backend = libgit2.sys.config.git_config_backend;
 
 /**
  * Representation of a reference log entry
@@ -317,7 +317,7 @@ struct git_reference;
 /**
  * Iterator for references
  */
-alias git_reference_iterator = libgit2_d.sys.refdb_backend.git_reference_iterator;
+alias git_reference_iterator = libgit2.sys.refdb_backend.git_reference_iterator;
 
 /**
  * Transactional interface to references
@@ -429,7 +429,7 @@ struct git_remote;
  * Interface which represents a transport to communicate with a
  * remote.
  */
-alias git_transport = libgit2_d.sys.transport.git_transport;
+alias git_transport = libgit2.sys.transport.git_transport;
 
 /**
  * Preparation for a push operation. Can be used to configure what to
@@ -438,13 +438,13 @@ alias git_transport = libgit2_d.sys.transport.git_transport;
 struct git_push;
 
 /* documentation in the definition */
-alias git_remote_head = libgit2_d.net.git_remote_head;
-alias git_remote_callbacks = libgit2_d.remote.git_remote_callbacks;
+alias git_remote_head = libgit2.net.git_remote_head;
+alias git_remote_callbacks = libgit2.remote.git_remote_callbacks;
 
 /**
  * Parent type for `git_cert_hostkey` and `git_cert_x509`.
  */
-alias git_cert = libgit2_d.cert.git_cert;
+alias git_cert = libgit2.cert.git_cert;
 
 /**
  * Opaque structure representing a submodule.

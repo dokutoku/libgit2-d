@@ -11,19 +11,19 @@
  * with this software. If not, see
  * <http://creativecommons.org/publicdomain/zero/1.0/>.
  */
-module libgit2_d.example.blame;
+module libgit2.example.blame;
 
 
 private static import core.stdc.stdio;
 private static import core.stdc.stdlib;
 private static import core.stdc.string;
-private static import libgit2_d.blame;
-private static import libgit2_d.blob;
-private static import libgit2_d.example.common;
-private static import libgit2_d.object;
-private static import libgit2_d.oid;
-private static import libgit2_d.revparse;
-private static import libgit2_d.types;
+private static import libgit2.blame;
+private static import libgit2.blob;
+private static import libgit2.example.common;
+private static import libgit2.object;
+private static import libgit2.oid;
+private static import libgit2.revparse;
+private static import libgit2.types;
 private static import std.ascii;
 
 package:
@@ -46,8 +46,8 @@ public struct blame_opts
 
 extern (C)
 nothrow @nogc
-//int lg2_blame(libgit2_d.types.git_repository* repo, int argc, char*[] argv)
-public int lg2_blame(libgit2_d.types.git_repository* repo, int argc, char** argv)
+//int lg2_blame(libgit2.types.git_repository* repo, int argc, char*[] argv)
+public int lg2_blame(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in
 	{
@@ -58,43 +58,43 @@ public int lg2_blame(libgit2_d.types.git_repository* repo, int argc, char** argv
 		.blame_opts o = .blame_opts.init;
 		.parse_opts(&o, argc, argv);
 
-		libgit2_d.blame.git_blame_options blameopts = libgit2_d.blame.GIT_BLAME_OPTIONS_INIT();
+		libgit2.blame.git_blame_options blameopts = libgit2.blame.GIT_BLAME_OPTIONS_INIT();
 
 		if (o.M) {
-			blameopts.flags |= libgit2_d.blame.git_blame_flag_t.GIT_BLAME_TRACK_COPIES_SAME_COMMIT_MOVES;
+			blameopts.flags |= libgit2.blame.git_blame_flag_t.GIT_BLAME_TRACK_COPIES_SAME_COMMIT_MOVES;
 		}
 
 		if (o.C) {
-			blameopts.flags |= libgit2_d.blame.git_blame_flag_t.GIT_BLAME_TRACK_COPIES_SAME_COMMIT_COPIES;
+			blameopts.flags |= libgit2.blame.git_blame_flag_t.GIT_BLAME_TRACK_COPIES_SAME_COMMIT_COPIES;
 		}
 
 		if (o.F) {
-			blameopts.flags |= libgit2_d.blame.git_blame_flag_t.GIT_BLAME_FIRST_PARENT;
+			blameopts.flags |= libgit2.blame.git_blame_flag_t.GIT_BLAME_FIRST_PARENT;
 		}
 
-		libgit2_d.revparse.git_revspec revspec = libgit2_d.revparse.git_revspec.init;
+		libgit2.revparse.git_revspec revspec = libgit2.revparse.git_revspec.init;
 
 		/**
 		 * The commit range comes in "commitish" form. Use the rev-parse API to
 		 * nail down the end points.
 		 */
 		if (o.commitspec != null) {
-			libgit2_d.example.common.check_lg2(libgit2_d.revparse.git_revparse(&revspec, repo, o.commitspec), "Couldn't parse commit spec", null);
+			libgit2.example.common.check_lg2(libgit2.revparse.git_revparse(&revspec, repo, o.commitspec), "Couldn't parse commit spec", null);
 
-			if (revspec.flags & libgit2_d.revparse.git_revparse_mode_t.GIT_REVPARSE_SINGLE) {
-				libgit2_d.oid.git_oid_cpy(&blameopts.newest_commit, libgit2_d.object.git_object_id(revspec.from));
-				libgit2_d.object.git_object_free(revspec.from);
+			if (revspec.flags & libgit2.revparse.git_revparse_mode_t.GIT_REVPARSE_SINGLE) {
+				libgit2.oid.git_oid_cpy(&blameopts.newest_commit, libgit2.object.git_object_id(revspec.from));
+				libgit2.object.git_object_free(revspec.from);
 			} else {
-				libgit2_d.oid.git_oid_cpy(&blameopts.oldest_commit, libgit2_d.object.git_object_id(revspec.from));
-				libgit2_d.oid.git_oid_cpy(&blameopts.newest_commit, libgit2_d.object.git_object_id(revspec.to));
-				libgit2_d.object.git_object_free(revspec.from);
-				libgit2_d.object.git_object_free(revspec.to);
+				libgit2.oid.git_oid_cpy(&blameopts.oldest_commit, libgit2.object.git_object_id(revspec.from));
+				libgit2.oid.git_oid_cpy(&blameopts.newest_commit, libgit2.object.git_object_id(revspec.to));
+				libgit2.object.git_object_free(revspec.from);
+				libgit2.object.git_object_free(revspec.to);
 			}
 		}
 
 		/** Run the blame. */
-		libgit2_d.blame.git_blame* blame = null;
-		libgit2_d.example.common.check_lg2(libgit2_d.blame.git_blame_file(&blame, repo, o.path, &blameopts), "Blame error", null);
+		libgit2.blame.git_blame* blame = null;
+		libgit2.example.common.check_lg2(libgit2.blame.git_blame_file(&blame, repo, o.path, &blameopts), "Blame error", null);
 
 		char[1024] spec  = '\0';
 
@@ -102,33 +102,33 @@ public int lg2_blame(libgit2_d.types.git_repository* repo, int argc, char** argv
 		 * Get the raw data inside the blob for output. We use the
 		 * `commitish:path/to/file.txt` format to find it.
 		 */
-		if (libgit2_d.oid.git_oid_is_zero(&blameopts.newest_commit)) {
+		if (libgit2.oid.git_oid_is_zero(&blameopts.newest_commit)) {
 			core.stdc.string.strcpy(&(spec[0]), "HEAD");
 		} else {
-			libgit2_d.oid.git_oid_tostr(&(spec[0]), spec.length, &blameopts.newest_commit);
+			libgit2.oid.git_oid_tostr(&(spec[0]), spec.length, &blameopts.newest_commit);
 		}
 
 		core.stdc.string.strcat(&(spec[0]), ":");
 		core.stdc.string.strcat(&(spec[0]), o.path);
 
-		libgit2_d.types.git_object* obj;
-		libgit2_d.example.common.check_lg2(libgit2_d.revparse.git_revparse_single(&obj, repo, &(spec[0])), "Object lookup error", null);
-		libgit2_d.types.git_blob* blob;
-		libgit2_d.example.common.check_lg2(libgit2_d.blob.git_blob_lookup(&blob, repo, libgit2_d.object.git_object_id(obj)), "Blob lookup error", null);
-		libgit2_d.object.git_object_free(obj);
+		libgit2.types.git_object* obj;
+		libgit2.example.common.check_lg2(libgit2.revparse.git_revparse_single(&obj, repo, &(spec[0])), "Object lookup error", null);
+		libgit2.types.git_blob* blob;
+		libgit2.example.common.check_lg2(libgit2.blob.git_blob_lookup(&blob, repo, libgit2.object.git_object_id(obj)), "Blob lookup error", null);
+		libgit2.object.git_object_free(obj);
 
-		const char* rawdata = cast(const char*)(libgit2_d.blob.git_blob_rawcontent(blob));
-		libgit2_d.types.git_object_size_t rawsize = libgit2_d.blob.git_blob_rawsize(blob);
+		const char* rawdata = cast(const char*)(libgit2.blob.git_blob_rawcontent(blob));
+		libgit2.types.git_object_size_t rawsize = libgit2.blob.git_blob_rawsize(blob);
 
 		/** Produce the output. */
 		int line = 1;
-		libgit2_d.types.git_object_size_t i = 0;
+		libgit2.types.git_object_size_t i = 0;
 		int break_on_null_hunk = 0;
 
 		while (i < rawsize) {
 			const char* eol = cast(const char*)(core.stdc.string.memchr(rawdata + i, '\n', cast(size_t)(rawsize - i)));
 			char[10] oid  = '\0';
-			const (libgit2_d.blame.git_blame_hunk)* hunk = libgit2_d.blame.git_blame_get_hunk_byline(blame, line);
+			const (libgit2.blame.git_blame_hunk)* hunk = libgit2.blame.git_blame_get_hunk_byline(blame, line);
 
 			if ((break_on_null_hunk) && (!hunk)) {
 				break;
@@ -138,8 +138,8 @@ public int lg2_blame(libgit2_d.types.git_repository* repo, int argc, char** argv
 				char[128] sig  = '\0';
 				break_on_null_hunk = 1;
 
-				libgit2_d.oid.git_oid_tostr(&(oid[0]), 10, &hunk.final_commit_id);
-				libgit2_d.example.common.snprintf(&(sig[0]), 30, "%s <%s>", hunk.final_signature.name, hunk.final_signature.email);
+				libgit2.oid.git_oid_tostr(&(oid[0]), 10, &hunk.final_commit_id);
+				libgit2.example.common.snprintf(&(sig[0]), 30, "%s <%s>", hunk.final_signature.name, hunk.final_signature.email);
 
 				core.stdc.stdio.printf("%s ( %-30s %3d) %.*s\n", &(oid[0]), &(sig[0]), line, cast(int)(eol - rawdata - i), rawdata + i);
 			}
@@ -149,8 +149,8 @@ public int lg2_blame(libgit2_d.types.git_repository* repo, int argc, char** argv
 		}
 
 		/** Cleanup. */
-		libgit2_d.blob.git_blob_free(blob);
-		libgit2_d.blame.git_blame_free(blame);
+		libgit2.blob.git_blob_free(blob);
+		libgit2.blame.git_blame_free(blame);
 
 		return 0;
 	}
@@ -248,14 +248,14 @@ private void parse_opts(.blame_opts* o, int argc, char** argv)
 				a = argv[i];
 
 				if (i >= argc) {
-					libgit2_d.example.common.fatal("Not enough arguments to -L", null);
+					libgit2.example.common.fatal("Not enough arguments to -L", null);
 				}
 
-				libgit2_d.example.common.check_lg2(core.stdc.stdio.sscanf(a, "%d,%d", &o.start_line, &o.end_line) - 2, "-L format error", null);
+				libgit2.example.common.check_lg2(core.stdc.stdio.sscanf(a, "%d,%d", &o.start_line, &o.end_line) - 2, "-L format error", null);
 			} else {
 				/* commit range */
 				if (o.commitspec) {
-					libgit2_d.example.common.fatal("Only one commit spec allowed", null);
+					libgit2.example.common.fatal("Only one commit spec allowed", null);
 				}
 
 				o.commitspec = a;

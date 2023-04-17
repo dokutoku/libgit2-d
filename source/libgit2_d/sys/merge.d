@@ -4,13 +4,13 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.merge;
+module libgit2.sys.merge;
 
 
-private static import libgit2_d.buffer;
-private static import libgit2_d.index;
-private static import libgit2_d.merge;
-private static import libgit2_d.types;
+private static import libgit2.buffer;
+private static import libgit2.index;
+private static import libgit2.merge;
+private static import libgit2.types;
 
 /*
  * @file git2/sys/merge.h
@@ -21,7 +21,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 /**
  * Look up a merge driver by name
@@ -47,31 +47,31 @@ struct git_merge_driver_source;
  * Get the repository that the source data is coming from.
  */
 //GIT_EXTERN
-libgit2_d.types.git_repository* git_merge_driver_source_repo(const (.git_merge_driver_source)* src);
+libgit2.types.git_repository* git_merge_driver_source_repo(const (.git_merge_driver_source)* src);
 
 /**
  * Gets the ancestor of the file to merge.
  */
 //GIT_EXTERN
-const (libgit2_d.index.git_index_entry)* git_merge_driver_source_ancestor(const (.git_merge_driver_source)* src);
+const (libgit2.index.git_index_entry)* git_merge_driver_source_ancestor(const (.git_merge_driver_source)* src);
 
 /**
  * Gets the ours side of the file to merge.
  */
 //GIT_EXTERN
-const (libgit2_d.index.git_index_entry)* git_merge_driver_source_ours(const (.git_merge_driver_source)* src);
+const (libgit2.index.git_index_entry)* git_merge_driver_source_ours(const (.git_merge_driver_source)* src);
 
 /**
  * Gets the theirs side of the file to merge.
  */
 //GIT_EXTERN
-const (libgit2_d.index.git_index_entry)* git_merge_driver_source_theirs(const (.git_merge_driver_source)* src);
+const (libgit2.index.git_index_entry)* git_merge_driver_source_theirs(const (.git_merge_driver_source)* src);
 
 /**
  * Gets the merge file options that the merge was invoked with
  */
 //GIT_EXTERN
-const (libgit2_d.merge.git_merge_file_options)* git_merge_driver_source_file_options(const (.git_merge_driver_source)* src);
+const (libgit2.merge.git_merge_file_options)* git_merge_driver_source_file_options(const (.git_merge_driver_source)* src);
 
 /**
  * Initialize callback on merge driver
@@ -117,7 +117,7 @@ alias git_merge_driver_shutdown_fn = void function(.git_merge_driver* self);
  *
  * The `src` contains the data about the file to be merged.
  */
-alias git_merge_driver_apply_fn = int function(.git_merge_driver* self, const (char)** path_out, uint* mode_out, libgit2_d.buffer.git_buf* merged_out, const (char)* filter_name, const (.git_merge_driver_source)* src);
+alias git_merge_driver_apply_fn = int function(.git_merge_driver* self, const (char)** path_out, uint* mode_out, libgit2.buffer.git_buf* merged_out, const (char)* filter_name, const (.git_merge_driver_source)* src);
 
 /**
  * Merge driver structure used to register custom merge drivers.

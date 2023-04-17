@@ -4,11 +4,11 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.index;
+module libgit2.sys.index;
 
 
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/sys/index.h
@@ -19,7 +19,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 /**
  * Representation of a rename conflict entry in the index.
@@ -37,7 +37,7 @@ struct git_index_name_entry
 struct git_index_reuc_entry
 {
 	uint[3] mode;
-	libgit2_d.oid.git_oid[3] oid;
+	libgit2.oid.git_oid[3] oid;
 	char* path;
 }
 
@@ -57,7 +57,7 @@ struct git_index_reuc_entry
  * Returns: integer of count of current filename conflict entries
  */
 //GIT_EXTERN
-size_t git_index_name_entrycount(libgit2_d.types.git_index* index);
+size_t git_index_name_entrycount(libgit2.types.git_index* index);
 
 /**
  * Get a filename conflict entry from the index.
@@ -72,7 +72,7 @@ size_t git_index_name_entrycount(libgit2_d.types.git_index* index);
  * Returns: a pointer to the filename conflict entry; null if out of bounds
  */
 //GIT_EXTERN
-const (.git_index_name_entry)* git_index_name_get_byindex(libgit2_d.types.git_index* index, size_t n);
+const (.git_index_name_entry)* git_index_name_get_byindex(libgit2.types.git_index* index, size_t n);
 
 /**
  * Record the filenames involved in a rename conflict.
@@ -84,7 +84,7 @@ const (.git_index_name_entry)* git_index_name_get_byindex(libgit2_d.types.git_in
  *      theirs = the path of the file as it existed in their tree
  */
 //GIT_EXTERN
-int git_index_name_add(libgit2_d.types.git_index* index, const (char)* ancestor, const (char)* ours, const (char)* theirs);
+int git_index_name_add(libgit2.types.git_index* index, const (char)* ancestor, const (char)* ours, const (char)* theirs);
 
 /**
  * Remove all filename conflict entries.
@@ -95,7 +95,7 @@ int git_index_name_add(libgit2_d.types.git_index* index, const (char)* ancestor,
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_index_name_clear(libgit2_d.types.git_index* index);
+int git_index_name_clear(libgit2.types.git_index* index);
 
 /*@}*/
 
@@ -116,7 +116,7 @@ int git_index_name_clear(libgit2_d.types.git_index* index);
  * Returns: integer of count of current resolve undo entries
  */
 //GIT_EXTERN
-size_t git_index_reuc_entrycount(libgit2_d.types.git_index* index);
+size_t git_index_reuc_entrycount(libgit2.types.git_index* index);
 
 /**
  * Finds the resolve undo entry that points to the given path in the Git
@@ -130,7 +130,7 @@ size_t git_index_reuc_entrycount(libgit2_d.types.git_index* index);
  * Returns: 0 if found, < 0 otherwise (git_error_code.GIT_ENOTFOUND)
  */
 //GIT_EXTERN
-int git_index_reuc_find(size_t* at_pos, libgit2_d.types.git_index* index, const (char)* path);
+int git_index_reuc_find(size_t* at_pos, libgit2.types.git_index* index, const (char)* path);
 
 /**
  * Get a resolve undo entry from the index.
@@ -145,7 +145,7 @@ int git_index_reuc_find(size_t* at_pos, libgit2_d.types.git_index* index, const 
  * Returns: the resolve undo entry; null if not found
  */
 //GIT_EXTERN
-const (.git_index_reuc_entry)* git_index_reuc_get_bypath(libgit2_d.types.git_index* index, const (char)* path);
+const (.git_index_reuc_entry)* git_index_reuc_get_bypath(libgit2.types.git_index* index, const (char)* path);
 
 /**
  * Get a resolve undo entry from the index.
@@ -160,7 +160,7 @@ const (.git_index_reuc_entry)* git_index_reuc_get_bypath(libgit2_d.types.git_ind
  * Returns: a pointer to the resolve undo entry; null if out of bounds
  */
 //GIT_EXTERN
-const (.git_index_reuc_entry)* git_index_reuc_get_byindex(libgit2_d.types.git_index* index, size_t n);
+const (.git_index_reuc_entry)* git_index_reuc_get_byindex(libgit2.types.git_index* index, size_t n);
 
 /**
  * Adds a resolve undo entry for a file based on the given parameters.
@@ -187,7 +187,7 @@ const (.git_index_reuc_entry)* git_index_reuc_get_byindex(libgit2_d.types.git_in
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_index_reuc_add(libgit2_d.types.git_index* index, const (char)* path, int ancestor_mode, const (libgit2_d.oid.git_oid)* ancestor_id, int our_mode, const (libgit2_d.oid.git_oid)* our_id, int their_mode, const (libgit2_d.oid.git_oid)* their_id);
+int git_index_reuc_add(libgit2.types.git_index* index, const (char)* path, int ancestor_mode, const (libgit2.oid.git_oid)* ancestor_id, int our_mode, const (libgit2.oid.git_oid)* our_id, int their_mode, const (libgit2.oid.git_oid)* their_id);
 
 /**
  * Remove an resolve undo entry from the index
@@ -199,7 +199,7 @@ int git_index_reuc_add(libgit2_d.types.git_index* index, const (char)* path, int
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_index_reuc_remove(libgit2_d.types.git_index* index, size_t n);
+int git_index_reuc_remove(libgit2.types.git_index* index, size_t n);
 
 /**
  * Remove all resolve undo entries from the index
@@ -210,7 +210,7 @@ int git_index_reuc_remove(libgit2_d.types.git_index* index, size_t n);
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_index_reuc_clear(libgit2_d.types.git_index* index);
+int git_index_reuc_clear(libgit2.types.git_index* index);
 
 /*@}*/
 

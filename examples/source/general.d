@@ -35,32 +35,32 @@
  * [ap]: http://libgit2.github.com/libgit2
  * [pg]: https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain
  */
-module libgit2_d.example.general;
+module libgit2.example.general;
 
 
 private static import core.stdc.config;
 private static import core.stdc.stdio;
 private static import core.stdc.stdlib;
 private static import core.stdc.time;
-private static import libgit2_d.blob;
-private static import libgit2_d.commit;
-private static import libgit2_d.common;
-private static import libgit2_d.config;
-private static import libgit2_d.deprecated_;
-private static import libgit2_d.errors;
-private static import libgit2_d.global;
-private static import libgit2_d.index;
-private static import libgit2_d.object;
-private static import libgit2_d.odb;
-private static import libgit2_d.oid;
-private static import libgit2_d.refs;
-private static import libgit2_d.repository;
-private static import libgit2_d.revwalk;
-private static import libgit2_d.signature;
-private static import libgit2_d.strarray;
-private static import libgit2_d.tag;
-private static import libgit2_d.tree;
-private static import libgit2_d.types;
+private static import libgit2.blob;
+private static import libgit2.commit;
+private static import libgit2.common;
+private static import libgit2.config;
+private static import libgit2.deprecated_;
+private static import libgit2.errors;
+private static import libgit2.global;
+private static import libgit2.index;
+private static import libgit2.object;
+private static import libgit2.odb;
+private static import libgit2.oid;
+private static import libgit2.refs;
+private static import libgit2.repository;
+private static import libgit2.revwalk;
+private static import libgit2.signature;
+private static import libgit2.strarray;
+private static import libgit2.tag;
+private static import libgit2.tree;
+private static import libgit2.types;
 
 package:
 
@@ -71,17 +71,17 @@ package:
  * that you need.  It should be the only thing you need to include in order
  * to compile properly and get all the libgit2 API.
  */
-//private void oid_parsing(libgit2_d.oid.git_oid* out_);
-//private void object_database(libgit2_d.types.git_repository* repo, libgit2_d.oid.git_oid* oid);
-//private void commit_writing(libgit2_d.types.git_repository* repo);
-//private void commit_parsing(libgit2_d.types.git_repository* repo);
-//private void tag_parsing(libgit2_d.types.git_repository* repo);
-//private void tree_parsing(libgit2_d.types.git_repository* repo);
-//private void blob_parsing(libgit2_d.types.git_repository* repo);
-//private void revwalking(libgit2_d.types.git_repository* repo);
-//private void index_walking(libgit2_d.types.git_repository* repo);
-//private void reference_listing(libgit2_d.types.git_repository* repo);
-//private void config_files(const (char)* repo_path, libgit2_d.types.git_repository* repo);
+//private void oid_parsing(libgit2.oid.git_oid* out_);
+//private void object_database(libgit2.types.git_repository* repo, libgit2.oid.git_oid* oid);
+//private void commit_writing(libgit2.types.git_repository* repo);
+//private void commit_parsing(libgit2.types.git_repository* repo);
+//private void tag_parsing(libgit2.types.git_repository* repo);
+//private void tree_parsing(libgit2.types.git_repository* repo);
+//private void blob_parsing(libgit2.types.git_repository* repo);
+//private void revwalking(libgit2.types.git_repository* repo);
+//private void index_walking(libgit2.types.git_repository* repo);
+//private void reference_listing(libgit2.types.git_repository* repo);
+//private void config_files(const (char)* repo_path, libgit2.types.git_repository* repo);
 
 /**
  * Almost all libgit2 functions return 0 on success or negative on error.
@@ -97,7 +97,7 @@ private void check_error(int error_code, const (char)* action)
 
 	do
 	{
-		const (libgit2_d.errors.git_error)* error = libgit2_d.errors.git_error_last();
+		const (libgit2.errors.git_error)* error = libgit2.errors.git_error_last();
 
 		if (!error_code) {
 			return;
@@ -110,7 +110,7 @@ private void check_error(int error_code, const (char)* action)
 
 extern (C)
 nothrow @nogc
-public int lg2_general(libgit2_d.types.git_repository* repo, int argc, char** argv)
+public int lg2_general(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in
 	{
@@ -122,7 +122,7 @@ public int lg2_general(libgit2_d.types.git_repository* repo, int argc, char** ar
 		 * Initialize the library, this will set up any global state which libgit2 needs
 		 * including threading and crypto
 		 */
-		libgit2_d.global.git_libgit2_init();
+		libgit2.global.git_libgit2_init();
 
 		/**
 		 * ### Opening the Repository
@@ -137,10 +137,10 @@ public int lg2_general(libgit2_d.types.git_repository* repo, int argc, char** ar
 		 */
 		const char* repo_path = (argc > 1) ? (argv[1]) : ("/opt/libgit2-test/.git");
 
-		int error = libgit2_d.repository.git_repository_open(&repo, repo_path);
+		int error = libgit2.repository.git_repository_open(&repo, repo_path);
 		.check_error(error, "opening repository");
 
-		libgit2_d.oid.git_oid oid;
+		libgit2.oid.git_oid oid;
 		.oid_parsing(&oid);
 		.object_database(repo, &oid);
 		.commit_writing(repo);
@@ -156,7 +156,7 @@ public int lg2_general(libgit2_d.types.git_repository* repo, int argc, char** ar
 		/**
 		 * Finally, when you're done with the repository, you can free it as well.
 		 */
-		libgit2_d.repository.git_repository_free(repo);
+		libgit2.repository.git_repository_free(repo);
 
 		return 0;
 	}
@@ -165,7 +165,7 @@ public int lg2_general(libgit2_d.types.git_repository* repo, int argc, char** ar
  * ### SHA-1 Value Conversions
  */
 nothrow @nogc
-private void oid_parsing(libgit2_d.oid.git_oid* oid)
+private void oid_parsing(libgit2.oid.git_oid* oid)
 
 	in
 	{
@@ -179,12 +179,12 @@ private void oid_parsing(libgit2_d.oid.git_oid* oid)
 		 * For our first example, we will convert a 40 character hex value to the
 		 * 20 byte raw SHA1 value.
 		 *
-		 * The `libgit2_d.oid.git_oid` is the structure that keeps the SHA value. We will use
+		 * The `libgit2.oid.git_oid` is the structure that keeps the SHA value. We will use
 		 * this throughout the example for storing the value of the current SHA
 		 * key we're working with.
 		 */
 		const char* hex = "4a202b346bb0fb0db7eff3cffeb3c70babbd2045";
-		libgit2_d.oid.git_oid_fromstr(oid, hex);
+		libgit2.oid.git_oid_fromstr(oid, hex);
 
 		/*
 		 * Once we've converted the string into the oid value, we can get the raw
@@ -194,17 +194,17 @@ private void oid_parsing(libgit2_d.oid.git_oid* oid)
 		 * char hex value.
 		 */
 		core.stdc.stdio.printf("\n*Raw to Hex*\n");
-		char[libgit2_d.oid.GIT_OID_HEXSZ + 1] out_ = '\0';
+		char[libgit2.oid.GIT_OID_HEXSZ + 1] out_ = '\0';
 
 		/**
 		 * If you have a oid, you can easily get the hex value of the SHA as well.
 		 */
-		libgit2_d.oid.git_oid_fmt(&(out_[0]), oid);
+		libgit2.oid.git_oid_fmt(&(out_[0]), oid);
 
 		/**
 		 * If you have a oid, you can easily get the hex value of the SHA as well.
 		 */
-		libgit2_d.oid.git_oid_fmt(&(out_[0]), oid);
+		libgit2.oid.git_oid_fmt(&(out_[0]), oid);
 		core.stdc.stdio.printf("SHA hex string: %s\n", &(out_[0]));
 	}
 
@@ -219,7 +219,7 @@ private void oid_parsing(libgit2_d.oid.git_oid* oid)
  * [odb]: http://libgit2.github.com/libgit2/#HEAD/group/odb
  */
 nothrow @nogc
-private void object_database(libgit2_d.types.git_repository* repo, libgit2_d.oid.git_oid* oid)
+private void object_database(libgit2.types.git_repository* repo, libgit2.oid.git_oid* oid)
 
 	in
 	{
@@ -227,8 +227,8 @@ private void object_database(libgit2_d.types.git_repository* repo, libgit2_d.oid
 
 	do
 	{
-		libgit2_d.types.git_odb* odb;
-		libgit2_d.repository.git_repository_odb(&odb, repo);
+		libgit2.types.git_odb* odb;
+		libgit2.repository.git_repository_odb(&odb, repo);
 
 		/**
 		 * #### Raw Object Reading
@@ -241,8 +241,8 @@ private void object_database(libgit2_d.types.git_repository* repo, libgit2_d.oid
 		 * the oid (SHA) of the object.  This allows us to access objects without
 		 * knowing their type and inspect the raw bytes unparsed.
 		 */
-		libgit2_d.types.git_odb_object* obj;
-		int error = libgit2_d.odb.git_odb_read(&obj, odb, oid);
+		libgit2.types.git_odb_object* obj;
+		int error = libgit2.odb.git_odb_read(&obj, odb, oid);
 		.check_error(error, "finding object in repository");
 
 		/**
@@ -253,21 +253,21 @@ private void object_database(libgit2_d.types.git_repository* repo, libgit2_d.oid
 		 * binary data. For a tree it is a special binary format, so it's unlikely
 		 * to be hugely helpful as a raw object.
 		 */
-		const (ubyte)* data = cast(const (ubyte)*)(libgit2_d.odb.git_odb_object_data(obj));
-		libgit2_d.types.git_object_t otype = libgit2_d.odb.git_odb_object_type(obj);
+		const (ubyte)* data = cast(const (ubyte)*)(libgit2.odb.git_odb_object_data(obj));
+		libgit2.types.git_object_t otype = libgit2.odb.git_odb_object_type(obj);
 
 		/**
 		 * We provide methods to convert from the object type which is an enum, to
 		 * a string representation of that value (and vice-versa).
 		 */
-		const (char)* str_type = libgit2_d.object.git_object_type2string(otype);
-		core.stdc.stdio.printf("object length and type: %d, %s\nobject data: %s\n", cast(int)(libgit2_d.odb.git_odb_object_size(obj)), str_type, data);
+		const (char)* str_type = libgit2.object.git_object_type2string(otype);
+		core.stdc.stdio.printf("object length and type: %d, %s\nobject data: %s\n", cast(int)(libgit2.odb.git_odb_object_size(obj)), str_type, data);
 
 		/**
 		 * For proper memory management, close the object when you are done with
 		 * it or it will leak memory.
 		 */
-		libgit2_d.odb.git_odb_object_free(obj);
+		libgit2.odb.git_odb_object_free(obj);
 
 		/**
 		 * #### Raw Object Writing
@@ -279,23 +279,23 @@ private void object_database(libgit2_d.types.git_repository* repo, libgit2_d.oid
 		 * You can also write raw object data to Git. This is pretty cool because
 		 * it gives you direct access to the key/value properties of Git.  Here
 		 * we'll write a new blob object that just contains a simple string.
-		 * Notice that we have to specify the object type as the `libgit2_d.deprecated_.git_object_t` enum.
+		 * Notice that we have to specify the object type as the `libgit2.deprecated_.git_object_t` enum.
 		 */
 		enum test_data = "test data";
-		libgit2_d.odb.git_odb_write(oid, odb, test_data.ptr, test_data.length, libgit2_d.types.git_object_t.GIT_OBJECT_BLOB);
+		libgit2.odb.git_odb_write(oid, odb, test_data.ptr, test_data.length, libgit2.types.git_object_t.GIT_OBJECT_BLOB);
 
 		/**
 		 * Now that we've written the object, we can check out what SHA1 was
 		 * generated when the object was written to our database.
 		 */
-		char[libgit2_d.oid.GIT_OID_HEXSZ + 1] oid_hex  = '\0';
-		libgit2_d.oid.git_oid_fmt(&(oid_hex[0]), oid);
+		char[libgit2.oid.GIT_OID_HEXSZ + 1] oid_hex  = '\0';
+		libgit2.oid.git_oid_fmt(&(oid_hex[0]), oid);
 		core.stdc.stdio.printf("Written Object: %s\n", &(oid_hex[0]));
 
 		/**
 		 * Free the object database after usage.
 		 */
-		libgit2_d.odb.git_odb_free(odb);
+		libgit2.odb.git_odb_free(odb);
 	}
 
 /**
@@ -309,7 +309,7 @@ private void object_database(libgit2_d.types.git_repository* repo, libgit2_d.oid
  * [cd]: http://libgit2.github.com/libgit2/#HEAD/group/commit
  */
 nothrow @nogc
-private void commit_writing(libgit2_d.types.git_repository* repo)
+private void commit_writing(libgit2.types.git_repository* repo)
 
 	in
 	{
@@ -326,32 +326,32 @@ private void commit_writing(libgit2_d.types.git_repository* repo)
 		 * `user.email` configuration options.  See the `config` section of this
 		 * example file to see how to access config values.
 		 */
-		libgit2_d.types.git_signature* author;
-		libgit2_d.signature.git_signature_new(&author, "Scott Chacon", "schacon@gmail.com", 123456789, 60);
-		libgit2_d.types.git_signature* committer;
-		libgit2_d.signature.git_signature_new(&committer, "Scott A Chacon", "scott@github.com", 987654321, 90);
+		libgit2.types.git_signature* author;
+		libgit2.signature.git_signature_new(&author, "Scott Chacon", "schacon@gmail.com", 123456789, 60);
+		libgit2.types.git_signature* committer;
+		libgit2.signature.git_signature_new(&committer, "Scott A Chacon", "scott@github.com", 987654321, 90);
 
 		/**
 		 * Commit objects need a tree to point to and optionally one or more
 		 * parents.  Here we're creating oid objects to create the commit with,
 		 * but you can also use
 		 */
-		libgit2_d.oid.git_oid tree_id;
-		libgit2_d.oid.git_oid_fromstr(&tree_id, "f60079018b664e4e79329a7ef9559c8d9e0378d1");
-		libgit2_d.types.git_tree* tree;
-		libgit2_d.tree.git_tree_lookup(&tree, repo, &tree_id);
-		libgit2_d.oid.git_oid parent_id;
-		libgit2_d.oid.git_oid_fromstr(&parent_id, "5b5b025afb0b4c913b4c338a42934a3863bf3644");
-		libgit2_d.types.git_commit* parent;
-		libgit2_d.commit.git_commit_lookup(&parent, repo, &parent_id);
+		libgit2.oid.git_oid tree_id;
+		libgit2.oid.git_oid_fromstr(&tree_id, "f60079018b664e4e79329a7ef9559c8d9e0378d1");
+		libgit2.types.git_tree* tree;
+		libgit2.tree.git_tree_lookup(&tree, repo, &tree_id);
+		libgit2.oid.git_oid parent_id;
+		libgit2.oid.git_oid_fromstr(&parent_id, "5b5b025afb0b4c913b4c338a42934a3863bf3644");
+		libgit2.types.git_commit* parent;
+		libgit2.commit.git_commit_lookup(&parent, repo, &parent_id);
 
 		/**
 		 * Here we actually create the commit object with a single call with all
 		 * the values we need to create the commit.  The SHA key is written to the
 		 * `commit_id` variable here.
 		 */
-		libgit2_d.oid.git_oid commit_id;
-		libgit2_d.commit.git_commit_create_v(&commit_id, /* out id */
+		libgit2.oid.git_oid commit_id;
+		libgit2.commit.git_commit_create_v(&commit_id, /* out id */
 			repo, null, /* do not update the HEAD */
 			author, committer, null, /* use default message encoding */
 			"example commit", tree, 1, parent);
@@ -359,17 +359,17 @@ private void commit_writing(libgit2_d.types.git_repository* repo)
 		/**
 		 * Now we can take a look at the commit SHA we've generated.
 		 */
-		char[libgit2_d.oid.GIT_OID_HEXSZ + 1] oid_hex  = '\0';
-		libgit2_d.oid.git_oid_fmt(&(oid_hex[0]), &commit_id);
+		char[libgit2.oid.GIT_OID_HEXSZ + 1] oid_hex  = '\0';
+		libgit2.oid.git_oid_fmt(&(oid_hex[0]), &commit_id);
 		core.stdc.stdio.printf("New Commit: %s\n", &(oid_hex[0]));
 
 		/**
 		 * Free all objects used in the meanwhile.
 		 */
-		libgit2_d.tree.git_tree_free(tree);
-		libgit2_d.commit.git_commit_free(parent);
-		libgit2_d.signature.git_signature_free(author);
-		libgit2_d.signature.git_signature_free(committer);
+		libgit2.tree.git_tree_free(tree);
+		libgit2.commit.git_commit_free(parent);
+		libgit2.signature.git_signature_free(author);
+		libgit2.signature.git_signature_free(committer);
 	}
 
 /**
@@ -390,7 +390,7 @@ private void commit_writing(libgit2_d.types.git_repository* repo)
  * [pco]: http://libgit2.github.com/libgit2/#HEAD/group/commit
  */
 nothrow @nogc
-private void commit_parsing(libgit2_d.types.git_repository* repo)
+private void commit_parsing(libgit2.types.git_repository* repo)
 
 	in
 	{
@@ -400,30 +400,30 @@ private void commit_parsing(libgit2_d.types.git_repository* repo)
 	{
 		core.stdc.stdio.printf("\n*Commit Parsing*\n");
 
-		libgit2_d.oid.git_oid oid;
-		libgit2_d.oid.git_oid_fromstr(&oid, "8496071c1b46c854b31185ea97743be6a8774479");
+		libgit2.oid.git_oid oid;
+		libgit2.oid.git_oid_fromstr(&oid, "8496071c1b46c854b31185ea97743be6a8774479");
 
-		libgit2_d.types.git_commit* commit;
-		int error = libgit2_d.commit.git_commit_lookup(&commit, repo, &oid);
+		libgit2.types.git_commit* commit;
+		int error = libgit2.commit.git_commit_lookup(&commit, repo, &oid);
 		.check_error(error, "looking up commit");
 
 		/**
 		 * Each of the properties of the commit object are accessible via methods,
-		 * including commonly needed variations, such as `libgit2_d.commit.git_commit_time` which
-		 * returns the author time and `libgit2_d.commit.git_commit_message` which gives you the
+		 * including commonly needed variations, such as `libgit2.commit.git_commit_time` which
+		 * returns the author time and `libgit2.commit.git_commit_message` which gives you the
 		 * commit message (as a NUL-terminated string).
 		 */
-		const (char)* message = libgit2_d.commit.git_commit_message(commit);
-		const (libgit2_d.types.git_signature)* author = libgit2_d.commit.git_commit_author(commit);
-		const (libgit2_d.types.git_signature)* cmtter = libgit2_d.commit.git_commit_committer(commit);
+		const (char)* message = libgit2.commit.git_commit_message(commit);
+		const (libgit2.types.git_signature)* author = libgit2.commit.git_commit_author(commit);
+		const (libgit2.types.git_signature)* cmtter = libgit2.commit.git_commit_committer(commit);
 
 		//ToDo:
-		//core.stdc.time.time_t time = libgit2_d.commit.git_commit_time(commit);
-		core.stdc.time.time_t time = cast(core.stdc.time.time_t)(libgit2_d.commit.git_commit_time(commit));
+		//core.stdc.time.time_t time = libgit2.commit.git_commit_time(commit);
+		core.stdc.time.time_t time = cast(core.stdc.time.time_t)(libgit2.commit.git_commit_time(commit));
 
 		/**
-		 * The author and committer methods return [libgit2_d.types.git_signature] structures,
-		 * which give you name, email and `when`, which is a `libgit2_d.types.git_time` structure,
+		 * The author and committer methods return [libgit2.types.git_signature] structures,
+		 * which give you name, email and `when`, which is a `libgit2.types.git_time` structure,
 		 * giving you a timestamp and timezone offset.
 		 */
 		core.stdc.stdio.printf("Author: %s (%s)\nCommitter: %s (%s)\nDate: %s\nMessage: %s\n", author.name, author.email, cmtter.name, cmtter.email, core.stdc.time.ctime(&time), message);
@@ -434,21 +434,21 @@ private void commit_parsing(libgit2_d.types.git_repository* repo)
 		 * based on) and merge commits will have two or more.  Commits can
 		 * technically have any number, though it's rare to have more than two.
 		 */
-		uint parents = libgit2_d.commit.git_commit_parentcount(commit);
+		uint parents = libgit2.commit.git_commit_parentcount(commit);
 
-		char[libgit2_d.oid.GIT_OID_HEXSZ + 1] oid_hex;
-		libgit2_d.types.git_commit* parent;
+		char[libgit2.oid.GIT_OID_HEXSZ + 1] oid_hex;
+		libgit2.types.git_commit* parent;
 
 		for (uint p = 0; p < parents; p++) {
 			oid_hex[] = 0;
 
-			libgit2_d.commit.git_commit_parent(&parent, commit, p);
-			libgit2_d.oid.git_oid_fmt(&(oid_hex[0]), libgit2_d.commit.git_commit_id(parent));
+			libgit2.commit.git_commit_parent(&parent, commit, p);
+			libgit2.oid.git_oid_fmt(&(oid_hex[0]), libgit2.commit.git_commit_id(parent));
 			core.stdc.stdio.printf("Parent: %s\n", &(oid_hex[0]));
-			libgit2_d.commit.git_commit_free(parent);
+			libgit2.commit.git_commit_free(parent);
 		}
 
-		libgit2_d.commit.git_commit_free(commit);
+		libgit2.commit.git_commit_free(commit);
 	}
 
 /**
@@ -461,7 +461,7 @@ private void commit_parsing(libgit2_d.types.git_repository* repo)
  * [core.stdc.time.tm]: http://libgit2.github.com/libgit2/#HEAD/group/tag
  */
 nothrow @nogc
-private void tag_parsing(libgit2_d.types.git_repository* repo)
+private void tag_parsing(libgit2.types.git_repository* repo)
 
 	in
 	{
@@ -475,11 +475,11 @@ private void tag_parsing(libgit2_d.types.git_repository* repo)
 		 * We create an oid for the tag object if we know the SHA and look it up
 		 * the same way that we would a commit (or any other object).
 		 */
-		libgit2_d.oid.git_oid oid;
-		libgit2_d.oid.git_oid_fromstr(&oid, "b25fa35b38051e4ae45d4222e795f9df2e43f1d1");
+		libgit2.oid.git_oid oid;
+		libgit2.oid.git_oid_fromstr(&oid, "b25fa35b38051e4ae45d4222e795f9df2e43f1d1");
 
-		libgit2_d.types.git_tag* tag;
-		int error = libgit2_d.tag.git_tag_lookup(&tag, repo, &oid);
+		libgit2.types.git_tag* tag;
+		int error = libgit2.tag.git_tag_lookup(&tag, repo, &oid);
 		.check_error(error, "looking up tag");
 
 		/**
@@ -488,25 +488,25 @@ private void tag_parsing(libgit2_d.types.git_repository* repo)
 		 * the target object (usually 'commit'), the name ('v1.0'), the tagger (a
 		 * git_signature - name, email, timestamp), and the tag message.
 		 */
-		libgit2_d.types.git_commit* commit;
-		libgit2_d.tag.git_tag_target(cast(libgit2_d.types.git_object**)(&commit), tag);
+		libgit2.types.git_commit* commit;
+		libgit2.tag.git_tag_target(cast(libgit2.types.git_object**)(&commit), tag);
 
 		/* "test" */
-		const (char)* name = libgit2_d.tag.git_tag_name(tag);
+		const (char)* name = libgit2.tag.git_tag_name(tag);
 
-		/* libgit2_d.types.git_object_t.GIT_OBJECT_COMMIT (object_t enum) */
-		libgit2_d.types.git_object_t type = libgit2_d.tag.git_tag_target_type(tag);
+		/* libgit2.types.git_object_t.GIT_OBJECT_COMMIT (object_t enum) */
+		libgit2.types.git_object_t type = libgit2.tag.git_tag_target_type(tag);
 
 		/* "tag message\n" */
-		const (char)* message = libgit2_d.tag.git_tag_message(tag);
+		const (char)* message = libgit2.tag.git_tag_message(tag);
 
-		core.stdc.stdio.printf("Tag Name: %s\nTag Type: %s\nTag Message: %s\n", name, libgit2_d.object.git_object_type2string(type), message);
+		core.stdc.stdio.printf("Tag Name: %s\nTag Type: %s\nTag Message: %s\n", name, libgit2.object.git_object_type2string(type), message);
 
 		/**
 		 * Free both the commit and tag after usage.
 		 */
-		libgit2_d.commit.git_commit_free(commit);
-		libgit2_d.tag.git_tag_free(tag);
+		libgit2.commit.git_commit_free(commit);
+		libgit2.tag.git_tag_free(tag);
 	}
 
 /**
@@ -520,7 +520,7 @@ private void tag_parsing(libgit2_d.types.git_repository* repo)
  * [tp]: http://libgit2.github.com/libgit2/#HEAD/group/tree
  */
 nothrow @nogc
-private void tree_parsing(libgit2_d.types.git_repository* repo)
+private void tree_parsing(libgit2.types.git_repository* repo)
 
 	in
 	{
@@ -533,49 +533,49 @@ private void tree_parsing(libgit2_d.types.git_repository* repo)
 		/**
 		 * Create the oid and lookup the tree object just like the other objects.
 		 */
-		libgit2_d.oid.git_oid oid;
-		libgit2_d.oid.git_oid_fromstr(&oid, "f60079018b664e4e79329a7ef9559c8d9e0378d1");
-		libgit2_d.types.git_tree* tree;
-		libgit2_d.tree.git_tree_lookup(&tree, repo, &oid);
+		libgit2.oid.git_oid oid;
+		libgit2.oid.git_oid_fromstr(&oid, "f60079018b664e4e79329a7ef9559c8d9e0378d1");
+		libgit2.types.git_tree* tree;
+		libgit2.tree.git_tree_lookup(&tree, repo, &oid);
 
 		/**
 		 * Getting the count of entries in the tree so you can iterate over them
 		 * if you want to.
 		 */
 		/* 2 */
-		size_t cnt = libgit2_d.tree.git_tree_entrycount(tree);
+		size_t cnt = libgit2.tree.git_tree_entrycount(tree);
 
 		core.stdc.stdio.printf("tree entries: %d\n", cast(int)(cnt));
 
-		const (libgit2_d.types.git_tree_entry)* entry = libgit2_d.tree.git_tree_entry_byindex(tree, 0);
+		const (libgit2.types.git_tree_entry)* entry = libgit2.tree.git_tree_entry_byindex(tree, 0);
 
 		/* "README" */
-		core.stdc.stdio.printf("Entry name: %s\n", libgit2_d.tree.git_tree_entry_name(entry));
+		core.stdc.stdio.printf("Entry name: %s\n", libgit2.tree.git_tree_entry_name(entry));
 
 		/**
 		 * You can also access tree entries by name if you know the name of the
 		 * entry you're looking for.
 		 */
-		entry = libgit2_d.tree.git_tree_entry_byname(tree, "README");
+		entry = libgit2.tree.git_tree_entry_byname(tree, "README");
 
 		/* "README" */
-		libgit2_d.tree.git_tree_entry_name(entry);
+		libgit2.tree.git_tree_entry_name(entry);
 
 		/**
 		 * Once you have the entry object, you can access the content or subtree
 		 * (or commit, in the case of submodules) that it points to.  You can also
 		 * get the mode if you want.
 		 */
-		libgit2_d.types.git_object* obj;
+		libgit2.types.git_object* obj;
 
 		/* blob */
-		libgit2_d.tree.git_tree_entry_to_object(&obj, repo, entry);
+		libgit2.tree.git_tree_entry_to_object(&obj, repo, entry);
 
 		/**
 		 * Remember to close the looked-up object and tree once you are done using it
 		 */
-		libgit2_d.object.git_object_free(obj);
-		libgit2_d.tree.git_tree_free(tree);
+		libgit2.object.git_object_free(obj);
+		libgit2.tree.git_tree_free(tree);
 	}
 
 /**
@@ -592,7 +592,7 @@ private void tree_parsing(libgit2_d.types.git_repository* repo)
  * [ba]: http://libgit2.github.com/libgit2/#HEAD/group/blob
  */
 nothrow @nogc
-private void blob_parsing(libgit2_d.types.git_repository* repo)
+private void blob_parsing(libgit2.types.git_repository* repo)
 
 	in
 	{
@@ -602,28 +602,28 @@ private void blob_parsing(libgit2_d.types.git_repository* repo)
 	{
 		core.stdc.stdio.printf("\n*Blob Parsing*\n");
 
-		libgit2_d.oid.git_oid oid;
-		libgit2_d.oid.git_oid_fromstr(&oid, "1385f264afb75a56a5bec74243be9b367ba4ca08");
-		libgit2_d.types.git_blob* blob;
-		libgit2_d.blob.git_blob_lookup(&blob, repo, &oid);
+		libgit2.oid.git_oid oid;
+		libgit2.oid.git_oid_fromstr(&oid, "1385f264afb75a56a5bec74243be9b367ba4ca08");
+		libgit2.types.git_blob* blob;
+		libgit2.blob.git_blob_lookup(&blob, repo, &oid);
 
 		/**
 		 * You can access a buffer with the raw contents of the blob directly.
 		 * Note that this buffer may not be contain ASCII data for certain blobs
 		 * (e.g. binary files): do not consider the buffer a null-terminated
-		 * string, and use the `libgit2_d.blob.git_blob_rawsize` attribute to find out its exact
+		 * string, and use the `libgit2.blob.git_blob_rawsize` attribute to find out its exact
 		 * size in bytes
 		 */
 		/* 8 */
-		core.stdc.stdio.printf("Blob Size: %ld\n", cast(core.stdc.config.c_long)(libgit2_d.blob.git_blob_rawsize(blob)));
+		core.stdc.stdio.printf("Blob Size: %ld\n", cast(core.stdc.config.c_long)(libgit2.blob.git_blob_rawsize(blob)));
 
 		/* "content" */
-		libgit2_d.blob.git_blob_rawcontent(blob);
+		libgit2.blob.git_blob_rawcontent(blob);
 
 		/**
 		 * Free the blob after usage.
 		 */
-		libgit2_d.blob.git_blob_free(blob);
+		libgit2.blob.git_blob_free(blob);
 	}
 
 /**
@@ -639,7 +639,7 @@ private void blob_parsing(libgit2_d.types.git_repository* repo)
  * [rw]: http://libgit2.github.com/libgit2/#HEAD/group/revwalk
  */
 nothrow @nogc
-private void revwalking(libgit2_d.types.git_repository* repo)
+private void revwalking(libgit2.types.git_repository* repo)
 
 	in
 	{
@@ -649,8 +649,8 @@ private void revwalking(libgit2_d.types.git_repository* repo)
 	{
 		core.stdc.stdio.printf("\n*Revwalking*\n");
 
-		libgit2_d.oid.git_oid oid;
-		libgit2_d.oid.git_oid_fromstr(&oid, "5b5b025afb0b4c913b4c338a42934a3863bf3644");
+		libgit2.oid.git_oid oid;
+		libgit2.oid.git_oid_fromstr(&oid, "5b5b025afb0b4c913b4c338a42934a3863bf3644");
 
 		/**
 		 * To use the revwalker, create a new walker, tell it how you want to sort
@@ -662,10 +662,10 @@ private void revwalking(libgit2_d.types.git_repository* repo)
 		 * branch1..branch2`, you would push the oid of `branch2` and hide the oid
 		 * of `branch1`.
 		 */
-		libgit2_d.types.git_revwalk* walk;
-		libgit2_d.revwalk.git_revwalk_new(&walk, repo);
-		libgit2_d.revwalk.git_revwalk_sorting(walk, libgit2_d.revwalk.git_sort_t.GIT_SORT_TOPOLOGICAL | libgit2_d.revwalk.git_sort_t.GIT_SORT_REVERSE);
-		libgit2_d.revwalk.git_revwalk_push(walk, &oid);
+		libgit2.types.git_revwalk* walk;
+		libgit2.revwalk.git_revwalk_new(&walk, repo);
+		libgit2.revwalk.git_revwalk_sorting(walk, libgit2.revwalk.git_sort_t.GIT_SORT_TOPOLOGICAL | libgit2.revwalk.git_sort_t.GIT_SORT_REVERSE);
+		libgit2.revwalk.git_revwalk_push(walk, &oid);
 
 		/**
 		 * Now that we have the starting point pushed onto the walker, we start
@@ -674,17 +674,17 @@ private void revwalking(libgit2_d.types.git_repository* repo)
 		 * at by the returned OID; note that this operation is specially fast
 		 * since the raw contents of the commit object will be cached in memory
 		 */
-		libgit2_d.types.git_commit* wcommit;
+		libgit2.types.git_commit* wcommit;
 
-		while ((libgit2_d.revwalk.git_revwalk_next(&oid, walk)) == 0) {
-			int error = libgit2_d.commit.git_commit_lookup(&wcommit, repo, &oid);
+		while ((libgit2.revwalk.git_revwalk_next(&oid, walk)) == 0) {
+			int error = libgit2.commit.git_commit_lookup(&wcommit, repo, &oid);
 			.check_error(error, "looking up commit during revwalk");
 
-			const (char)* cmsg = libgit2_d.commit.git_commit_message(wcommit);
-			const (libgit2_d.types.git_signature)* cauth = libgit2_d.commit.git_commit_author(wcommit);
+			const (char)* cmsg = libgit2.commit.git_commit_message(wcommit);
+			const (libgit2.types.git_signature)* cauth = libgit2.commit.git_commit_author(wcommit);
 			core.stdc.stdio.printf("%s (%s)\n", cmsg, cauth.email);
 
-			libgit2_d.commit.git_commit_free(wcommit);
+			libgit2.commit.git_commit_free(wcommit);
 		}
 
 		/**
@@ -693,7 +693,7 @@ private void revwalking(libgit2_d.types.git_repository* repo)
 		 * walked it not deallocated while the walk is in progress, or it will
 		 * result in undefined behavior
 		 */
-		libgit2_d.revwalk.git_revwalk_free(walk);
+		libgit2.revwalk.git_revwalk_free(walk);
 	}
 
 /**
@@ -704,7 +704,7 @@ private void revwalking(libgit2_d.types.git_repository* repo)
  * [gi]: http://libgit2.github.com/libgit2/#HEAD/group/index
  */
 nothrow @nogc
-private void index_walking(libgit2_d.types.git_repository* repo)
+private void index_walking(libgit2.types.git_repository* repo)
 
 	in
 	{
@@ -720,8 +720,8 @@ private void index_walking(libgit2_d.types.git_repository* repo)
 		 * index file with `git_index_open_bare()`. The index for the repository
 		 * will be located and loaded from disk.
 		 */
-		libgit2_d.types.git_index* index;
-		libgit2_d.repository.git_repository_index(&index, repo);
+		libgit2.types.git_index* index;
+		libgit2.repository.git_repository_index(&index, repo);
 
 		/**
 		 * For each entry in the index, you can get a bunch of information
@@ -729,19 +729,19 @@ private void index_walking(libgit2_d.types.git_repository* repo)
 		 * that are written out.  It also has filesystem properties to help
 		 * determine what to inspect for changes (ctime, mtime, dev, ino, uid,
 		 * gid, file_size and flags) All these properties are exported publicly in
-		 * the `libgit2_d.index.git_index_entry` struct
+		 * the `libgit2.index.git_index_entry` struct
 		 */
-		size_t ecount = libgit2_d.index.git_index_entrycount(index);
+		size_t ecount = libgit2.index.git_index_entrycount(index);
 
 		for (size_t i = 0; i < ecount; ++i) {
-			const (libgit2_d.index.git_index_entry)* e = libgit2_d.index.git_index_get_byindex(index, i);
+			const (libgit2.index.git_index_entry)* e = libgit2.index.git_index_get_byindex(index, i);
 
 			core.stdc.stdio.printf("path: %s\n", e.path);
 			core.stdc.stdio.printf("mtime: %d\n", cast(int)(e.mtime.seconds));
 			core.stdc.stdio.printf("fs: %d\n", cast(int)(e.file_size));
 		}
 
-		libgit2_d.index.git_index_free(index);
+		libgit2.index.git_index_free(index);
 	}
 
 /**
@@ -754,7 +754,7 @@ private void index_walking(libgit2_d.types.git_repository* repo)
  * [ref]: http://libgit2.github.com/libgit2/#HEAD/group/reference
  */
 nothrow @nogc
-private void reference_listing(libgit2_d.types.git_repository* repo)
+private void reference_listing(libgit2.types.git_repository* repo)
 
 	in
 	{
@@ -772,25 +772,25 @@ private void reference_listing(libgit2_d.types.git_repository* repo)
 		 * one at a time and resolve them to the SHA, then print both values out.
 		 */
 
-		libgit2_d.strarray.git_strarray ref_list;
-		libgit2_d.refs.git_reference_list(&ref_list, repo);
+		libgit2.strarray.git_strarray ref_list;
+		libgit2.refs.git_reference_list(&ref_list, repo);
 
-		libgit2_d.types.git_reference* ref_;
+		libgit2.types.git_reference* ref_;
 
 		for (uint i = 0; i < ref_list.count; ++i) {
-			char[libgit2_d.oid.GIT_OID_HEXSZ + 1] oid_hex = libgit2_d.common.GIT_OID_HEX_ZERO;
+			char[libgit2.oid.GIT_OID_HEXSZ + 1] oid_hex = libgit2.common.GIT_OID_HEX_ZERO;
 			const (char)* refname = ref_list.strings[i];
-			libgit2_d.refs.git_reference_lookup(&ref_, repo, refname);
+			libgit2.refs.git_reference_lookup(&ref_, repo, refname);
 
-			switch (libgit2_d.refs.git_reference_type(ref_)) {
-				case libgit2_d.types.git_reference_t.GIT_REFERENCE_DIRECT:
-					libgit2_d.oid.git_oid_fmt(&(oid_hex[0]), libgit2_d.refs.git_reference_target(ref_));
+			switch (libgit2.refs.git_reference_type(ref_)) {
+				case libgit2.types.git_reference_t.GIT_REFERENCE_DIRECT:
+					libgit2.oid.git_oid_fmt(&(oid_hex[0]), libgit2.refs.git_reference_target(ref_));
 					core.stdc.stdio.printf("%s [%s]\n", refname, &(oid_hex[0]));
 
 					break;
 
-				case libgit2_d.types.git_reference_t.GIT_REFERENCE_SYMBOLIC:
-					core.stdc.stdio.printf("%s => %s\n", refname, libgit2_d.refs.git_reference_symbolic_target(ref_));
+				case libgit2.types.git_reference_t.GIT_REFERENCE_SYMBOLIC:
+					core.stdc.stdio.printf("%s => %s\n", refname, libgit2.refs.git_reference_symbolic_target(ref_));
 
 					break;
 
@@ -799,10 +799,10 @@ private void reference_listing(libgit2_d.types.git_repository* repo)
 					core.stdc.stdlib.exit(1);
 			}
 
-			libgit2_d.refs.git_reference_free(ref_);
+			libgit2.refs.git_reference_free(ref_);
 		}
 
-		libgit2_d.strarray.git_strarray_dispose(&ref_list);
+		libgit2.strarray.git_strarray_dispose(&ref_list);
 	}
 
 /**
@@ -814,7 +814,7 @@ private void reference_listing(libgit2_d.types.git_repository* repo)
  * [config]: http://libgit2.github.com/libgit2/#HEAD/group/config
  */
 nothrow @nogc
-private void config_files(const (char)* repo_path, libgit2_d.types.git_repository* repo)
+private void config_files(const (char)* repo_path, libgit2.types.git_repository* repo)
 
 	in
 	{
@@ -829,22 +829,22 @@ private void config_files(const (char)* repo_path, libgit2_d.types.git_repositor
 		 */
 		char[256] config_path;
 		core.stdc.stdio.sprintf(&(config_path[0]), "%s/config", repo_path);
-		libgit2_d.types.git_config* cfg;
-		.check_error(libgit2_d.config.git_config_open_ondisk(&cfg, &(config_path[0])), "opening config");
+		libgit2.types.git_config* cfg;
+		.check_error(libgit2.config.git_config_open_ondisk(&cfg, &(config_path[0])), "opening config");
 
 		int autocorrect;
 
-		if (libgit2_d.config.git_config_get_int32(&autocorrect, cfg, "help.autocorrect") == 0) {
+		if (libgit2.config.git_config_get_int32(&autocorrect, cfg, "help.autocorrect") == 0) {
 			core.stdc.stdio.printf("Autocorrect: %d\n", autocorrect);
 		}
 
-		libgit2_d.types.git_config* snap_cfg;
-		.check_error(libgit2_d.repository.git_repository_config_snapshot(&snap_cfg, repo), "config snapshot");
+		libgit2.types.git_config* snap_cfg;
+		.check_error(libgit2.repository.git_repository_config_snapshot(&snap_cfg, repo), "config snapshot");
 		const (char)* email;
-		libgit2_d.config.git_config_get_string(&email, snap_cfg, "user.email");
+		libgit2.config.git_config_get_string(&email, snap_cfg, "user.email");
 		core.stdc.stdio.printf("Email: %s\n", email);
 
-		int error_code = libgit2_d.config.git_config_get_int32(&autocorrect, cfg, "help.autocorrect");
+		int error_code = libgit2.config.git_config_get_int32(&autocorrect, cfg, "help.autocorrect");
 
 		switch (error_code) {
 			case 0:
@@ -852,7 +852,7 @@ private void config_files(const (char)* repo_path, libgit2_d.types.git_repositor
 
 				break;
 
-			case libgit2_d.errors.git_error_code.GIT_ENOTFOUND:
+			case libgit2.errors.git_error_code.GIT_ENOTFOUND:
 				core.stdc.stdio.printf("Autocorrect: Undefined\n");
 
 				break;
@@ -863,10 +863,10 @@ private void config_files(const (char)* repo_path, libgit2_d.types.git_repositor
 				break;
 		}
 
-		libgit2_d.config.git_config_free(cfg);
+		libgit2.config.git_config_free(cfg);
 
-		.check_error(libgit2_d.repository.git_repository_config_snapshot(&snap_cfg, repo), "config snapshot");
-		error_code = libgit2_d.config.git_config_get_string(&email, snap_cfg, "user.email");
+		.check_error(libgit2.repository.git_repository_config_snapshot(&snap_cfg, repo), "config snapshot");
+		error_code = libgit2.config.git_config_get_string(&email, snap_cfg, "user.email");
 
 		switch (error_code) {
 			case 0:
@@ -874,7 +874,7 @@ private void config_files(const (char)* repo_path, libgit2_d.types.git_repositor
 
 				break;
 
-			case libgit2_d.errors.git_error_code.GIT_ENOTFOUND:
+			case libgit2.errors.git_error_code.GIT_ENOTFOUND:
 				core.stdc.stdio.printf("Email: Undefined\n");
 
 				break;
@@ -885,5 +885,5 @@ private void config_files(const (char)* repo_path, libgit2_d.types.git_repositor
 				break;
 		}
 
-		libgit2_d.config.git_config_free(snap_cfg);
+		libgit2.config.git_config_free(snap_cfg);
 	}

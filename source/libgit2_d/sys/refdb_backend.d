@@ -4,11 +4,11 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.refdb_backend;
+module libgit2.sys.refdb_backend;
 
 
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/refdb_backend.h
@@ -19,7 +19,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 /**
  * Every backend's iterator must have a pointer to itself as the first
@@ -34,12 +34,12 @@ package(libgit2_d):
  */
 struct git_reference_iterator
 {
-	libgit2_d.types.git_refdb* db;
+	libgit2.types.git_refdb* db;
 
 	/**
 	 * Return the current reference and advance the iterator.
 	 */
-	int function(libgit2_d.types.git_reference** ref_, .git_reference_iterator* iter) next;
+	int function(libgit2.types.git_reference** ref_, .git_reference_iterator* iter) next;
 
 	/**
 	 * Return the name of the current reference and advance the iterator
@@ -90,7 +90,7 @@ struct git_refdb_backend
 	 *      backend = ?
 	 *      ref_name = The reference's name that should be checked for existence.
 	 */
-	int function(libgit2_d.types.git_reference** out_, .git_refdb_backend* backend, const (char)* ref_name) lookup;
+	int function(libgit2.types.git_reference** out_, .git_refdb_backend* backend, const (char)* ref_name) lookup;
 
 	/**
 	 * Allocate an iterator object for the backend.
@@ -124,7 +124,7 @@ struct git_refdb_backend
 	 *      old = If not `NULL` and `force` is not set, then the implementation needs to ensure that the reference is currently at the given OID before writing the new value. If both `old` and `old_target` are `NULL`, then the reference should not exist at the point of writing.
 	 *      old_target = If not `NULL` and `force` is not set, then the implementation needs to ensure that the symbolic reference is currently at the given target before writing the new value. If both `old` and `old_target` are `NULL`, then the reference should not exist at the point of writing.
 	 */
-	int function(.git_refdb_backend* backend, const (libgit2_d.types.git_reference)* ref_, int force, const (libgit2_d.types.git_signature)* who, const (char)* message, const (libgit2_d.oid.git_oid)* old, const (char)* old_target) write;
+	int function(.git_refdb_backend* backend, const (libgit2.types.git_reference)* ref_, int force, const (libgit2.types.git_signature)* who, const (char)* message, const (libgit2.oid.git_oid)* old, const (char)* old_target) write;
 
 	/**
 	 * Rename a reference in the refdb.
@@ -143,7 +143,7 @@ struct git_refdb_backend
 	 *      who = The person updating the reference. Shall be used to create a reflog entry.
 	 *      message = The message detailing what kind of reference update is performed. Shall be used to create a reflog entry.
 	 */
-	int function(libgit2_d.types.git_reference** out_, .git_refdb_backend* backend, const (char)* old_name, const (char)* new_name, int force, const (libgit2_d.types.git_signature)* who, const (char)* message) rename;
+	int function(libgit2.types.git_reference** out_, .git_refdb_backend* backend, const (char)* old_name, const (char)* new_name, int force, const (libgit2.types.git_signature)* who, const (char)* message) rename;
 
 	/**
 	 * Deletes the given reference from the refdb.
@@ -161,7 +161,7 @@ struct git_refdb_backend
 	 *      old_id = If not `NULL` and `force` is not set, then the implementation needs to ensure that the reference is currently at the given OID before writing the new value.
 	 *      old_target = If not `NULL` and `force` is not set, then the implementation needs to ensure that the symbolic reference is currently at the given target before writing the new value.
 	 */
-	int function(.git_refdb_backend* backend, const (char)* ref_name, const (libgit2_d.oid.git_oid)* old_id, const (char)* old_target) del;
+	int function(.git_refdb_backend* backend, const (char)* ref_name, const (libgit2.oid.git_oid)* old_id, const (char)* old_target) del;
 
 	/**
 	 * Suggests that the given refdb compress or optimize its references.
@@ -213,7 +213,7 @@ struct git_refdb_backend
 	 *
 	 * Returns: `0` on success, a negative error code otherwise
 	 */
-	int function(libgit2_d.types.git_reflog** out_, .git_refdb_backend* backend, const (char)* name) reflog_read;
+	int function(libgit2.types.git_reflog** out_, .git_refdb_backend* backend, const (char)* name) reflog_read;
 
 	/**
 	 * Write a reflog to disk.
@@ -227,7 +227,7 @@ struct git_refdb_backend
 	 *      backend = ?
 	 *      reflog = The complete reference log for a given reference. Note that this may contain entries that have already been written to disk.
 	 */
-	int function(.git_refdb_backend* backend, libgit2_d.types.git_reflog* reflog) reflog_write;
+	int function(.git_refdb_backend* backend, libgit2.types.git_reflog* reflog) reflog_write;
 
 	/**
 	 * Rename a reflog.
@@ -296,7 +296,7 @@ struct git_refdb_backend
 	 *      who = The person updating the reference. Shall be used to create a reflog entry in case `update_reflog` is set.
 	 *      message = The message detailing what kind of reference update is performed. Shall be used to create a reflog entry in case `update_reflog` is set.
 	 */
-	int function(.git_refdb_backend* backend, void* payload, int success, int update_reflog, const (libgit2_d.types.git_reference)* ref_, const (libgit2_d.types.git_signature)* sig, const (char)* message) unlock;
+	int function(.git_refdb_backend* backend, void* payload, int success, int update_reflog, const (libgit2.types.git_reference)* ref_, const (libgit2.types.git_signature)* sig, const (char)* message) unlock;
 }
 
 enum GIT_REFDB_BACKEND_VERSION = 1;
@@ -342,7 +342,7 @@ int git_refdb_init_backend(.git_refdb_backend* backend, uint version_);
  * Returns: 0 on success, <0 error code on failure
  */
 //GIT_EXTERN
-int git_refdb_backend_fs(.git_refdb_backend** backend_out, libgit2_d.types.git_repository* repo);
+int git_refdb_backend_fs(.git_refdb_backend** backend_out, libgit2.types.git_repository* repo);
 
 /**
  * Sets the custom backend to an existing reference DB
@@ -357,4 +357,4 @@ int git_refdb_backend_fs(.git_refdb_backend** backend_out, libgit2_d.types.git_r
  * Returns: 0 on success; error code otherwise
  */
 //GIT_EXTERN
-int git_refdb_set_backend(libgit2_d.types.git_refdb* refdb, .git_refdb_backend* backend);
+int git_refdb_set_backend(libgit2.types.git_refdb* refdb, .git_refdb_backend* backend);

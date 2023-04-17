@@ -4,11 +4,11 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.graph;
+module libgit2.graph;
 
 
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/graph.h
@@ -37,7 +37,7 @@ public:
  *      upstream = the commit for upstream
  */
 //GIT_EXTERN
-int git_graph_ahead_behind(size_t* ahead, size_t* behind, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* local, const (libgit2_d.oid.git_oid)* upstream);
+int git_graph_ahead_behind(size_t* ahead, size_t* behind, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* local, const (libgit2.oid.git_oid)* upstream);
 
 /**
  * Determine if a commit is the descendant of another commit.
@@ -53,6 +53,6 @@ int git_graph_ahead_behind(size_t* ahead, size_t* behind, libgit2_d.types.git_re
  * Returns: 1 if the given commit is a descendant of the potential ancestor, 0 if not, error code otherwise.
  */
 //GIT_EXTERN
-int git_graph_descendant_of(libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* commit, const (libgit2_d.oid.git_oid)* ancestor);
+int git_graph_descendant_of(libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* commit, const (libgit2.oid.git_oid)* ancestor);
 
 /* @} */

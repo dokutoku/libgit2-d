@@ -4,11 +4,11 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.mempack;
+module libgit2.sys.mempack;
 
 
-private static import libgit2_d.buffer;
-private static import libgit2_d.types;
+private static import libgit2.buffer;
+private static import libgit2.types;
 
 /*
  * @file git2/sys/mempack.h
@@ -19,7 +19,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 /**
  * Instantiate a new mempack backend.
@@ -44,7 +44,7 @@ package(libgit2_d):
  * Returns: 0 on success; error code otherwise
  */
 //GIT_EXTERN
-int git_mempack_new(libgit2_d.types.git_odb_backend** out_);
+int git_mempack_new(libgit2.types.git_odb_backend** out_);
 
 /**
  * Dump all the queued in-memory writes to a packfile.
@@ -70,7 +70,7 @@ int git_mempack_new(libgit2_d.types.git_odb_backend** out_);
  * Returns: 0 on success; error code otherwise
  */
 //GIT_EXTERN
-int git_mempack_dump(libgit2_d.buffer.git_buf* pack, libgit2_d.types.git_repository* repo, libgit2_d.types.git_odb_backend* backend);
+int git_mempack_dump(libgit2.buffer.git_buf* pack, libgit2.types.git_repository* repo, libgit2.types.git_odb_backend* backend);
 
 /**
  * Reset the memory packer by clearing all the queued objects.
@@ -88,4 +88,4 @@ int git_mempack_dump(libgit2_d.buffer.git_buf* pack, libgit2_d.types.git_reposit
  * Returns: 0 on success; error code otherwise
  */
 //GIT_EXTERN
-int git_mempack_reset(libgit2_d.types.git_odb_backend* backend);
+int git_mempack_reset(libgit2.types.git_odb_backend* backend);

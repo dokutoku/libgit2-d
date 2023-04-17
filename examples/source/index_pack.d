@@ -1,12 +1,12 @@
-module libgit2_d.example.index_pack;
+module libgit2.example.index_pack;
 
 
 private static import core.stdc.stdio;
 private static import core.stdc.stdlib;
-private static import libgit2_d.example.common;
-private static import libgit2_d.indexer;
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.example.common;
+private static import libgit2.indexer;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 package:
 
@@ -15,7 +15,7 @@ package:
  * the indexing to finish in a worker thread
  */
 nothrow @nogc
-private int index_cb(const (libgit2_d.indexer.git_indexer_progress)* stats, void* data)
+private int index_cb(const (libgit2.indexer.git_indexer_progress)* stats, void* data)
 
 	in
 	{
@@ -31,7 +31,7 @@ private int index_cb(const (libgit2_d.indexer.git_indexer_progress)* stats, void
 
 extern (C)
 nothrow @nogc
-public int lg2_index_pack(libgit2_d.types.git_repository* repo, int argc, char** argv)
+public int lg2_index_pack(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in
 	{
@@ -47,15 +47,15 @@ public int lg2_index_pack(libgit2_d.types.git_repository* repo, int argc, char**
 			return core.stdc.stdlib.EXIT_FAILURE;
 		}
 
-		libgit2_d.indexer.git_indexer* idx = null;
+		libgit2.indexer.git_indexer* idx = null;
 
-		if (libgit2_d.indexer.git_indexer_new(&idx, ".", 0, null, null) < 0) {
+		if (libgit2.indexer.git_indexer_new(&idx, ".", 0, null, null) < 0) {
 			core.stdc.stdio.puts("bad idx");
 
 			return -1;
 		}
 
-		int fd = libgit2_d.example.common.open(argv[1], 0);
+		int fd = libgit2.example.common.open(argv[1], 0);
 
 		if (fd < 0) {
 			core.stdc.stdio.perror("open");
@@ -63,24 +63,24 @@ public int lg2_index_pack(libgit2_d.types.git_repository* repo, int argc, char**
 			return -1;
 		}
 
-		libgit2_d.indexer.git_indexer_progress stats = {0, 0};
+		libgit2.indexer.git_indexer_progress stats = {0, 0};
 		int error;
-		libgit2_d.example.common.ssize_t read_bytes;
+		libgit2.example.common.ssize_t read_bytes;
 		char[512] buf;
 
 		scope (exit) {
-			libgit2_d.example.common.close(fd);
-			libgit2_d.indexer.git_indexer_free(idx);
+			libgit2.example.common.close(fd);
+			libgit2.indexer.git_indexer_free(idx);
 		}
 
 		do {
-			read_bytes = libgit2_d.example.common.read(fd, &(buf[0]), buf.length);
+			read_bytes = libgit2.example.common.read(fd, &(buf[0]), buf.length);
 
 			if (read_bytes < 0) {
 				break;
 			}
 
-			error = libgit2_d.indexer.git_indexer_append(idx, &(buf[0]), read_bytes, &stats);
+			error = libgit2.indexer.git_indexer_append(idx, &(buf[0]), read_bytes, &stats);
 
 			if (error < 0) {
 				return error;
@@ -96,7 +96,7 @@ public int lg2_index_pack(libgit2_d.types.git_repository* repo, int argc, char**
 			return error;
 		}
 
-		error = libgit2_d.indexer.git_indexer_commit(idx, &stats);
+		error = libgit2.indexer.git_indexer_commit(idx, &stats);
 
 		if (error < 0) {
 			return error;
@@ -104,8 +104,8 @@ public int lg2_index_pack(libgit2_d.types.git_repository* repo, int argc, char**
 
 		core.stdc.stdio.printf("\rIndexing %u of %u\n", stats.indexed_objects, stats.total_objects);
 
-		char[libgit2_d.oid.GIT_OID_HEXSZ + 1] hash  = '\0';
-		libgit2_d.oid.git_oid_fmt(&(hash[0]), libgit2_d.indexer.git_indexer_hash(idx));
+		char[libgit2.oid.GIT_OID_HEXSZ + 1] hash  = '\0';
+		libgit2.oid.git_oid_fmt(&(hash[0]), libgit2.indexer.git_indexer_hash(idx));
 		core.stdc.stdio.puts(&(hash[0]));
 
 		return error;

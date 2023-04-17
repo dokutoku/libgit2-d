@@ -4,10 +4,10 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.oidarray;
+module libgit2.oidarray;
 
 
-private static import libgit2_d.oid;
+private static import libgit2.oid;
 
 extern (C):
 nothrow @nogc:
@@ -18,7 +18,7 @@ public:
  */
 struct git_oidarray
 {
-	libgit2_d.oid.git_oid* ids;
+	libgit2.oid.git_oid* ids;
 	size_t count;
 }
 

@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.revert;
+module libgit2.revert;
 
 
-private static import libgit2_d.checkout;
-private static import libgit2_d.merge;
-private static import libgit2_d.types;
+private static import libgit2.checkout;
+private static import libgit2.merge;
+private static import libgit2.types;
 
 /*
  * @file git2/revert.h
@@ -37,12 +37,12 @@ struct git_revert_options
 	/**
 	 * Options for the merging
 	 */
-	libgit2_d.merge.git_merge_options merge_opts;
+	libgit2.merge.git_merge_options merge_opts;
 
 	/**
 	 * Options for the checkout
 	 */
-	libgit2_d.checkout.git_checkout_options checkout_opts;
+	libgit2.checkout.git_checkout_options checkout_opts;
 }
 
 enum GIT_REVERT_OPTIONS_VERSION = 1;
@@ -57,8 +57,8 @@ pure nothrow @safe @nogc
 		{
 			version_: .GIT_REVERT_OPTIONS_VERSION,
 			mainline: 0,
-			merge_opts: libgit2_d.merge.GIT_MERGE_OPTIONS_INIT(),
-			checkout_opts: libgit2_d.checkout.GIT_CHECKOUT_OPTIONS_INIT(),
+			merge_opts: libgit2.merge.GIT_MERGE_OPTIONS_INIT(),
+			checkout_opts: libgit2.checkout.GIT_CHECKOUT_OPTIONS_INIT(),
 		};
 
 		return OUTPUT;
@@ -96,7 +96,7 @@ int git_revert_options_init(.git_revert_options* opts, uint version_);
  * Returns: zero on success, -1 on failure.
  */
 //GIT_EXTERN
-int git_revert_commit(libgit2_d.types.git_index** out_, libgit2_d.types.git_repository* repo, libgit2_d.types.git_commit* revert_commit, libgit2_d.types.git_commit* our_commit, uint mainline, const (libgit2_d.merge.git_merge_options)* merge_options);
+int git_revert_commit(libgit2.types.git_index** out_, libgit2.types.git_repository* repo, libgit2.types.git_commit* revert_commit, libgit2.types.git_commit* our_commit, uint mainline, const (libgit2.merge.git_merge_options)* merge_options);
 
 /**
  * Reverts the given commit, producing changes in the index and working
@@ -110,6 +110,6 @@ int git_revert_commit(libgit2_d.types.git_index** out_, libgit2_d.types.git_repo
  * Returns: zero on success, -1 on failure.
  */
 //GIT_EXTERN
-int git_revert(libgit2_d.types.git_repository* repo, libgit2_d.types.git_commit* commit, const (.git_revert_options)* given_opts);
+int git_revert(libgit2.types.git_repository* repo, libgit2.types.git_commit* commit, const (.git_revert_options)* given_opts);
 
 /* @} */

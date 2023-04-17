@@ -4,11 +4,11 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.indexer;
+module libgit2.indexer;
 
 
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 extern (C):
 nothrow @nogc:
@@ -138,7 +138,7 @@ int git_indexer_options_init(.git_indexer_options* opts, uint version_);
  *      opts = Optional structure containing additional options. See `git_indexer_options` above.
  */
 //GIT_EXTERN
-int git_indexer_new(.git_indexer** out_, const (char)* path, uint mode, libgit2_d.types.git_odb* odb, .git_indexer_options* opts);
+int git_indexer_new(.git_indexer** out_, const (char)* path, uint mode, libgit2.types.git_odb* odb, .git_indexer_options* opts);
 
 /**
  * Add data to the indexer
@@ -174,7 +174,7 @@ int git_indexer_commit(.git_indexer* idx, .git_indexer_progress* stats);
  *      idx = the indexer instance
  */
 //GIT_EXTERN
-const (libgit2_d.oid.git_oid)* git_indexer_hash(const (.git_indexer)* idx);
+const (libgit2.oid.git_oid)* git_indexer_hash(const (.git_indexer)* idx);
 
 /**
  * Free the indexer and its resources

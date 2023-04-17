@@ -4,7 +4,7 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.cred_helpers;
+module libgit2.cred_helpers;
 
 
 extern (C):
@@ -14,6 +14,6 @@ public:
 /* These declarations have moved. */
 version (GIT_DEPRECATE_HARD) {
 } else {
-	import libgit2_d.credential_helpers;
+	import libgit2.credential_helpers;
 }
 

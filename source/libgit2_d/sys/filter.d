@@ -4,13 +4,13 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.filter;
+module libgit2.sys.filter;
 
 
-private static import libgit2_d.buffer;
-private static import libgit2_d.filter;
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.buffer;
+private static import libgit2.filter;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/sys/filter.h
@@ -21,7 +21,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 /**
  * Look up a filter by name
@@ -63,7 +63,7 @@ enum GIT_FILTER_DRIVER_PRIORITY = 200;
  * your own chains of filters.
  */
 //GIT_EXTERN
-int git_filter_list_new(libgit2_d.filter.git_filter_list** out_, libgit2_d.types.git_repository* repo, libgit2_d.filter.git_filter_mode_t mode, uint options);
+int git_filter_list_new(libgit2.filter.git_filter_list** out_, libgit2.types.git_repository* repo, libgit2.filter.git_filter_mode_t mode, uint options);
 
 /**
  * Add a filter to a filter list with the given payload.
@@ -79,7 +79,7 @@ int git_filter_list_new(libgit2_d.filter.git_filter_list** out_, libgit2_d.types
  * may fail with a null payload.  Good luck!
  */
 //GIT_EXTERN
-int git_filter_list_push(libgit2_d.filter.git_filter_list* fl, .git_filter* filter, void* payload);
+int git_filter_list_push(libgit2.filter.git_filter_list* fl, .git_filter* filter, void* payload);
 
 /**
  * Look up how many filters are in the list
@@ -95,7 +95,7 @@ int git_filter_list_push(libgit2_d.filter.git_filter_list* fl, .git_filter* filt
  * Returns: The number of filters in the list
  */
 //GIT_EXTERN
-size_t git_filter_list_length(const (libgit2_d.filter.git_filter_list)* fl);
+size_t git_filter_list_length(const (libgit2.filter.git_filter_list)* fl);
 
 /**
  * A filter source represents a file/blob to be processed
@@ -106,7 +106,7 @@ struct git_filter_source;
  * Get the repository that the source data is coming from.
  */
 //GIT_EXTERN
-libgit2_d.types.git_repository* git_filter_source_repo(const (.git_filter_source)* src);
+libgit2.types.git_repository* git_filter_source_repo(const (.git_filter_source)* src);
 
 /**
  * Get the path that the source data is coming from.
@@ -127,13 +127,13 @@ ushort git_filter_source_filemode(const (.git_filter_source)* src);
  * this will return null.
  */
 //GIT_EXTERN
-const (libgit2_d.oid.git_oid)* git_filter_source_id(const (.git_filter_source)* src);
+const (libgit2.oid.git_oid)* git_filter_source_id(const (.git_filter_source)* src);
 
 /**
  * Get the git_filter_mode_t to be used
  */
 //GIT_EXTERN
-libgit2_d.filter.git_filter_mode_t git_filter_source_mode(const (.git_filter_source)* src);
+libgit2.filter.git_filter_mode_t git_filter_source_mode(const (.git_filter_source)* src);
 
 /**
  * Get the combination git_filter_flag_t options to be applied
@@ -202,9 +202,9 @@ alias git_filter_check_fn = int function(.git_filter* self, void** payload, /* p
  * `check` callback.  It may be read from or written to as needed.
  */
 alias git_filter_apply_fn = int function(.git_filter* self, void** payload, /* may be read and/or set */
-                                   libgit2_d.buffer.git_buf* to, const (libgit2_d.buffer.git_buf)* from, const (.git_filter_source)* src);
+                                   libgit2.buffer.git_buf* to, const (libgit2.buffer.git_buf)* from, const (.git_filter_source)* src);
 
-alias git_filter_stream_fn = int function(libgit2_d.types.git_writestream** out_, .git_filter* self, void** payload, const (.git_filter_source)* src, libgit2_d.types.git_writestream* next);
+alias git_filter_stream_fn = int function(libgit2.types.git_writestream** out_, .git_filter* self, void** payload, const (.git_filter_source)* src, libgit2.types.git_writestream* next);
 
 /**
  * Callback to clean up after filtering has been applied

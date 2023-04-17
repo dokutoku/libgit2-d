@@ -4,14 +4,14 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.rebase;
+module libgit2.rebase;
 
 
-private static import libgit2_d.checkout;
-private static import libgit2_d.commit;
-private static import libgit2_d.merge;
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.checkout;
+private static import libgit2.commit;
+private static import libgit2.merge;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/rebase.h
@@ -64,7 +64,7 @@ struct git_rebase_options
 	/**
 	 * Options to control how trees are merged during `git_rebase_next`.
 	 */
-	libgit2_d.merge.git_merge_options merge_options;
+	libgit2.merge.git_merge_options merge_options;
 
 	/**
 	 * Options to control how files are written during `git_rebase_init`,
@@ -73,7 +73,7 @@ struct git_rebase_options
 	 * and a minimum strategy of `git_checkout_strategy_t.GIT_CHECKOUT_FORCE` is defaulted in
 	 * `abort` to match git semantics.
 	 */
-	libgit2_d.checkout.git_checkout_options checkout_options;
+	libgit2.checkout.git_checkout_options checkout_options;
 
 	/**
 	 * If provided, this will be called with the commit content, allowing
@@ -82,7 +82,7 @@ struct git_rebase_options
 	 * without a signature.
 	 * This field is only used when performing git_rebase_commit.
 	 */
-	libgit2_d.commit.git_commit_signing_cb signing_cb;
+	libgit2.commit.git_commit_signing_cb signing_cb;
 
 	/**
 	 * This will be passed to each of the callbacks in this struct
@@ -158,8 +158,8 @@ pure nothrow @safe @nogc
 			quiet: 0,
 			inmemory: 0,
 			rewrite_notes_ref: null,
-			merge_options: libgit2_d.merge.GIT_MERGE_OPTIONS_INIT(),
-			checkout_options: libgit2_d.checkout.GIT_CHECKOUT_OPTIONS_INIT(),
+			merge_options: libgit2.merge.GIT_MERGE_OPTIONS_INIT(),
+			checkout_options: libgit2.checkout.GIT_CHECKOUT_OPTIONS_INIT(),
 			signing_cb: null,
 		};
 
@@ -188,7 +188,7 @@ struct git_rebase_operation
 	 * The commit ID being cherry-picked.  This will be populated for
 	 * all operations except those of type `git_rebase_operation_t.GIT_REBASE_OPERATION_EXEC`.
 	 */
-	const libgit2_d.oid.git_oid id;
+	const libgit2.oid.git_oid id;
 
 	/**
 	 * The executable the user has requested be run.  This will only
@@ -229,7 +229,7 @@ int git_rebase_options_init(.git_rebase_options* opts, uint version_);
  * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_rebase_init(libgit2_d.types.git_rebase** out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_annotated_commit)* branch, const (libgit2_d.types.git_annotated_commit)* upstream, const (libgit2_d.types.git_annotated_commit)* onto, const (.git_rebase_options)* opts);
+int git_rebase_init(libgit2.types.git_rebase** out_, libgit2.types.git_repository* repo, const (libgit2.types.git_annotated_commit)* branch, const (libgit2.types.git_annotated_commit)* upstream, const (libgit2.types.git_annotated_commit)* onto, const (.git_rebase_options)* opts);
 
 /**
  * Opens an existing rebase that was previously started by either an
@@ -243,7 +243,7 @@ int git_rebase_init(libgit2_d.types.git_rebase** out_, libgit2_d.types.git_repos
  * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_rebase_open(libgit2_d.types.git_rebase** out_, libgit2_d.types.git_repository* repo, const (git_rebase_options)* opts);
+int git_rebase_open(libgit2.types.git_rebase** out_, libgit2.types.git_repository* repo, const (git_rebase_options)* opts);
 
 /**
  * Gets the original `HEAD` ref name for merge rebases.
@@ -251,7 +251,7 @@ int git_rebase_open(libgit2_d.types.git_rebase** out_, libgit2_d.types.git_repos
  * Returns: The original `HEAD` ref name
  */
 //GIT_EXTERN
-const (char)* git_rebase_orig_head_name(libgit2_d.types.git_rebase* rebase);
+const (char)* git_rebase_orig_head_name(libgit2.types.git_rebase* rebase);
 
 /**
  * Gets the original `HEAD` id for merge rebases.
@@ -259,7 +259,7 @@ const (char)* git_rebase_orig_head_name(libgit2_d.types.git_rebase* rebase);
  * Returns: The original `HEAD` id
  */
 //GIT_EXTERN
-const (libgit2_d.oid.git_oid)* git_rebase_orig_head_id(libgit2_d.types.git_rebase* rebase);
+const (libgit2.oid.git_oid)* git_rebase_orig_head_id(libgit2.types.git_rebase* rebase);
 
 /**
  * Gets the `onto` ref name for merge rebases.
@@ -267,7 +267,7 @@ const (libgit2_d.oid.git_oid)* git_rebase_orig_head_id(libgit2_d.types.git_rebas
  * Returns: The `onto` ref name
  */
 //GIT_EXTERN
-const (char)* git_rebase_onto_name(libgit2_d.types.git_rebase* rebase);
+const (char)* git_rebase_onto_name(libgit2.types.git_rebase* rebase);
 
 /**
  * Gets the `onto` id for merge rebases.
@@ -275,7 +275,7 @@ const (char)* git_rebase_onto_name(libgit2_d.types.git_rebase* rebase);
  * Returns: The `onto` id
  */
 //GIT_EXTERN
-const (libgit2_d.oid.git_oid)* git_rebase_onto_id(libgit2_d.types.git_rebase* rebase);
+const (libgit2.oid.git_oid)* git_rebase_onto_id(libgit2.types.git_rebase* rebase);
 
 /**
  * Gets the count of rebase operations that are to be applied.
@@ -286,7 +286,7 @@ const (libgit2_d.oid.git_oid)* git_rebase_onto_id(libgit2_d.types.git_rebase* re
  * Returns: The number of rebase operations in total
  */
 //GIT_EXTERN
-size_t git_rebase_operation_entrycount(libgit2_d.types.git_rebase* rebase);
+size_t git_rebase_operation_entrycount(libgit2.types.git_rebase* rebase);
 
 /**
  * Gets the index of the rebase operation that is currently being applied.
@@ -300,7 +300,7 @@ size_t git_rebase_operation_entrycount(libgit2_d.types.git_rebase* rebase);
  * Returns: The index of the rebase operation currently being applied.
  */
 //GIT_EXTERN
-size_t git_rebase_operation_current(libgit2_d.types.git_rebase* rebase);
+size_t git_rebase_operation_current(libgit2.types.git_rebase* rebase);
 
 /**
  * Gets the rebase operation specified by the given index.
@@ -312,7 +312,7 @@ size_t git_rebase_operation_current(libgit2_d.types.git_rebase* rebase);
  * Returns: The rebase operation or null if `idx` was out of bounds
  */
 //GIT_EXTERN
-.git_rebase_operation* git_rebase_operation_byindex(libgit2_d.types.git_rebase* rebase, size_t idx);
+.git_rebase_operation* git_rebase_operation_byindex(libgit2.types.git_rebase* rebase, size_t idx);
 
 /**
  * Performs the next rebase operation and returns the information about it.
@@ -328,7 +328,7 @@ size_t git_rebase_operation_current(libgit2_d.types.git_rebase* rebase);
  * Returns: Zero on success; -1 on failure.
  */
 //GIT_EXTERN
-int git_rebase_next(.git_rebase_operation** operation, libgit2_d.types.git_rebase* rebase);
+int git_rebase_next(.git_rebase_operation** operation, libgit2.types.git_rebase* rebase);
 
 /**
  * Gets the index produced by the last operation, which is the result
@@ -342,7 +342,7 @@ int git_rebase_next(.git_rebase_operation** operation, libgit2_d.types.git_rebas
  * index.
  */
 //GIT_EXTERN
-int git_rebase_inmemory_index(libgit2_d.types.git_index** index, libgit2_d.types.git_rebase* rebase);
+int git_rebase_inmemory_index(libgit2.types.git_index** index, libgit2.types.git_rebase* rebase);
 
 /**
  * Commits the current patch.  You must have resolved any conflicts that
@@ -360,7 +360,7 @@ int git_rebase_inmemory_index(libgit2_d.types.git_index** index, libgit2_d.types
  * Returns: Zero on success, git_error_code.GIT_EUNMERGED if there are unmerged changes in the index, git_error_code.GIT_EAPPLIED if the current commit has already been applied to the upstream and there is nothing to commit, -1 on failure.
  */
 //GIT_EXTERN
-int git_rebase_commit(libgit2_d.oid.git_oid* id, libgit2_d.types.git_rebase* rebase, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message);
+int git_rebase_commit(libgit2.oid.git_oid* id, libgit2.types.git_rebase* rebase, const (libgit2.types.git_signature)* author, const (libgit2.types.git_signature)* committer, const (char)* message_encoding, const (char)* message);
 
 /**
  * Aborts a rebase that is currently in progress, resetting the repository
@@ -372,7 +372,7 @@ int git_rebase_commit(libgit2_d.oid.git_oid* id, libgit2_d.types.git_rebase* reb
  * Returns: Zero on success; git_error_code.GIT_ENOTFOUND if a rebase is not in progress, -1 on other errors.
  */
 //GIT_EXTERN
-int git_rebase_abort(libgit2_d.types.git_rebase* rebase);
+int git_rebase_abort(libgit2.types.git_rebase* rebase);
 
 /**
  * Finishes a rebase that is currently in progress once all patches have
@@ -385,7 +385,7 @@ int git_rebase_abort(libgit2_d.types.git_rebase* rebase);
  * Returns: Zero on success; -1 on error
  */
 //GIT_EXTERN
-int git_rebase_finish(libgit2_d.types.git_rebase* rebase, const (libgit2_d.types.git_signature)* signature);
+int git_rebase_finish(libgit2.types.git_rebase* rebase, const (libgit2.types.git_signature)* signature);
 
 /**
  * Frees the `git_rebase` object.
@@ -394,6 +394,6 @@ int git_rebase_finish(libgit2_d.types.git_rebase* rebase, const (libgit2_d.types
  *      rebase = The rebase object
  */
 //GIT_EXTERN
-void git_rebase_free(libgit2_d.types.git_rebase* rebase);
+void git_rebase_free(libgit2.types.git_rebase* rebase);
 
 /* @} */

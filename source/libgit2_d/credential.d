@@ -4,10 +4,10 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.credential;
+module libgit2.credential;
 
 
-private static import libgit2_d.sys.credential;
+private static import libgit2.sys.credential;
 
 /*
  * @file git2/credential.h
@@ -96,14 +96,14 @@ enum
 /**
  * The base structure for all credential types
  */
-alias git_credential = libgit2_d.sys.credential.git_credential;
+alias git_credential = libgit2.sys.credential.git_credential;
 
-alias git_credential_userpass_plaintext = libgit2_d.sys.credential.git_credential_userpass_plaintext;
+alias git_credential_userpass_plaintext = libgit2.sys.credential.git_credential_userpass_plaintext;
 
 /**
  * Username-only credential information
  */
-alias git_credential_username = libgit2_d.sys.credential.git_credential_username;
+alias git_credential_username = libgit2.sys.credential.git_credential_username;
 
 /**
  * A key for NTLM/Kerberos "default" credentials
@@ -113,17 +113,17 @@ alias git_credential_default = .git_credential;
 /**
  * A ssh key from disk
  */
-alias git_credential_ssh_key = libgit2_d.sys.credential.git_credential_ssh_key;
+alias git_credential_ssh_key = libgit2.sys.credential.git_credential_ssh_key;
 
 /**
  * Keyboard-interactive based ssh authentication
  */
-alias git_credential_ssh_interactive = libgit2_d.sys.credential.git_credential_ssh_interactive;
+alias git_credential_ssh_interactive = libgit2.sys.credential.git_credential_ssh_interactive;
 
 /**
  * A key with a custom signature function
  */
-alias git_credential_ssh_custom = libgit2_d.sys.credential.git_credential_ssh_custom;
+alias git_credential_ssh_custom = libgit2.sys.credential.git_credential_ssh_custom;
 
 /**
  * Credential acquisition callback.

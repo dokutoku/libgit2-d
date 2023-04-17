@@ -4,15 +4,15 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.merge;
+module libgit2.merge;
 
 
-private static import libgit2_d.checkout;
-private static import libgit2_d.diff;
-private static import libgit2_d.index;
-private static import libgit2_d.oid;
-private static import libgit2_d.oidarray;
-private static import libgit2_d.types;
+private static import libgit2.checkout;
+private static import libgit2.diff;
+private static import libgit2.index;
+private static import libgit2.oid;
+private static import libgit2.oidarray;
+private static import libgit2.types;
 
 /*
  * @file git2/merge.h
@@ -379,7 +379,7 @@ struct git_merge_options
 	/**
 	 * Pluggable similarity metric; pass null to use internal metric
 	 */
-	libgit2_d.diff.git_diff_similarity_metric* metric;
+	libgit2.diff.git_diff_similarity_metric* metric;
 
 	/**
 	 * Maximum number of times to merge common ancestors to build a
@@ -532,7 +532,7 @@ enum
  * Returns: 0 on success or error code
  */
 //GIT_EXTERN
-int git_merge_analysis(.git_merge_analysis_t* analysis_out, .git_merge_preference_t* preference_out, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_annotated_commit)** their_heads, size_t their_heads_len);
+int git_merge_analysis(.git_merge_analysis_t* analysis_out, .git_merge_preference_t* preference_out, libgit2.types.git_repository* repo, const (libgit2.types.git_annotated_commit)** their_heads, size_t their_heads_len);
 
 /**
  * Analyzes the given branch(es) and determines the opportunities for
@@ -549,7 +549,7 @@ int git_merge_analysis(.git_merge_analysis_t* analysis_out, .git_merge_preferenc
  * Returns: 0 on success or error code
  */
 //GIT_EXTERN
-int git_merge_analysis_for_ref(.git_merge_analysis_t* analysis_out, .git_merge_preference_t* preference_out, libgit2_d.types.git_repository* repo, libgit2_d.types.git_reference* our_ref, const (libgit2_d.types.git_annotated_commit)** their_heads, size_t their_heads_len);
+int git_merge_analysis_for_ref(.git_merge_analysis_t* analysis_out, .git_merge_preference_t* preference_out, libgit2.types.git_repository* repo, libgit2.types.git_reference* our_ref, const (libgit2.types.git_annotated_commit)** their_heads, size_t their_heads_len);
 
 /**
  * Find a merge base between two commits
@@ -563,7 +563,7 @@ int git_merge_analysis_for_ref(.git_merge_analysis_t* analysis_out, .git_merge_p
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if not found or error code
  */
 //GIT_EXTERN
-int git_merge_base(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* one, const (libgit2_d.oid.git_oid)* two);
+int git_merge_base(libgit2.oid.git_oid* out_, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* one, const (libgit2.oid.git_oid)* two);
 
 /**
  * Find merge bases between two commits
@@ -577,7 +577,7 @@ int git_merge_base(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* 
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if not found or error code
  */
 //GIT_EXTERN
-int git_merge_bases(libgit2_d.oidarray.git_oidarray* out_, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* one, const (libgit2_d.oid.git_oid)* two);
+int git_merge_bases(libgit2.oidarray.git_oidarray* out_, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* one, const (libgit2.oid.git_oid)* two);
 
 /**
  * Find a merge base given a list of commits
@@ -591,7 +591,7 @@ int git_merge_bases(libgit2_d.oidarray.git_oidarray* out_, libgit2_d.types.git_r
  * Returns: Zero on success; git_error_code.GIT_ENOTFOUND or -1 on failure.
  */
 //GIT_EXTERN
-int git_merge_base_many(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, size_t length, const libgit2_d.oid.git_oid[] input_array);
+int git_merge_base_many(libgit2.oid.git_oid* out_, libgit2.types.git_repository* repo, size_t length, const libgit2.oid.git_oid[] input_array);
 
 /**
  * Find all merge bases given a list of commits
@@ -605,7 +605,7 @@ int git_merge_base_many(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_reposit
  * Returns: Zero on success; git_error_code.GIT_ENOTFOUND or -1 on failure.
  */
 //GIT_EXTERN
-int git_merge_bases_many(libgit2_d.oidarray.git_oidarray* out_, libgit2_d.types.git_repository* repo, size_t length, const libgit2_d.oid.git_oid[] input_array);
+int git_merge_bases_many(libgit2.oidarray.git_oidarray* out_, libgit2.types.git_repository* repo, size_t length, const libgit2.oid.git_oid[] input_array);
 
 /**
  * Find a merge base in preparation for an octopus merge
@@ -619,7 +619,7 @@ int git_merge_bases_many(libgit2_d.oidarray.git_oidarray* out_, libgit2_d.types.
  * Returns: Zero on success; git_error_code.GIT_ENOTFOUND or -1 on failure.
  */
 //GIT_EXTERN
-int git_merge_base_octopus(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, size_t length, const libgit2_d.oid.git_oid[] input_array);
+int git_merge_base_octopus(libgit2.oid.git_oid* out_, libgit2.types.git_repository* repo, size_t length, const libgit2.oid.git_oid[] input_array);
 
 /**
  * Merge two files as they exist in the in-memory data structures, using
@@ -659,7 +659,7 @@ int git_merge_file(.git_merge_file_result* out_, const (.git_merge_file_input)* 
  * Returns: 0 on success or error code
  */
 //GIT_EXTERN
-int git_merge_file_from_index(.git_merge_file_result* out_, libgit2_d.types.git_repository* repo, const (libgit2_d.index.git_index_entry)* ancestor, const (libgit2_d.index.git_index_entry)* ours, const (libgit2_d.index.git_index_entry)* theirs, const (.git_merge_file_options)* opts);
+int git_merge_file_from_index(.git_merge_file_result* out_, libgit2.types.git_repository* repo, const (libgit2.index.git_index_entry)* ancestor, const (libgit2.index.git_index_entry)* ours, const (libgit2.index.git_index_entry)* theirs, const (.git_merge_file_options)* opts);
 
 /**
  * Frees a `git_merge_file_result`.
@@ -689,7 +689,7 @@ void git_merge_file_result_free(.git_merge_file_result* result);
  * Returns: 0 on success or error code
  */
 //GIT_EXTERN
-int git_merge_trees(libgit2_d.types.git_index** out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_tree)* ancestor_tree, const (libgit2_d.types.git_tree)* our_tree, const (libgit2_d.types.git_tree)* their_tree, const (.git_merge_options)* opts);
+int git_merge_trees(libgit2.types.git_index** out_, libgit2.types.git_repository* repo, const (libgit2.types.git_tree)* ancestor_tree, const (libgit2.types.git_tree)* our_tree, const (libgit2.types.git_tree)* their_tree, const (.git_merge_options)* opts);
 
 /**
  * Merge two commits, producing a `git_index` that reflects the result of
@@ -709,7 +709,7 @@ int git_merge_trees(libgit2_d.types.git_index** out_, libgit2_d.types.git_reposi
  * Returns: 0 on success or error code
  */
 //GIT_EXTERN
-int git_merge_commits(libgit2_d.types.git_index** out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_commit)* our_commit, const (libgit2_d.types.git_commit)* their_commit, const (.git_merge_options)* opts);
+int git_merge_commits(libgit2.types.git_index** out_, libgit2.types.git_repository* repo, const (libgit2.types.git_commit)* our_commit, const (libgit2.types.git_commit)* their_commit, const (.git_merge_options)* opts);
 
 /**
  * Merges the given commit(s) into HEAD, writing the results into the working
@@ -732,6 +732,6 @@ int git_merge_commits(libgit2_d.types.git_index** out_, libgit2_d.types.git_repo
  * Returns: 0 on success or error code
  */
 //GIT_EXTERN
-int git_merge(libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_annotated_commit)** their_heads, size_t their_heads_len, const (.git_merge_options)* merge_opts, const (libgit2_d.checkout.git_checkout_options)* checkout_opts);
+int git_merge(libgit2.types.git_repository* repo, const (libgit2.types.git_annotated_commit)** their_heads, size_t their_heads_len, const (.git_merge_options)* merge_opts, const (libgit2.checkout.git_checkout_options)* checkout_opts);
 
 /* @} */

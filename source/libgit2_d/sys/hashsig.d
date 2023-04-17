@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.hashsig;
+module libgit2.sys.hashsig;
 
 
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 /**
  * Similarity signature of arbitrary text content based on line hashes

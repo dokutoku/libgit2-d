@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.odb;
+module libgit2.odb;
 
 
-private static import libgit2_d.indexer;
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.indexer;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/odb.h
@@ -25,7 +25,7 @@ public:
 /**
  * Function type for callbacks from git_odb_foreach.
  */
-alias git_odb_foreach_cb = int function(const (libgit2_d.oid.git_oid)* id, void* payload);
+alias git_odb_foreach_cb = int function(const (libgit2.oid.git_oid)* id, void* payload);
 
 /**
  * Create a new object database with no backends.
@@ -39,7 +39,7 @@ alias git_odb_foreach_cb = int function(const (libgit2_d.oid.git_oid)* id, void*
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_odb_new(libgit2_d.types.git_odb** out_);
+int git_odb_new(libgit2.types.git_odb** out_);
 
 /**
  * Create a new object database and automatically add
@@ -59,7 +59,7 @@ int git_odb_new(libgit2_d.types.git_odb** out_);
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_odb_open(libgit2_d.types.git_odb** out_, const (char)* objects_dir);
+int git_odb_open(libgit2.types.git_odb** out_, const (char)* objects_dir);
 
 /**
  * Add an on-disk alternate to an existing Object DB.
@@ -79,7 +79,7 @@ int git_odb_open(libgit2_d.types.git_odb** out_, const (char)* objects_dir);
  * Returns: 0 on success, error code otherwise
  */
 //GIT_EXTERN
-int git_odb_add_disk_alternate(libgit2_d.types.git_odb* odb, const (char)* path);
+int git_odb_add_disk_alternate(libgit2.types.git_odb* odb, const (char)* path);
 
 /**
  * Close an open object database.
@@ -88,7 +88,7 @@ int git_odb_add_disk_alternate(libgit2_d.types.git_odb* odb, const (char)* path)
  *      db = database pointer to close. If null no action is taken.
  */
 //GIT_EXTERN
-void git_odb_free(libgit2_d.types.git_odb* db);
+void git_odb_free(libgit2.types.git_odb* db);
 
 /**
  * Read an object from the database.
@@ -108,7 +108,7 @@ void git_odb_free(libgit2_d.types.git_odb* db);
  * Returns: 0 if the object was read, GIT_ENOTFOUND if the object is not in the database.
  */
 //GIT_EXTERN
-int git_odb_read(libgit2_d.types.git_odb_object** out_, libgit2_d.types.git_odb* db, const (libgit2_d.oid.git_oid)* id);
+int git_odb_read(libgit2.types.git_odb_object** out_, libgit2.types.git_odb* db, const (libgit2.oid.git_oid)* id);
 
 /**
  * Read an object from the database, given a prefix
@@ -137,7 +137,7 @@ int git_odb_read(libgit2_d.types.git_odb_object** out_, libgit2_d.types.git_odb*
  * Returns: 0 if the object was read, GIT_ENOTFOUND if the object is not in the database. GIT_EAMBIGUOUS if the prefix is ambiguous(several objects match the prefix)
  */
 //GIT_EXTERN
-int git_odb_read_prefix(libgit2_d.types.git_odb_object** out_, libgit2_d.types.git_odb* db, const (libgit2_d.oid.git_oid)* short_id, size_t len);
+int git_odb_read_prefix(libgit2.types.git_odb_object** out_, libgit2.types.git_odb* db, const (libgit2.oid.git_oid)* short_id, size_t len);
 
 /**
  * Read the header of an object from the database, without
@@ -158,7 +158,7 @@ int git_odb_read_prefix(libgit2_d.types.git_odb_object** out_, libgit2_d.types.g
  * Returns: 0 if the object was read, GIT_ENOTFOUND if the object is not in the database.
  */
 //GIT_EXTERN
-int git_odb_read_header(size_t* len_out, libgit2_d.types.git_object_t* type_out, libgit2_d.types.git_odb* db, const (libgit2_d.oid.git_oid)* id);
+int git_odb_read_header(size_t* len_out, libgit2.types.git_object_t* type_out, libgit2.types.git_odb* db, const (libgit2.oid.git_oid)* id);
 
 /**
  * Determine if the given object can be found in the object database.
@@ -170,7 +170,7 @@ int git_odb_read_header(size_t* len_out, libgit2_d.types.git_object_t* type_out,
  * Returns: 1 if the object was found, 0 otherwise
  */
 //GIT_EXTERN
-int git_odb_exists(libgit2_d.types.git_odb* db, const (libgit2_d.oid.git_oid)* id);
+int git_odb_exists(libgit2.types.git_odb* db, const (libgit2.oid.git_oid)* id);
 
 /**
  * Determine if an object can be found in the object database by an
@@ -185,7 +185,7 @@ int git_odb_exists(libgit2_d.types.git_odb* db, const (libgit2_d.oid.git_oid)* i
  * Returns: 0 if found, git_error_code.GIT_ENOTFOUND if not found, git_error_code.GIT_EAMBIGUOUS if multiple matches were found, other value < 0 if there was a read error.
  */
 //GIT_EXTERN
-int git_odb_exists_prefix(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_odb* db, const (libgit2_d.oid.git_oid)* short_id, size_t len);
+int git_odb_exists_prefix(libgit2.oid.git_oid* out_, libgit2.types.git_odb* db, const (libgit2.oid.git_oid)* short_id, size_t len);
 
 /**
  * The information about object IDs to query in `git_odb_expand_ids`,
@@ -196,7 +196,7 @@ struct git_odb_expand_id
 	/**
 	 * The object ID to expand
 	 */
-	libgit2_d.oid.git_oid id;
+	libgit2.oid.git_oid id;
 
 	/**
 	 * The length of the object ID (in nibbles, or packets of 4 bits; the
@@ -208,7 +208,7 @@ struct git_odb_expand_id
 	 * The (optional) type of the object to search for; leave as `0` or set
 	 * to `git_object_t.GIT_OBJECT_ANY` to query for any object matching the ID.
 	 */
-	libgit2_d.types.git_object_t type = cast(libgit2_d.types.git_object_t)(0);
+	libgit2.types.git_object_t type = cast(libgit2.types.git_object_t)(0);
 }
 
 /**
@@ -232,7 +232,7 @@ struct git_odb_expand_id
  * Returns: 0 on success or an error code on failure
  */
 //GIT_EXTERN
-int git_odb_expand_ids(libgit2_d.types.git_odb* db, .git_odb_expand_id* ids, size_t count);
+int git_odb_expand_ids(libgit2.types.git_odb* db, .git_odb_expand_id* ids, size_t count);
 
 /**
  * Refresh the object database to load newly added files.
@@ -255,7 +255,7 @@ int git_odb_expand_ids(libgit2_d.types.git_odb* db, .git_odb_expand_id* ids, siz
  * Returns: 0 on success, error code otherwise
  */
 //GIT_EXTERN
-int git_odb_refresh(libgit2_d.types.git_odb* db);
+int git_odb_refresh(libgit2.types.git_odb* db);
 
 /**
  * List all objects available in the database
@@ -273,7 +273,7 @@ int git_odb_refresh(libgit2_d.types.git_odb* db);
  * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
-int git_odb_foreach(libgit2_d.types.git_odb* db, .git_odb_foreach_cb cb, void* payload);
+int git_odb_foreach(libgit2.types.git_odb* db, .git_odb_foreach_cb cb, void* payload);
 
 /**
  * Write an object directly into the ODB
@@ -296,7 +296,7 @@ int git_odb_foreach(libgit2_d.types.git_odb* db, .git_odb_foreach_cb cb, void* p
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_odb_write(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_odb* odb, const (void)* data, size_t len, libgit2_d.types.git_object_t type);
+int git_odb_write(libgit2.oid.git_oid* out_, libgit2.types.git_odb* odb, const (void)* data, size_t len, libgit2.types.git_object_t type);
 
 /**
  * Open a stream to write an object into the ODB
@@ -322,7 +322,7 @@ int git_odb_write(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_odb* odb, con
  * Returns: 0 if the stream was created; error code otherwise
  */
 //GIT_EXTERN
-int git_odb_open_wstream(libgit2_d.types.git_odb_stream** out_, libgit2_d.types.git_odb* db, libgit2_d.types.git_object_size_t size, libgit2_d.types.git_object_t type);
+int git_odb_open_wstream(libgit2.types.git_odb_stream** out_, libgit2.types.git_odb* db, libgit2.types.git_object_size_t size, libgit2.types.git_object_t type);
 
 /**
  * Write to an odb stream
@@ -338,7 +338,7 @@ int git_odb_open_wstream(libgit2_d.types.git_odb_stream** out_, libgit2_d.types.
  * Returns: 0 if the write succeeded, error code otherwise
  */
 //GIT_EXTERN
-int git_odb_stream_write(libgit2_d.types.git_odb_stream* stream, const (char)* buffer, size_t len);
+int git_odb_stream_write(libgit2.types.git_odb_stream* stream, const (char)* buffer, size_t len);
 
 /**
  * Finish writing to an odb stream
@@ -356,7 +356,7 @@ int git_odb_stream_write(libgit2_d.types.git_odb_stream* stream, const (char)* b
  * Returns: 0 on success, an error code otherwise
  */
 //GIT_EXTERN
-int git_odb_stream_finalize_write(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_odb_stream* stream);
+int git_odb_stream_finalize_write(libgit2.oid.git_oid* out_, libgit2.types.git_odb_stream* stream);
 
 /**
  * Read from an odb stream
@@ -364,7 +364,7 @@ int git_odb_stream_finalize_write(libgit2_d.oid.git_oid* out_, libgit2_d.types.g
  * Most backends don't implement streaming reads
  */
 //GIT_EXTERN
-int git_odb_stream_read(libgit2_d.types.git_odb_stream* stream, char* buffer, size_t len);
+int git_odb_stream_read(libgit2.types.git_odb_stream* stream, char* buffer, size_t len);
 
 /**
  * Free an odb stream
@@ -373,7 +373,7 @@ int git_odb_stream_read(libgit2_d.types.git_odb_stream* stream, char* buffer, si
  *      stream = the stream to free
  */
 //GIT_EXTERN
-void git_odb_stream_free(libgit2_d.types.git_odb_stream* stream);
+void git_odb_stream_free(libgit2.types.git_odb_stream* stream);
 
 /**
  * Open a stream to read an object from the ODB
@@ -404,7 +404,7 @@ void git_odb_stream_free(libgit2_d.types.git_odb_stream* stream);
  * Returns: 0 if the stream was created, error code otherwise
  */
 //GIT_EXTERN
-int git_odb_open_rstream(libgit2_d.types.git_odb_stream** out_, size_t* len, libgit2_d.types.git_object_t* type, libgit2_d.types.git_odb* db, const (libgit2_d.oid.git_oid)* oid);
+int git_odb_open_rstream(libgit2.types.git_odb_stream** out_, size_t* len, libgit2.types.git_object_t* type, libgit2.types.git_odb* db, const (libgit2.oid.git_oid)* oid);
 
 /**
  * Open a stream for writing a pack file to the ODB.
@@ -424,7 +424,7 @@ int git_odb_open_rstream(libgit2_d.types.git_odb_stream** out_, size_t* len, lib
  *      progress_payload = payload for the progress callback
  */
 //GIT_EXTERN
-int git_odb_write_pack(libgit2_d.types.git_odb_writepack** out_, libgit2_d.types.git_odb* db, libgit2_d.indexer.git_indexer_progress_cb progress_cb, void* progress_payload);
+int git_odb_write_pack(libgit2.types.git_odb_writepack** out_, libgit2.types.git_odb* db, libgit2.indexer.git_indexer_progress_cb progress_cb, void* progress_payload);
 
 /**
  * Determine the object-ID (sha1 hash) of a data buffer
@@ -441,7 +441,7 @@ int git_odb_write_pack(libgit2_d.types.git_odb_writepack** out_, libgit2_d.types
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_odb_hash(libgit2_d.oid.git_oid* out_, const (void)* data, size_t len, libgit2_d.types.git_object_t type);
+int git_odb_hash(libgit2.oid.git_oid* out_, const (void)* data, size_t len, libgit2.types.git_object_t type);
 
 /**
  * Read a file from disk and fill a git_oid with the object id
@@ -459,7 +459,7 @@ int git_odb_hash(libgit2_d.oid.git_oid* out_, const (void)* data, size_t len, li
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_odb_hashfile(libgit2_d.oid.git_oid* out_, const (char)* path, libgit2_d.types.git_object_t type);
+int git_odb_hashfile(libgit2.oid.git_oid* out_, const (char)* path, libgit2.types.git_object_t type);
 
 /**
  * Create a copy of an odb_object
@@ -476,7 +476,7 @@ int git_odb_hashfile(libgit2_d.oid.git_oid* out_, const (char)* path, libgit2_d.
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_odb_object_dup(libgit2_d.types.git_odb_object** dest, libgit2_d.types.git_odb_object* source);
+int git_odb_object_dup(libgit2.types.git_odb_object** dest, libgit2.types.git_odb_object* source);
 
 /**
  * Close an ODB object
@@ -488,7 +488,7 @@ int git_odb_object_dup(libgit2_d.types.git_odb_object** dest, libgit2_d.types.gi
  *      object = object to close
  */
 //GIT_EXTERN
-void git_odb_object_free(libgit2_d.types.git_odb_object* object);
+void git_odb_object_free(libgit2.types.git_odb_object* object);
 
 /**
  * Return the OID of an ODB object
@@ -501,7 +501,7 @@ void git_odb_object_free(libgit2_d.types.git_odb_object* object);
  * Returns: a pointer to the OID
  */
 //GIT_EXTERN
-const (libgit2_d.oid.git_oid)* git_odb_object_id(libgit2_d.types.git_odb_object* object);
+const (libgit2.oid.git_oid)* git_odb_object_id(libgit2.types.git_odb_object* object);
 
 /**
  * Return the data of an ODB object
@@ -517,7 +517,7 @@ const (libgit2_d.oid.git_oid)* git_odb_object_id(libgit2_d.types.git_odb_object*
  * Returns: a pointer to the data
  */
 //GIT_EXTERN
-const (void)* git_odb_object_data(libgit2_d.types.git_odb_object* object);
+const (void)* git_odb_object_data(libgit2.types.git_odb_object* object);
 
 /**
  * Return the size of an ODB object
@@ -531,7 +531,7 @@ const (void)* git_odb_object_data(libgit2_d.types.git_odb_object* object);
  * Returns: the size
  */
 //GIT_EXTERN
-size_t git_odb_object_size(libgit2_d.types.git_odb_object* object);
+size_t git_odb_object_size(libgit2.types.git_odb_object* object);
 
 /**
  * Return the type of an ODB object
@@ -542,7 +542,7 @@ size_t git_odb_object_size(libgit2_d.types.git_odb_object* object);
  * Returns: the type
  */
 //GIT_EXTERN
-libgit2_d.types.git_object_t git_odb_object_type(libgit2_d.types.git_odb_object* object);
+libgit2.types.git_object_t git_odb_object_type(libgit2.types.git_odb_object* object);
 
 /**
  * Add a custom backend to an existing Object DB
@@ -560,7 +560,7 @@ libgit2_d.types.git_object_t git_odb_object_type(libgit2_d.types.git_odb_object*
  * Returns: 0 on success, error code otherwise
  */
 //GIT_EXTERN
-int git_odb_add_backend(libgit2_d.types.git_odb* odb, libgit2_d.types.git_odb_backend* backend, int priority);
+int git_odb_add_backend(libgit2.types.git_odb* odb, libgit2.types.git_odb_backend* backend, int priority);
 
 /**
  * Add a custom backend to an existing Object DB; this
@@ -584,7 +584,7 @@ int git_odb_add_backend(libgit2_d.types.git_odb* odb, libgit2_d.types.git_odb_ba
  * Returns: 0 on success, error code otherwise
  */
 //GIT_EXTERN
-int git_odb_add_alternate(libgit2_d.types.git_odb* odb, libgit2_d.types.git_odb_backend* backend, int priority);
+int git_odb_add_alternate(libgit2.types.git_odb* odb, libgit2.types.git_odb_backend* backend, int priority);
 
 /**
  * Get the number of ODB backend objects
@@ -595,7 +595,7 @@ int git_odb_add_alternate(libgit2_d.types.git_odb* odb, libgit2_d.types.git_odb_
  * Returns: number of backends in the ODB
  */
 //GIT_EXTERN
-size_t git_odb_num_backends(libgit2_d.types.git_odb* odb);
+size_t git_odb_num_backends(libgit2.types.git_odb* odb);
 
 /**
  * Lookup an ODB backend object by index
@@ -608,6 +608,6 @@ size_t git_odb_num_backends(libgit2_d.types.git_odb* odb);
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if pos is invalid, other errors < 0
  */
 //GIT_EXTERN
-int git_odb_get_backend(libgit2_d.types.git_odb_backend** out_, libgit2_d.types.git_odb* odb, size_t pos);
+int git_odb_get_backend(libgit2.types.git_odb_backend** out_, libgit2.types.git_odb* odb, size_t pos);
 
 /* @} */

@@ -11,18 +11,18 @@
  * with this software. If not, see
  * <http://creativecommons.org/publicdomain/zero/1.0/>.
  */
-module libgit2_d.example.stash;
+module libgit2.example.stash;
 
 
 private static import core.stdc.stdio;
 private static import core.stdc.stdlib;
 private static import core.stdc.string;
-private static import libgit2_d.commit;
-private static import libgit2_d.example.common;
-private static import libgit2_d.oid;
-private static import libgit2_d.signature;
-private static import libgit2_d.stash;
-private static import libgit2_d.types;
+private static import libgit2.commit;
+private static import libgit2.example.common;
+private static import libgit2.oid;
+private static import libgit2.signature;
+private static import libgit2.stash;
+private static import libgit2.types;
 
 package:
 
@@ -105,7 +105,7 @@ private void parse_subcommand(.opts* opts, int argc, char** argv)
 	}
 
 nothrow @nogc
-private int cmd_apply(libgit2_d.types.git_repository* repo, .opts* opts)
+private int cmd_apply(libgit2.types.git_repository* repo, .opts* opts)
 
 	in
 	{
@@ -117,14 +117,14 @@ private int cmd_apply(libgit2_d.types.git_repository* repo, .opts* opts)
 			.usage("apply does not accept any parameters");
 		}
 
-		libgit2_d.example.common.check_lg2(libgit2_d.stash.git_stash_apply(repo, 0, null), "Unable to apply stash", null);
+		libgit2.example.common.check_lg2(libgit2.stash.git_stash_apply(repo, 0, null), "Unable to apply stash", null);
 
 		return 0;
 	}
 
 extern (C)
 nothrow @nogc
-private int list_stash_cb(size_t index, const (char)* message, const (libgit2_d.oid.git_oid)* stash_id, void* payload)
+private int list_stash_cb(size_t index, const (char)* message, const (libgit2.oid.git_oid)* stash_id, void* payload)
 
 	in
 	{
@@ -134,13 +134,13 @@ private int list_stash_cb(size_t index, const (char)* message, const (libgit2_d.
 	{
 		//cast(void)(stash_id);
 		//cast(void)(payload);
-		core.stdc.stdio.printf("stash@{%" ~ libgit2_d.example.common.PRIuZ ~ "}: %s\n", index, message);
+		core.stdc.stdio.printf("stash@{%" ~ libgit2.example.common.PRIuZ ~ "}: %s\n", index, message);
 
 		return 0;
 	}
 
 nothrow @nogc
-private int cmd_list(libgit2_d.types.git_repository* repo, .opts* opts)
+private int cmd_list(libgit2.types.git_repository* repo, .opts* opts)
 
 	in
 	{
@@ -152,13 +152,13 @@ private int cmd_list(libgit2_d.types.git_repository* repo, .opts* opts)
 			.usage("list does not accept any parameters");
 		}
 
-		libgit2_d.example.common.check_lg2(libgit2_d.stash.git_stash_foreach(repo, &.list_stash_cb, null), "Unable to list stashes", null);
+		libgit2.example.common.check_lg2(libgit2.stash.git_stash_foreach(repo, &.list_stash_cb, null), "Unable to list stashes", null);
 
 		return 0;
 	}
 
 nothrow @nogc
-private int cmd_push(libgit2_d.types.git_repository* repo, .opts* opts)
+private int cmd_push(libgit2.types.git_repository* repo, .opts* opts)
 
 	in
 	{
@@ -170,25 +170,25 @@ private int cmd_push(libgit2_d.types.git_repository* repo, .opts* opts)
 			.usage("push does not accept any parameters");
 		}
 
-		libgit2_d.types.git_signature* signature;
-		libgit2_d.example.common.check_lg2(libgit2_d.signature.git_signature_default(&signature, repo), "Unable to get signature", null);
+		libgit2.types.git_signature* signature;
+		libgit2.example.common.check_lg2(libgit2.signature.git_signature_default(&signature, repo), "Unable to get signature", null);
 
-		libgit2_d.oid.git_oid stashid;
-		libgit2_d.example.common.check_lg2(libgit2_d.stash.git_stash_save(&stashid, repo, signature, null, libgit2_d.stash.git_stash_flags.GIT_STASH_DEFAULT), "Unable to save stash", null);
+		libgit2.oid.git_oid stashid;
+		libgit2.example.common.check_lg2(libgit2.stash.git_stash_save(&stashid, repo, signature, null, libgit2.stash.git_stash_flags.GIT_STASH_DEFAULT), "Unable to save stash", null);
 
-		libgit2_d.types.git_commit* stash;
-		libgit2_d.example.common.check_lg2(libgit2_d.commit.git_commit_lookup(&stash, repo, &stashid), "Unable to lookup stash commit", null);
+		libgit2.types.git_commit* stash;
+		libgit2.example.common.check_lg2(libgit2.commit.git_commit_lookup(&stash, repo, &stashid), "Unable to lookup stash commit", null);
 
-		core.stdc.stdio.printf("Saved working directory %s\n", libgit2_d.commit.git_commit_summary(stash));
+		core.stdc.stdio.printf("Saved working directory %s\n", libgit2.commit.git_commit_summary(stash));
 
-		libgit2_d.signature.git_signature_free(signature);
-		libgit2_d.commit.git_commit_free(stash);
+		libgit2.signature.git_signature_free(signature);
+		libgit2.commit.git_commit_free(stash);
 
 		return 0;
 	}
 
 nothrow @nogc
-private int cmd_pop(libgit2_d.types.git_repository* repo, .opts* opts)
+private int cmd_pop(libgit2.types.git_repository* repo, .opts* opts)
 
 	in
 	{
@@ -200,7 +200,7 @@ private int cmd_pop(libgit2_d.types.git_repository* repo, .opts* opts)
 			.usage("pop does not accept any parameters");
 		}
 
-		libgit2_d.example.common.check_lg2(libgit2_d.stash.git_stash_pop(repo, 0, null), "Unable to pop stash", null);
+		libgit2.example.common.check_lg2(libgit2.stash.git_stash_pop(repo, 0, null), "Unable to pop stash", null);
 
 		core.stdc.stdio.printf("Dropped refs/stash@{0}\n");
 
@@ -209,8 +209,8 @@ private int cmd_pop(libgit2_d.types.git_repository* repo, .opts* opts)
 
 extern (C)
 nothrow @nogc
-//int lg2_stash(libgit2_d.types.git_repository* repo, int argc, char*[] argv)
-public int lg2_stash(libgit2_d.types.git_repository* repo, int argc, char** argv)
+//int lg2_stash(libgit2.types.git_repository* repo, int argc, char*[] argv)
+public int lg2_stash(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in
 	{

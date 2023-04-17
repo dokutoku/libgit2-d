@@ -4,17 +4,17 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.transport;
+module libgit2.sys.transport;
 
 
-private static import libgit2_d.cert;
-private static import libgit2_d.credential;
-private static import libgit2_d.indexer;
-private static import libgit2_d.proxy;
-private static import libgit2_d.strarray;
-private static import libgit2_d.sys.credential;
-private static import libgit2_d.transport;
-private static import libgit2_d.types;
+private static import libgit2.cert;
+private static import libgit2.credential;
+private static import libgit2.indexer;
+private static import libgit2.proxy;
+private static import libgit2.strarray;
+private static import libgit2.sys.credential;
+private static import libgit2.transport;
+private static import libgit2.types;
 
 /*
  * @file git2/sys/transport.h
@@ -26,7 +26,7 @@ private static import libgit2_d.types;
 
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 /**
  * Flags to pass to transport
@@ -54,18 +54,18 @@ struct git_transport
 	/**
 	 * Set progress and error callbacks
 	 */
-	int function(.git_transport* transport, libgit2_d.transport.git_transport_message_cb progress_cb, libgit2_d.transport.git_transport_message_cb error_cb, libgit2_d.cert.git_transport_certificate_check_cb certificate_check_cb, void* payload) set_callbacks;
+	int function(.git_transport* transport, libgit2.transport.git_transport_message_cb progress_cb, libgit2.transport.git_transport_message_cb error_cb, libgit2.cert.git_transport_certificate_check_cb certificate_check_cb, void* payload) set_callbacks;
 
 	/**
 	 * Set custom headers for HTTP requests
 	 */
-	int function(.git_transport* transport, const (libgit2_d.strarray.git_strarray)* custom_headers) set_custom_headers;
+	int function(.git_transport* transport, const (libgit2.strarray.git_strarray)* custom_headers) set_custom_headers;
 
 	/**
 	 * Connect the transport to the remote repository, using the given
 	 * direction.
 	 */
-	int function(.git_transport* transport, const (char)* url, libgit2_d.credential.git_credential_acquire_cb cred_acquire_cb, void* cred_acquire_payload, const (libgit2_d.proxy.git_proxy_options)* proxy_opts, int direction, int flags) connect;
+	int function(.git_transport* transport, const (char)* url, libgit2.credential.git_credential_acquire_cb cred_acquire_cb, void* cred_acquire_payload, const (libgit2.proxy.git_proxy_options)* proxy_opts, int direction, int flags) connect;
 
 	/**
 	 * Get the list of available references in the remote repository.
@@ -74,12 +74,12 @@ struct git_transport
 	 * `connect()`. The array returned is owned by the transport and
 	 * must be kept valid until the next call to one of its functions.
 	 */
-	int function(const (libgit2_d.types.git_remote_head)*** out_, size_t* size, .git_transport* transport) ls;
+	int function(const (libgit2.types.git_remote_head)*** out_, size_t* size, .git_transport* transport) ls;
 
 	/**
 	 * Executes the push whose context is in the git_push object.
 	 */
-	int function(.git_transport* transport, libgit2_d.types.git_push* push, const (libgit2_d.types.git_remote_callbacks)* callbacks) push;
+	int function(.git_transport* transport, libgit2.types.git_push* push, const (libgit2.types.git_remote_callbacks)* callbacks) push;
 
 	/**
 	 * Negotiate a fetch with the remote repository.
@@ -88,7 +88,7 @@ struct git_transport
 	 * when the direction is git_direction.GIT_DIRECTION_FETCH. The function performs a
 	 * negotiation to calculate the `wants` list for the fetch.
 	 */
-	int function(.git_transport* transport, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_remote_head)* /+ const +/ * refs, size_t count) negotiate_fetch;
+	int function(.git_transport* transport, libgit2.types.git_repository* repo, const (libgit2.types.git_remote_head)* /+ const +/ * refs, size_t count) negotiate_fetch;
 
 	/**
 	 * Start downloading the packfile from the remote repository.
@@ -96,7 +96,7 @@ struct git_transport
 	 * This function may be called after a successful call to
 	 * negotiate_fetch(), when the direction is git_direction.GIT_DIRECTION_FETCH.
 	 */
-	int function(.git_transport* transport, libgit2_d.types.git_repository* repo, libgit2_d.indexer.git_indexer_progress* stats, libgit2_d.indexer.git_indexer_progress_cb progress_cb, void* progress_payload) download_pack;
+	int function(.git_transport* transport, libgit2.types.git_repository* repo, libgit2.indexer.git_indexer_progress* stats, libgit2.indexer.git_indexer_progress_cb progress_cb, void* progress_payload) download_pack;
 
 	/**
 	 * Checks to see if the transport is connected
@@ -169,7 +169,7 @@ int git_transport_init(.git_transport* opts, uint version_);
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_transport_new(.git_transport** out_, libgit2_d.types.git_remote* owner, const (char)* url);
+int git_transport_new(.git_transport** out_, libgit2.types.git_remote* owner, const (char)* url);
 
 /**
  * Create an ssh transport with custom git command paths
@@ -188,7 +188,7 @@ int git_transport_new(.git_transport** out_, libgit2_d.types.git_remote* owner, 
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_transport_ssh_with_paths(.git_transport** out_, libgit2_d.types.git_remote* owner, void* payload);
+int git_transport_ssh_with_paths(.git_transport** out_, libgit2.types.git_remote* owner, void* payload);
 
 /**
  * Add a custom transport definition, to be used in addition to the built-in
@@ -206,7 +206,7 @@ int git_transport_ssh_with_paths(.git_transport** out_, libgit2_d.types.git_remo
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_transport_register(const (char)* prefix, libgit2_d.transport.git_transport_cb cb, void* param);
+int git_transport_register(const (char)* prefix, libgit2.transport.git_transport_cb cb, void* param);
 
 /**
  * Unregister a custom transport definition which was previously registered
@@ -240,7 +240,7 @@ int git_transport_unregister(const (char)* prefix);
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_transport_dummy(.git_transport** out_, libgit2_d.types.git_remote* owner, /* null */ void* payload);
+int git_transport_dummy(.git_transport** out_, libgit2.types.git_remote* owner, /* null */ void* payload);
 
 /**
  * Create an instance of the local transport.
@@ -253,7 +253,7 @@ int git_transport_dummy(.git_transport** out_, libgit2_d.types.git_remote* owner
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_transport_local(.git_transport** out_, libgit2_d.types.git_remote* owner, /* null */ void* payload);
+int git_transport_local(.git_transport** out_, libgit2.types.git_remote* owner, /* null */ void* payload);
 
 /**
  * Create an instance of the smart transport.
@@ -266,7 +266,7 @@ int git_transport_local(.git_transport** out_, libgit2_d.types.git_remote* owner
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_transport_smart(.git_transport** out_, libgit2_d.types.git_remote* owner, /* (git_smart_subtransport_definition *) */ void* payload);
+int git_transport_smart(.git_transport** out_, libgit2.types.git_remote* owner, /* (git_smart_subtransport_definition *) */ void* payload);
 
 /**
  * Call the certificate check for this transport.
@@ -280,7 +280,7 @@ int git_transport_smart(.git_transport** out_, libgit2_d.types.git_remote* owner
  * Returns: the return value of the callback: 0 for no error, git_error_code.GIT_PASSTHROUGH to indicate that there is no callback registered (or the callback refused to validate the certificate and callers should behave as if no callback was set), or < 0 for an error
  */
 //GIT_EXTERN
-int git_transport_smart_certificate_check(.git_transport* transport, libgit2_d.types.git_cert* cert, int valid, const (char)* hostname);
+int git_transport_smart_certificate_check(.git_transport* transport, libgit2.types.git_cert* cert, int valid, const (char)* hostname);
 
 /**
  * Call the credentials callback for this transport
@@ -294,7 +294,7 @@ int git_transport_smart_certificate_check(.git_transport* transport, libgit2_d.t
  * Returns: the return value of the callback: 0 for no error, git_error_code.GIT_PASSTHROUGH to indicate that there is no callback registered (or the callback refused to provide credentials and callers should behave as if no callback was set), or < 0 for an error
  */
 //GIT_EXTERN
-int git_transport_smart_credentials(libgit2_d.sys.credential.git_credential** out_, .git_transport* transport, const (char)* user, int methods);
+int git_transport_smart_credentials(libgit2.sys.credential.git_credential** out_, .git_transport* transport, const (char)* user, int methods);
 
 /**
  * Get a copy of the proxy options
@@ -306,7 +306,7 @@ int git_transport_smart_credentials(libgit2_d.sys.credential.git_credential** ou
  *      transport = the transport to extract the data from.
  */
 //GIT_EXTERN
-int git_transport_smart_proxy_options(libgit2_d.proxy.git_proxy_options* out_, .git_transport* transport);
+int git_transport_smart_proxy_options(libgit2.proxy.git_proxy_options* out_, .git_transport* transport);
 
 /*
  *** End of base transport interface ***

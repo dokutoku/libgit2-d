@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.stash;
+module libgit2.stash;
 
 
-private static import libgit2_d.checkout;
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.checkout;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/stash.h
@@ -72,7 +72,7 @@ enum
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND where there's nothing to stash, or error code.
  */
 //GIT_EXTERN
-int git_stash_save(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_signature)* stasher, const (char)* message, uint flags);
+int git_stash_save(libgit2.oid.git_oid* out_, libgit2.types.git_repository* repo, const (libgit2.types.git_signature)* stasher, const (char)* message, uint flags);
 
 /**
  * Stash application flags.
@@ -176,7 +176,7 @@ struct git_stash_apply_options
 	/**
 	 * Options to use when writing files to the working directory.
 	 */
-	libgit2_d.checkout.git_checkout_options checkout_options;
+	libgit2.checkout.git_checkout_options checkout_options;
 
 	/**
 	 * Optional callback to notify the consumer of application progress.
@@ -198,7 +198,7 @@ pure nothrow @safe @nogc
 		{
 			version_: .GIT_STASH_APPLY_OPTIONS_VERSION,
 			flags: .git_stash_apply_flags.GIT_STASH_APPLY_DEFAULT,
-			checkout_options: libgit2_d.checkout.GIT_CHECKOUT_OPTIONS_INIT(),
+			checkout_options: libgit2.checkout.GIT_CHECKOUT_OPTIONS_INIT(),
 		};
 
 		return OUTPUT;
@@ -244,7 +244,7 @@ int git_stash_apply_options_init(.git_stash_apply_options* opts, uint version_);
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if there's no stashed state for the given index, git_error_code.GIT_EMERGECONFLICT if changes exist in the working directory, or an error code
  */
 //GIT_EXTERN
-int git_stash_apply(libgit2_d.types.git_repository* repo, size_t index, const (.git_stash_apply_options)* options);
+int git_stash_apply(libgit2.types.git_repository* repo, size_t index, const (.git_stash_apply_options)* options);
 
 /**
  * This is a callback function you can provide to iterate over all the
@@ -259,7 +259,7 @@ int git_stash_apply(libgit2_d.types.git_repository* repo, size_t index, const (.
  *      stash_id = The commit oid of the stashed state.
  *      payload = Extra parameter to callback function.
  */
-alias git_stash_cb = int function(size_t index, const (char)* message, const (libgit2_d.oid.git_oid)* stash_id, void* payload);
+alias git_stash_cb = int function(size_t index, const (char)* message, const (libgit2.oid.git_oid)* stash_id, void* payload);
 
 /**
  * Loop over all the stashed states and issue a callback for each one.
@@ -274,7 +274,7 @@ alias git_stash_cb = int function(size_t index, const (char)* message, const (li
  * Returns: 0 on success, non-zero callback return value, or error code.
  */
 //GIT_EXTERN
-int git_stash_foreach(libgit2_d.types.git_repository* repo, .git_stash_cb callback, void* payload);
+int git_stash_foreach(libgit2.types.git_repository* repo, .git_stash_cb callback, void* payload);
 
 /**
  * Remove a single stashed state from the stash list.
@@ -286,7 +286,7 @@ int git_stash_foreach(libgit2_d.types.git_repository* repo, .git_stash_cb callba
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if there's no stashed state for the given index, or error code.
  */
 //GIT_EXTERN
-int git_stash_drop(libgit2_d.types.git_repository* repo, size_t index);
+int git_stash_drop(libgit2.types.git_repository* repo, size_t index);
 
 /**
  * Apply a single stashed state from the stash list and remove it from the list
@@ -300,6 +300,6 @@ int git_stash_drop(libgit2_d.types.git_repository* repo, size_t index);
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if there's no stashed state for the given index, or error code. (see git_stash_apply() above for details)
  */
 //GIT_EXTERN
-int git_stash_pop(libgit2_d.types.git_repository* repo, size_t index, const (.git_stash_apply_options)* options);
+int git_stash_pop(libgit2.types.git_repository* repo, size_t index, const (.git_stash_apply_options)* options);
 
 /* @} */

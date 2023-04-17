@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.filter;
+module libgit2.filter;
 
 
-private static import libgit2_d.buffer;
-private static import libgit2_d.sys.filter;
-private static import libgit2_d.types;
+private static import libgit2.buffer;
+private static import libgit2.sys.filter;
+private static import libgit2.types;
 
 /*
  * @file git2/filter.h
@@ -93,7 +93,7 @@ enum
  * * "ident" which replaces "$Id$" in a blob with "$Id: <blob OID>$" upon
  *   checkout and replaced "$Id: <anything>$" with "$Id$" on checkin.
  */
-alias git_filter = libgit2_d.sys.filter.git_filter;
+alias git_filter = libgit2.sys.filter.git_filter;
 
 /**
  * List of filters to be applied
@@ -124,7 +124,7 @@ struct git_filter_list;
  * Returns: 0 on success (which could still return null if no filters are needed for the requested file), <0 on error
  */
 //GIT_EXTERN
-int git_filter_list_load(.git_filter_list** filters, libgit2_d.types.git_repository* repo, libgit2_d.types.git_blob* blob, /* can be null */
+int git_filter_list_load(.git_filter_list** filters, libgit2.types.git_repository* repo, libgit2.types.git_blob* blob, /* can be null */
                      const (char)* path, .git_filter_mode_t mode, uint flags);
 
 /**
@@ -167,7 +167,7 @@ int git_filter_list_contains(.git_filter_list* filters, const (char)* name);
  * Returns: 0 on success, an error code otherwise
  */
 //GIT_EXTERN
-int git_filter_list_apply_to_data(libgit2_d.buffer.git_buf* out_, .git_filter_list* filters, libgit2_d.buffer.git_buf* in_);
+int git_filter_list_apply_to_data(libgit2.buffer.git_buf* out_, .git_filter_list* filters, libgit2.buffer.git_buf* in_);
 
 /**
  * Apply a filter list to the contents of a file on disk
@@ -179,7 +179,7 @@ int git_filter_list_apply_to_data(libgit2_d.buffer.git_buf* out_, .git_filter_li
  *      path = the path of the file to filter, a relative path will be taken as relative to the workdir
  */
 //GIT_EXTERN
-int git_filter_list_apply_to_file(libgit2_d.buffer.git_buf* out_, .git_filter_list* filters, libgit2_d.types.git_repository* repo, const (char)* path);
+int git_filter_list_apply_to_file(libgit2.buffer.git_buf* out_, .git_filter_list* filters, libgit2.types.git_repository* repo, const (char)* path);
 
 /**
  * Apply a filter list to the contents of a blob
@@ -190,7 +190,7 @@ int git_filter_list_apply_to_file(libgit2_d.buffer.git_buf* out_, .git_filter_li
  *      blob = the blob to filter
  */
 //GIT_EXTERN
-int git_filter_list_apply_to_blob(libgit2_d.buffer.git_buf* out_, .git_filter_list* filters, libgit2_d.types.git_blob* blob);
+int git_filter_list_apply_to_blob(libgit2.buffer.git_buf* out_, .git_filter_list* filters, libgit2.types.git_blob* blob);
 
 /**
  * Apply a filter list to an arbitrary buffer as a stream
@@ -201,7 +201,7 @@ int git_filter_list_apply_to_blob(libgit2_d.buffer.git_buf* out_, .git_filter_li
  *      target = the stream into which the data will be written
  */
 //GIT_EXTERN
-int git_filter_list_stream_data(.git_filter_list* filters, libgit2_d.buffer.git_buf* data, libgit2_d.types.git_writestream* target);
+int git_filter_list_stream_data(.git_filter_list* filters, libgit2.buffer.git_buf* data, libgit2.types.git_writestream* target);
 
 /**
  * Apply a filter list to a file as a stream
@@ -213,7 +213,7 @@ int git_filter_list_stream_data(.git_filter_list* filters, libgit2_d.buffer.git_
  *      target = the stream into which the data will be written
  */
 //GIT_EXTERN
-int git_filter_list_stream_file(.git_filter_list* filters, libgit2_d.types.git_repository* repo, const (char)* path, libgit2_d.types.git_writestream* target);
+int git_filter_list_stream_file(.git_filter_list* filters, libgit2.types.git_repository* repo, const (char)* path, libgit2.types.git_writestream* target);
 
 /**
  * Apply a filter list to a blob as a stream
@@ -224,7 +224,7 @@ int git_filter_list_stream_file(.git_filter_list* filters, libgit2_d.types.git_r
  *      target = the stream into which the data will be written
  */
 //GIT_EXTERN
-int git_filter_list_stream_blob(.git_filter_list* filters, libgit2_d.types.git_blob* blob, libgit2_d.types.git_writestream* target);
+int git_filter_list_stream_blob(.git_filter_list* filters, libgit2.types.git_blob* blob, libgit2.types.git_writestream* target);
 
 /**
  * Free a git_filter_list

@@ -4,11 +4,11 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.config;
+module libgit2.sys.config;
 
 
-private static import libgit2_d.config;
-private static import libgit2_d.types;
+private static import libgit2.config;
+private static import libgit2.types;
 
 /*
  * @file git2/sys/config.h
@@ -19,7 +19,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 /**
  * Every iterator must have this struct as its first element, so the
@@ -41,7 +41,7 @@ struct git_config_iterator
 	 * Return the current entry and advance the iterator. The
 	 * memory belongs to the library.
 	 */
-	int function(libgit2_d.config.git_config_entry** entry, .git_config_iterator* iter) next;
+	int function(libgit2.config.git_config_entry** entry, .git_config_iterator* iter) next;
 
 	/**
 	 * Free the iterator
@@ -62,11 +62,11 @@ struct git_config_backend
 	 */
 	int readonly;
 
-	libgit2_d.types.git_config* cfg;
+	libgit2.types.git_config* cfg;
 
 	/* Open means open the file/database and parse if necessary */
-	int function(.git_config_backend*, libgit2_d.config.git_config_level_t level, const (libgit2_d.types.git_repository)* repo) open;
-	int function(.git_config_backend*, const (char)* key, libgit2_d.config.git_config_entry** entry) get;
+	int function(.git_config_backend*, libgit2.config.git_config_level_t level, const (libgit2.types.git_repository)* repo) open;
+	int function(.git_config_backend*, const (char)* key, libgit2.config.git_config_entry** entry) get;
 	int function(.git_config_backend*, const (char)* key, const (char)* value) set;
 	int function(.git_config_backend* cfg, const (char)* name, const (char)* regexp, const (char)* value) set_multivar;
 	int function(.git_config_backend*, const (char)* key) del;
@@ -146,6 +146,6 @@ int git_config_init_backend(.git_config_backend* backend, uint version_);
  * Returns: 0 on success, git_error_code.GIT_EEXISTS when adding more than one file for a given priority level (and force_replace set to 0), or error code
  */
 //GIT_EXTERN
-int git_config_add_backend(libgit2_d.types.git_config* cfg, .git_config_backend* file, libgit2_d.config.git_config_level_t level, const (libgit2_d.types.git_repository)* repo, int force);
+int git_config_add_backend(libgit2.types.git_config* cfg, .git_config_backend* file, libgit2.config.git_config_level_t level, const (libgit2.types.git_repository)* repo, int force);
 
 /* @} */

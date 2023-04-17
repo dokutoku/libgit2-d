@@ -11,19 +11,19 @@
  * with this software. If not, see
  * <http://creativecommons.org/publicdomain/zero/1.0/>.
  */
-module libgit2_d.example.config;
+module libgit2.example.config;
 
 
 private static import core.stdc.stdio;
-private static import libgit2_d.config;
-private static import libgit2_d.errors;
-private static import libgit2_d.repository;
-private static import libgit2_d.types;
+private static import libgit2.config;
+private static import libgit2.errors;
+private static import libgit2.repository;
+private static import libgit2.types;
 
 package:
 
 nothrow @nogc
-private int config_get(libgit2_d.types.git_config* cfg, const (char)* key)
+private int config_get(libgit2.types.git_config* cfg, const (char)* key)
 
 	in
 	{
@@ -31,12 +31,12 @@ private int config_get(libgit2_d.types.git_config* cfg, const (char)* key)
 
 	do
 	{
-		libgit2_d.config.git_config_entry* entry;
-		int error = libgit2_d.config.git_config_get_entry(&entry, cfg, key);
+		libgit2.config.git_config_entry* entry;
+		int error = libgit2.config.git_config_get_entry(&entry, cfg, key);
 
 		if (error < 0) {
-			if (error != libgit2_d.errors.git_error_code.GIT_ENOTFOUND) {
-				core.stdc.stdio.printf("Unable to get configuration: %s\n", libgit2_d.errors.git_error_last().message);
+			if (error != libgit2.errors.git_error_code.GIT_ENOTFOUND) {
+				core.stdc.stdio.printf("Unable to get configuration: %s\n", libgit2.errors.git_error_last().message);
 			}
 
 			return 1;
@@ -48,7 +48,7 @@ private int config_get(libgit2_d.types.git_config* cfg, const (char)* key)
 	}
 
 nothrow @nogc
-private int config_set(libgit2_d.types.git_config* cfg, const (char)* key, const (char)* value)
+private int config_set(libgit2.types.git_config* cfg, const (char)* key, const (char)* value)
 
 	in
 	{
@@ -56,8 +56,8 @@ private int config_set(libgit2_d.types.git_config* cfg, const (char)* key, const
 
 	do
 	{
-		if (libgit2_d.config.git_config_set_string(cfg, key, value) < 0) {
-			core.stdc.stdio.printf("Unable to set configuration: %s\n", libgit2_d.errors.git_error_last().message);
+		if (libgit2.config.git_config_set_string(cfg, key, value) < 0) {
+			core.stdc.stdio.printf("Unable to set configuration: %s\n", libgit2.errors.git_error_last().message);
 
 			return 1;
 		}
@@ -67,7 +67,7 @@ private int config_set(libgit2_d.types.git_config* cfg, const (char)* key, const
 
 extern (C)
 nothrow @nogc
-public int lg2_config(libgit2_d.types.git_repository* repo, int argc, char** argv)
+public int lg2_config(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in
 	{
@@ -75,11 +75,11 @@ public int lg2_config(libgit2_d.types.git_repository* repo, int argc, char** arg
 
 	do
 	{
-		libgit2_d.types.git_config* cfg;
-		int error = libgit2_d.repository.git_repository_config(&cfg, repo);
+		libgit2.types.git_config* cfg;
+		int error = libgit2.repository.git_repository_config(&cfg, repo);
 
 		if (error < 0) {
-			core.stdc.stdio.printf("Unable to obtain repository config: %s\n", libgit2_d.errors.git_error_last().message);
+			core.stdc.stdio.printf("Unable to obtain repository config: %s\n", libgit2.errors.git_error_last().message);
 
 			return error;
 		}

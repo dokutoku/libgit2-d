@@ -4,10 +4,10 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.refdb;
+module libgit2.refdb;
 
 
-private static import libgit2_d.types;
+private static import libgit2.types;
 
 /*
  * @file git2/refdb.h
@@ -33,7 +33,7 @@ public:
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_refdb_new(libgit2_d.types.git_refdb** out_, libgit2_d.types.git_repository* repo);
+int git_refdb_new(libgit2.types.git_refdb** out_, libgit2.types.git_repository* repo);
 
 /**
  * Create a new reference database and automatically add
@@ -49,7 +49,7 @@ int git_refdb_new(libgit2_d.types.git_refdb** out_, libgit2_d.types.git_reposito
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_refdb_open(libgit2_d.types.git_refdb** out_, libgit2_d.types.git_repository* repo);
+int git_refdb_open(libgit2.types.git_refdb** out_, libgit2.types.git_repository* repo);
 
 /**
  * Suggests that the given refdb compress or optimize its references.
@@ -57,7 +57,7 @@ int git_refdb_open(libgit2_d.types.git_refdb** out_, libgit2_d.types.git_reposit
  * databases, for example, this may pack all loose references.
  */
 //GIT_EXTERN
-int git_refdb_compress(libgit2_d.types.git_refdb* refdb);
+int git_refdb_compress(libgit2.types.git_refdb* refdb);
 
 /**
  * Close an open reference database.
@@ -66,6 +66,6 @@ int git_refdb_compress(libgit2_d.types.git_refdb* refdb);
  *      refdb = reference database pointer or null
  */
 //GIT_EXTERN
-void git_refdb_free(libgit2_d.types.git_refdb* refdb);
+void git_refdb_free(libgit2.types.git_refdb* refdb);
 
 /* @} */

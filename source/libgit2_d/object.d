@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.object;
+module libgit2.object;
 
 
-private static import libgit2_d.buffer;
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.buffer;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/object.h
@@ -45,7 +45,7 @@ enum GIT_OBJECT_SIZE_MAX = ulong.max;
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_object_lookup(libgit2_d.types.git_object** object, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id, libgit2_d.types.git_object_t type);
+int git_object_lookup(libgit2.types.git_object** object, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* id, libgit2.types.git_object_t type);
 
 /**
  * Lookup a reference to one of the objects in a repository,
@@ -77,7 +77,7 @@ int git_object_lookup(libgit2_d.types.git_object** object, libgit2_d.types.git_r
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_object_lookup_prefix(libgit2_d.types.git_object** object_out, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id, size_t len, libgit2_d.types.git_object_t type);
+int git_object_lookup_prefix(libgit2.types.git_object** object_out, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* id, size_t len, libgit2.types.git_object_t type);
 
 /**
  * Lookup an object that represents a tree entry.
@@ -91,7 +91,7 @@ int git_object_lookup_prefix(libgit2_d.types.git_object** object_out, libgit2_d.
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_object_lookup_bypath(libgit2_d.types.git_object** out_, const (libgit2_d.types.git_object)* treeish, const (char)* path, libgit2_d.types.git_object_t type);
+int git_object_lookup_bypath(libgit2.types.git_object** out_, const (libgit2.types.git_object)* treeish, const (char)* path, libgit2.types.git_object_t type);
 
 /**
  * Get the id (SHA1) of a repository object
@@ -102,7 +102,7 @@ int git_object_lookup_bypath(libgit2_d.types.git_object** out_, const (libgit2_d
  * Returns: the SHA1 id
  */
 //GIT_EXTERN
-const (libgit2_d.oid.git_oid)* git_object_id(const (libgit2_d.types.git_object)* obj);
+const (libgit2.oid.git_oid)* git_object_id(const (libgit2.types.git_object)* obj);
 
 /**
  * Get a short abbreviated OID string for the object
@@ -119,7 +119,7 @@ const (libgit2_d.oid.git_oid)* git_object_id(const (libgit2_d.types.git_object)*
  * Returns: 0 on success, <0 for error
  */
 //GIT_EXTERN
-int git_object_short_id(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types.git_object)* obj);
+int git_object_short_id(libgit2.buffer.git_buf* out_, const (libgit2.types.git_object)* obj);
 
 /**
  * Get the object type of an object
@@ -130,7 +130,7 @@ int git_object_short_id(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types.g
  * Returns: the object's type
  */
 //GIT_EXTERN
-libgit2_d.types.git_object_t git_object_type(const (libgit2_d.types.git_object)* obj);
+libgit2.types.git_object_t git_object_type(const (libgit2.types.git_object)* obj);
 
 /**
  * Get the repository that owns this object
@@ -147,7 +147,7 @@ libgit2_d.types.git_object_t git_object_type(const (libgit2_d.types.git_object)*
  * Returns: the repository who owns this object
  */
 //GIT_EXTERN
-libgit2_d.types.git_repository* git_object_owner(const (libgit2_d.types.git_object)* obj);
+libgit2.types.git_repository* git_object_owner(const (libgit2.types.git_object)* obj);
 
 /**
  * Close an open object
@@ -166,7 +166,7 @@ libgit2_d.types.git_repository* git_object_owner(const (libgit2_d.types.git_obje
  *      object = the object to close
  */
 //GIT_EXTERN
-void git_object_free(libgit2_d.types.git_object* object);
+void git_object_free(libgit2.types.git_object* object);
 
 /**
  * Convert an object type to its string representation.
@@ -180,21 +180,21 @@ void git_object_free(libgit2_d.types.git_object* object);
  * Returns: the corresponding string representation.
  */
 //GIT_EXTERN
-const (char)* git_object_type2string(libgit2_d.types.git_object_t type);
+const (char)* git_object_type2string(libgit2.types.git_object_t type);
 
 /**
- * Convert a string object type representation to it's libgit2_d.types.git_object_t.
+ * Convert a string object type representation to it's libgit2.types.git_object_t.
  *
  * Params:
  *      str = the string to convert.
  *
- * Returns: the corresponding libgit2_d.types.git_object_t.
+ * Returns: the corresponding libgit2.types.git_object_t.
  */
 //GIT_EXTERN
-libgit2_d.types.git_object_t git_object_string2type(const (char)* str);
+libgit2.types.git_object_t git_object_string2type(const (char)* str);
 
 /**
- * Determine if the given libgit2_d.types.git_object_t is a valid loose object type.
+ * Determine if the given libgit2.types.git_object_t is a valid loose object type.
  *
  * Params:
  *      type = object type to test.
@@ -202,7 +202,7 @@ libgit2_d.types.git_object_t git_object_string2type(const (char)* str);
  * Returns: true if the type represents a valid loose object type, false otherwise.
  */
 //GIT_EXTERN
-int git_object_typeisloose(libgit2_d.types.git_object_t type);
+int git_object_typeisloose(libgit2.types.git_object_t type);
 
 /**
  * Recursively peel an object until an object of the specified type is met.
@@ -230,7 +230,7 @@ int git_object_typeisloose(libgit2_d.types.git_object_t type);
  * Returns: 0 on success, git_error_code.GIT_EINVALIDSPEC, git_error_code.GIT_EPEEL, or an error code
  */
 //GIT_EXTERN
-int git_object_peel(libgit2_d.types.git_object** peeled, const (libgit2_d.types.git_object)* object, libgit2_d.types.git_object_t target_type);
+int git_object_peel(libgit2.types.git_object** peeled, const (libgit2.types.git_object)* object, libgit2.types.git_object_t target_type);
 
 /**
  * Create an in-memory copy of a Git object. The copy must be
@@ -241,6 +241,6 @@ int git_object_peel(libgit2_d.types.git_object** peeled, const (libgit2_d.types.
  *      source = Original object to copy
  */
 //GIT_EXTERN
-int git_object_dup(libgit2_d.types.git_object** dest, libgit2_d.types.git_object* source);
+int git_object_dup(libgit2.types.git_object** dest, libgit2.types.git_object* source);
 
 /* @} */

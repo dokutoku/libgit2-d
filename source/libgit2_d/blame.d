@@ -4,11 +4,11 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.blame;
+module libgit2.blame;
 
 
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/blame.h
@@ -116,13 +116,13 @@ struct git_blame_options
 	/**
 	 * The id of the newest commit to consider. The default is HEAD.
 	 */
-	libgit2_d.oid.git_oid newest_commit;
+	libgit2.oid.git_oid newest_commit;
 
 	/**
 	 * The id of the oldest commit to consider.
 	 * The default is the first commit encountered with a NULL parent.
 	 */
-	libgit2_d.oid.git_oid oldest_commit;
+	libgit2.oid.git_oid oldest_commit;
 
 	/**
 	 * The first line in the file to blame.
@@ -197,14 +197,14 @@ struct git_blame_hunk
 {
 	size_t lines_in_hunk;
 
-	libgit2_d.oid.git_oid final_commit_id;
+	libgit2.oid.git_oid final_commit_id;
 	size_t final_start_line_number;
-	libgit2_d.types.git_signature* final_signature;
+	libgit2.types.git_signature* final_signature;
 
-	libgit2_d.oid.git_oid orig_commit_id;
+	libgit2.oid.git_oid orig_commit_id;
 	const (char)* orig_path;
 	size_t orig_start_line_number;
-	libgit2_d.types.git_signature* orig_signature;
+	libgit2.types.git_signature* orig_signature;
 
 	char boundary = '\0';
 }
@@ -256,7 +256,7 @@ const (.git_blame_hunk)* git_blame_get_hunk_byline(.git_blame* blame, size_t lin
  * Returns: 0 on success, or an error code. (use git_error_last for information about the error.)
  */
 //GIT_EXTERN
-int git_blame_file(.git_blame** out_, libgit2_d.types.git_repository* repo, const (char)* path, .git_blame_options* options);
+int git_blame_file(.git_blame** out_, libgit2.types.git_repository* repo, const (char)* path, .git_blame_options* options);
 
 /**
  * Get blame data for a file that has been modified in memory. The `reference`

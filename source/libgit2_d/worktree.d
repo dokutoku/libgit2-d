@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.worktree;
+module libgit2.worktree;
 
 
-private static import libgit2_d.buffer;
-private static import libgit2_d.strarray;
-private static import libgit2_d.types;
+private static import libgit2.buffer;
+private static import libgit2.strarray;
+private static import libgit2.types;
 
 /*
  * @file git2/worktrees.h
@@ -35,7 +35,7 @@ public:
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_worktree_list(libgit2_d.strarray.git_strarray* out_, libgit2_d.types.git_repository* repo);
+int git_worktree_list(libgit2.strarray.git_strarray* out_, libgit2.types.git_repository* repo);
 
 /**
  * Lookup a working tree by its name for a given repository
@@ -48,7 +48,7 @@ int git_worktree_list(libgit2_d.strarray.git_strarray* out_, libgit2_d.types.git
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_worktree_lookup(libgit2_d.types.git_worktree** out_, libgit2_d.types.git_repository* repo, const (char)* name);
+int git_worktree_lookup(libgit2.types.git_worktree** out_, libgit2.types.git_repository* repo, const (char)* name);
 
 /**
  * Open a worktree of a given repository
@@ -62,7 +62,7 @@ int git_worktree_lookup(libgit2_d.types.git_worktree** out_, libgit2_d.types.git
  *      repo = Repository to look up worktree for
  */
 //GIT_EXTERN
-int git_worktree_open_from_repository(libgit2_d.types.git_worktree** out_, libgit2_d.types.git_repository* repo);
+int git_worktree_open_from_repository(libgit2.types.git_worktree** out_, libgit2.types.git_repository* repo);
 
 /**
  * Free a previously allocated worktree
@@ -71,7 +71,7 @@ int git_worktree_open_from_repository(libgit2_d.types.git_worktree** out_, libgi
  *      wt = worktree handle to close. If null nothing occurs.
  */
 //GIT_EXTERN
-void git_worktree_free(libgit2_d.types.git_worktree* wt);
+void git_worktree_free(libgit2.types.git_worktree* wt);
 
 /**
  * Check if worktree is valid
@@ -86,7 +86,7 @@ void git_worktree_free(libgit2_d.types.git_worktree* wt);
  * Returns: 0 when worktree is valid, error-code otherwise
  */
 //GIT_EXTERN
-int git_worktree_validate(const (libgit2_d.types.git_worktree)* wt);
+int git_worktree_validate(const (libgit2.types.git_worktree)* wt);
 
 /**
  * Worktree add options structure
@@ -106,7 +106,7 @@ struct git_worktree_add_options
 	/**
 	 * reference to use for the new worktree HEAD
 	 */
-	libgit2_d.types.git_reference* ref_;
+	libgit2.types.git_reference* ref_;
 }
 
 enum GIT_WORKTREE_ADD_OPTIONS_VERSION = 1;
@@ -159,7 +159,7 @@ int git_worktree_add_options_init(.git_worktree_add_options* opts, uint version_
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_worktree_add(libgit2_d.types.git_worktree** out_, libgit2_d.types.git_repository* repo, const (char)* name, const (char)* path, const (.git_worktree_add_options)* opts);
+int git_worktree_add(libgit2.types.git_worktree** out_, libgit2.types.git_repository* repo, const (char)* name, const (char)* path, const (.git_worktree_add_options)* opts);
 
 /**
  * Lock worktree if not already locked
@@ -174,7 +174,7 @@ int git_worktree_add(libgit2_d.types.git_worktree** out_, libgit2_d.types.git_re
  * Returns: 0 on success, non-zero otherwise
  */
 //GIT_EXTERN
-int git_worktree_lock(libgit2_d.types.git_worktree* wt, const (char)* reason);
+int git_worktree_lock(libgit2.types.git_worktree* wt, const (char)* reason);
 
 /**
  * Unlock a locked worktree
@@ -185,7 +185,7 @@ int git_worktree_lock(libgit2_d.types.git_worktree* wt, const (char)* reason);
  * Returns: 0 on success, 1 if worktree was not locked, error-code otherwise
  */
 //GIT_EXTERN
-int git_worktree_unlock(libgit2_d.types.git_worktree* wt);
+int git_worktree_unlock(libgit2.types.git_worktree* wt);
 
 /**
  * Check if worktree is locked
@@ -200,7 +200,7 @@ int git_worktree_unlock(libgit2_d.types.git_worktree* wt);
  * Returns: 0 when the working tree not locked, a value greater than zero if it is locked, less than zero if there was an error
  */
 //GIT_EXTERN
-int git_worktree_is_locked(libgit2_d.buffer.git_buf* reason, const (libgit2_d.types.git_worktree)* wt);
+int git_worktree_is_locked(libgit2.buffer.git_buf* reason, const (libgit2.types.git_worktree)* wt);
 
 /**
  * Retrieve the name of the worktree
@@ -211,7 +211,7 @@ int git_worktree_is_locked(libgit2_d.buffer.git_buf* reason, const (libgit2_d.ty
  * Returns: The worktree's name. The pointer returned is valid for the lifetime of the git_worktree
  */
 //GIT_EXTERN
-const (char)* git_worktree_name(const (libgit2_d.types.git_worktree)* wt);
+const (char)* git_worktree_name(const (libgit2.types.git_worktree)* wt);
 
 /**
  * Retrieve the filesystem path for the worktree
@@ -222,7 +222,7 @@ const (char)* git_worktree_name(const (libgit2_d.types.git_worktree)* wt);
  * Returns: The worktree's filesystem path. The pointer returned is valid for the lifetime of the git_worktree.
  */
 //GIT_EXTERN
-const (char)* git_worktree_path(const (libgit2_d.types.git_worktree)* wt);
+const (char)* git_worktree_path(const (libgit2.types.git_worktree)* wt);
 
 /**
  * Flags which can be passed to git_worktree_prune to alter its
@@ -314,7 +314,7 @@ int git_worktree_prune_options_init(.git_worktree_prune_options* opts, uint vers
  * positive value.
  */
 //GIT_EXTERN
-int git_worktree_is_prunable(libgit2_d.types.git_worktree* wt, .git_worktree_prune_options* opts);
+int git_worktree_is_prunable(libgit2.types.git_worktree* wt, .git_worktree_prune_options* opts);
 
 /**
  * Prune working tree
@@ -330,6 +330,6 @@ int git_worktree_is_prunable(libgit2_d.types.git_worktree* wt, .git_worktree_pru
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_worktree_prune(libgit2_d.types.git_worktree* wt, .git_worktree_prune_options* opts);
+int git_worktree_prune(libgit2.types.git_worktree* wt, .git_worktree_prune_options* opts);
 
 /* @} */

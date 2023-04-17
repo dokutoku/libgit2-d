@@ -4,11 +4,11 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.proxy;
+module libgit2.proxy;
 
 
-private static import libgit2_d.cert;
-private static import libgit2_d.credential;
+private static import libgit2.cert;
+private static import libgit2.credential;
 
 extern (C):
 nothrow @nogc:
@@ -73,7 +73,7 @@ struct git_proxy_options
 	 * Returning git_error_code.GIT_PASSTHROUGH will make libgit2 behave as
 	 * though this field isn't set.
 	 */
-	libgit2_d.credential.git_credential_acquire_cb credentials;
+	libgit2.credential.git_credential_acquire_cb credentials;
 
 	/**
 	 * If cert verification fails, this will be called to let the
@@ -81,7 +81,7 @@ struct git_proxy_options
 	 * connection to proceed. Returns 0 to allow the connection
 	 * or a negative value to indicate an error.
 	 */
-	libgit2_d.cert.git_transport_certificate_check_cb certificate_check;
+	libgit2.cert.git_transport_certificate_check_cb certificate_check;
 
 	/**
 	 * Payload to be provided to the credentials and certificate

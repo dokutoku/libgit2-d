@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.odb_backend;
+module libgit2.odb_backend;
 
 
-private static import libgit2_d.indexer;
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.indexer;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/backend.h
@@ -36,7 +36,7 @@ public:
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_odb_backend_pack(libgit2_d.types.git_odb_backend** out_, const (char)* objects_dir);
+int git_odb_backend_pack(libgit2.types.git_odb_backend** out_, const (char)* objects_dir);
 
 /**
  * Create a backend for loose objects
@@ -52,7 +52,7 @@ int git_odb_backend_pack(libgit2_d.types.git_odb_backend** out_, const (char)* o
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_odb_backend_loose(libgit2_d.types.git_odb_backend** out_, const (char)* objects_dir, int compression_level, int do_fsync, uint dir_mode, uint file_mode);
+int git_odb_backend_loose(libgit2.types.git_odb_backend** out_, const (char)* objects_dir, int compression_level, int do_fsync, uint dir_mode, uint file_mode);
 
 /**
  * Create a backend out of a single packfile
@@ -67,7 +67,7 @@ int git_odb_backend_loose(libgit2_d.types.git_odb_backend** out_, const (char)* 
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_odb_backend_one_pack(libgit2_d.types.git_odb_backend** out_, const (char)* index_file);
+int git_odb_backend_one_pack(libgit2.types.git_odb_backend** out_, const (char)* index_file);
 
 /**
  * Streaming mode
@@ -97,12 +97,12 @@ enum
  */
 struct git_odb_stream
 {
-	libgit2_d.types.git_odb_backend* backend;
+	libgit2.types.git_odb_backend* backend;
 	uint mode;
 	void* hash_ctx;
 
-	libgit2_d.types.git_object_size_t declared_size;
-	libgit2_d.types.git_object_size_t received_bytes;
+	libgit2.types.git_object_size_t declared_size;
+	libgit2.types.git_object_size_t received_bytes;
 
 	/**
 	 * Write at most `len` bytes into `buffer` and advance the stream.
@@ -124,7 +124,7 @@ struct git_odb_stream
 	 * - the final number of received bytes differs from the size declared
 	 *   with `git_odb_open_wstream()`
 	 */
-	int function(.git_odb_stream* stream, const (libgit2_d.oid.git_oid)* oid) finalize_write;
+	int function(.git_odb_stream* stream, const (libgit2.oid.git_oid)* oid) finalize_write;
 
 	/**
 	 * Free the stream's memory.
@@ -140,9 +140,9 @@ struct git_odb_stream
  */
 struct git_odb_writepack
 {
-	libgit2_d.types.git_odb_backend* backend;
+	libgit2.types.git_odb_backend* backend;
 
-	int function(.git_odb_writepack* writepack, const (void)* data, size_t size, libgit2_d.indexer.git_indexer_progress* stats) append;
-	int function(.git_odb_writepack* writepack, libgit2_d.indexer.git_indexer_progress* stats) commit;
+	int function(.git_odb_writepack* writepack, const (void)* data, size_t size, libgit2.indexer.git_indexer_progress* stats) append;
+	int function(.git_odb_writepack* writepack, libgit2.indexer.git_indexer_progress* stats) commit;
 	void function(.git_odb_writepack* writepack) free;
 }

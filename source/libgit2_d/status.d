@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.status;
+module libgit2.status;
 
 
-private static import libgit2_d.diff;
-private static import libgit2_d.strarray;
-private static import libgit2_d.types;
+private static import libgit2.diff;
+private static import libgit2.strarray;
+private static import libgit2.types;
 
 /*
  * @file git2/status.h
@@ -241,13 +241,13 @@ struct git_status_options
 	 * fnmatch-style matching), or just an array of paths to match exactly if
 	 * `git_status_opt_t.GIT_STATUS_OPT_DISABLE_PATHSPEC_MATCH` is specified in the flags.
 	 */
-	libgit2_d.strarray.git_strarray pathspec;
+	libgit2.strarray.git_strarray pathspec;
 
 	/**
 	 * The `baseline` is the tree to be used for comparison to the working directory
 	 * and index; defaults to HEAD.
 	 */
-	libgit2_d.types.git_tree* baseline;
+	libgit2.types.git_tree* baseline;
 }
 
 enum GIT_STATUS_OPTIONS_VERSION = 1;
@@ -298,8 +298,8 @@ int git_status_options_init(.git_status_options* opts, uint version_);
 struct git_status_entry
 {
 	.git_status_t status;
-	libgit2_d.diff.git_diff_delta* head_to_index;
-	libgit2_d.diff.git_diff_delta* index_to_workdir;
+	libgit2.diff.git_diff_delta* head_to_index;
+	libgit2.diff.git_diff_delta* index_to_workdir;
 }
 
 /**
@@ -320,7 +320,7 @@ struct git_status_entry
  * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
-int git_status_foreach(libgit2_d.types.git_repository* repo, .git_status_cb callback, void* payload);
+int git_status_foreach(libgit2.types.git_repository* repo, .git_status_cb callback, void* payload);
 
 /**
  * Gather file status information and run callbacks as requested.
@@ -344,7 +344,7 @@ int git_status_foreach(libgit2_d.types.git_repository* repo, .git_status_cb call
  * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
-int git_status_foreach_ext(libgit2_d.types.git_repository* repo, const (.git_status_options)* opts, .git_status_cb callback, void* payload);
+int git_status_foreach_ext(libgit2.types.git_repository* repo, const (.git_status_options)* opts, .git_status_cb callback, void* payload);
 
 /**
  * Get file status for a single file.
@@ -372,7 +372,7 @@ int git_status_foreach_ext(libgit2_d.types.git_repository* repo, const (.git_sta
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if the file is not found in the HEAD, index, and work tree, git_error_code.GIT_EAMBIGUOUS if `path` matches multiple files or if it refers to a folder, and -1 on other errors.
  */
 //GIT_EXTERN
-int git_status_file(uint* status_flags, libgit2_d.types.git_repository* repo, const (char)* path);
+int git_status_file(uint* status_flags, libgit2.types.git_repository* repo, const (char)* path);
 
 /**
  * Gather file status information and populate the `git_status_list`.
@@ -390,7 +390,7 @@ int git_status_file(uint* status_flags, libgit2_d.types.git_repository* repo, co
  * Returns: 0 on success or error code
  */
 //GIT_EXTERN
-int git_status_list_new(libgit2_d.types.git_status_list** out_, libgit2_d.types.git_repository* repo, const (.git_status_options)* opts);
+int git_status_list_new(libgit2.types.git_status_list** out_, libgit2.types.git_repository* repo, const (.git_status_options)* opts);
 
 /**
  * Gets the count of status entries in this list.
@@ -404,7 +404,7 @@ int git_status_list_new(libgit2_d.types.git_status_list** out_, libgit2_d.types.
  * Returns: the number of status entries
  */
 //GIT_EXTERN
-size_t git_status_list_entrycount(libgit2_d.types.git_status_list* statuslist);
+size_t git_status_list_entrycount(libgit2.types.git_status_list* statuslist);
 
 /**
  * Get a pointer to one of the entries in the status list.
@@ -418,7 +418,7 @@ size_t git_status_list_entrycount(libgit2_d.types.git_status_list* statuslist);
  * Returns: Pointer to the entry; null if out of bounds
  */
 //GIT_EXTERN
-const (.git_status_entry)* git_status_byindex(libgit2_d.types.git_status_list* statuslist, size_t idx);
+const (.git_status_entry)* git_status_byindex(libgit2.types.git_status_list* statuslist, size_t idx);
 
 /**
  * Free an existing status list
@@ -427,7 +427,7 @@ const (.git_status_entry)* git_status_byindex(libgit2_d.types.git_status_list* s
  *      statuslist = Existing status list object
  */
 //GIT_EXTERN
-void git_status_list_free(libgit2_d.types.git_status_list* statuslist);
+void git_status_list_free(libgit2.types.git_status_list* statuslist);
 
 /**
  * Test if the ignore rules apply to a given file.
@@ -447,6 +447,6 @@ void git_status_list_free(libgit2_d.types.git_status_list* statuslist);
  * Returns: 0 if ignore rules could be processed for the file (regardless of whether it exists or not), or an error < 0 if they could not.
  */
 //GIT_EXTERN
-int git_status_should_ignore(int* ignored, libgit2_d.types.git_repository* repo, const (char)* path);
+int git_status_should_ignore(int* ignored, libgit2.types.git_repository* repo, const (char)* path);
 
 /* @} */

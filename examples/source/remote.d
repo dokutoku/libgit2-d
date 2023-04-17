@@ -11,16 +11,16 @@
  * with this software. If not, see
  * <http://creativecommons.org/publicdomain/zero/1.0/>.
  */
-module libgit2_d.example.remote;
+module libgit2.example.remote;
 
 
 private static import core.stdc.stdio;
 private static import core.stdc.stdlib;
 private static import core.stdc.string;
-private static import libgit2_d.example.common;
-private static import libgit2_d.remote;
-private static import libgit2_d.strarray;
-private static import libgit2_d.types;
+private static import libgit2.example.common;
+private static import libgit2.remote;
+private static import libgit2.strarray;
+private static import libgit2.types;
 
 package:
 
@@ -62,8 +62,8 @@ public struct remote_opts
 
 extern (C)
 nothrow @nogc
-//int lg2_remote(libgit2_d.types.git_repository* repo, int argc, char*[] argv)
-public int lg2_remote(libgit2_d.types.git_repository* repo, int argc, char** argv)
+//int lg2_remote(libgit2.types.git_repository* repo, int argc, char*[] argv)
+public int lg2_remote(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in
 	{
@@ -110,7 +110,7 @@ public int lg2_remote(libgit2_d.types.git_repository* repo, int argc, char** arg
 	}
 
 nothrow @nogc
-private int cmd_add(libgit2_d.types.git_repository* repo, .remote_opts* o)
+private int cmd_add(libgit2.types.git_repository* repo, .remote_opts* o)
 
 	in
 	{
@@ -118,7 +118,7 @@ private int cmd_add(libgit2_d.types.git_repository* repo, .remote_opts* o)
 
 	do
 	{
-		libgit2_d.types.git_remote* remote = null;
+		libgit2.types.git_remote* remote = null;
 
 		if (o.argc != 2) {
 			.usage("you need to specify a name and URL", null);
@@ -127,13 +127,13 @@ private int cmd_add(libgit2_d.types.git_repository* repo, .remote_opts* o)
 		char* name = o.argv[0];
 		char* url = o.argv[1];
 
-		libgit2_d.example.common.check_lg2(libgit2_d.remote.git_remote_create(&remote, repo, name, url), "could not create remote", null);
+		libgit2.example.common.check_lg2(libgit2.remote.git_remote_create(&remote, repo, name, url), "could not create remote", null);
 
 		return 0;
 	}
 
 nothrow @nogc
-private int cmd_remove(libgit2_d.types.git_repository* repo, .remote_opts* o)
+private int cmd_remove(libgit2.types.git_repository* repo, .remote_opts* o)
 
 	in
 	{
@@ -147,13 +147,13 @@ private int cmd_remove(libgit2_d.types.git_repository* repo, .remote_opts* o)
 
 		char* name = o.argv[0];
 
-		libgit2_d.example.common.check_lg2(libgit2_d.remote.git_remote_delete(repo, name), "could not delete remote", name);
+		libgit2.example.common.check_lg2(libgit2.remote.git_remote_delete(repo, name), "could not delete remote", name);
 
 		return 0;
 	}
 
 nothrow @nogc
-private int cmd_rename(libgit2_d.types.git_repository* repo, .remote_opts* o)
+private int cmd_rename(libgit2.types.git_repository* repo, .remote_opts* o)
 
 	in
 	{
@@ -161,7 +161,7 @@ private int cmd_rename(libgit2_d.types.git_repository* repo, .remote_opts* o)
 
 	do
 	{
-		libgit2_d.strarray.git_strarray problems = libgit2_d.strarray.git_strarray.init;
+		libgit2.strarray.git_strarray problems = libgit2.strarray.git_strarray.init;
 
 		if (o.argc != 2) {
 			.usage("you need to specify old and new remote name", null);
@@ -170,7 +170,7 @@ private int cmd_rename(libgit2_d.types.git_repository* repo, .remote_opts* o)
 		char* old = o.argv[0];
 		char* new_ = o.argv[1];
 
-		int retval = libgit2_d.remote.git_remote_rename(&problems, repo, old, new_);
+		int retval = libgit2.remote.git_remote_rename(&problems, repo, old, new_);
 
 		if (!retval) {
 			return 0;
@@ -180,13 +180,13 @@ private int cmd_rename(libgit2_d.types.git_repository* repo, .remote_opts* o)
 			core.stdc.stdio.puts(problems.strings[0]);
 		}
 
-		libgit2_d.strarray.git_strarray_dispose(&problems);
+		libgit2.strarray.git_strarray_dispose(&problems);
 
 		return retval;
 	}
 
 nothrow @nogc
-private int cmd_seturl(libgit2_d.types.git_repository* repo, .remote_opts* o)
+private int cmd_seturl(libgit2.types.git_repository* repo, .remote_opts* o)
 
 	in
 	{
@@ -219,18 +219,18 @@ private int cmd_seturl(libgit2_d.types.git_repository* repo, .remote_opts* o)
 		int retval;
 
 		if (push) {
-			retval = libgit2_d.remote.git_remote_set_pushurl(repo, name, url);
+			retval = libgit2.remote.git_remote_set_pushurl(repo, name, url);
 		} else {
-			retval = libgit2_d.remote.git_remote_set_url(repo, name, url);
+			retval = libgit2.remote.git_remote_set_url(repo, name, url);
 		}
 
-		libgit2_d.example.common.check_lg2(retval, "could not set URL", url);
+		libgit2.example.common.check_lg2(retval, "could not set URL", url);
 
 		return 0;
 	}
 
 nothrow @nogc
-private int cmd_show(libgit2_d.types.git_repository* repo, .remote_opts* o)
+private int cmd_show(libgit2.types.git_repository* repo, .remote_opts* o)
 
 	in
 	{
@@ -239,8 +239,8 @@ private int cmd_show(libgit2_d.types.git_repository* repo, .remote_opts* o)
 	do
 	{
 		int verbose = 0;
-		libgit2_d.strarray.git_strarray remotes = libgit2_d.strarray.git_strarray.init;
-		libgit2_d.types.git_remote* remote = null;
+		libgit2.strarray.git_strarray remotes = libgit2.strarray.git_strarray.init;
+		libgit2.types.git_remote* remote = null;
 
 		for (int i = 0; i < o.argc; i++) {
 			const (char)* arg = o.argv[i];
@@ -250,7 +250,7 @@ private int cmd_show(libgit2_d.types.git_repository* repo, .remote_opts* o)
 			}
 		}
 
-		libgit2_d.example.common.check_lg2(libgit2_d.remote.git_remote_list(&remotes, repo), "could not retrieve remotes", null);
+		libgit2.example.common.check_lg2(libgit2.remote.git_remote_list(&remotes, repo), "could not retrieve remotes", null);
 
 		for (int i = 0; i < cast(int)(remotes.count); i++) {
 			const (char)* name = remotes.strings[i];
@@ -261,15 +261,15 @@ private int cmd_show(libgit2_d.types.git_repository* repo, .remote_opts* o)
 				continue;
 			}
 
-			libgit2_d.example.common.check_lg2(libgit2_d.remote.git_remote_lookup(&remote, repo, name), "could not look up remote", name);
+			libgit2.example.common.check_lg2(libgit2.remote.git_remote_lookup(&remote, repo, name), "could not look up remote", name);
 
-			const (char)* fetch = libgit2_d.remote.git_remote_url(remote);
+			const (char)* fetch = libgit2.remote.git_remote_url(remote);
 
 			if (fetch != null) {
 				core.stdc.stdio.printf("%s\t%s (fetch)\n", name, fetch);
 			}
 
-			const (char)* push = libgit2_d.remote.git_remote_pushurl(remote);
+			const (char)* push = libgit2.remote.git_remote_pushurl(remote);
 
 			/* use fetch URL if no distinct push URL has been set */
 			push = (push != null) ? (push) : (fetch);
@@ -278,10 +278,10 @@ private int cmd_show(libgit2_d.types.git_repository* repo, .remote_opts* o)
 				core.stdc.stdio.printf("%s\t%s (push)\n", name, push);
 			}
 
-			libgit2_d.remote.git_remote_free(remote);
+			libgit2.remote.git_remote_free(remote);
 		}
 
-		libgit2_d.strarray.git_strarray_dispose(&remotes);
+		libgit2.strarray.git_strarray_dispose(&remotes);
 
 		return 0;
 	}

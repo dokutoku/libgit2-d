@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.pathspec;
+module libgit2.pathspec;
 
 
-private static import libgit2_d.diff;
-private static import libgit2_d.strarray;
-private static import libgit2_d.types;
+private static import libgit2.diff;
+private static import libgit2.strarray;
+private static import libgit2.types;
 
 extern (C):
 nothrow @nogc:
@@ -96,7 +96,7 @@ enum
  * Returns: 0 on success, <0 on failure
  */
 //GIT_EXTERN
-int git_pathspec_new(.git_pathspec** out_, const (libgit2_d.strarray.git_strarray)* pathspec);
+int git_pathspec_new(.git_pathspec** out_, const (libgit2.strarray.git_strarray)* pathspec);
 
 /**
  * Free a pathspec
@@ -149,7 +149,7 @@ int git_pathspec_matches_path(const (.git_pathspec)* ps, uint flags, const (char
  * Returns: 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag was given
  */
 //GIT_EXTERN
-int git_pathspec_match_workdir(.git_pathspec_match_list** out_, libgit2_d.types.git_repository* repo, uint flags, .git_pathspec* ps);
+int git_pathspec_match_workdir(.git_pathspec_match_list** out_, libgit2.types.git_repository* repo, uint flags, .git_pathspec* ps);
 
 /**
  * Match a pathspec against entries in an index.
@@ -176,7 +176,7 @@ int git_pathspec_match_workdir(.git_pathspec_match_list** out_, libgit2_d.types.
  * Returns: 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag is used
  */
 //GIT_EXTERN
-int git_pathspec_match_index(.git_pathspec_match_list** out_, libgit2_d.types.git_index* index, uint flags, .git_pathspec* ps);
+int git_pathspec_match_index(.git_pathspec_match_list** out_, libgit2.types.git_index* index, uint flags, .git_pathspec* ps);
 
 /**
  * Match a pathspec against files in a tree.
@@ -198,7 +198,7 @@ int git_pathspec_match_index(.git_pathspec_match_list** out_, libgit2_d.types.gi
  * Returns: 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag is used
  */
 //GIT_EXTERN
-int git_pathspec_match_tree(.git_pathspec_match_list** out_, libgit2_d.types.git_tree* tree, uint flags, .git_pathspec* ps);
+int git_pathspec_match_tree(.git_pathspec_match_list** out_, libgit2.types.git_tree* tree, uint flags, .git_pathspec* ps);
 
 /**
  * Match a pathspec against files in a diff list.
@@ -220,7 +220,7 @@ int git_pathspec_match_tree(.git_pathspec_match_list** out_, libgit2_d.types.git
  * Returns: 0 on success, -1 on error, git_error_code.GIT_ENOTFOUND if no matches and the git_pathspec_flag_t.GIT_PATHSPEC_NO_MATCH_ERROR flag is used
  */
 //GIT_EXTERN
-int git_pathspec_match_diff(.git_pathspec_match_list** out_, libgit2_d.diff.git_diff* diff, uint flags, .git_pathspec* ps);
+int git_pathspec_match_diff(.git_pathspec_match_list** out_, libgit2.diff.git_diff* diff, uint flags, .git_pathspec* ps);
 
 /**
  * Free memory associates with a git_pathspec_match_list
@@ -270,7 +270,7 @@ const (char)* git_pathspec_match_list_entry(const (.git_pathspec_match_list)* m,
  * Returns: The filename of the match
  */
 //GIT_EXTERN
-const (libgit2_d.diff.git_diff_delta)* git_pathspec_match_list_diff_entry(const (.git_pathspec_match_list)* m, size_t pos);
+const (libgit2.diff.git_diff_delta)* git_pathspec_match_list_diff_entry(const (.git_pathspec_match_list)* m, size_t pos);
 
 /**
  * Get the number of pathspec items that did not match.

@@ -11,23 +11,23 @@
  * with this software. If not, see
  * <http://creativecommons.org/publicdomain/zero/1.0/>.
  */
-module libgit2_d.example.tag;
+module libgit2.example.tag;
 
 
 private static import core.stdc.stdio;
 private static import core.stdc.stdlib;
 private static import core.stdc.string;
-private static import libgit2_d.buffer;
-private static import libgit2_d.commit;
-private static import libgit2_d.example.args;
-private static import libgit2_d.example.common;
-private static import libgit2_d.object;
-private static import libgit2_d.oid;
-private static import libgit2_d.revparse;
-private static import libgit2_d.signature;
-private static import libgit2_d.strarray;
-private static import libgit2_d.tag;
-private static import libgit2_d.types;
+private static import libgit2.buffer;
+private static import libgit2.commit;
+private static import libgit2.example.args;
+private static import libgit2.example.common;
+private static import libgit2.object;
+private static import libgit2.oid;
+private static import libgit2.revparse;
+private static import libgit2.signature;
+private static import libgit2.strarray;
+private static import libgit2.tag;
+private static import libgit2.types;
 
 package:
 
@@ -65,7 +65,7 @@ public struct tag_options
  */
 public struct tag_state
 {
-	libgit2_d.types.git_repository* repo;
+	libgit2.types.git_repository* repo;
 	.tag_options* opts;
 }
 
@@ -84,7 +84,7 @@ private void check(int result, const (char)* message)
 	do
 	{
 		if (result) {
-			libgit2_d.example.common.fatal(message, null);
+			libgit2.example.common.fatal(message, null);
 		}
 	}
 
@@ -154,7 +154,7 @@ private void print_list_lines(const (char)* message, const (.tag_state)* state)
  * Tag listing: Print an actual tag object
  */
 nothrow @nogc
-private void print_tag(libgit2_d.types.git_tag* tag, const (.tag_state)* state)
+private void print_tag(libgit2.types.git_tag* tag, const (.tag_state)* state)
 
 	in
 	{
@@ -162,10 +162,10 @@ private void print_tag(libgit2_d.types.git_tag* tag, const (.tag_state)* state)
 
 	do
 	{
-		core.stdc.stdio.printf("%-16s", libgit2_d.tag.git_tag_name(tag));
+		core.stdc.stdio.printf("%-16s", libgit2.tag.git_tag_name(tag));
 
 		if (state.opts.num_lines) {
-			const (char)* msg = libgit2_d.tag.git_tag_message(tag);
+			const (char)* msg = libgit2.tag.git_tag_message(tag);
 			.print_list_lines(msg, state);
 		} else {
 			core.stdc.stdio.printf("\n");
@@ -176,7 +176,7 @@ private void print_tag(libgit2_d.types.git_tag* tag, const (.tag_state)* state)
  * Tag listing: Print a commit (target of a lightweight tag)
  */
 nothrow @nogc
-private void print_commit(libgit2_d.types.git_commit* commit, const (char)* name, const (.tag_state)* state)
+private void print_commit(libgit2.types.git_commit* commit, const (char)* name, const (.tag_state)* state)
 
 	in
 	{
@@ -187,7 +187,7 @@ private void print_commit(libgit2_d.types.git_commit* commit, const (char)* name
 		core.stdc.stdio.printf("%-16s", name);
 
 		if (state.opts.num_lines) {
-			const (char)* msg = libgit2_d.commit.git_commit_message(commit);
+			const (char)* msg = libgit2.commit.git_commit_message(commit);
 			.print_list_lines(msg, state);
 		} else {
 			core.stdc.stdio.printf("\n");
@@ -221,19 +221,19 @@ private int each_tag(const (char)* name, .tag_state* state)
 
 	do
 	{
-		libgit2_d.types.git_repository* repo = state.repo;
-		libgit2_d.types.git_object* obj;
+		libgit2.types.git_repository* repo = state.repo;
+		libgit2.types.git_object* obj;
 
-		libgit2_d.example.common.check_lg2(libgit2_d.revparse.git_revparse_single(&obj, repo, name), "Failed to lookup rev", name);
+		libgit2.example.common.check_lg2(libgit2.revparse.git_revparse_single(&obj, repo, name), "Failed to lookup rev", name);
 
-		switch (libgit2_d.object.git_object_type(obj)) {
-			case libgit2_d.types.git_object_t.GIT_OBJECT_TAG:
-				.print_tag(cast(libgit2_d.types.git_tag*)(obj), state);
+		switch (libgit2.object.git_object_type(obj)) {
+			case libgit2.types.git_object_t.GIT_OBJECT_TAG:
+				.print_tag(cast(libgit2.types.git_tag*)(obj), state);
 
 				break;
 
-			case libgit2_d.types.git_object_t.GIT_OBJECT_COMMIT:
-				.print_commit(cast(libgit2_d.types.git_commit*)(obj), name, state);
+			case libgit2.types.git_object_t.GIT_OBJECT_COMMIT:
+				.print_commit(cast(libgit2.types.git_commit*)(obj), name, state);
 
 				break;
 
@@ -243,7 +243,7 @@ private int each_tag(const (char)* name, .tag_state* state)
 				break;
 		}
 
-		libgit2_d.object.git_object_free(obj);
+		libgit2.object.git_object_free(obj);
 
 		return 0;
 	}
@@ -258,15 +258,15 @@ private void action_list_tags(.tag_state* state)
 	do
 	{
 		const (char)* pattern = state.opts.pattern;
-		libgit2_d.strarray.git_strarray tag_names = libgit2_d.strarray.git_strarray.init;
+		libgit2.strarray.git_strarray tag_names = libgit2.strarray.git_strarray.init;
 
-		libgit2_d.example.common.check_lg2(libgit2_d.tag.git_tag_list_match(&tag_names, (pattern) ? (pattern) : ("*"), state.repo), "Unable to get list of tags", null);
+		libgit2.example.common.check_lg2(libgit2.tag.git_tag_list_match(&tag_names, (pattern) ? (pattern) : ("*"), state.repo), "Unable to get list of tags", null);
 
 		for (size_t i = 0; i < tag_names.count; i++) {
 			.each_tag(tag_names.strings[i], state);
 		}
 
-		libgit2_d.strarray.git_strarray_dispose(&tag_names);
+		libgit2.strarray.git_strarray_dispose(&tag_names);
 	}
 
 nothrow @nogc
@@ -279,21 +279,21 @@ private void action_delete_tag(.tag_state* state)
 	do
 	{
 		.tag_options* opts = state.opts;
-		libgit2_d.types.git_object* obj;
-		libgit2_d.buffer.git_buf abbrev_oid = libgit2_d.buffer.git_buf.init;
+		libgit2.types.git_object* obj;
+		libgit2.buffer.git_buf abbrev_oid = libgit2.buffer.git_buf.init;
 
 		.check(!opts.tag_name, "Name required");
 
-		libgit2_d.example.common.check_lg2(libgit2_d.revparse.git_revparse_single(&obj, state.repo, opts.tag_name), "Failed to lookup rev", opts.tag_name);
+		libgit2.example.common.check_lg2(libgit2.revparse.git_revparse_single(&obj, state.repo, opts.tag_name), "Failed to lookup rev", opts.tag_name);
 
-		libgit2_d.example.common.check_lg2(libgit2_d.object.git_object_short_id(&abbrev_oid, obj), "Unable to get abbreviated OID", opts.tag_name);
+		libgit2.example.common.check_lg2(libgit2.object.git_object_short_id(&abbrev_oid, obj), "Unable to get abbreviated OID", opts.tag_name);
 
-		libgit2_d.example.common.check_lg2(libgit2_d.tag.git_tag_delete(state.repo, opts.tag_name), "Unable to delete tag", opts.tag_name);
+		libgit2.example.common.check_lg2(libgit2.tag.git_tag_delete(state.repo, opts.tag_name), "Unable to delete tag", opts.tag_name);
 
 		core.stdc.stdio.printf("Deleted tag '%s' (was %s)\n", opts.tag_name, abbrev_oid.ptr_);
 
-		libgit2_d.buffer.git_buf_dispose(&abbrev_oid);
-		libgit2_d.object.git_object_free(obj);
+		libgit2.buffer.git_buf_dispose(&abbrev_oid);
+		libgit2.object.git_object_free(obj);
 	}
 
 nothrow @nogc
@@ -305,7 +305,7 @@ private void action_create_lighweight_tag(.tag_state* state)
 
 	do
 	{
-		libgit2_d.types.git_repository* repo = state.repo;
+		libgit2.types.git_repository* repo = state.repo;
 		.tag_options* opts = state.opts;
 
 		.check(!opts.tag_name, "Name required");
@@ -316,13 +316,13 @@ private void action_create_lighweight_tag(.tag_state* state)
 
 		.check(!opts.target, "Target required");
 
-		libgit2_d.types.git_object* target;
-		libgit2_d.example.common.check_lg2(libgit2_d.revparse.git_revparse_single(&target, repo, opts.target), "Unable to resolve spec", opts.target);
+		libgit2.types.git_object* target;
+		libgit2.example.common.check_lg2(libgit2.revparse.git_revparse_single(&target, repo, opts.target), "Unable to resolve spec", opts.target);
 
-		libgit2_d.oid.git_oid oid;
-		libgit2_d.example.common.check_lg2(libgit2_d.tag.git_tag_create_lightweight(&oid, repo, opts.tag_name, target, opts.force), "Unable to create tag", null);
+		libgit2.oid.git_oid oid;
+		libgit2.example.common.check_lg2(libgit2.tag.git_tag_create_lightweight(&oid, repo, opts.tag_name, target, opts.force), "Unable to create tag", null);
 
-		libgit2_d.object.git_object_free(target);
+		libgit2.object.git_object_free(target);
 	}
 
 nothrow @nogc
@@ -334,7 +334,7 @@ private void action_create_tag(.tag_state* state)
 
 	do
 	{
-		libgit2_d.types.git_repository* repo = state.repo;
+		libgit2.types.git_repository* repo = state.repo;
 		.tag_options* opts = state.opts;
 
 		.check(!opts.tag_name, "Name required");
@@ -344,17 +344,17 @@ private void action_create_tag(.tag_state* state)
 			opts.target = "HEAD";
 		}
 
-		libgit2_d.types.git_object* target;
-		libgit2_d.example.common.check_lg2(libgit2_d.revparse.git_revparse_single(&target, repo, opts.target), "Unable to resolve spec", opts.target);
+		libgit2.types.git_object* target;
+		libgit2.example.common.check_lg2(libgit2.revparse.git_revparse_single(&target, repo, opts.target), "Unable to resolve spec", opts.target);
 
-		libgit2_d.types.git_signature* tagger;
-		libgit2_d.example.common.check_lg2(libgit2_d.signature.git_signature_default(&tagger, repo), "Unable to create signature", null);
+		libgit2.types.git_signature* tagger;
+		libgit2.example.common.check_lg2(libgit2.signature.git_signature_default(&tagger, repo), "Unable to create signature", null);
 
-		libgit2_d.oid.git_oid oid;
-		libgit2_d.example.common.check_lg2(libgit2_d.tag.git_tag_create(&oid, repo, opts.tag_name, target, tagger, opts.message, opts.force), "Unable to create tag", null);
+		libgit2.oid.git_oid oid;
+		libgit2.example.common.check_lg2(libgit2.tag.git_tag_create(&oid, repo, opts.tag_name, target, tagger, opts.message, opts.force), "Unable to create tag", null);
 
-		libgit2_d.object.git_object_free(target);
-		libgit2_d.signature.git_signature_free(tagger);
+		libgit2.object.git_object_free(target);
+		libgit2.signature.git_signature_free(tagger);
 	}
 
 nothrow @nogc
@@ -382,7 +382,7 @@ private void parse_options(.tag_action* action, .tag_options* opts, int argc, ch
 
 	do
 	{
-		libgit2_d.example.args.args_info args = libgit2_d.example.args.ARGS_INFO_INIT(argc, argv);
+		libgit2.example.args.args_info args = libgit2.example.args.ARGS_INFO_INIT(argc, argv);
 		*action = &.action_list_tags;
 
 		for (args.pos = 1; args.pos < argc; ++args.pos) {
@@ -407,13 +407,13 @@ private void parse_options(.tag_action* action, .tag_options* opts, int argc, ch
 				*action = &.action_create_tag;
 			} else if (!core.stdc.string.strcmp(curr, "-f")) {
 				opts.force = 1;
-			} else if (libgit2_d.example.args.match_int_arg(&opts.num_lines, &args, "-n", 0)) {
+			} else if (libgit2.example.args.match_int_arg(&opts.num_lines, &args, "-n", 0)) {
 				*action = &.action_list_tags;
-			} else if (libgit2_d.example.args.match_str_arg(&opts.pattern, &args, "-l")) {
+			} else if (libgit2.example.args.match_str_arg(&opts.pattern, &args, "-l")) {
 				*action = &.action_list_tags;
-			} else if (libgit2_d.example.args.match_str_arg(&opts.tag_name, &args, "-d")) {
+			} else if (libgit2.example.args.match_str_arg(&opts.tag_name, &args, "-d")) {
 				*action = &.action_delete_tag;
-			} else if (libgit2_d.example.args.match_str_arg(&opts.message, &args, "-m")) {
+			} else if (libgit2.example.args.match_str_arg(&opts.message, &args, "-m")) {
 				*action = &.action_create_tag;
 			}
 		}
@@ -443,7 +443,7 @@ private void tag_options_init(.tag_options* opts)
 
 extern (C)
 nothrow @nogc
-public int lg2_tag(libgit2_d.types.git_repository* repo, int argc, char** argv)
+public int lg2_tag(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in
 	{

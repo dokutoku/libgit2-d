@@ -4,10 +4,10 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.repository;
+module libgit2.sys.repository;
 
 
-private static import libgit2_d.types;
+private static import libgit2.types;
 
 /*
  * @file git2/sys/repository.h
@@ -18,7 +18,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 /**
  * Create a new repository with neither backends nor config object
@@ -36,7 +36,7 @@ package(libgit2_d):
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_repository_new(libgit2_d.types.git_repository** out_);
+int git_repository_new(libgit2.types.git_repository** out_);
 
 /**
  * Reset all the internal state in a repository.
@@ -55,7 +55,7 @@ int git_repository_new(libgit2_d.types.git_repository** out_);
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_repository__cleanup(libgit2_d.types.git_repository* repo);
+int git_repository__cleanup(libgit2.types.git_repository* repo);
 
 /**
  * Update the filesystem config settings for an open repository
@@ -75,7 +75,7 @@ int git_repository__cleanup(libgit2_d.types.git_repository* repo);
  * Returns: 0 on success, < 0 on error
  */
 //GIT_EXTERN
-int git_repository_reinit_filesystem(libgit2_d.types.git_repository* repo, int recurse_submodules);
+int git_repository_reinit_filesystem(libgit2.types.git_repository* repo, int recurse_submodules);
 
 /**
  * Set the configuration file for this repository
@@ -94,7 +94,7 @@ int git_repository_reinit_filesystem(libgit2_d.types.git_repository* repo, int r
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_repository_set_config(libgit2_d.types.git_repository* repo, libgit2_d.types.git_config* config);
+int git_repository_set_config(libgit2.types.git_repository* repo, libgit2.types.git_config* config);
 
 /**
  * Set the Object Database for this repository
@@ -113,7 +113,7 @@ int git_repository_set_config(libgit2_d.types.git_repository* repo, libgit2_d.ty
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_repository_set_odb(libgit2_d.types.git_repository* repo, libgit2_d.types.git_odb* odb);
+int git_repository_set_odb(libgit2.types.git_repository* repo, libgit2.types.git_odb* odb);
 
 /**
  * Set the Reference Database Backend for this repository
@@ -132,7 +132,7 @@ int git_repository_set_odb(libgit2_d.types.git_repository* repo, libgit2_d.types
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_repository_set_refdb(libgit2_d.types.git_repository* repo, libgit2_d.types.git_refdb* refdb);
+int git_repository_set_refdb(libgit2.types.git_repository* repo, libgit2.types.git_refdb* refdb);
 
 /**
  * Set the index file for this repository
@@ -151,7 +151,7 @@ int git_repository_set_refdb(libgit2_d.types.git_repository* repo, libgit2_d.typ
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_repository_set_index(libgit2_d.types.git_repository* repo, libgit2_d.types.git_index* index);
+int git_repository_set_index(libgit2.types.git_repository* repo, libgit2.types.git_index* index);
 
 /**
  * Set a repository to be bare.
@@ -167,7 +167,7 @@ int git_repository_set_index(libgit2_d.types.git_repository* repo, libgit2_d.typ
  * Returns: 0 on success, <0 on failure
  */
 //GIT_EXTERN
-int git_repository_set_bare(libgit2_d.types.git_repository* repo);
+int git_repository_set_bare(libgit2.types.git_repository* repo);
 
 /**
  * Load and cache all submodules.
@@ -182,7 +182,7 @@ int git_repository_set_bare(libgit2_d.types.git_repository* repo);
  *      repo = the repository whose submodules will be cached.
  */
 //GIT_EXTERN
-int git_repository_submodule_cache_all(libgit2_d.types.git_repository* repo);
+int git_repository_submodule_cache_all(libgit2.types.git_repository* repo);
 
 /**
  * Clear the submodule cache.
@@ -198,6 +198,6 @@ int git_repository_submodule_cache_all(libgit2_d.types.git_repository* repo);
  *      repo = the repository whose submodule cache will be cleared
  */
 //GIT_EXTERN
-int git_repository_submodule_cache_clear(libgit2_d.types.git_repository* repo);
+int git_repository_submodule_cache_clear(libgit2.types.git_repository* repo);
 
 /* @} */

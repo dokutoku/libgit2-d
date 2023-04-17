@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.config;
+module libgit2.config;
 
 
-private static import libgit2_d.buffer;
-private static import libgit2_d.sys.config;
-private static import libgit2_d.types;
+private static import libgit2.buffer;
+private static import libgit2.sys.config;
+private static import libgit2.types;
 
 /*
  * @file git2/config.h
@@ -138,7 +138,7 @@ alias git_config_foreach_cb = int function(const (.git_config_entry)* entry, voi
 /**
  * An opaque structure for a configuration iterator
  */
-alias git_config_iterator = libgit2_d.sys.config.git_config_iterator;
+alias git_config_iterator = libgit2.sys.config.git_config_iterator;
 
 /**
  * Config var type
@@ -190,7 +190,7 @@ struct git_configmap
  * Returns: 0 if a global configuration file has been found. Its path will be stored in `out`.
  */
 //GIT_EXTERN
-int git_config_find_global(libgit2_d.buffer.git_buf* out_);
+int git_config_find_global(libgit2.buffer.git_buf* out_);
 
 /**
  * Locate the path to the global xdg compatible configuration file
@@ -209,7 +209,7 @@ int git_config_find_global(libgit2_d.buffer.git_buf* out_);
  * Returns: 0 if a xdg compatible configuration file has been found. Its path will be stored in `out`.
  */
 //GIT_EXTERN
-int git_config_find_xdg(libgit2_d.buffer.git_buf* out_);
+int git_config_find_xdg(libgit2.buffer.git_buf* out_);
 
 /**
  * Locate the path to the system configuration file
@@ -223,7 +223,7 @@ int git_config_find_xdg(libgit2_d.buffer.git_buf* out_);
  * Returns: 0 if a system configuration file has been found. Its path will be stored in `out`.
  */
 //GIT_EXTERN
-int git_config_find_system(libgit2_d.buffer.git_buf* out_);
+int git_config_find_system(libgit2.buffer.git_buf* out_);
 
 /**
  * Locate the path to the configuration file in ProgramData
@@ -236,7 +236,7 @@ int git_config_find_system(libgit2_d.buffer.git_buf* out_);
  * Returns: 0 if a ProgramData configuration file has been found. Its path will be stored in `out`.
  */
 //GIT_EXTERN
-int git_config_find_programdata(libgit2_d.buffer.git_buf* out_);
+int git_config_find_programdata(libgit2.buffer.git_buf* out_);
 
 /**
  * Open the global, XDG and system configuration files
@@ -251,7 +251,7 @@ int git_config_find_programdata(libgit2_d.buffer.git_buf* out_);
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_open_default(libgit2_d.types.git_config** out_);
+int git_config_open_default(libgit2.types.git_config** out_);
 
 /**
  * Allocate a new configuration object
@@ -265,7 +265,7 @@ int git_config_open_default(libgit2_d.types.git_config** out_);
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_new(libgit2_d.types.git_config** out_);
+int git_config_new(libgit2.types.git_config** out_);
 
 /**
  * Add an on-disk config file instance to an existing config
@@ -294,7 +294,7 @@ int git_config_new(libgit2_d.types.git_config** out_);
  * Returns: 0 on success, git_error_code.GIT_EEXISTS when adding more than one file for a given priority level (and force_replace set to 0), git_error_code.GIT_ENOTFOUND when the file doesn't exist or error code
  */
 //GIT_EXTERN
-int git_config_add_file_ondisk(libgit2_d.types.git_config* cfg, const (char)* path, .git_config_level_t level, const (libgit2_d.types.git_repository)* repo, int force);
+int git_config_add_file_ondisk(libgit2.types.git_config* cfg, const (char)* path, .git_config_level_t level, const (libgit2.types.git_repository)* repo, int force);
 
 /**
  * Create a new config instance containing a single on-disk file
@@ -311,7 +311,7 @@ int git_config_add_file_ondisk(libgit2_d.types.git_config* cfg, const (char)* pa
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_config_open_ondisk(libgit2_d.types.git_config** out_, const (char)* path);
+int git_config_open_ondisk(libgit2.types.git_config** out_, const (char)* path);
 
 /**
  * Build a single-level focused config object from a multi-level one.
@@ -331,7 +331,7 @@ int git_config_open_ondisk(libgit2_d.types.git_config** out_, const (char)* path
  * Returns: 0, git_error_code.GIT_ENOTFOUND if the passed level cannot be found in the multi-level parent config, or an error code
  */
 //GIT_EXTERN
-int git_config_open_level(libgit2_d.types.git_config** out_, const (libgit2_d.types.git_config)* parent, .git_config_level_t level);
+int git_config_open_level(libgit2.types.git_config** out_, const (libgit2.types.git_config)* parent, .git_config_level_t level);
 
 /**
  * Open the global/XDG configuration file according to git's rules
@@ -347,7 +347,7 @@ int git_config_open_level(libgit2_d.types.git_config** out_, const (libgit2_d.ty
  *      config = the config object in which to look
  */
 //GIT_EXTERN
-int git_config_open_global(libgit2_d.types.git_config** out_, libgit2_d.types.git_config* config);
+int git_config_open_global(libgit2.types.git_config** out_, libgit2.types.git_config* config);
 
 /**
  * Create a snapshot of the configuration
@@ -366,7 +366,7 @@ int git_config_open_global(libgit2_d.types.git_config** out_, libgit2_d.types.gi
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_snapshot(libgit2_d.types.git_config** out_, libgit2_d.types.git_config* config);
+int git_config_snapshot(libgit2.types.git_config** out_, libgit2.types.git_config* config);
 
 /**
  * Free the configuration and its associated memory and files
@@ -375,7 +375,7 @@ int git_config_snapshot(libgit2_d.types.git_config** out_, libgit2_d.types.git_c
  *      cfg = the configuration to free
  */
 //GIT_EXTERN
-void git_config_free(libgit2_d.types.git_config* cfg);
+void git_config_free(libgit2.types.git_config* cfg);
 
 /**
  * Get the git_config_entry of a config variable.
@@ -390,7 +390,7 @@ void git_config_free(libgit2_d.types.git_config* cfg);
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_get_entry(.git_config_entry** out_, const (libgit2_d.types.git_config)* cfg, const (char)* name);
+int git_config_get_entry(.git_config_entry** out_, const (libgit2.types.git_config)* cfg, const (char)* name);
 
 /**
  * Get the value of an integer config variable.
@@ -407,7 +407,7 @@ int git_config_get_entry(.git_config_entry** out_, const (libgit2_d.types.git_co
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_get_int32(int* out_, const (libgit2_d.types.git_config)* cfg, const (char)* name);
+int git_config_get_int32(int* out_, const (libgit2.types.git_config)* cfg, const (char)* name);
 
 /**
  * Get the value of a long integer config variable.
@@ -424,7 +424,7 @@ int git_config_get_int32(int* out_, const (libgit2_d.types.git_config)* cfg, con
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_get_int64(long* out_, const (libgit2_d.types.git_config)* cfg, const (char)* name);
+int git_config_get_int64(long* out_, const (libgit2.types.git_config)* cfg, const (char)* name);
 
 /**
  * Get the value of a boolean config variable.
@@ -444,7 +444,7 @@ int git_config_get_int64(long* out_, const (libgit2_d.types.git_config)* cfg, co
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_get_bool(int* out_, const (libgit2_d.types.git_config)* cfg, const (char)* name);
+int git_config_get_bool(int* out_, const (libgit2.types.git_config)* cfg, const (char)* name);
 
 /**
  * Get the value of a path config variable.
@@ -465,7 +465,7 @@ int git_config_get_bool(int* out_, const (libgit2_d.types.git_config)* cfg, cons
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_get_path(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types.git_config)* cfg, const (char)* name);
+int git_config_get_path(libgit2.buffer.git_buf* out_, const (libgit2.types.git_config)* cfg, const (char)* name);
 
 /**
  * Get the value of a string config variable.
@@ -486,7 +486,7 @@ int git_config_get_path(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types.g
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_get_string(const (char)** out_, const (libgit2_d.types.git_config)* cfg, const (char)* name);
+int git_config_get_string(const (char)** out_, const (libgit2.types.git_config)* cfg, const (char)* name);
 
 /**
  * Get the value of a string config variable.
@@ -505,7 +505,7 @@ int git_config_get_string(const (char)** out_, const (libgit2_d.types.git_config
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_get_string_buf(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types.git_config)* cfg, const (char)* name);
+int git_config_get_string_buf(libgit2.buffer.git_buf* out_, const (libgit2.types.git_config)* cfg, const (char)* name);
 
 /**
  * Get each value of a multivar in a foreach callback
@@ -524,7 +524,7 @@ int git_config_get_string_buf(libgit2_d.buffer.git_buf* out_, const (libgit2_d.t
  *      payload = opaque pointer to pass to the callback
  */
 //GIT_EXTERN
-int git_config_get_multivar_foreach(const (libgit2_d.types.git_config)* cfg, const (char)* name, const (char)* regexp, .git_config_foreach_cb callback, void* payload);
+int git_config_get_multivar_foreach(const (libgit2.types.git_config)* cfg, const (char)* name, const (char)* regexp, .git_config_foreach_cb callback, void* payload);
 
 /**
  * Get each value of a multivar
@@ -540,7 +540,7 @@ int git_config_get_multivar_foreach(const (libgit2_d.types.git_config)* cfg, con
  *      regexp = regular expression to filter which variables we're interested in. Use null to indicate all
  */
 //GIT_EXTERN
-int git_config_multivar_iterator_new(.git_config_iterator** out_, const (libgit2_d.types.git_config)* cfg, const (char)* name, const (char)* regexp);
+int git_config_multivar_iterator_new(.git_config_iterator** out_, const (libgit2.types.git_config)* cfg, const (char)* name, const (char)* regexp);
 
 /**
  * Return the current entry and advance the iterator
@@ -578,7 +578,7 @@ void git_config_iterator_free(.git_config_iterator* iter);
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_set_int32(libgit2_d.types.git_config* cfg, const (char)* name, int value);
+int git_config_set_int32(libgit2.types.git_config* cfg, const (char)* name, int value);
 
 /**
  * Set the value of a long integer config variable in the config file
@@ -592,7 +592,7 @@ int git_config_set_int32(libgit2_d.types.git_config* cfg, const (char)* name, in
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_set_int64(libgit2_d.types.git_config* cfg, const (char)* name, long value);
+int git_config_set_int64(libgit2.types.git_config* cfg, const (char)* name, long value);
 
 /**
  * Set the value of a boolean config variable in the config file
@@ -606,7 +606,7 @@ int git_config_set_int64(libgit2_d.types.git_config* cfg, const (char)* name, lo
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_set_bool(libgit2_d.types.git_config* cfg, const (char)* name, int value);
+int git_config_set_bool(libgit2.types.git_config* cfg, const (char)* name, int value);
 
 /**
  * Set the value of a string config variable in the config file
@@ -623,7 +623,7 @@ int git_config_set_bool(libgit2_d.types.git_config* cfg, const (char)* name, int
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_set_string(libgit2_d.types.git_config* cfg, const (char)* name, const (char)* value);
+int git_config_set_string(libgit2.types.git_config* cfg, const (char)* name, const (char)* value);
 
 /**
  * Set a multivar in the local config file.
@@ -637,7 +637,7 @@ int git_config_set_string(libgit2_d.types.git_config* cfg, const (char)* name, c
  *      value = the new value.
  */
 //GIT_EXTERN
-int git_config_set_multivar(libgit2_d.types.git_config* cfg, const (char)* name, const (char)* regexp, const (char)* value);
+int git_config_set_multivar(libgit2.types.git_config* cfg, const (char)* name, const (char)* regexp, const (char)* value);
 
 /**
  * Delete a config variable from the config file
@@ -648,7 +648,7 @@ int git_config_set_multivar(libgit2_d.types.git_config* cfg, const (char)* name,
  *      name = the variable to delete
  */
 //GIT_EXTERN
-int git_config_delete_entry(libgit2_d.types.git_config* cfg, const (char)* name);
+int git_config_delete_entry(libgit2.types.git_config* cfg, const (char)* name);
 
 /**
  * Deletes one or several entries from a multivar in the local config file.
@@ -663,7 +663,7 @@ int git_config_delete_entry(libgit2_d.types.git_config* cfg, const (char)* name)
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_delete_multivar(libgit2_d.types.git_config* cfg, const (char)* name, const (char)* regexp);
+int git_config_delete_multivar(libgit2.types.git_config* cfg, const (char)* name, const (char)* regexp);
 
 /**
  * Perform an operation on each config variable.
@@ -684,7 +684,7 @@ int git_config_delete_multivar(libgit2_d.types.git_config* cfg, const (char)* na
  * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
-int git_config_foreach(const (libgit2_d.types.git_config)* cfg, .git_config_foreach_cb callback, void* payload);
+int git_config_foreach(const (libgit2.types.git_config)* cfg, .git_config_foreach_cb callback, void* payload);
 
 /**
  * Iterate over all the config variables
@@ -697,7 +697,7 @@ int git_config_foreach(const (libgit2_d.types.git_config)* cfg, .git_config_fore
  *      cfg = where to ge the variables from
  */
 //GIT_EXTERN
-int git_config_iterator_new(.git_config_iterator** out_, const (libgit2_d.types.git_config)* cfg);
+int git_config_iterator_new(.git_config_iterator** out_, const (libgit2.types.git_config)* cfg);
 
 /**
  * Iterate over all the config variables whose name matches a pattern
@@ -715,7 +715,7 @@ int git_config_iterator_new(.git_config_iterator** out_, const (libgit2_d.types.
  *      regexp = regular expression to match the names
  */
 //GIT_EXTERN
-int git_config_iterator_glob_new(.git_config_iterator** out_, const (libgit2_d.types.git_config)* cfg, const (char)* regexp);
+int git_config_iterator_glob_new(.git_config_iterator** out_, const (libgit2.types.git_config)* cfg, const (char)* regexp);
 
 /**
  * Perform an operation on each config variable matching a regular expression.
@@ -740,7 +740,7 @@ int git_config_iterator_glob_new(.git_config_iterator** out_, const (libgit2_d.t
  * Returns: 0 or the return value of the callback which didn't return 0
  */
 //GIT_EXTERN
-int git_config_foreach_match(const (libgit2_d.types.git_config)* cfg, const (char)* regexp, .git_config_foreach_cb callback, void* payload);
+int git_config_foreach_match(const (libgit2.types.git_config)* cfg, const (char)* regexp, .git_config_foreach_cb callback, void* payload);
 
 /**
  * Query the value of a config variable and return it mapped to
@@ -780,7 +780,7 @@ int git_config_foreach_match(const (libgit2_d.types.git_config)* cfg, const (cha
  * Returns: 0 on success, error code otherwise
  */
 //GIT_EXTERN
-int git_config_get_mapped(int* out_, const (libgit2_d.types.git_config)* cfg, const (char)* name, const (.git_configmap)* maps, size_t map_n);
+int git_config_get_mapped(int* out_, const (libgit2.types.git_config)* cfg, const (char)* name, const (.git_configmap)* maps, size_t map_n);
 
 /**
  * Maps a string value to an integer constant
@@ -851,7 +851,7 @@ int git_config_parse_int64(long* out_, const (char)* value);
  *      value = the path to evaluate
  */
 //GIT_EXTERN
-int git_config_parse_path(libgit2_d.buffer.git_buf* out_, const (char)* value);
+int git_config_parse_path(libgit2.buffer.git_buf* out_, const (char)* value);
 
 /**
  * Perform an operation on each config variable in a given config backend,
@@ -871,7 +871,7 @@ int git_config_parse_path(libgit2_d.buffer.git_buf* out_, const (char)* value);
  *      payload = the data to pass to the callback
  */
 //GIT_EXTERN
-int git_config_backend_foreach_match(libgit2_d.types.git_config_backend* backend, const (char)* regexp, .git_config_foreach_cb callback, void* payload);
+int git_config_backend_foreach_match(libgit2.types.git_config_backend* backend, const (char)* regexp, .git_config_foreach_cb callback, void* payload);
 
 /**
  * Lock the backend with the highest priority
@@ -891,6 +891,6 @@ int git_config_backend_foreach_match(libgit2_d.types.git_config_backend* backend
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_config_lock(libgit2_d.types.git_transaction** tx, libgit2_d.types.git_config* cfg);
+int git_config_lock(libgit2.types.git_transaction** tx, libgit2.types.git_config* cfg);
 
 /* @} */

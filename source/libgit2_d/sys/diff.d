@@ -4,11 +4,11 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.diff;
+module libgit2.sys.diff;
 
 
-private static import libgit2_d.diff;
-private static import libgit2_d.types;
+private static import libgit2.diff;
+private static import libgit2.types;
 
 /*
  * @file git2/sys/diff.h
@@ -18,7 +18,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 /**
  * Diff print callback that writes to a git_buf.
@@ -35,7 +35,7 @@ package(libgit2_d):
  */
 //GIT_EXTERN
 /*< payload must be a `git_buf *` */
-int git_diff_print_callback__to_buf(const (libgit2_d.diff.git_diff_delta)* delta, const (libgit2_d.diff.git_diff_hunk)* hunk, const (libgit2_d.diff.git_diff_line)* line, void* payload);
+int git_diff_print_callback__to_buf(const (libgit2.diff.git_diff_delta)* delta, const (libgit2.diff.git_diff_hunk)* hunk, const (libgit2.diff.git_diff_line)* line, void* payload);
 
 /**
  * Diff print callback that writes to stdio FILE handle.
@@ -53,7 +53,7 @@ int git_diff_print_callback__to_buf(const (libgit2_d.diff.git_diff_delta)* delta
  */
 //GIT_EXTERN
 /*< payload must be a `FILE *` */
-int git_diff_print_callback__to_file_handle(const (libgit2_d.diff.git_diff_delta)* delta, const (libgit2_d.diff.git_diff_hunk)* hunk, const (libgit2_d.diff.git_diff_line)* line, void* payload);
+int git_diff_print_callback__to_file_handle(const (libgit2.diff.git_diff_delta)* delta, const (libgit2.diff.git_diff_hunk)* hunk, const (libgit2.diff.git_diff_line)* line, void* payload);
 
 /**
  * Performance data from diffing
@@ -101,12 +101,12 @@ pure nothrow @safe @nogc
  * Returns: 0 for success, <0 for error
  */
 //GIT_EXTERN
-int git_diff_get_perfdata(.git_diff_perfdata* out_, const (libgit2_d.diff.git_diff)* diff);
+int git_diff_get_perfdata(.git_diff_perfdata* out_, const (libgit2.diff.git_diff)* diff);
 
 /**
  * Get performance data for diffs from a git_status_list
  */
 //GIT_EXTERN
-int git_status_list_get_perfdata(.git_diff_perfdata* out_, const (libgit2_d.types.git_status_list)* status);
+int git_status_list_get_perfdata(.git_diff_perfdata* out_, const (libgit2.types.git_status_list)* status);
 
 /* @} */

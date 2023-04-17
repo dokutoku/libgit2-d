@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.reset;
+module libgit2.reset;
 
 
-private static import libgit2_d.checkout;
-private static import libgit2_d.strarray;
-private static import libgit2_d.types;
+private static import libgit2.checkout;
+private static import libgit2.strarray;
+private static import libgit2.types;
 
 /*
  * @file git2/reset.h
@@ -74,7 +74,7 @@ enum
  * Returns: 0 on success or an error code
  */
 //GIT_EXTERN
-int git_reset(libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_object)* target, .git_reset_t reset_type, const (libgit2_d.checkout.git_checkout_options)* checkout_opts);
+int git_reset(libgit2.types.git_repository* repo, const (libgit2.types.git_object)* target, .git_reset_t reset_type, const (libgit2.checkout.git_checkout_options)* checkout_opts);
 
 /**
  * Sets the current head to the specified commit oid and optionally
@@ -89,7 +89,7 @@ int git_reset(libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_o
  * @see git_reset
  */
 //GIT_EXTERN
-int git_reset_from_annotated(libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_annotated_commit)* commit, .git_reset_t reset_type, const (libgit2_d.checkout.git_checkout_options)* checkout_opts);
+int git_reset_from_annotated(libgit2.types.git_repository* repo, const (libgit2.types.git_annotated_commit)* commit, .git_reset_t reset_type, const (libgit2.checkout.git_checkout_options)* checkout_opts);
 
 /**
  * Updates some entries in the index from the target commit tree.
@@ -108,6 +108,6 @@ int git_reset_from_annotated(libgit2_d.types.git_repository* repo, const (libgit
  * Returns: 0 on success or an error code < 0
  */
 //GIT_EXTERN
-int git_reset_default(libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_object)* target, const (libgit2_d.strarray.git_strarray)* pathspecs);
+int git_reset_default(libgit2.types.git_repository* repo, const (libgit2.types.git_object)* target, const (libgit2.strarray.git_strarray)* pathspecs);
 
 /* @} */

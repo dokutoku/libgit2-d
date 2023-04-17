@@ -4,10 +4,10 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.net;
+module libgit2.net;
 
 
-private static import libgit2_d.oid;
+private static import libgit2.oid;
 
 /*
  * @file git2/net.h
@@ -52,8 +52,8 @@ struct git_remote_head
 	 */
 	int local;
 
-	libgit2_d.oid.git_oid oid;
-	libgit2_d.oid.git_oid loid;
+	libgit2.oid.git_oid oid;
+	libgit2.oid.git_oid loid;
 	char* name;
 
 	/**

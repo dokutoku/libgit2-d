@@ -4,11 +4,11 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.annotated_commit;
+module libgit2.annotated_commit;
 
 
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/annotated_commit.h
@@ -34,7 +34,7 @@ public:
  * Returns: 0 on success or error code
  */
 //GIT_EXTERN
-int git_annotated_commit_from_ref(libgit2_d.types.git_annotated_commit** out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_reference)* ref_);
+int git_annotated_commit_from_ref(libgit2.types.git_annotated_commit** out_, libgit2.types.git_repository* repo, const (libgit2.types.git_reference)* ref_);
 
 /**
  * Creates a `git_annotated_commit` from the given fetch head data.
@@ -51,7 +51,7 @@ int git_annotated_commit_from_ref(libgit2_d.types.git_annotated_commit** out_, l
  * Returns: 0 on success or error code
  */
 //GIT_EXTERN
-int git_annotated_commit_from_fetchhead(libgit2_d.types.git_annotated_commit** out_, libgit2_d.types.git_repository* repo, const (char)* branch_name, const (char)* remote_url, const (libgit2_d.oid.git_oid)* id);
+int git_annotated_commit_from_fetchhead(libgit2.types.git_annotated_commit** out_, libgit2.types.git_repository* repo, const (char)* branch_name, const (char)* remote_url, const (libgit2.oid.git_oid)* id);
 
 /**
  * Creates a `git_annotated_commit` from the given commit id.
@@ -74,7 +74,7 @@ int git_annotated_commit_from_fetchhead(libgit2_d.types.git_annotated_commit** o
  * Returns: 0 on success or error code
  */
 //GIT_EXTERN
-int git_annotated_commit_lookup(libgit2_d.types.git_annotated_commit** out_, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id);
+int git_annotated_commit_lookup(libgit2.types.git_annotated_commit** out_, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* id);
 
 /**
  * Creates a `git_annotated_comit` from a revision string.
@@ -91,7 +91,7 @@ int git_annotated_commit_lookup(libgit2_d.types.git_annotated_commit** out_, lib
  * Returns: 0 on success or error code
  */
 //GIT_EXTERN
-int git_annotated_commit_from_revspec(libgit2_d.types.git_annotated_commit** out_, libgit2_d.types.git_repository* repo, const (char)* revspec);
+int git_annotated_commit_from_revspec(libgit2.types.git_annotated_commit** out_, libgit2.types.git_repository* repo, const (char)* revspec);
 
 /**
  * Gets the commit ID that the given `git_annotated_commit` refers to.
@@ -102,7 +102,7 @@ int git_annotated_commit_from_revspec(libgit2_d.types.git_annotated_commit** out
  * Returns: commit id
  */
 //GIT_EXTERN
-const (libgit2_d.oid.git_oid)* git_annotated_commit_id(const (libgit2_d.types.git_annotated_commit)* commit);
+const (libgit2.oid.git_oid)* git_annotated_commit_id(const (libgit2.types.git_annotated_commit)* commit);
 
 /**
  * Get the refname that the given `git_annotated_commit` refers to.
@@ -113,7 +113,7 @@ const (libgit2_d.oid.git_oid)* git_annotated_commit_id(const (libgit2_d.types.gi
  * Returns: ref name.
  */
 //GIT_EXTERN
-const (char)* git_annotated_commit_ref(const (libgit2_d.types.git_annotated_commit)* commit);
+const (char)* git_annotated_commit_ref(const (libgit2.types.git_annotated_commit)* commit);
 
 /**
  * Frees a `git_annotated_commit`.
@@ -122,6 +122,6 @@ const (char)* git_annotated_commit_ref(const (libgit2_d.types.git_annotated_comm
  *      commit = annotated commit to free
  */
 //GIT_EXTERN
-void git_annotated_commit_free(libgit2_d.types.git_annotated_commit* commit);
+void git_annotated_commit_free(libgit2.types.git_annotated_commit* commit);
 
 /* @} */

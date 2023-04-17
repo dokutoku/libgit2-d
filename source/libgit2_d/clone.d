@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.clone;
+module libgit2.clone;
 
 
-private static import libgit2_d.checkout;
-private static import libgit2_d.remote;
-private static import libgit2_d.types;
+private static import libgit2.checkout;
+private static import libgit2.remote;
+private static import libgit2.types;
 
 /*
  * @file git2/clone.h
@@ -81,7 +81,7 @@ enum
  *      url = the remote's url
  *      payload = an opaque payload
  */
-alias git_remote_create_cb = int function(libgit2_d.types.git_remote** out_, libgit2_d.types.git_repository* repo, const (char)* name, const (char)* url, void* payload);
+alias git_remote_create_cb = int function(libgit2.types.git_remote** out_, libgit2.types.git_repository* repo, const (char)* name, const (char)* url, void* payload);
 
 /**
  * The signature of a function matchin git_repository_init, with an
@@ -100,7 +100,7 @@ alias git_remote_create_cb = int function(libgit2_d.types.git_remote** out_, lib
  *      bare = whether the repository is bare. This is the value from the clone options
  *      payload = payload specified by the options
  */
-alias git_repository_create_cb = int function(libgit2_d.types.git_repository** out_, const (char)* path, int bare, void* payload);
+alias git_repository_create_cb = int function(libgit2.types.git_repository** out_, const (char)* path, int bare, void* payload);
 
 /**
  * Clone options structure
@@ -117,7 +117,7 @@ struct git_clone_options
 	 * checkout, set the `checkout_strategy` to
 	 * `git_checkout_strategy_t.GIT_CHECKOUT_NONE`.
 	 */
-	libgit2_d.checkout.git_checkout_options checkout_opts;
+	libgit2.checkout.git_checkout_options checkout_opts;
 
 	/**
 	 * Options which control the fetch, including callbacks.
@@ -125,7 +125,7 @@ struct git_clone_options
 	 * The callbacks are used for reporting fetch progress, and for acquiring
 	 * credentials in the event they are needed.
 	 */
-	libgit2_d.remote.git_fetch_options fetch_opts;
+	libgit2.remote.git_fetch_options fetch_opts;
 
 	/**
 	 * Set to zero (false) to create a standard repo, or non-zero
@@ -152,7 +152,7 @@ struct git_clone_options
 	.git_repository_create_cb repository_cb;
 
 	/**
-	 * An opaque payload to pass to the libgit2_d.types.git_repository creation callback.
+	 * An opaque payload to pass to the libgit2.types.git_repository creation callback.
 	 * This parameter is ignored unless repository_cb is non-null.
 	 */
 	void* repository_cb_payload;
@@ -180,17 +180,17 @@ pure nothrow @safe @nogc
 
 	do
 	{
-		libgit2_d.checkout.git_checkout_options CHECKOUT_OPTION =
+		libgit2.checkout.git_checkout_options CHECKOUT_OPTION =
 		{
-			version_: libgit2_d.checkout.GIT_CHECKOUT_OPTIONS_VERSION,
-			checkout_strategy: libgit2_d.checkout.git_checkout_strategy_t.GIT_CHECKOUT_SAFE,
+			version_: libgit2.checkout.GIT_CHECKOUT_OPTIONS_VERSION,
+			checkout_strategy: libgit2.checkout.git_checkout_strategy_t.GIT_CHECKOUT_SAFE,
 		};
 
 		.git_clone_options OUTPUT =
 		{
 			version_: .GIT_CLONE_OPTIONS_VERSION,
 			checkout_opts: CHECKOUT_OPTION,
-			fetch_opts: libgit2_d.remote.GIT_FETCH_OPTIONS_INIT(),
+			fetch_opts: libgit2.remote.GIT_FETCH_OPTIONS_INIT(),
 		};
 
 		return OUTPUT;
@@ -227,6 +227,6 @@ int git_clone_options_init(.git_clone_options* opts, uint version_);
  * Returns: 0 on success, any non-zero return value from a callback function, or a negative value to indicate an error (use `git_error_last` for a detailed error message)
  */
 //GIT_EXTERN
-int git_clone(libgit2_d.types.git_repository** out_, const (char)* url, const (char)* local_path, const (.git_clone_options)* options);
+int git_clone(libgit2.types.git_repository** out_, const (char)* url, const (char)* local_path, const (.git_clone_options)* options);
 
 /* @} */

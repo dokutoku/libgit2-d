@@ -4,11 +4,11 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.branch;
+module libgit2.branch;
 
 
-private static import libgit2_d.buffer;
-private static import libgit2_d.types;
+private static import libgit2.buffer;
+private static import libgit2.types;
 
 /*
  * @file git2/branch.h
@@ -43,7 +43,7 @@ public:
  * Returns: 0, git_error_code.GIT_EINVALIDSPEC or an error code. A proper reference is written in the refs/heads namespace pointing to the provided target commit.
  */
 //GIT_EXTERN
-int git_branch_create(libgit2_d.types.git_reference** out_, libgit2_d.types.git_repository* repo, const (char)* branch_name, const (libgit2_d.types.git_commit)* target, int force);
+int git_branch_create(libgit2.types.git_reference** out_, libgit2.types.git_repository* repo, const (char)* branch_name, const (libgit2.types.git_commit)* target, int force);
 
 /**
  * Create a new branch pointing at a target commit
@@ -57,7 +57,7 @@ int git_branch_create(libgit2_d.types.git_reference** out_, libgit2_d.types.git_
  * @see git_branch_create
  */
 //GIT_EXTERN
-int git_branch_create_from_annotated(libgit2_d.types.git_reference** ref_out, libgit2_d.types.git_repository* repository, const (char)* branch_name, const (libgit2_d.types.git_annotated_commit)* commit, int force);
+int git_branch_create_from_annotated(libgit2.types.git_reference** ref_out, libgit2.types.git_repository* repository, const (char)* branch_name, const (libgit2.types.git_annotated_commit)* commit, int force);
 
 /**
  * Delete an existing branch reference.
@@ -72,7 +72,7 @@ int git_branch_create_from_annotated(libgit2_d.types.git_reference** ref_out, li
  * Returns: 0 on success, or an error code.
  */
 //GIT_EXTERN
-int git_branch_delete(libgit2_d.types.git_reference* branch);
+int git_branch_delete(libgit2.types.git_reference* branch);
 
 /**
  * Iterator type for branches
@@ -90,7 +90,7 @@ struct git_branch_iterator;
  * Returns: 0 on success  or an error code
  */
 //GIT_EXTERN
-int git_branch_iterator_new(.git_branch_iterator** out_, libgit2_d.types.git_repository* repo, libgit2_d.types.git_branch_t list_flags);
+int git_branch_iterator_new(.git_branch_iterator** out_, libgit2.types.git_repository* repo, libgit2.types.git_branch_t list_flags);
 
 /**
  * Retrieve the next branch from the iterator
@@ -103,7 +103,7 @@ int git_branch_iterator_new(.git_branch_iterator** out_, libgit2_d.types.git_rep
  * Returns: 0 on success, git_error_code.GIT_ITEROVER if there are no more branches or an error code.
  */
 //GIT_EXTERN
-int git_branch_next(libgit2_d.types.git_reference** out_, libgit2_d.types.git_branch_t* out_type, .git_branch_iterator* iter);
+int git_branch_next(libgit2.types.git_reference** out_, libgit2.types.git_branch_t* out_type, .git_branch_iterator* iter);
 
 /**
  * Free a branch iterator
@@ -133,7 +133,7 @@ void git_branch_iterator_free(.git_branch_iterator* iter);
  * Returns: 0 on success, git_error_code.GIT_EINVALIDSPEC or an error code.
  */
 //GIT_EXTERN
-int git_branch_move(libgit2_d.types.git_reference** out_, libgit2_d.types.git_reference* branch, const (char)* new_branch_name, int force);
+int git_branch_move(libgit2.types.git_reference** out_, libgit2.types.git_reference* branch, const (char)* new_branch_name, int force);
 
 /**
  * Lookup a branch by its name in a repository.
@@ -152,7 +152,7 @@ int git_branch_move(libgit2_d.types.git_reference** out_, libgit2_d.types.git_re
  * Returns: 0 on success; git_error_code.GIT_ENOTFOUND when no matching branch exists, git_error_code.GIT_EINVALIDSPEC, otherwise an error code.
  */
 //GIT_EXTERN
-int git_branch_lookup(libgit2_d.types.git_reference** out_, libgit2_d.types.git_repository* repo, const (char)* branch_name, libgit2_d.types.git_branch_t branch_type);
+int git_branch_lookup(libgit2.types.git_reference** out_, libgit2.types.git_repository* repo, const (char)* branch_name, libgit2.types.git_branch_t branch_type);
 
 /**
  * Get the branch name
@@ -168,7 +168,7 @@ int git_branch_lookup(libgit2_d.types.git_reference** out_, libgit2_d.types.git_
  * Returns: 0 on success; GIT_EINVALID if the reference isn't either a local or remote branch, otherwise an error code.
  */
 //GIT_EXTERN
-int git_branch_name(const (char)** out_, const (libgit2_d.types.git_reference)* ref_);
+int git_branch_name(const (char)** out_, const (libgit2.types.git_reference)* ref_);
 
 /**
  * Get the upstream of a branch
@@ -185,7 +185,7 @@ int git_branch_name(const (char)** out_, const (libgit2_d.types.git_reference)* 
  * Returns: 0 on success; GIT_ENOTFOUND when no remote tracking reference exists, otherwise an error code.
  */
 //GIT_EXTERN
-int git_branch_upstream(libgit2_d.types.git_reference** out_, const (libgit2_d.types.git_reference)* branch);
+int git_branch_upstream(libgit2.types.git_reference** out_, const (libgit2.types.git_reference)* branch);
 
 /**
  * Set a branch's upstream branch
@@ -203,7 +203,7 @@ int git_branch_upstream(libgit2_d.types.git_reference** out_, const (libgit2_d.t
  * Returns: 0 on success; GIT_ENOTFOUND if there's no branch named `branch_name` or an error code
  */
 //GIT_EXTERN
-int git_branch_set_upstream(libgit2_d.types.git_reference* branch, const (char)* branch_name);
+int git_branch_set_upstream(libgit2.types.git_reference* branch, const (char)* branch_name);
 
 /**
  * Get the upstream name of a branch
@@ -220,7 +220,7 @@ int git_branch_set_upstream(libgit2_d.types.git_reference* branch, const (char)*
  * Returns: 0 on success, GIT_ENOTFOUND when no remote tracking reference exists, or an error code.
  */
 //GIT_EXTERN
-int git_branch_upstream_name(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_repository* repo, const (char)* refname);
+int git_branch_upstream_name(libgit2.buffer.git_buf* out_, libgit2.types.git_repository* repo, const (char)* refname);
 
 /**
  * Determine if HEAD points to the given branch
@@ -231,7 +231,7 @@ int git_branch_upstream_name(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git
  * Returns: 1 if HEAD points at the branch, 0 if it isn't, or a negative value as an error code.
  */
 //GIT_EXTERN
-int git_branch_is_head(const (libgit2_d.types.git_reference)* branch);
+int git_branch_is_head(const (libgit2.types.git_reference)* branch);
 
 /**
  * Determine if any HEAD points to the current branch
@@ -245,7 +245,7 @@ int git_branch_is_head(const (libgit2_d.types.git_reference)* branch);
  * Returns: 1 if branch is checked out, 0 if it isn't, an error code otherwise.
  */
 //GIT_EXTERN
-int git_branch_is_checked_out(const (libgit2_d.types.git_reference)* branch);
+int git_branch_is_checked_out(const (libgit2.types.git_reference)* branch);
 
 /**
  * Find the remote name of a remote-tracking branch
@@ -263,7 +263,7 @@ int git_branch_is_checked_out(const (libgit2_d.types.git_reference)* branch);
  * Returns: 0 on success, GIT_ENOTFOUND when no matching remote was found, GIT_EAMBIGUOUS when the branch maps to several remotes, otherwise an error code.
  */
 //GIT_EXTERN
-int git_branch_remote_name(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_repository* repo, const (char)* refname);
+int git_branch_remote_name(libgit2.buffer.git_buf* out_, libgit2.types.git_repository* repo, const (char)* refname);
 
 /**
  * Retrieve the upstream remote of a local branch
@@ -279,6 +279,6 @@ int git_branch_remote_name(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_r
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_branch_upstream_remote(libgit2_d.buffer.git_buf* buf, libgit2_d.types.git_repository* repo, const (char)* refname);
+int git_branch_upstream_remote(libgit2.buffer.git_buf* buf, libgit2.types.git_repository* repo, const (char)* refname);
 
 /* @} */

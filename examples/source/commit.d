@@ -11,21 +11,21 @@
  * with this software. If not, see
  * <http://creativecommons.org/publicdomain/zero/1.0/>.
  */
-module libgit2_d.example.commit;
+module libgit2.example.commit;
 
 
 private static import core.stdc.stdio;
 private static import core.stdc.string;
-private static import libgit2_d.commit;
-private static import libgit2_d.errors;
-private static import libgit2_d.example.common;
-private static import libgit2_d.index;
-private static import libgit2_d.oid;
-private static import libgit2_d.repository;
-private static import libgit2_d.revparse;
-private static import libgit2_d.signature;
-private static import libgit2_d.tree;
-private static import libgit2_d.types;
+private static import libgit2.commit;
+private static import libgit2.errors;
+private static import libgit2.example.common;
+private static import libgit2.index;
+private static import libgit2.oid;
+private static import libgit2.repository;
+private static import libgit2.revparse;
+private static import libgit2.signature;
+private static import libgit2.tree;
+private static import libgit2.types;
 
 package:
 
@@ -45,7 +45,7 @@ package:
  */
 extern (C)
 nothrow @nogc
-public int lg2_commit(libgit2_d.types.git_repository* repo, int argc, char** argv)
+public int lg2_commit(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	do
 	{
@@ -59,15 +59,15 @@ public int lg2_commit(libgit2_d.types.git_repository* repo, int argc, char** arg
 			return -1;
 		}
 
-		libgit2_d.types.git_object* parent = null;
-		libgit2_d.types.git_reference* ref_ = null;
-		int error = libgit2_d.revparse.git_revparse_ext(&parent, &ref_, repo, "HEAD");
+		libgit2.types.git_object* parent = null;
+		libgit2.types.git_reference* ref_ = null;
+		int error = libgit2.revparse.git_revparse_ext(&parent, &ref_, repo, "HEAD");
 
-		if (error == libgit2_d.errors.git_error_code.GIT_ENOTFOUND) {
+		if (error == libgit2.errors.git_error_code.GIT_ENOTFOUND) {
 			core.stdc.stdio.printf("HEAD not found. Creating first commit\n");
 			error = 0;
 		} else if (error != 0) {
-			const (libgit2_d.errors.git_error)* err = libgit2_d.errors.git_error_last();
+			const (libgit2.errors.git_error)* err = libgit2.errors.git_error_last();
 
 			if (err) {
 				core.stdc.stdio.printf("ERROR %d: %s\n", err.klass, err.message);
@@ -76,26 +76,26 @@ public int lg2_commit(libgit2_d.types.git_repository* repo, int argc, char** arg
 			}
 		}
 
-		libgit2_d.types.git_index* index;
-		libgit2_d.example.common.check_lg2(libgit2_d.repository.git_repository_index(&index, repo), "Could not open repository index", null);
-		libgit2_d.oid.git_oid tree_oid;
-		libgit2_d.example.common.check_lg2(libgit2_d.index.git_index_write_tree(&tree_oid, index), "Could not write tree", null);
+		libgit2.types.git_index* index;
+		libgit2.example.common.check_lg2(libgit2.repository.git_repository_index(&index, repo), "Could not open repository index", null);
+		libgit2.oid.git_oid tree_oid;
+		libgit2.example.common.check_lg2(libgit2.index.git_index_write_tree(&tree_oid, index), "Could not write tree", null);
 		//;
-		libgit2_d.example.common.check_lg2(libgit2_d.index.git_index_write(index), "Could not write index", null);
+		libgit2.example.common.check_lg2(libgit2.index.git_index_write(index), "Could not write index", null);
 		//;
 
-		libgit2_d.types.git_tree* tree;
-		libgit2_d.example.common.check_lg2(libgit2_d.tree.git_tree_lookup(&tree, repo, &tree_oid), "Error looking up tree", null);
+		libgit2.types.git_tree* tree;
+		libgit2.example.common.check_lg2(libgit2.tree.git_tree_lookup(&tree, repo, &tree_oid), "Error looking up tree", null);
 
-		libgit2_d.types.git_signature* signature;
-		libgit2_d.example.common.check_lg2(libgit2_d.signature.git_signature_default(&signature, repo), "Error creating signature", null);
+		libgit2.types.git_signature* signature;
+		libgit2.example.common.check_lg2(libgit2.signature.git_signature_default(&signature, repo), "Error creating signature", null);
 
-		libgit2_d.oid.git_oid commit_oid;
-		libgit2_d.example.common.check_lg2(libgit2_d.commit.git_commit_create_v(&commit_oid, repo, "HEAD", signature, signature, null, comment, tree, (parent) ? (1) : (0), parent), "Error creating commit", null);
+		libgit2.oid.git_oid commit_oid;
+		libgit2.example.common.check_lg2(libgit2.commit.git_commit_create_v(&commit_oid, repo, "HEAD", signature, signature, null, comment, tree, (parent) ? (1) : (0), parent), "Error creating commit", null);
 
-		libgit2_d.index.git_index_free(index);
-		libgit2_d.signature.git_signature_free(signature);
-		libgit2_d.tree.git_tree_free(tree);
+		libgit2.index.git_index_free(index);
+		libgit2.signature.git_signature_free(signature);
+		libgit2.tree.git_tree_free(tree);
 
 		return error;
 	}

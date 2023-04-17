@@ -11,30 +11,30 @@
  * with this software. If not, see
  * <http://creativecommons.org/publicdomain/zero/1.0/>.
  */
-module libgit2_d.example.cat_file;
+module libgit2.example.cat_file;
 
 
 private static import core.stdc.config;
 private static import core.stdc.stdio;
 private static import core.stdc.stdlib;
 private static import core.stdc.string;
-private static import libgit2_d.blob;
-private static import libgit2_d.commit;
-private static import libgit2_d.example.args;
-private static import libgit2_d.example.common;
-private static import libgit2_d.object;
-private static import libgit2_d.odb;
-private static import libgit2_d.oid;
-private static import libgit2_d.repository;
-private static import libgit2_d.revparse;
-private static import libgit2_d.tag;
-private static import libgit2_d.tree;
-private static import libgit2_d.types;
+private static import libgit2.blob;
+private static import libgit2.commit;
+private static import libgit2.example.args;
+private static import libgit2.example.common;
+private static import libgit2.object;
+private static import libgit2.odb;
+private static import libgit2.oid;
+private static import libgit2.repository;
+private static import libgit2.revparse;
+private static import libgit2.tag;
+private static import libgit2.tree;
+private static import libgit2.types;
 
 package:
 
 nothrow @nogc
-private void print_signature(const (char)* header, const (libgit2_d.types.git_signature)* sig)
+private void print_signature(const (char)* header, const (libgit2.types.git_signature)* sig)
 
 	in
 	{
@@ -66,7 +66,7 @@ private void print_signature(const (char)* header, const (libgit2_d.types.git_si
  * Printing out a blob is simple, get the contents and print
  */
 nothrow @nogc
-private void show_blob(const (libgit2_d.types.git_blob)* blob)
+private void show_blob(const (libgit2.types.git_blob)* blob)
 
 	in
 	{
@@ -75,14 +75,14 @@ private void show_blob(const (libgit2_d.types.git_blob)* blob)
 	do
 	{
 		/* ? Does this need crlf filtering? */
-		core.stdc.stdio.fwrite(libgit2_d.blob.git_blob_rawcontent(blob), cast(size_t)(libgit2_d.blob.git_blob_rawsize(blob)), 1, core.stdc.stdio.stdout);
+		core.stdc.stdio.fwrite(libgit2.blob.git_blob_rawcontent(blob), cast(size_t)(libgit2.blob.git_blob_rawsize(blob)), 1, core.stdc.stdio.stdout);
 	}
 
 /**
  * Show each entry with its type, id and attributes
  */
 nothrow @nogc
-private void show_tree(const (libgit2_d.types.git_tree)* tree)
+private void show_tree(const (libgit2.types.git_tree)* tree)
 
 	in
 	{
@@ -90,15 +90,15 @@ private void show_tree(const (libgit2_d.types.git_tree)* tree)
 
 	do
 	{
-		size_t max_i = cast(int)(libgit2_d.tree.git_tree_entrycount(tree));
-		char[libgit2_d.oid.GIT_OID_HEXSZ + 1] oidstr;
+		size_t max_i = cast(int)(libgit2.tree.git_tree_entrycount(tree));
+		char[libgit2.oid.GIT_OID_HEXSZ + 1] oidstr;
 
 		for (size_t i = 0; i < max_i; ++i) {
-			const (libgit2_d.types.git_tree_entry)* te = libgit2_d.tree.git_tree_entry_byindex(tree, i);
+			const (libgit2.types.git_tree_entry)* te = libgit2.tree.git_tree_entry_byindex(tree, i);
 
-			libgit2_d.oid.git_oid_tostr(&(oidstr[0]), oidstr.length, libgit2_d.tree.git_tree_entry_id(te));
+			libgit2.oid.git_oid_tostr(&(oidstr[0]), oidstr.length, libgit2.tree.git_tree_entry_id(te));
 
-			core.stdc.stdio.printf("%06o %s %s\t%s\n", libgit2_d.tree.git_tree_entry_filemode(te), libgit2_d.object.git_object_type2string(libgit2_d.tree.git_tree_entry_type(te)), &(oidstr[0]), libgit2_d.tree.git_tree_entry_name(te));
+			core.stdc.stdio.printf("%06o %s %s\t%s\n", libgit2.tree.git_tree_entry_filemode(te), libgit2.object.git_object_type2string(libgit2.tree.git_tree_entry_type(te)), &(oidstr[0]), libgit2.tree.git_tree_entry_name(te));
 		}
 	}
 
@@ -106,7 +106,7 @@ private void show_tree(const (libgit2_d.types.git_tree)* tree)
  * Commits and tags have a few interesting fields in their header.
  */
 nothrow @nogc
-private void show_commit(const (libgit2_d.types.git_commit)* commit)
+private void show_commit(const (libgit2.types.git_commit)* commit)
 
 	in
 	{
@@ -114,27 +114,27 @@ private void show_commit(const (libgit2_d.types.git_commit)* commit)
 
 	do
 	{
-		char[libgit2_d.oid.GIT_OID_HEXSZ + 1] oidstr;
-		libgit2_d.oid.git_oid_tostr(&(oidstr[0]), oidstr.length, libgit2_d.commit.git_commit_tree_id(commit));
+		char[libgit2.oid.GIT_OID_HEXSZ + 1] oidstr;
+		libgit2.oid.git_oid_tostr(&(oidstr[0]), oidstr.length, libgit2.commit.git_commit_tree_id(commit));
 		core.stdc.stdio.printf("tree %s\n", &(oidstr[0]));
 
-		uint max_i = cast(uint)(libgit2_d.commit.git_commit_parentcount(commit));
+		uint max_i = cast(uint)(libgit2.commit.git_commit_parentcount(commit));
 
 		for (uint i = 0; i < max_i; ++i) {
-			libgit2_d.oid.git_oid_tostr(&(oidstr[0]), oidstr.length, libgit2_d.commit.git_commit_parent_id(commit, i));
+			libgit2.oid.git_oid_tostr(&(oidstr[0]), oidstr.length, libgit2.commit.git_commit_parent_id(commit, i));
 			core.stdc.stdio.printf("parent %s\n", &(oidstr[0]));
 		}
 
-		.print_signature("author", libgit2_d.commit.git_commit_author(commit));
-		.print_signature("committer", libgit2_d.commit.git_commit_committer(commit));
+		.print_signature("author", libgit2.commit.git_commit_author(commit));
+		.print_signature("committer", libgit2.commit.git_commit_committer(commit));
 
-		if (libgit2_d.commit.git_commit_message(commit)) {
-			core.stdc.stdio.printf("\n%s\n", libgit2_d.commit.git_commit_message(commit));
+		if (libgit2.commit.git_commit_message(commit)) {
+			core.stdc.stdio.printf("\n%s\n", libgit2.commit.git_commit_message(commit));
 		}
 	}
 
 nothrow @nogc
-private void show_tag(const (libgit2_d.types.git_tag)* tag)
+private void show_tag(const (libgit2.types.git_tag)* tag)
 
 	in
 	{
@@ -142,16 +142,16 @@ private void show_tag(const (libgit2_d.types.git_tag)* tag)
 
 	do
 	{
-		char[libgit2_d.oid.GIT_OID_HEXSZ + 1] oidstr;
-		libgit2_d.oid.git_oid_tostr(&(oidstr[0]), oidstr.length, libgit2_d.tag.git_tag_target_id(tag));
+		char[libgit2.oid.GIT_OID_HEXSZ + 1] oidstr;
+		libgit2.oid.git_oid_tostr(&(oidstr[0]), oidstr.length, libgit2.tag.git_tag_target_id(tag));
 
 		core.stdc.stdio.printf("object %s\n", &(oidstr[0]));
-		core.stdc.stdio.printf("type %s\n", libgit2_d.object.git_object_type2string(libgit2_d.tag.git_tag_target_type(tag)));
-		core.stdc.stdio.printf("tag %s\n", libgit2_d.tag.git_tag_name(tag));
-		.print_signature("tagger", libgit2_d.tag.git_tag_tagger(tag));
+		core.stdc.stdio.printf("type %s\n", libgit2.object.git_object_type2string(libgit2.tag.git_tag_target_type(tag)));
+		core.stdc.stdio.printf("tag %s\n", libgit2.tag.git_tag_name(tag));
+		.print_signature("tagger", libgit2.tag.git_tag_tagger(tag));
 
-		if (libgit2_d.tag.git_tag_message(tag)) {
-			core.stdc.stdio.printf("\n%s\n", libgit2_d.tag.git_tag_message(tag));
+		if (libgit2.tag.git_tag_message(tag)) {
+			core.stdc.stdio.printf("\n%s\n", libgit2.tag.git_tag_message(tag));
 		}
 	}
 
@@ -188,8 +188,8 @@ public struct catfile_options
  */
 extern (C)
 nothrow @nogc
-//int lg2_cat_file(libgit2_d.types.git_repository* repo, int argc, char*[] argv)
-public int lg2_cat_file(libgit2_d.types.git_repository* repo, int argc, char** argv)
+//int lg2_cat_file(libgit2.types.git_repository* repo, int argc, char*[] argv)
+public int lg2_cat_file(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in
 	{
@@ -201,34 +201,34 @@ public int lg2_cat_file(libgit2_d.types.git_repository* repo, int argc, char** a
 
 		.parse_opts(&o, argc, argv);
 
-		libgit2_d.types.git_object* obj = null;
-		libgit2_d.example.common.check_lg2(libgit2_d.revparse.git_revparse_single(&obj, repo, o.rev), "Could not resolve", o.rev);
+		libgit2.types.git_object* obj = null;
+		libgit2.example.common.check_lg2(libgit2.revparse.git_revparse_single(&obj, repo, o.rev), "Could not resolve", o.rev);
 
-		char[libgit2_d.oid.GIT_OID_HEXSZ + 1] oidstr;
+		char[libgit2.oid.GIT_OID_HEXSZ + 1] oidstr;
 
 		if (o.verbose) {
-			libgit2_d.oid.git_oid_tostr(&(oidstr[0]), oidstr.length, libgit2_d.object.git_object_id(obj));
+			libgit2.oid.git_oid_tostr(&(oidstr[0]), oidstr.length, libgit2.object.git_object_id(obj));
 
-			core.stdc.stdio.printf("%s %s\n--\n", libgit2_d.object.git_object_type2string(libgit2_d.object.git_object_type(obj)), &(oidstr[0]));
+			core.stdc.stdio.printf("%s %s\n--\n", libgit2.object.git_object_type2string(libgit2.object.git_object_type(obj)), &(oidstr[0]));
 		}
 
 		switch (o.action) {
 			case .catfile_mode.SHOW_TYPE:
-				core.stdc.stdio.printf("%s\n", libgit2_d.object.git_object_type2string(libgit2_d.object.git_object_type(obj)));
+				core.stdc.stdio.printf("%s\n", libgit2.object.git_object_type2string(libgit2.object.git_object_type(obj)));
 
 				break;
 
 			case .catfile_mode.SHOW_SIZE:
-				libgit2_d.types.git_odb* odb;
-				libgit2_d.types.git_odb_object* odbobj;
+				libgit2.types.git_odb* odb;
+				libgit2.types.git_odb_object* odbobj;
 
-				libgit2_d.example.common.check_lg2(libgit2_d.repository.git_repository_odb(&odb, repo), "Could not open ODB", null);
-				libgit2_d.example.common.check_lg2(libgit2_d.odb.git_odb_read(&odbobj, odb, libgit2_d.object.git_object_id(obj)), "Could not find obj", null);
+				libgit2.example.common.check_lg2(libgit2.repository.git_repository_odb(&odb, repo), "Could not open ODB", null);
+				libgit2.example.common.check_lg2(libgit2.odb.git_odb_read(&odbobj, odb, libgit2.object.git_object_id(obj)), "Could not find obj", null);
 
-				core.stdc.stdio.printf("%ld\n", cast(core.stdc.config.c_long)(libgit2_d.odb.git_odb_object_size(odbobj)));
+				core.stdc.stdio.printf("%ld\n", cast(core.stdc.config.c_long)(libgit2.odb.git_odb_object_size(odbobj)));
 
-				libgit2_d.odb.git_odb_object_free(odbobj);
-				libgit2_d.odb.git_odb_free(odb);
+				libgit2.odb.git_odb_object_free(odbobj);
+				libgit2.odb.git_odb_free(odb);
 
 				break;
 
@@ -237,24 +237,24 @@ public int lg2_cat_file(libgit2_d.types.git_repository* repo, int argc, char** a
 				break;
 
 			case .catfile_mode.SHOW_PRETTY:
-				switch (libgit2_d.object.git_object_type(obj)) {
-					case libgit2_d.types.git_object_t.GIT_OBJECT_BLOB:
-						.show_blob(cast(const (libgit2_d.types.git_blob)*)(obj));
+				switch (libgit2.object.git_object_type(obj)) {
+					case libgit2.types.git_object_t.GIT_OBJECT_BLOB:
+						.show_blob(cast(const (libgit2.types.git_blob)*)(obj));
 
 						break;
 
-					case libgit2_d.types.git_object_t.GIT_OBJECT_COMMIT:
-						.show_commit(cast(const (libgit2_d.types.git_commit)*)(obj));
+					case libgit2.types.git_object_t.GIT_OBJECT_COMMIT:
+						.show_commit(cast(const (libgit2.types.git_commit)*)(obj));
 
 						break;
 
-					case libgit2_d.types.git_object_t.GIT_OBJECT_TREE:
-						.show_tree(cast(const (libgit2_d.types.git_tree)*)(obj));
+					case libgit2.types.git_object_t.GIT_OBJECT_TREE:
+						.show_tree(cast(const (libgit2.types.git_tree)*)(obj));
 
 						break;
 
-					case libgit2_d.types.git_object_t.GIT_OBJECT_TAG:
-						.show_tag(cast(const (libgit2_d.types.git_tag)*)(obj));
+					case libgit2.types.git_object_t.GIT_OBJECT_TAG:
+						.show_tag(cast(const (libgit2.types.git_tag)*)(obj));
 
 						break;
 
@@ -270,7 +270,7 @@ public int lg2_cat_file(libgit2_d.types.git_repository* repo, int argc, char** a
 				break;
 		}
 
-		libgit2_d.object.git_object_free(obj);
+		libgit2.object.git_object_free(obj);
 
 		return 0;
 	}
@@ -309,7 +309,7 @@ private void parse_opts(.catfile_options* o, int argc, char** argv)
 
 	do
 	{
-		libgit2_d.example.args.args_info args = libgit2_d.example.args.ARGS_INFO_INIT(argc, argv);
+		libgit2.example.args.args_info args = libgit2.example.args.ARGS_INFO_INIT(argc, argv);
 
 		for (args.pos = 1; args.pos < argc; ++args.pos) {
 			char* a = argv[args.pos];
@@ -334,7 +334,7 @@ private void parse_opts(.catfile_options* o, int argc, char** argv)
 				o.verbose = 1;
 			} else if ((!core.stdc.string.strcmp(a, "--help")) || (!core.stdc.string.strcmp(a, "-h"))) {
 				.usage(null, null);
-			} else if (!libgit2_d.example.args.match_str_arg(&o.dir, &args, "--git-dir")) {
+			} else if (!libgit2.example.args.match_str_arg(&o.dir, &args, "--git-dir")) {
 				.usage("Unknown option", a);
 			}
 		}

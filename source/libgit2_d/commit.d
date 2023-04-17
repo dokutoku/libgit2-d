@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.commit;
+module libgit2.commit;
 
 
-private static import libgit2_d.buffer;
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.buffer;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/commit.h
@@ -36,7 +36,7 @@ public:
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_commit_lookup(libgit2_d.types.git_commit** commit, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id);
+int git_commit_lookup(libgit2.types.git_commit** commit, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* id);
 
 /**
  * Lookup a commit object from a repository, given a prefix of its
@@ -56,7 +56,7 @@ int git_commit_lookup(libgit2_d.types.git_commit** commit, libgit2_d.types.git_r
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_commit_lookup_prefix(libgit2_d.types.git_commit** commit, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id, size_t len);
+int git_commit_lookup_prefix(libgit2.types.git_commit** commit, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* id, size_t len);
 
 /**
  * Close an open commit
@@ -72,7 +72,7 @@ int git_commit_lookup_prefix(libgit2_d.types.git_commit** commit, libgit2_d.type
  */
 
 //GIT_EXTERN
-void git_commit_free(libgit2_d.types.git_commit* commit);
+void git_commit_free(libgit2.types.git_commit* commit);
 
 /**
  * Get the id of a commit.
@@ -83,7 +83,7 @@ void git_commit_free(libgit2_d.types.git_commit* commit);
  * Returns: object identity for the commit.
  */
 //GIT_EXTERN
-const (libgit2_d.oid.git_oid)* git_commit_id(const (libgit2_d.types.git_commit)* commit);
+const (libgit2.oid.git_oid)* git_commit_id(const (libgit2.types.git_commit)* commit);
 
 /**
  * Get the repository that contains the commit.
@@ -94,7 +94,7 @@ const (libgit2_d.oid.git_oid)* git_commit_id(const (libgit2_d.types.git_commit)*
  * Returns: Repository that contains this commit.
  */
 //GIT_EXTERN
-libgit2_d.types.git_repository* git_commit_owner(const (libgit2_d.types.git_commit)* commit);
+libgit2.types.git_repository* git_commit_owner(const (libgit2.types.git_commit)* commit);
 
 /**
  * Get the encoding for the message of a commit,
@@ -109,7 +109,7 @@ libgit2_d.types.git_repository* git_commit_owner(const (libgit2_d.types.git_comm
  * Returns: null, or the encoding
  */
 //GIT_EXTERN
-const (char)* git_commit_message_encoding(const (libgit2_d.types.git_commit)* commit);
+const (char)* git_commit_message_encoding(const (libgit2.types.git_commit)* commit);
 
 /**
  * Get the full message of a commit.
@@ -123,7 +123,7 @@ const (char)* git_commit_message_encoding(const (libgit2_d.types.git_commit)* co
  * Returns: the message of a commit
  */
 //GIT_EXTERN
-const (char)* git_commit_message(const (libgit2_d.types.git_commit)* commit);
+const (char)* git_commit_message(const (libgit2.types.git_commit)* commit);
 
 /**
  * Get the full raw message of a commit.
@@ -134,7 +134,7 @@ const (char)* git_commit_message(const (libgit2_d.types.git_commit)* commit);
  * Returns: the raw message of a commit
  */
 //GIT_EXTERN
-const (char)* git_commit_message_raw(const (libgit2_d.types.git_commit)* commit);
+const (char)* git_commit_message_raw(const (libgit2.types.git_commit)* commit);
 
 /**
  * Get the short "summary" of the git commit message.
@@ -148,7 +148,7 @@ const (char)* git_commit_message_raw(const (libgit2_d.types.git_commit)* commit)
  * Returns: the summary of a commit or null on error
  */
 //GIT_EXTERN
-const (char)* git_commit_summary(libgit2_d.types.git_commit* commit);
+const (char)* git_commit_summary(libgit2.types.git_commit* commit);
 
 /**
  * Get the long "body" of the git commit message.
@@ -163,7 +163,7 @@ const (char)* git_commit_summary(libgit2_d.types.git_commit* commit);
  * Returns: the body of a commit or null when no the message only consists of a summary
  */
 //GIT_EXTERN
-const (char)* git_commit_body(libgit2_d.types.git_commit* commit);
+const (char)* git_commit_body(libgit2.types.git_commit* commit);
 
 /**
  * Get the commit time (i.e. committer time) of a commit.
@@ -174,7 +174,7 @@ const (char)* git_commit_body(libgit2_d.types.git_commit* commit);
  * Returns: the time of a commit
  */
 //GIT_EXTERN
-libgit2_d.types.git_time_t git_commit_time(const (libgit2_d.types.git_commit)* commit);
+libgit2.types.git_time_t git_commit_time(const (libgit2.types.git_commit)* commit);
 
 /**
  * Get the commit timezone offset (i.e. committer's preferred timezone) of a
@@ -186,7 +186,7 @@ libgit2_d.types.git_time_t git_commit_time(const (libgit2_d.types.git_commit)* c
  * Returns: positive or negative timezone offset, in minutes from UTC
  */
 //GIT_EXTERN
-int git_commit_time_offset(const (libgit2_d.types.git_commit)* commit);
+int git_commit_time_offset(const (libgit2.types.git_commit)* commit);
 
 /**
  * Get the committer of a commit.
@@ -197,7 +197,7 @@ int git_commit_time_offset(const (libgit2_d.types.git_commit)* commit);
  * Returns: the committer of a commit
  */
 //GIT_EXTERN
-const (libgit2_d.types.git_signature)* git_commit_committer(const (libgit2_d.types.git_commit)* commit);
+const (libgit2.types.git_signature)* git_commit_committer(const (libgit2.types.git_commit)* commit);
 
 /**
  * Get the author of a commit.
@@ -208,7 +208,7 @@ const (libgit2_d.types.git_signature)* git_commit_committer(const (libgit2_d.typ
  * Returns: the author of a commit
  */
 //GIT_EXTERN
-const (libgit2_d.types.git_signature)* git_commit_author(const (libgit2_d.types.git_commit)* commit);
+const (libgit2.types.git_signature)* git_commit_author(const (libgit2.types.git_commit)* commit);
 
 /**
  * Get the committer of a commit, using the mailmap to map names and email
@@ -224,7 +224,7 @@ const (libgit2_d.types.git_signature)* git_commit_author(const (libgit2_d.types.
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_commit_committer_with_mailmap(libgit2_d.types.git_signature** out_, const (libgit2_d.types.git_commit)* commit, const (libgit2_d.types.git_mailmap)* mailmap);
+int git_commit_committer_with_mailmap(libgit2.types.git_signature** out_, const (libgit2.types.git_commit)* commit, const (libgit2.types.git_mailmap)* mailmap);
 
 /**
  * Get the author of a commit, using the mailmap to map names and email
@@ -240,7 +240,7 @@ int git_commit_committer_with_mailmap(libgit2_d.types.git_signature** out_, cons
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_commit_author_with_mailmap(libgit2_d.types.git_signature** out_, const (libgit2_d.types.git_commit)* commit, const (libgit2_d.types.git_mailmap)* mailmap);
+int git_commit_author_with_mailmap(libgit2.types.git_signature** out_, const (libgit2.types.git_commit)* commit, const (libgit2.types.git_mailmap)* mailmap);
 
 /**
  * Get the full raw text of the commit header.
@@ -251,7 +251,7 @@ int git_commit_author_with_mailmap(libgit2_d.types.git_signature** out_, const (
  * Returns: the header text of the commit
  */
 //GIT_EXTERN
-const (char)* git_commit_raw_header(const (libgit2_d.types.git_commit)* commit);
+const (char)* git_commit_raw_header(const (libgit2.types.git_commit)* commit);
 
 /**
  * Get the tree pointed to by a commit.
@@ -263,7 +263,7 @@ const (char)* git_commit_raw_header(const (libgit2_d.types.git_commit)* commit);
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_commit_tree(libgit2_d.types.git_tree** tree_out, const (libgit2_d.types.git_commit)* commit);
+int git_commit_tree(libgit2.types.git_tree** tree_out, const (libgit2.types.git_commit)* commit);
 
 /**
  * Get the id of the tree pointed to by a commit. This differs from
@@ -276,7 +276,7 @@ int git_commit_tree(libgit2_d.types.git_tree** tree_out, const (libgit2_d.types.
  * Returns: the id of tree pointed to by commit.
  */
 //GIT_EXTERN
-const (libgit2_d.oid.git_oid)* git_commit_tree_id(const (libgit2_d.types.git_commit)* commit);
+const (libgit2.oid.git_oid)* git_commit_tree_id(const (libgit2.types.git_commit)* commit);
 
 /**
  * Get the number of parents of this commit
@@ -287,7 +287,7 @@ const (libgit2_d.oid.git_oid)* git_commit_tree_id(const (libgit2_d.types.git_com
  * Returns: integer of count of parents
  */
 //GIT_EXTERN
-uint git_commit_parentcount(const (libgit2_d.types.git_commit)* commit);
+uint git_commit_parentcount(const (libgit2.types.git_commit)* commit);
 
 /**
  * Get the specified parent of the commit.
@@ -300,7 +300,7 @@ uint git_commit_parentcount(const (libgit2_d.types.git_commit)* commit);
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_commit_parent(libgit2_d.types.git_commit** out_, const (libgit2_d.types.git_commit)* commit, uint n);
+int git_commit_parent(libgit2.types.git_commit** out_, const (libgit2.types.git_commit)* commit, uint n);
 
 /**
  * Get the oid of a specified parent for a commit. This is different from
@@ -314,7 +314,7 @@ int git_commit_parent(libgit2_d.types.git_commit** out_, const (libgit2_d.types.
  * Returns: the id of the parent, null on error.
  */
 //GIT_EXTERN
-const (libgit2_d.oid.git_oid)* git_commit_parent_id(const (libgit2_d.types.git_commit)* commit, uint n);
+const (libgit2.oid.git_oid)* git_commit_parent_id(const (libgit2.types.git_commit)* commit, uint n);
 
 /**
  * Get the commit object that is the <n>th generation ancestor
@@ -332,7 +332,7 @@ const (libgit2_d.oid.git_oid)* git_commit_parent_id(const (libgit2_d.types.git_c
  * Returns: 0 on success; git_error_code.GIT_ENOTFOUND if no matching ancestor exists or an error code
  */
 //GIT_EXTERN
-int git_commit_nth_gen_ancestor(libgit2_d.types.git_commit** ancestor, const (libgit2_d.types.git_commit)* commit, uint n);
+int git_commit_nth_gen_ancestor(libgit2.types.git_commit** ancestor, const (libgit2.types.git_commit)* commit, uint n);
 
 /**
  * Get an arbitrary header field
@@ -345,7 +345,7 @@ int git_commit_nth_gen_ancestor(libgit2_d.types.git_commit** ancestor, const (li
  * Returns: 0 on succeess, git_error_code.GIT_ENOTFOUND if the field does not exist, or an error code
  */
 //GIT_EXTERN
-int git_commit_header_field(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types.git_commit)* commit, const (char)* field);
+int git_commit_header_field(libgit2.buffer.git_buf* out_, const (libgit2.types.git_commit)* commit, const (char)* field);
 
 /**
  * Extract the signature from a commit
@@ -364,7 +364,7 @@ int git_commit_header_field(libgit2_d.buffer.git_buf* out_, const (libgit2_d.typ
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if the id is not for a commit or the commit does not have a signature.
  */
 //GIT_EXTERN
-int git_commit_extract_signature(libgit2_d.buffer.git_buf* signature, libgit2_d.buffer.git_buf* signed_data, libgit2_d.types.git_repository* repo, libgit2_d.oid.git_oid* commit_id, const (char)* field);
+int git_commit_extract_signature(libgit2.buffer.git_buf* signature, libgit2.buffer.git_buf* signed_data, libgit2.types.git_repository* repo, libgit2.oid.git_oid* commit_id, const (char)* field);
 
 /**
  * Create new commit in the repository from a list of `git_object` pointers
@@ -387,7 +387,7 @@ int git_commit_extract_signature(libgit2_d.buffer.git_buf* signature, libgit2_d.
  * Returns: 0 or an error code. The created commit will be written to the Object Database and the given reference will be updated to point to it
  */
 //GIT_EXTERN
-int git_commit_create(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* update_ref, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2_d.types.git_tree)* tree, size_t parent_count, const (libgit2_d.types.git_commit)** parents);
+int git_commit_create(libgit2.oid.git_oid* id, libgit2.types.git_repository* repo, const (char)* update_ref, const (libgit2.types.git_signature)* author, const (libgit2.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2.types.git_tree)* tree, size_t parent_count, const (libgit2.types.git_commit)** parents);
 
 /**
  * Create new commit in the repository using a variable argument list.
@@ -404,7 +404,7 @@ int git_commit_create(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository*
  * @see git_commit_create
  */
 //GIT_EXTERN
-int git_commit_create_v(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* update_ref, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2_d.types.git_tree)* tree, size_t parent_count, ...);
+int git_commit_create_v(libgit2.oid.git_oid* id, libgit2.types.git_repository* repo, const (char)* update_ref, const (libgit2.types.git_signature)* author, const (libgit2.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2.types.git_tree)* tree, size_t parent_count, ...);
 
 /**
  * Amend an existing commit by replacing only non-null values.
@@ -428,7 +428,7 @@ int git_commit_create_v(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repositor
  * @see git_commit_create
  */
 //GIT_EXTERN
-int git_commit_amend(libgit2_d.oid.git_oid* id, const (libgit2_d.types.git_commit)* commit_to_amend, const (char)* update_ref, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2_d.types.git_tree)* tree);
+int git_commit_amend(libgit2.oid.git_oid* id, const (libgit2.types.git_commit)* commit_to_amend, const (char)* update_ref, const (libgit2.types.git_signature)* author, const (libgit2.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2.types.git_tree)* tree);
 
 /**
  * Create a commit and write it into a buffer
@@ -451,7 +451,7 @@ int git_commit_amend(libgit2_d.oid.git_oid* id, const (libgit2_d.types.git_commi
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_commit_create_buffer(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2_d.types.git_tree)* tree, size_t parent_count, const (libgit2_d.types.git_commit)** parents);
+int git_commit_create_buffer(libgit2.buffer.git_buf* out_, libgit2.types.git_repository* repo, const (libgit2.types.git_signature)* author, const (libgit2.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2.types.git_tree)* tree, size_t parent_count, const (libgit2.types.git_commit)** parents);
 
 /**
  * Create a commit object from the given buffer and signature
@@ -470,7 +470,7 @@ int git_commit_create_buffer(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_commit_create_with_signature(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, const (char)* commit_content, const (char)* signature, const (char)* signature_field);
+int git_commit_create_with_signature(libgit2.oid.git_oid* out_, libgit2.types.git_repository* repo, const (char)* commit_content, const (char)* signature, const (char)* signature_field);
 
 /**
  * Create an in-memory copy of a commit. The copy must be explicitly
@@ -481,7 +481,7 @@ int git_commit_create_with_signature(libgit2_d.oid.git_oid* out_, libgit2_d.type
  *      source = Original commit to copy
  */
 //GIT_EXTERN
-int git_commit_dup(libgit2_d.types.git_commit** out_, libgit2_d.types.git_commit* source);
+int git_commit_dup(libgit2.types.git_commit** out_, libgit2.types.git_commit* source);
 
 /**
  * Commit signing callback.
@@ -501,6 +501,6 @@ int git_commit_dup(libgit2_d.types.git_commit** out_, libgit2_d.types.git_commit
  * - returns < 0, commit creation will be aborted.
  * - returns git_error_code.GIT_OK, the signature parameter is expected to be filled.
  */
-alias git_commit_signing_cb = int function(libgit2_d.buffer.git_buf* signature, libgit2_d.buffer.git_buf* signature_field, const (char)* commit_content, void* payload);
+alias git_commit_signing_cb = int function(libgit2.buffer.git_buf* signature, libgit2.buffer.git_buf* signature_field, const (char)* commit_content, void* payload);
 
 /* @} */

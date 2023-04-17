@@ -4,10 +4,10 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.credential_helpers;
+module libgit2.credential_helpers;
 
 
-private static import libgit2_d.credential;
+private static import libgit2.credential;
 
 /*
  * @file git2/credential_helpers.h
@@ -42,6 +42,6 @@ struct git_credential_userpass_payload
  *      payload = The payload provided when specifying this callback.  (This is interpreted as a `git_credential_userpass_payload*`.)
  */
 //GIT_EXTERN
-int git_credential_userpass(libgit2_d.credential.git_credential** out_, const (char)* url, const (char)* user_from_url, uint allowed_types, void* payload);
+int git_credential_userpass(libgit2.credential.git_credential** out_, const (char)* url, const (char)* user_from_url, uint allowed_types, void* payload);
 
 /* @} */

@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.cherrypick;
+module libgit2.cherrypick;
 
 
-private static import libgit2_d.checkout;
-private static import libgit2_d.merge;
-private static import libgit2_d.types;
+private static import libgit2.checkout;
+private static import libgit2.merge;
+private static import libgit2.types;
 
 /*
  * @file git2/cherrypick.h
@@ -37,12 +37,12 @@ struct git_cherrypick_options
 	/**
 	 * Options for the merging
 	 */
-	libgit2_d.merge.git_merge_options merge_opts;
+	libgit2.merge.git_merge_options merge_opts;
 
 	/**
 	 * Options for the checkout
 	 */
-	libgit2_d.checkout.git_checkout_options checkout_opts;
+	libgit2.checkout.git_checkout_options checkout_opts;
 }
 
 enum GIT_CHERRYPICK_OPTIONS_VERSION = 1;
@@ -57,8 +57,8 @@ pure nothrow @safe @nogc
 		{
 			version_: .GIT_CHERRYPICK_OPTIONS_VERSION,
 			mainline: 0,
-			merge_opts: libgit2_d.merge.GIT_MERGE_OPTIONS_INIT(),
-			checkout_opts: libgit2_d.checkout.GIT_CHECKOUT_OPTIONS_INIT(),
+			merge_opts: libgit2.merge.GIT_MERGE_OPTIONS_INIT(),
+			checkout_opts: libgit2.checkout.GIT_CHECKOUT_OPTIONS_INIT(),
 		};
 
 		return OUTPUT;
@@ -96,7 +96,7 @@ int git_cherrypick_options_init(.git_cherrypick_options* opts, uint version_);
  * Returns: zero on success, -1 on failure.
  */
 //GIT_EXTERN
-int git_cherrypick_commit(libgit2_d.types.git_index** out_, libgit2_d.types.git_repository* repo, libgit2_d.types.git_commit* cherrypick_commit, libgit2_d.types.git_commit* our_commit, uint mainline, const (libgit2_d.merge.git_merge_options)* merge_options);
+int git_cherrypick_commit(libgit2.types.git_index** out_, libgit2.types.git_repository* repo, libgit2.types.git_commit* cherrypick_commit, libgit2.types.git_commit* our_commit, uint mainline, const (libgit2.merge.git_merge_options)* merge_options);
 
 /**
  * Cherry-pick the given commit, producing changes in the index and working
@@ -110,6 +110,6 @@ int git_cherrypick_commit(libgit2_d.types.git_index** out_, libgit2_d.types.git_
  * Returns: zero on success, -1 on failure.
  */
 //GIT_EXTERN
-int git_cherrypick(libgit2_d.types.git_repository* repo, libgit2_d.types.git_commit* commit, const (.git_cherrypick_options)* cherrypick_options);
+int git_cherrypick(libgit2.types.git_repository* repo, libgit2.types.git_commit* commit, const (.git_cherrypick_options)* cherrypick_options);
 
 /* @} */

@@ -4,10 +4,10 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.credential;
+module libgit2.sys.credential;
 
 
-private static import libgit2_d.credential;
+private static import libgit2.credential;
 
 /*
  * @file git2/sys/cred.h
@@ -18,7 +18,7 @@ private static import libgit2_d.credential;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 /**
  * The base structure for all credential types
@@ -28,7 +28,7 @@ struct git_credential
 	/**
 	 * A type of credential
 	 */
-	libgit2_d.credential.git_credential_t credtype = cast(libgit2_d.credential.git_credential_t)(0);
+	libgit2.credential.git_credential_t credtype = cast(libgit2.credential.git_credential_t)(0);
 
 	/**
 	 * The deallocator for this type of credentials
@@ -124,7 +124,7 @@ struct git_credential_ssh_interactive
 	/**
 	 * Callback used for authentication.
 	 */
-	libgit2_d.credential.git_credential_ssh_interactive_cb prompt_callback;
+	libgit2.credential.git_credential_ssh_interactive_cb prompt_callback;
 
 	/**
 	 * Payload passed to prompt_callback
@@ -160,7 +160,7 @@ struct git_credential_ssh_custom
 	/**
 	 * Callback used to sign the data.
 	 */
-	libgit2_d.credential.git_credential_sign_cb sign_callback;
+	libgit2.credential.git_credential_sign_cb sign_callback;
 
 	/**
 	 * Payload passed to prompt_callback

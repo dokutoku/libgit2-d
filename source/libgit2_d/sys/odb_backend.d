@@ -4,13 +4,13 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.odb_backend;
+module libgit2.sys.odb_backend;
 
 
-private static import libgit2_d.indexer;
-private static import libgit2_d.odb;
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.indexer;
+private static import libgit2.odb;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/sys/backend.h
@@ -21,7 +21,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 /**
  * An instance for a custom backend
@@ -29,7 +29,7 @@ package(libgit2_d):
 struct git_odb_backend
 {
 	uint version_;
-	libgit2_d.types.git_odb* odb;
+	libgit2.types.git_odb* odb;
 
 	/**
 	 * read and read_prefix each return to libgit2 a buffer which
@@ -37,29 +37,29 @@ struct git_odb_backend
 	 * the function git_odb_backend_data_alloc to ensure that libgit2
 	 * can safely free it later.
 	 */
-	int function(void**, size_t*, libgit2_d.types.git_object_t*, .git_odb_backend*, const (libgit2_d.oid.git_oid)*) read;
+	int function(void**, size_t*, libgit2.types.git_object_t*, .git_odb_backend*, const (libgit2.oid.git_oid)*) read;
 
 	/*
 	 * To find a unique object given a prefix of its oid.  The oid given
 	 * must be so that the remaining (GIT_OID_HEXSZ - len)*4 bits are 0s.
 	 */
-	int function(libgit2_d.oid.git_oid*, void**, size_t*, libgit2_d.types.git_object_t*, .git_odb_backend*, const (libgit2_d.oid.git_oid)*, size_t) read_prefix;
+	int function(libgit2.oid.git_oid*, void**, size_t*, libgit2.types.git_object_t*, .git_odb_backend*, const (libgit2.oid.git_oid)*, size_t) read_prefix;
 
-	int function(size_t*, libgit2_d.types.git_object_t*, .git_odb_backend*, const (libgit2_d.oid.git_oid)*) read_header;
+	int function(size_t*, libgit2.types.git_object_t*, .git_odb_backend*, const (libgit2.oid.git_oid)*) read_header;
 
 	/**
 	 * Write an object into the backend. The id of the object has
 	 * already been calculated and is passed in.
 	 */
-	int function(.git_odb_backend*, const (libgit2_d.oid.git_oid)*, const (void)*, size_t, libgit2_d.types.git_object_t) write;
+	int function(.git_odb_backend*, const (libgit2.oid.git_oid)*, const (void)*, size_t, libgit2.types.git_object_t) write;
 
-	int function(libgit2_d.types.git_odb_stream**, .git_odb_backend*, libgit2_d.types.git_object_size_t, libgit2_d.types.git_object_t) writestream;
+	int function(libgit2.types.git_odb_stream**, .git_odb_backend*, libgit2.types.git_object_size_t, libgit2.types.git_object_t) writestream;
 
-	int function(libgit2_d.types.git_odb_stream**, size_t*, libgit2_d.types.git_object_t*, .git_odb_backend*, const (libgit2_d.oid.git_oid)*) readstream;
+	int function(libgit2.types.git_odb_stream**, size_t*, libgit2.types.git_object_t*, .git_odb_backend*, const (libgit2.oid.git_oid)*) readstream;
 
-	int function(.git_odb_backend*, const (libgit2_d.oid.git_oid)*) exists;
+	int function(.git_odb_backend*, const (libgit2.oid.git_oid)*) exists;
 
-	int function(libgit2_d.oid.git_oid*, .git_odb_backend*, const (libgit2_d.oid.git_oid)*, size_t) exists_prefix;
+	int function(libgit2.oid.git_oid*, .git_odb_backend*, const (libgit2.oid.git_oid)*, size_t) exists_prefix;
 
 	/**
 	 * If the backend implements a refreshing mechanism, it should be exposed
@@ -73,9 +73,9 @@ struct git_odb_backend
 	 */
 	int function(.git_odb_backend*) refresh;
 
-	int function(.git_odb_backend*, libgit2_d.odb.git_odb_foreach_cb cb, void* payload) foreach_;
+	int function(.git_odb_backend*, libgit2.odb.git_odb_foreach_cb cb, void* payload) foreach_;
 
-	int function(libgit2_d.types.git_odb_writepack**, .git_odb_backend*, libgit2_d.types.git_odb* odb, libgit2_d.indexer.git_indexer_progress_cb progress_cb, void* progress_payload) writepack;
+	int function(libgit2.types.git_odb_writepack**, .git_odb_backend*, libgit2.types.git_odb* odb, libgit2.indexer.git_indexer_progress_cb progress_cb, void* progress_payload) writepack;
 
 	/**
 	 * "Freshens" an already existing object, updating its last-used
@@ -86,7 +86,7 @@ struct git_odb_backend
 	 * If callers implement this, they should return `0` if the object
 	 * exists and was freshened, and non-zero otherwise.
 	 */
-	int function(.git_odb_backend*, const (libgit2_d.oid.git_oid)*) freshen;
+	int function(.git_odb_backend*, const (libgit2.oid.git_oid)*) freshen;
 
 	/**
 	 * Frees any resources held by the odb (including the `git_odb_backend`

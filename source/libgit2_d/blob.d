@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.blob;
+module libgit2.blob;
 
 
-private static import libgit2_d.buffer;
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.buffer;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/blob.h
@@ -33,7 +33,7 @@ public:
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_blob_lookup(libgit2_d.types.git_blob** blob, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id);
+int git_blob_lookup(libgit2.types.git_blob** blob, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* id);
 
 /**
  * Lookup a blob object from a repository,
@@ -50,7 +50,7 @@ int git_blob_lookup(libgit2_d.types.git_blob** blob, libgit2_d.types.git_reposit
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_blob_lookup_prefix(libgit2_d.types.git_blob** blob, libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* id, size_t len);
+int git_blob_lookup_prefix(libgit2.types.git_blob** blob, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* id, size_t len);
 
 /**
  * Close an open blob
@@ -65,7 +65,7 @@ int git_blob_lookup_prefix(libgit2_d.types.git_blob** blob, libgit2_d.types.git_
  *      blob = the blob to close
  */
 //GIT_EXTERN
-void git_blob_free(libgit2_d.types.git_blob* blob);
+void git_blob_free(libgit2.types.git_blob* blob);
 
 /**
  * Get the id of a blob.
@@ -76,7 +76,7 @@ void git_blob_free(libgit2_d.types.git_blob* blob);
  * Returns: SHA1 hash for this blob.
  */
 //GIT_EXTERN
-const (libgit2_d.oid.git_oid)* git_blob_id(const (libgit2_d.types.git_blob)* blob);
+const (libgit2.oid.git_oid)* git_blob_id(const (libgit2.types.git_blob)* blob);
 
 /**
  * Get the repository that contains the blob.
@@ -87,7 +87,7 @@ const (libgit2_d.oid.git_oid)* git_blob_id(const (libgit2_d.types.git_blob)* blo
  * Returns: Repository that contains this blob.
  */
 //GIT_EXTERN
-libgit2_d.types.git_repository* git_blob_owner(const (libgit2_d.types.git_blob)* blob);
+libgit2.types.git_repository* git_blob_owner(const (libgit2.types.git_blob)* blob);
 
 /**
  * Get a read-only buffer with the raw content of a blob.
@@ -103,7 +103,7 @@ libgit2_d.types.git_repository* git_blob_owner(const (libgit2_d.types.git_blob)*
  * Returns: the pointer
  */
 //GIT_EXTERN
-const (void)* git_blob_rawcontent(const (libgit2_d.types.git_blob)* blob);
+const (void)* git_blob_rawcontent(const (libgit2.types.git_blob)* blob);
 
 /**
  * Get the size in bytes of the contents of a blob
@@ -114,7 +114,7 @@ const (void)* git_blob_rawcontent(const (libgit2_d.types.git_blob)* blob);
  * Returns: size on bytes
  */
 //GIT_EXTERN
-libgit2_d.types.git_object_size_t git_blob_rawsize(const (libgit2_d.types.git_blob)* blob);
+libgit2.types.git_object_size_t git_blob_rawsize(const (libgit2.types.git_blob)* blob);
 
 /**
  * Flags to control the functionality of `git_blob_filter`.
@@ -220,7 +220,7 @@ int git_blob_filter_options_init(.git_blob_filter_options* opts, uint version_);
  * Returns: 0 on success or an error code
  */
 //GIT_EXTERN
-int git_blob_filter(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_blob* blob, const (char)* as_path, .git_blob_filter_options* opts);
+int git_blob_filter(libgit2.buffer.git_buf* out_, libgit2.types.git_blob* blob, const (char)* as_path, .git_blob_filter_options* opts);
 
 /**
  * Read a file from the working folder of a repository
@@ -234,7 +234,7 @@ int git_blob_filter(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_blob* bl
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_blob_create_from_workdir(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* relative_path);
+int git_blob_create_from_workdir(libgit2.oid.git_oid* id, libgit2.types.git_repository* repo, const (char)* relative_path);
 
 /**
  * Read a file from the filesystem and write its content
@@ -248,7 +248,7 @@ int git_blob_create_from_workdir(libgit2_d.oid.git_oid* id, libgit2_d.types.git_
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_blob_create_from_disk(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* path);
+int git_blob_create_from_disk(libgit2.oid.git_oid* id, libgit2.types.git_repository* repo, const (char)* path);
 
 /**
  * Create a stream to write a new blob into the object db
@@ -276,7 +276,7 @@ int git_blob_create_from_disk(libgit2_d.oid.git_oid* id, libgit2_d.types.git_rep
  * Returns: 0 or error code
  */
 //GIT_EXTERN
-int git_blob_create_from_stream(libgit2_d.types.git_writestream** out_, libgit2_d.types.git_repository* repo, const (char)* hintpath);
+int git_blob_create_from_stream(libgit2.types.git_writestream** out_, libgit2.types.git_repository* repo, const (char)* hintpath);
 
 /**
  * Close the stream and write the blob to the object db
@@ -290,7 +290,7 @@ int git_blob_create_from_stream(libgit2_d.types.git_writestream** out_, libgit2_
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_blob_create_from_stream_commit(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_writestream* stream);
+int git_blob_create_from_stream_commit(libgit2.oid.git_oid* out_, libgit2.types.git_writestream* stream);
 
 /**
  * Write an in-memory buffer to the ODB as a blob
@@ -304,7 +304,7 @@ int git_blob_create_from_stream_commit(libgit2_d.oid.git_oid* out_, libgit2_d.ty
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_blob_create_from_buffer(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (void)* buffer, size_t len);
+int git_blob_create_from_buffer(libgit2.oid.git_oid* id, libgit2.types.git_repository* repo, const (void)* buffer, size_t len);
 
 /**
  * Determine if the blob content is most certainly binary or not.
@@ -319,7 +319,7 @@ int git_blob_create_from_buffer(libgit2_d.oid.git_oid* id, libgit2_d.types.git_r
  * Returns: 1 if the content of the blob is detected as binary; 0 otherwise.
  */
 //GIT_EXTERN
-int git_blob_is_binary(const (libgit2_d.types.git_blob)* blob);
+int git_blob_is_binary(const (libgit2.types.git_blob)* blob);
 
 /**
  * Create an in-memory copy of a blob. The copy must be explicitly
@@ -330,6 +330,6 @@ int git_blob_is_binary(const (libgit2_d.types.git_blob)* blob);
  *      source = Original object to copy
  */
 //GIT_EXTERN
-int git_blob_dup(libgit2_d.types.git_blob** out_, libgit2_d.types.git_blob* source);
+int git_blob_dup(libgit2.types.git_blob** out_, libgit2.types.git_blob* source);
 
 /* @} */

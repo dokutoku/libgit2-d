@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.repository;
+module libgit2.repository;
 
 
-private static import libgit2_d.buffer;
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.buffer;
+private static import libgit2.oid;
+private static import libgit2.types;
 private static import std.conv;
 
 /*
@@ -39,7 +39,7 @@ public:
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_repository_open(libgit2_d.types.git_repository** out_, const (char)* path);
+int git_repository_open(libgit2.types.git_repository** out_, const (char)* path);
 
 /**
  * Open working tree as a repository
@@ -54,7 +54,7 @@ int git_repository_open(libgit2_d.types.git_repository** out_, const (char)* pat
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_repository_open_from_worktree(libgit2_d.types.git_repository** out_, libgit2_d.types.git_worktree* wt);
+int git_repository_open_from_worktree(libgit2.types.git_repository** out_, libgit2.types.git_worktree* wt);
 
 /**
  * Create a "fake" repository to wrap an object database
@@ -70,7 +70,7 @@ int git_repository_open_from_worktree(libgit2_d.types.git_repository** out_, lib
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_repository_wrap_odb(libgit2_d.types.git_repository** out_, libgit2_d.types.git_odb* odb);
+int git_repository_wrap_odb(libgit2.types.git_repository** out_, libgit2.types.git_odb* odb);
 
 /**
  * Look for a git repository and copy its path in the given buffer.
@@ -91,7 +91,7 @@ int git_repository_wrap_odb(libgit2_d.types.git_repository** out_, libgit2_d.typ
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_repository_discover(libgit2_d.buffer.git_buf* out_, const (char)* start_path, int across_fs, const (char)* ceiling_dirs);
+int git_repository_discover(libgit2.buffer.git_buf* out_, const (char)* start_path, int across_fs, const (char)* ceiling_dirs);
 
 /**
  * Option flags for `git_repository_open_ext`.
@@ -168,7 +168,7 @@ enum
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if no repository could be found, or -1 if there was a repository but open failed for some reason (such as repo corruption or system errors).
  */
 //GIT_EXTERN
-int git_repository_open_ext(libgit2_d.types.git_repository** out_, const (char)* path, uint flags, const (char)* ceiling_dirs);
+int git_repository_open_ext(libgit2.types.git_repository** out_, const (char)* path, uint flags, const (char)* ceiling_dirs);
 
 /**
  * Open a bare repository on the serverside.
@@ -184,7 +184,7 @@ int git_repository_open_ext(libgit2_d.types.git_repository** out_, const (char)*
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_repository_open_bare(libgit2_d.types.git_repository** out_, const (char)* bare_path);
+int git_repository_open_bare(libgit2.types.git_repository** out_, const (char)* bare_path);
 
 /**
  * Free a previously allocated repository
@@ -199,7 +199,7 @@ int git_repository_open_bare(libgit2_d.types.git_repository** out_, const (char)
  *      repo = repository handle to close. If null nothing occurs.
  */
 //GIT_EXTERN
-void git_repository_free(libgit2_d.types.git_repository* repo);
+void git_repository_free(libgit2.types.git_repository* repo);
 
 /**
  * Creates a new Git repository in the given folder.
@@ -215,7 +215,7 @@ void git_repository_free(libgit2_d.types.git_repository* repo);
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_repository_init(libgit2_d.types.git_repository** out_, const (char)* path, uint is_bare);
+int git_repository_init(libgit2.types.git_repository** out_, const (char)* path, uint is_bare);
 
 /**
  * Option flags for `git_repository_init_ext`.
@@ -426,7 +426,7 @@ int git_repository_init_options_init(.git_repository_init_options* opts, uint ve
  * Returns: 0 or an error code on failure.
  */
 //GIT_EXTERN
-int git_repository_init_ext(libgit2_d.types.git_repository** out_, const (char)* repo_path, .git_repository_init_options* opts);
+int git_repository_init_ext(libgit2.types.git_repository** out_, const (char)* repo_path, .git_repository_init_options* opts);
 
 /**
  * Retrieve and resolve the reference pointed at by HEAD.
@@ -442,7 +442,7 @@ int git_repository_init_ext(libgit2_d.types.git_repository** out_, const (char)*
  * Returns: 0 on success, git_error_code.GIT_EUNBORNBRANCH when HEAD points to a non existing branch, git_error_code.GIT_ENOTFOUND when HEAD is missing; an error code otherwise
  */
 //GIT_EXTERN
-int git_repository_head(libgit2_d.types.git_reference** out_, libgit2_d.types.git_repository* repo);
+int git_repository_head(libgit2.types.git_reference** out_, libgit2.types.git_repository* repo);
 
 /**
  * Retrieve the referenced HEAD for the worktree
@@ -455,7 +455,7 @@ int git_repository_head(libgit2_d.types.git_reference** out_, libgit2_d.types.gi
  * Returns: 0 when successful, error-code otherwise
  */
 //GIT_EXTERN
-int git_repository_head_for_worktree(libgit2_d.types.git_reference** out_, libgit2_d.types.git_repository* repo, const (char)* name);
+int git_repository_head_for_worktree(libgit2.types.git_reference** out_, libgit2.types.git_repository* repo, const (char)* name);
 
 /**
  * Check if a repository's HEAD is detached
@@ -469,7 +469,7 @@ int git_repository_head_for_worktree(libgit2_d.types.git_reference** out_, libgi
  * Returns: 1 if HEAD is detached, 0 if it's not; error code if there was an error.
  */
 //GIT_EXTERN
-int git_repository_head_detached(libgit2_d.types.git_repository* repo);
+int git_repository_head_detached(libgit2.types.git_repository* repo);
 
 /**
  * Check if a worktree's HEAD is detached
@@ -484,7 +484,7 @@ int git_repository_head_detached(libgit2_d.types.git_repository* repo);
  * Returns: 1 if HEAD is detached, 0 if its not; error code if there was an error
  */
 //GIT_EXTERN
-int git_repository_head_detached_for_worktree(libgit2_d.types.git_repository* repo, const (char)* name);
+int git_repository_head_detached_for_worktree(libgit2.types.git_repository* repo, const (char)* name);
 
 /**
  * Check if the current branch is unborn
@@ -498,7 +498,7 @@ int git_repository_head_detached_for_worktree(libgit2_d.types.git_repository* re
  * Returns: 1 if the current branch is unborn, 0 if it's not; error code if there was an error
  */
 //GIT_EXTERN
-int git_repository_head_unborn(libgit2_d.types.git_repository* repo);
+int git_repository_head_unborn(libgit2.types.git_repository* repo);
 
 /**
  * Check if a repository is empty
@@ -512,7 +512,7 @@ int git_repository_head_unborn(libgit2_d.types.git_repository* repo);
  * Returns: 1 if the repository is empty, 0 if it isn't, error code if the repository is corrupted
  */
 //GIT_EXTERN
-int git_repository_is_empty(libgit2_d.types.git_repository* repo);
+int git_repository_is_empty(libgit2.types.git_repository* repo);
 
 /**
  * List of items which belong to the git repository layout
@@ -573,7 +573,7 @@ enum
  * Returns: 0, git_error_code.GIT_ENOTFOUND if the path cannot exist or an error code
  */
 //GIT_EXTERN
-int git_repository_item_path(libgit2_d.buffer.git_buf* out_, const (libgit2_d.types.git_repository)* repo, .git_repository_item_t item);
+int git_repository_item_path(libgit2.buffer.git_buf* out_, const (libgit2.types.git_repository)* repo, .git_repository_item_t item);
 
 /**
  * Get the path of this repository
@@ -587,7 +587,7 @@ int git_repository_item_path(libgit2_d.buffer.git_buf* out_, const (libgit2_d.ty
  * Returns: the path to the repository
  */
 //GIT_EXTERN
-const (char)* git_repository_path(const (libgit2_d.types.git_repository)* repo);
+const (char)* git_repository_path(const (libgit2.types.git_repository)* repo);
 
 /**
  * Get the path of the working directory for this repository
@@ -601,7 +601,7 @@ const (char)* git_repository_path(const (libgit2_d.types.git_repository)* repo);
  * Returns: the path to the working dir, if it exists
  */
 //GIT_EXTERN
-const (char)* git_repository_workdir(const (libgit2_d.types.git_repository)* repo);
+const (char)* git_repository_workdir(const (libgit2.types.git_repository)* repo);
 
 /**
  * Get the path of the shared common directory for this repository.
@@ -616,7 +616,7 @@ const (char)* git_repository_workdir(const (libgit2_d.types.git_repository)* rep
  * Returns: the path to the common dir
  */
 //GIT_EXTERN
-const (char)* git_repository_commondir(const (libgit2_d.types.git_repository)* repo);
+const (char)* git_repository_commondir(const (libgit2.types.git_repository)* repo);
 
 /**
  * Set the path to the working directory for this repository
@@ -637,7 +637,7 @@ const (char)* git_repository_commondir(const (libgit2_d.types.git_repository)* r
  * Returns: 0, or an error code
  */
 //GIT_EXTERN
-int git_repository_set_workdir(libgit2_d.types.git_repository* repo, const (char)* workdir, int update_gitlink);
+int git_repository_set_workdir(libgit2.types.git_repository* repo, const (char)* workdir, int update_gitlink);
 
 /**
  * Check if a repository is bare
@@ -648,7 +648,7 @@ int git_repository_set_workdir(libgit2_d.types.git_repository* repo, const (char
  * Returns: 1 if the repository is bare, 0 otherwise.
  */
 //GIT_EXTERN
-int git_repository_is_bare(const (libgit2_d.types.git_repository)* repo);
+int git_repository_is_bare(const (libgit2.types.git_repository)* repo);
 
 /**
  * Check if a repository is a linked work tree
@@ -659,7 +659,7 @@ int git_repository_is_bare(const (libgit2_d.types.git_repository)* repo);
  * Returns: 1 if the repository is a linked work tree, 0 otherwise.
  */
 //GIT_EXTERN
-int git_repository_is_worktree(const (libgit2_d.types.git_repository)* repo);
+int git_repository_is_worktree(const (libgit2.types.git_repository)* repo);
 
 /**
  * Get the configuration file for this repository.
@@ -678,7 +678,7 @@ int git_repository_is_worktree(const (libgit2_d.types.git_repository)* repo);
  * Returns: 0, or an error code
  */
 //GIT_EXTERN
-int git_repository_config(libgit2_d.types.git_config** out_, libgit2_d.types.git_repository* repo);
+int git_repository_config(libgit2.types.git_config** out_, libgit2.types.git_repository* repo);
 
 /**
  * Get a snapshot of the repository's configuration
@@ -697,7 +697,7 @@ int git_repository_config(libgit2_d.types.git_config** out_, libgit2_d.types.git
  * Returns: 0, or an error code
  */
 //GIT_EXTERN
-int git_repository_config_snapshot(libgit2_d.types.git_config** out_, libgit2_d.types.git_repository* repo);
+int git_repository_config_snapshot(libgit2.types.git_config** out_, libgit2.types.git_repository* repo);
 
 /**
  * Get the Object Database for this repository.
@@ -716,7 +716,7 @@ int git_repository_config_snapshot(libgit2_d.types.git_config** out_, libgit2_d.
  * Returns: 0, or an error code
  */
 //GIT_EXTERN
-int git_repository_odb(libgit2_d.types.git_odb** out_, libgit2_d.types.git_repository* repo);
+int git_repository_odb(libgit2.types.git_odb** out_, libgit2.types.git_repository* repo);
 
 /**
  * Get the Reference Database Backend for this repository.
@@ -735,7 +735,7 @@ int git_repository_odb(libgit2_d.types.git_odb** out_, libgit2_d.types.git_repos
  * Returns: 0, or an error code
  */
 //GIT_EXTERN
-int git_repository_refdb(libgit2_d.types.git_refdb** out_, libgit2_d.types.git_repository* repo);
+int git_repository_refdb(libgit2.types.git_refdb** out_, libgit2.types.git_repository* repo);
 
 /**
  * Get the Index file for this repository.
@@ -754,7 +754,7 @@ int git_repository_refdb(libgit2_d.types.git_refdb** out_, libgit2_d.types.git_r
  * Returns: 0, or an error code
  */
 //GIT_EXTERN
-int git_repository_index(libgit2_d.types.git_index** out_, libgit2_d.types.git_repository* repo);
+int git_repository_index(libgit2.types.git_index** out_, libgit2.types.git_repository* repo);
 
 /**
  * Retrieve git's prepared message
@@ -775,7 +775,7 @@ int git_repository_index(libgit2_d.types.git_index** out_, libgit2_d.types.git_r
  * Returns: 0, git_error_code.GIT_ENOTFOUND if no message exists or an error code
  */
 //GIT_EXTERN
-int git_repository_message(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_repository* repo);
+int git_repository_message(libgit2.buffer.git_buf* out_, libgit2.types.git_repository* repo);
 
 /**
  * Remove git's prepared message.
@@ -783,7 +783,7 @@ int git_repository_message(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_r
  * Remove the message that `git_repository_message` retrieves.
  */
 //GIT_EXTERN
-int git_repository_message_remove(libgit2_d.types.git_repository* repo);
+int git_repository_message_remove(libgit2.types.git_repository* repo);
 
 /**
  * Remove all the metadata associated with an ongoing command like merge,
@@ -795,7 +795,7 @@ int git_repository_message_remove(libgit2_d.types.git_repository* repo);
  * Returns: 0 on success, or error
  */
 //GIT_EXTERN
-int git_repository_state_cleanup(libgit2_d.types.git_repository* repo);
+int git_repository_state_cleanup(libgit2.types.git_repository* repo);
 
 /**
  * Callback used to iterate over each FETCH_HEAD entry
@@ -812,7 +812,7 @@ int git_repository_state_cleanup(libgit2_d.types.git_repository* repo);
  *      is_merge = Was the reference the result of a merge
  *      payload = Payload passed to git_repository_fetchhead_foreach
  */
-alias git_repository_fetchhead_foreach_cb = int function(const (char)* ref_name, const (char)* remote_url, const (libgit2_d.oid.git_oid)* oid, uint is_merge, void* payload);
+alias git_repository_fetchhead_foreach_cb = int function(const (char)* ref_name, const (char)* remote_url, const (libgit2.oid.git_oid)* oid, uint is_merge, void* payload);
 
 /**
  * Invoke 'callback' for each entry in the given FETCH_HEAD file.
@@ -827,7 +827,7 @@ alias git_repository_fetchhead_foreach_cb = int function(const (char)* ref_name,
  * Returns: 0 on success, non-zero callback return value, git_error_code.GIT_ENOTFOUND if there is no FETCH_HEAD file, or other error code.
  */
 //GIT_EXTERN
-int git_repository_fetchhead_foreach(libgit2_d.types.git_repository* repo, .git_repository_fetchhead_foreach_cb callback, void* payload);
+int git_repository_fetchhead_foreach(libgit2.types.git_repository* repo, .git_repository_fetchhead_foreach_cb callback, void* payload);
 
 /**
  * Callback used to iterate over each MERGE_HEAD entry
@@ -841,7 +841,7 @@ int git_repository_fetchhead_foreach(libgit2_d.types.git_repository* repo, .git_
  *      oid = The merge OID
  *      payload = Payload passed to git_repository_mergehead_foreach
  */
-alias git_repository_mergehead_foreach_cb = int function(const (libgit2_d.oid.git_oid)* oid, void* payload);
+alias git_repository_mergehead_foreach_cb = int function(const (libgit2.oid.git_oid)* oid, void* payload);
 
 /**
  * If a merge is in progress, invoke 'callback' for each commit ID in the
@@ -857,7 +857,7 @@ alias git_repository_mergehead_foreach_cb = int function(const (libgit2_d.oid.gi
  * Returns: 0 on success, non-zero callback return value, git_error_code.GIT_ENOTFOUND if there is no MERGE_HEAD file, or other error code.
  */
 //GIT_EXTERN
-int git_repository_mergehead_foreach(libgit2_d.types.git_repository* repo, .git_repository_mergehead_foreach_cb callback, void* payload);
+int git_repository_mergehead_foreach(libgit2.types.git_repository* repo, .git_repository_mergehead_foreach_cb callback, void* payload);
 
 /**
  * Calculate hash of file using repository filtering rules.
@@ -881,7 +881,7 @@ int git_repository_mergehead_foreach(libgit2_d.types.git_repository* repo, .git_
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_repository_hashfile(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_repository* repo, const (char)* path, libgit2_d.types.git_object_t type, const (char)* as_path);
+int git_repository_hashfile(libgit2.oid.git_oid* out_, libgit2.types.git_repository* repo, const (char)* path, libgit2.types.git_object_t type, const (char)* as_path);
 
 /**
  * Make the repository HEAD point to the specified reference.
@@ -904,7 +904,7 @@ int git_repository_hashfile(libgit2_d.oid.git_oid* out_, libgit2_d.types.git_rep
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_repository_set_head(libgit2_d.types.git_repository* repo, const (char)* refname);
+int git_repository_set_head(libgit2.types.git_repository* repo, const (char)* refname);
 
 /**
  * Make the repository HEAD directly point to the Commit.
@@ -925,7 +925,7 @@ int git_repository_set_head(libgit2_d.types.git_repository* repo, const (char)* 
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_repository_set_head_detached(libgit2_d.types.git_repository* repo, const (libgit2_d.oid.git_oid)* commitish);
+int git_repository_set_head_detached(libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* commitish);
 
 /**
  * Make the repository HEAD directly point to the Commit.
@@ -940,7 +940,7 @@ int git_repository_set_head_detached(libgit2_d.types.git_repository* repo, const
  * @see git_repository_set_head_detached
  */
 //GIT_EXTERN
-int git_repository_set_head_detached_from_annotated(libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_annotated_commit)* commitish);
+int git_repository_set_head_detached_from_annotated(libgit2.types.git_repository* repo, const (libgit2.types.git_annotated_commit)* commitish);
 
 /**
  * Detach the HEAD.
@@ -961,7 +961,7 @@ int git_repository_set_head_detached_from_annotated(libgit2_d.types.git_reposito
  * Returns: 0 on success, git_error_code.GIT_EUNBORNBRANCH when HEAD points to a non existing branch or an error code
  */
 //GIT_EXTERN
-int git_repository_detach_head(libgit2_d.types.git_repository* repo);
+int git_repository_detach_head(libgit2.types.git_repository* repo);
 
 /**
  * Repository state
@@ -1012,7 +1012,7 @@ enum
  * Returns: The state of the repository
  */
 //GIT_EXTERN
-int git_repository_state(libgit2_d.types.git_repository* repo);
+int git_repository_state(libgit2.types.git_repository* repo);
 
 /**
  * Sets the active namespace for this Git Repository
@@ -1027,7 +1027,7 @@ int git_repository_state(libgit2_d.types.git_repository* repo);
  * Returns: 0 on success, -1 on error
  */
 //GIT_EXTERN
-int git_repository_set_namespace(libgit2_d.types.git_repository* repo, const (char)* nmspace);
+int git_repository_set_namespace(libgit2.types.git_repository* repo, const (char)* nmspace);
 
 /**
  * Get the currently active namespace for this repository
@@ -1038,7 +1038,7 @@ int git_repository_set_namespace(libgit2_d.types.git_repository* repo, const (ch
  * Returns: the active namespace, or null if there isn't one
  */
 //GIT_EXTERN
-const (char)* git_repository_get_namespace(libgit2_d.types.git_repository* repo);
+const (char)* git_repository_get_namespace(libgit2.types.git_repository* repo);
 
 /**
  * Determine if the repository was a shallow clone
@@ -1049,7 +1049,7 @@ const (char)* git_repository_get_namespace(libgit2_d.types.git_repository* repo)
  * Returns: 1 if shallow, zero if not
  */
 //GIT_EXTERN
-int git_repository_is_shallow(libgit2_d.types.git_repository* repo);
+int git_repository_is_shallow(libgit2.types.git_repository* repo);
 
 /**
  * Retrieve the configured identity to use for reflogs
@@ -1063,7 +1063,7 @@ int git_repository_is_shallow(libgit2_d.types.git_repository* repo);
  *      repo = the repository
  */
 //GIT_EXTERN
-int git_repository_ident(const (char)** name, const (char)** email, const (libgit2_d.types.git_repository)* repo);
+int git_repository_ident(const (char)** name, const (char)** email, const (libgit2.types.git_repository)* repo);
 
 /**
  * Set the identity to be used for writing reflogs
@@ -1078,6 +1078,6 @@ int git_repository_ident(const (char)** name, const (char)** email, const (libgi
  *      email = the email to use for the reflog entries
  */
 //GIT_EXTERN
-int git_repository_set_ident(libgit2_d.types.git_repository* repo, const (char)* name, const (char)* email);
+int git_repository_set_ident(libgit2.types.git_repository* repo, const (char)* name, const (char)* email);
 
 /* @} */

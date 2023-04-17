@@ -4,17 +4,17 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.reflog;
+module libgit2.sys.reflog;
 
 
-private static import libgit2_d.types;
+private static import libgit2.types;
 
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 //GIT_EXTERN
-libgit2_d.types.git_reflog_entry* git_reflog_entry__alloc();
+libgit2.types.git_reflog_entry* git_reflog_entry__alloc();
 
 //GIT_EXTERN
-void git_reflog_entry__free(libgit2_d.types.git_reflog_entry* entry);
+void git_reflog_entry__free(libgit2.types.git_reflog_entry* entry);

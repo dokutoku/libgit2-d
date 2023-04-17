@@ -4,10 +4,10 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.revparse;
+module libgit2.revparse;
 
 
-private static import libgit2_d.types;
+private static import libgit2.types;
 
 /*
  * @file git2/revparse.h
@@ -38,7 +38,7 @@ public:
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND, git_error_code.GIT_EAMBIGUOUS, git_error_code.GIT_EINVALIDSPEC or an error code
  */
 //GIT_EXTERN
-int git_revparse_single(libgit2_d.types.git_object** out_, libgit2_d.types.git_repository* repo, const (char)* spec);
+int git_revparse_single(libgit2.types.git_object** out_, libgit2.types.git_repository* repo, const (char)* spec);
 
 /**
  * Find a single object and intermediate reference by a revision string.
@@ -63,7 +63,7 @@ int git_revparse_single(libgit2_d.types.git_object** out_, libgit2_d.types.git_r
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND, git_error_code.GIT_EAMBIGUOUS, git_error_code.GIT_EINVALIDSPEC or an error code
  */
 //GIT_EXTERN
-int git_revparse_ext(libgit2_d.types.git_object** object_out, libgit2_d.types.git_reference** reference_out, libgit2_d.types.git_repository* repo, const (char)* spec);
+int git_revparse_ext(libgit2.types.git_object** object_out, libgit2.types.git_reference** reference_out, libgit2.types.git_repository* repo, const (char)* spec);
 
 /**
  * Revparse flags.  These indicate the intended behavior of the spec passed to
@@ -103,12 +103,12 @@ struct git_revspec
 	/**
 	 * The left element of the revspec; must be freed by the user
 	 */
-	libgit2_d.types.git_object* from;
+	libgit2.types.git_object* from;
 
 	/**
 	 * The right element of the revspec; must be freed by the user
 	 */
-	libgit2_d.types.git_object* to;
+	libgit2.types.git_object* to;
 
 	/**
 	 * The intent of the revspec (i.e. `git_revparse_mode_t` flags)
@@ -131,6 +131,6 @@ struct git_revspec
  * Returns: 0 on success, GIT_INVALIDSPEC, git_error_code.GIT_ENOTFOUND, git_error_code.GIT_EAMBIGUOUS or an error code
  */
 //GIT_EXTERN
-int git_revparse(.git_revspec* revspec, libgit2_d.types.git_repository* repo, const (char)* spec);
+int git_revparse(.git_revspec* revspec, libgit2.types.git_repository* repo, const (char)* spec);
 
 /* @} */

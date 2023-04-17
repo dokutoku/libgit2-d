@@ -4,15 +4,15 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.signature;
+module libgit2.signature;
 
 
-private static import libgit2_d.types;
+private static import libgit2.types;
 
 /*
  * @file git2/signature.h
  * @brief Git signature creation
- * @defgroup libgit2_d.types.git_signature Git signature creation
+ * @defgroup libgit2.types.git_signature Git signature creation
  * @ingroup Git
  * @{
  */
@@ -38,7 +38,7 @@ public:
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_signature_new(libgit2_d.types.git_signature** out_, const (char)* name, const (char)* email, libgit2_d.types.git_time_t time, int offset);
+int git_signature_new(libgit2.types.git_signature** out_, const (char)* name, const (char)* email, libgit2.types.git_time_t time, int offset);
 
 /**
  * Create a new action signature with a timestamp of 'now'.
@@ -53,7 +53,7 @@ int git_signature_new(libgit2_d.types.git_signature** out_, const (char)* name, 
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_signature_now(libgit2_d.types.git_signature** out_, const (char)* name, const (char)* email);
+int git_signature_now(libgit2.types.git_signature** out_, const (char)* name, const (char)* email);
 
 /**
  * Create a new action signature with default user and now timestamp.
@@ -70,7 +70,7 @@ int git_signature_now(libgit2_d.types.git_signature** out_, const (char)* name, 
  * Returns: 0 on success, git_error_code.GIT_ENOTFOUND if config is missing, or error code
  */
 //GIT_EXTERN
-int git_signature_default(libgit2_d.types.git_signature** out_, libgit2_d.types.git_repository* repo);
+int git_signature_default(libgit2.types.git_signature** out_, libgit2.types.git_repository* repo);
 
 /**
  * Create a new signature by parsing the given buffer, which is
@@ -86,7 +86,7 @@ int git_signature_default(libgit2_d.types.git_signature** out_, libgit2_d.types.
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_signature_from_buffer(libgit2_d.types.git_signature** out_, const (char)* buf);
+int git_signature_from_buffer(libgit2.types.git_signature** out_, const (char)* buf);
 
 /**
  * Create a copy of an existing signature.  All internal strings are also
@@ -101,7 +101,7 @@ int git_signature_from_buffer(libgit2_d.types.git_signature** out_, const (char)
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_signature_dup(libgit2_d.types.git_signature** dest, const (libgit2_d.types.git_signature)* sig);
+int git_signature_dup(libgit2.types.git_signature** dest, const (libgit2.types.git_signature)* sig);
 
 /**
  * Free an existing signature.
@@ -114,6 +114,6 @@ int git_signature_dup(libgit2_d.types.git_signature** dest, const (libgit2_d.typ
  *      sig = signature to free
  */
 //GIT_EXTERN
-void git_signature_free(libgit2_d.types.git_signature* sig);
+void git_signature_free(libgit2.types.git_signature* sig);
 
 /* @} */

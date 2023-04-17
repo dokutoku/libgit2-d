@@ -4,10 +4,10 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.mailmap;
+module libgit2.mailmap;
 
 
-private static import libgit2_d.types;
+private static import libgit2.types;
 
 /*
  * @file git2/mailmap.h
@@ -32,7 +32,7 @@ public:
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_mailmap_new(libgit2_d.types.git_mailmap** out_);
+int git_mailmap_new(libgit2.types.git_mailmap** out_);
 
 /**
  * Free the mailmap and its associated memory.
@@ -41,7 +41,7 @@ int git_mailmap_new(libgit2_d.types.git_mailmap** out_);
  *      mm = the mailmap to free
  */
 //GIT_EXTERN
-void git_mailmap_free(libgit2_d.types.git_mailmap* mm);
+void git_mailmap_free(libgit2.types.git_mailmap* mm);
 
 /**
  * Add a single entry to the given mailmap object. If the entry already exists,
@@ -57,7 +57,7 @@ void git_mailmap_free(libgit2_d.types.git_mailmap* mm);
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_mailmap_add_entry(libgit2_d.types.git_mailmap* mm, const (char)* real_name, const (char)* real_email, const (char)* replace_name, const (char)* replace_email);
+int git_mailmap_add_entry(libgit2.types.git_mailmap* mm, const (char)* real_name, const (char)* real_email, const (char)* replace_name, const (char)* replace_email);
 
 /**
  * Create a new mailmap instance containing a single mailmap file
@@ -70,7 +70,7 @@ int git_mailmap_add_entry(libgit2_d.types.git_mailmap* mm, const (char)* real_na
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_mailmap_from_buffer(libgit2_d.types.git_mailmap** out_, const (char)* buf, size_t len);
+int git_mailmap_from_buffer(libgit2.types.git_mailmap** out_, const (char)* buf, size_t len);
 
 /**
  * Create a new mailmap instance from a repository, loading mailmap files based
@@ -89,7 +89,7 @@ int git_mailmap_from_buffer(libgit2_d.types.git_mailmap** out_, const (char)* bu
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_mailmap_from_repository(libgit2_d.types.git_mailmap** out_, libgit2_d.types.git_repository* repo);
+int git_mailmap_from_repository(libgit2.types.git_mailmap** out_, libgit2.types.git_repository* repo);
 
 /**
  * Resolve a name and email to the corresponding real name and email.
@@ -106,7 +106,7 @@ int git_mailmap_from_repository(libgit2_d.types.git_mailmap** out_, libgit2_d.ty
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_mailmap_resolve(const (char)** real_name, const (char)** real_email, const (libgit2_d.types.git_mailmap)* mm, const (char)* name, const (char)* email);
+int git_mailmap_resolve(const (char)** real_name, const (char)** real_email, const (libgit2.types.git_mailmap)* mm, const (char)* name, const (char)* email);
 
 /**
  * Resolve a signature to use real names and emails with a mailmap.
@@ -121,6 +121,6 @@ int git_mailmap_resolve(const (char)** real_name, const (char)** real_email, con
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_mailmap_resolve_signature(libgit2_d.types.git_signature** out_, const (libgit2_d.types.git_mailmap)* mm, const (libgit2_d.types.git_signature)* sig);
+int git_mailmap_resolve_signature(libgit2.types.git_signature** out_, const (libgit2.types.git_mailmap)* mm, const (libgit2.types.git_signature)* sig);
 
 /* @} */

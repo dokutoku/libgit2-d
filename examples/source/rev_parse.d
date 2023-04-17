@@ -11,19 +11,19 @@
  * with this software. If not, see
  * <http://creativecommons.org/publicdomain/zero/1.0/>.
  */
-module libgit2_d.example.rev_parse;
+module libgit2.example.rev_parse;
 
 
 private static import core.stdc.stdio;
 private static import core.stdc.stdlib;
 private static import core.stdc.string;
-private static import libgit2_d.example.args;
-private static import libgit2_d.example.common;
-private static import libgit2_d.merge;
-private static import libgit2_d.object;
-private static import libgit2_d.oid;
-private static import libgit2_d.revparse;
-private static import libgit2_d.types;
+private static import libgit2.example.args;
+private static import libgit2.example.common;
+private static import libgit2.merge;
+private static import libgit2.object;
+private static import libgit2.oid;
+private static import libgit2.revparse;
+private static import libgit2.types;
 
 package:
 
@@ -39,8 +39,8 @@ public struct parse_state
 
 extern (C)
 nothrow @nogc
-//int lg2_rev_parse(libgit2_d.types.git_repository* repo, int argc, char*[] argv)
-public int lg2_rev_parse(libgit2_d.types.git_repository* repo, int argc, char** argv)
+//int lg2_rev_parse(libgit2.types.git_repository* repo, int argc, char*[] argv)
+public int lg2_rev_parse(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in
 	{
@@ -52,7 +52,7 @@ public int lg2_rev_parse(libgit2_d.types.git_repository* repo, int argc, char** 
 
 		.parse_opts(&ps, argc, argv);
 
-		libgit2_d.example.common.check_lg2(.parse_revision(repo, &ps), "Parsing", null);
+		libgit2.example.common.check_lg2(.parse_revision(repo, &ps), "Parsing", null);
 
 		return 0;
 	}
@@ -85,7 +85,7 @@ private void parse_opts(.parse_state* ps, int argc, char** argv)
 
 	do
 	{
-		libgit2_d.example.args.args_info args = libgit2_d.example.args.ARGS_INFO_INIT(argc, argv);
+		libgit2.example.args.args_info args = libgit2.example.args.ARGS_INFO_INIT(argc, argv);
 
 		for (args.pos = 1; args.pos < argc; ++args.pos) {
 			const (char)* a = argv[args.pos];
@@ -98,14 +98,14 @@ private void parse_opts(.parse_state* ps, int argc, char** argv)
 				ps.spec = a;
 			} else if (!core.stdc.string.strcmp(a, "--not")) {
 				ps.not = !ps.not;
-			} else if (!libgit2_d.example.args.match_str_arg(&ps.repodir, &args, "--git-dir")) {
+			} else if (!libgit2.example.args.match_str_arg(&ps.repodir, &args, "--git-dir")) {
 				.usage("Cannot handle argument", a);
 			}
 		}
 	}
 
 nothrow @nogc
-private int parse_revision(libgit2_d.types.git_repository* repo, .parse_state* ps)
+private int parse_revision(libgit2.types.git_repository* repo, .parse_state* ps)
 
 	in
 	{
@@ -113,33 +113,33 @@ private int parse_revision(libgit2_d.types.git_repository* repo, .parse_state* p
 
 	do
 	{
-		libgit2_d.revparse.git_revspec rs;
-		libgit2_d.example.common.check_lg2(libgit2_d.revparse.git_revparse(&rs, repo, ps.spec), "Could not parse", ps.spec);
+		libgit2.revparse.git_revspec rs;
+		libgit2.example.common.check_lg2(libgit2.revparse.git_revparse(&rs, repo, ps.spec), "Could not parse", ps.spec);
 
-		char[libgit2_d.oid.GIT_OID_HEXSZ + 1] str;
+		char[libgit2.oid.GIT_OID_HEXSZ + 1] str;
 
-		if ((rs.flags & libgit2_d.revparse.git_revparse_mode_t.GIT_REVPARSE_SINGLE) != 0) {
-			libgit2_d.oid.git_oid_tostr(&(str[0]), str.length, libgit2_d.object.git_object_id(rs.from));
+		if ((rs.flags & libgit2.revparse.git_revparse_mode_t.GIT_REVPARSE_SINGLE) != 0) {
+			libgit2.oid.git_oid_tostr(&(str[0]), str.length, libgit2.object.git_object_id(rs.from));
 			core.stdc.stdio.printf("%s\n", &(str[0]));
-			libgit2_d.object.git_object_free(rs.from);
-		} else if ((rs.flags & libgit2_d.revparse.git_revparse_mode_t.GIT_REVPARSE_RANGE) != 0) {
-			libgit2_d.oid.git_oid_tostr(&(str[0]), str.length, libgit2_d.object.git_object_id(rs.to));
+			libgit2.object.git_object_free(rs.from);
+		} else if ((rs.flags & libgit2.revparse.git_revparse_mode_t.GIT_REVPARSE_RANGE) != 0) {
+			libgit2.oid.git_oid_tostr(&(str[0]), str.length, libgit2.object.git_object_id(rs.to));
 			core.stdc.stdio.printf("%s\n", &(str[0]));
-			libgit2_d.object.git_object_free(rs.to);
+			libgit2.object.git_object_free(rs.to);
 
-			if ((rs.flags & libgit2_d.revparse.git_revparse_mode_t.GIT_REVPARSE_MERGE_BASE) != 0) {
-				libgit2_d.oid.git_oid base;
-				libgit2_d.example.common.check_lg2(libgit2_d.merge.git_merge_base(&base, repo, libgit2_d.object.git_object_id(rs.from), libgit2_d.object.git_object_id(rs.to)), "Could not find merge base", ps.spec);
+			if ((rs.flags & libgit2.revparse.git_revparse_mode_t.GIT_REVPARSE_MERGE_BASE) != 0) {
+				libgit2.oid.git_oid base;
+				libgit2.example.common.check_lg2(libgit2.merge.git_merge_base(&base, repo, libgit2.object.git_object_id(rs.from), libgit2.object.git_object_id(rs.to)), "Could not find merge base", ps.spec);
 
-				libgit2_d.oid.git_oid_tostr(&(str[0]), str.length, &base);
+				libgit2.oid.git_oid_tostr(&(str[0]), str.length, &base);
 				core.stdc.stdio.printf("%s\n", &(str[0]));
 			}
 
-			libgit2_d.oid.git_oid_tostr(&(str[0]), str.length, libgit2_d.object.git_object_id(rs.from));
+			libgit2.oid.git_oid_tostr(&(str[0]), str.length, libgit2.object.git_object_id(rs.from));
 			core.stdc.stdio.printf("^%s\n", &(str[0]));
-			libgit2_d.object.git_object_free(rs.from);
+			libgit2.object.git_object_free(rs.from);
 		} else {
-			libgit2_d.example.common.fatal("Invalid results from git_revparse", ps.spec);
+			libgit2.example.common.fatal("Invalid results from git_revparse", ps.spec);
 		}
 
 		return 0;

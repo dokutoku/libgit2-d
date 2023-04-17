@@ -4,10 +4,10 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.transport;
+module libgit2.transport;
 
 
-private static import libgit2_d.types;
+private static import libgit2.types;
 
 /*
  * @file git2/transport.h
@@ -36,6 +36,6 @@ alias git_transport_message_cb = int function(const (char)* str, int len, void* 
 /**
  * Signature of a function which creates a transport
  */
-alias git_transport_cb = int function(libgit2_d.types.git_transport** out_, libgit2_d.types.git_remote* owner, void* param);
+alias git_transport_cb = int function(libgit2.types.git_transport** out_, libgit2.types.git_remote* owner, void* param);
 
 /* @} */

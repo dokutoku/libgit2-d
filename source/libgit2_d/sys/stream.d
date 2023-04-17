@@ -4,16 +4,16 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.stream;
+module libgit2.sys.stream;
 
 
 private static import core.sys.posix.sys.types;
-private static import libgit2_d.proxy;
-private static import libgit2_d.types;
+private static import libgit2.proxy;
+private static import libgit2.types;
 
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 enum GIT_STREAM_VERSION = 1;
 
@@ -39,8 +39,8 @@ struct git_stream
 	int encrypted;
 	int proxy_support;
 	int function(.git_stream*) connect;
-	int function(libgit2_d.types.git_cert**,  .git_stream*) certificate;
-	int function(.git_stream*, const (libgit2_d.proxy.git_proxy_options)* proxy_opts) set_proxy;
+	int function(libgit2.types.git_cert**,  .git_stream*) certificate;
+	int function(.git_stream*, const (libgit2.proxy.git_proxy_options)* proxy_opts) set_proxy;
 	core.sys.posix.sys.types.ssize_t function(.git_stream*, void*, size_t) read;
 	core.sys.posix.sys.types.ssize_t function(.git_stream*, const (char)*, size_t, int) write;
 	int function(.git_stream*) close;

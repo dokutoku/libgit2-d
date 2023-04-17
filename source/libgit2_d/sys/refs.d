@@ -4,11 +4,11 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.refs;
+module libgit2.sys.refs;
 
 
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/sys/refs.h
@@ -19,7 +19,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 /**
  * Create a new direct reference from an OID.
@@ -32,7 +32,7 @@ package(libgit2_d):
  * Returns: the created git_reference or null on error
  */
 //GIT_EXTERN
-libgit2_d.types.git_reference* git_reference__alloc(const (char)* name, const (libgit2_d.oid.git_oid)* oid, const (libgit2_d.oid.git_oid)* peel);
+libgit2.types.git_reference* git_reference__alloc(const (char)* name, const (libgit2.oid.git_oid)* oid, const (libgit2.oid.git_oid)* peel);
 
 /**
  * Create a new symbolic reference.
@@ -44,6 +44,6 @@ libgit2_d.types.git_reference* git_reference__alloc(const (char)* name, const (l
  * Returns: the created git_reference or null on error
  */
 //GIT_EXTERN
-libgit2_d.types.git_reference* git_reference__alloc_symbolic(const (char)* name, const (char)* target);
+libgit2.types.git_reference* git_reference__alloc_symbolic(const (char)* name, const (char)* target);
 
 /* @} */

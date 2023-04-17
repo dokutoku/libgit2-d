@@ -4,10 +4,10 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.message;
+module libgit2.message;
 
 
-private static import libgit2_d.buffer;
+private static import libgit2.buffer;
 
 /*
  * @file git2/message.h
@@ -34,7 +34,7 @@ public:
  * Returns: 0 or an error code.
  */
 //GIT_EXTERN
-int git_message_prettify(libgit2_d.buffer.git_buf* out_, const (char)* message, int strip_comments, char comment_char);
+int git_message_prettify(libgit2.buffer.git_buf* out_, const (char)* message, int strip_comments, char comment_char);
 
 /**
  * Represents a single git message trailer.

@@ -4,12 +4,12 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.checkout;
+module libgit2.checkout;
 
 
-private static import libgit2_d.diff;
-private static import libgit2_d.strarray;
-private static import libgit2_d.types;
+private static import libgit2.diff;
+private static import libgit2.strarray;
+private static import libgit2.types;
 
 /*
  * @file git2/checkout.h
@@ -323,7 +323,7 @@ struct git_checkout_perfdata
 /**
  * Checkout notification callback function
  */
-alias git_checkout_notify_cb = int function(.git_checkout_notify_t why, const (char)* path, const (libgit2_d.diff.git_diff_file)* baseline, const (libgit2_d.diff.git_diff_file)* target, const (libgit2_d.diff.git_diff_file)* workdir, void* payload);
+alias git_checkout_notify_cb = int function(.git_checkout_notify_t why, const (char)* path, const (libgit2.diff.git_diff_file)* baseline, const (libgit2.diff.git_diff_file)* target, const (libgit2.diff.git_diff_file)* workdir, void* payload);
 
 /**
  * Checkout progress notification function
@@ -408,7 +408,7 @@ struct git_checkout_options
 	 *
 	 * Use git_checkout_strategy_t.GIT_CHECKOUT_DISABLE_PATHSPEC_MATCH to treat as a simple list.
 	 */
-	libgit2_d.strarray.git_strarray paths;
+	libgit2.strarray.git_strarray paths;
 
 	/**
 	 * The expected content of the working directory; defaults to HEAD.
@@ -416,13 +416,13 @@ struct git_checkout_options
 	 * If the working directory does not match this baseline information,
 	 * that will produce a checkout conflict.
 	 */
-	libgit2_d.types.git_tree* baseline;
+	libgit2.types.git_tree* baseline;
 
 	/**
 	 * Like `baseline` above, though expressed as an index.  This
 	 * option overrides `baseline`.
 	 */
-	libgit2_d.types.git_index* baseline_index; 
+	libgit2.types.git_index* baseline_index; 
 
 	/**
 	 * alternative checkout path to workdir
@@ -505,7 +505,7 @@ int git_checkout_options_init(.git_checkout_options* opts, uint version_);
  * Returns: 0 on success, git_error_code.GIT_EUNBORNBRANCH if HEAD points to a non existing branch, non-zero value returned by `notify_cb`, or other error code < 0 (use git_error_last for error details)
  */
 //GIT_EXTERN
-int git_checkout_head(libgit2_d.types.git_repository* repo, const (.git_checkout_options)* opts);
+int git_checkout_head(libgit2.types.git_repository* repo, const (.git_checkout_options)* opts);
 
 /**
  * Updates files in the working tree to match the content of the index.
@@ -518,7 +518,7 @@ int git_checkout_head(libgit2_d.types.git_repository* repo, const (.git_checkout
  * Returns: 0 on success, non-zero return value from `notify_cb`, or error code < 0 (use git_error_last for error details)
  */
 //GIT_EXTERN
-int git_checkout_index(libgit2_d.types.git_repository* repo, libgit2_d.types.git_index* index, const (.git_checkout_options)* opts);
+int git_checkout_index(libgit2.types.git_repository* repo, libgit2.types.git_index* index, const (.git_checkout_options)* opts);
 
 /**
  * Updates files in the index and working tree to match the content of the
@@ -532,6 +532,6 @@ int git_checkout_index(libgit2_d.types.git_repository* repo, libgit2_d.types.git
  * Returns: 0 on success, non-zero return value from `notify_cb`, or error code < 0 (use git_error_last for error details)
  */
 //GIT_EXTERN
-int git_checkout_tree(libgit2_d.types.git_repository* repo, const (libgit2_d.types.git_object)* treeish, const (.git_checkout_options)* opts);
+int git_checkout_tree(libgit2.types.git_repository* repo, const (libgit2.types.git_object)* treeish, const (.git_checkout_options)* opts);
 
 /* @} */

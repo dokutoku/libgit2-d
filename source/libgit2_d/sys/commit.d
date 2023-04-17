@@ -4,11 +4,11 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.sys.commit;
+module libgit2.sys.commit;
 
 
-private static import libgit2_d.oid;
-private static import libgit2_d.types;
+private static import libgit2.oid;
+private static import libgit2.types;
 
 /*
  * @file git2/sys/commit.h
@@ -19,7 +19,7 @@ private static import libgit2_d.types;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2_d):
+package(libgit2):
 
 /**
  * Create new commit in the repository from a list of `git_oid` values.
@@ -33,7 +33,7 @@ package(libgit2_d):
  * @see git_commit_create
  */
 //GIT_EXTERN
-int git_commit_create_from_ids(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* update_ref, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2_d.oid.git_oid)* tree, size_t parent_count, const (libgit2_d.oid.git_oid)** parents);
+int git_commit_create_from_ids(libgit2.oid.git_oid* id, libgit2.types.git_repository* repo, const (char)* update_ref, const (libgit2.types.git_signature)* author, const (libgit2.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2.oid.git_oid)* tree, size_t parent_count, const (libgit2.oid.git_oid)** parents);
 
 /**
  * Callback function to return parents for commit.
@@ -42,7 +42,7 @@ int git_commit_create_from_ids(libgit2_d.oid.git_oid* id, libgit2_d.types.git_re
  * along with the user supplied payload.  This should return a git_oid of
  * the next parent or null if all parents have been provided.
  */
-alias git_commit_parent_callback = const (libgit2_d.oid.git_oid)* function(size_t idx, void* payload);
+alias git_commit_parent_callback = const (libgit2.oid.git_oid)* function(size_t idx, void* payload);
 
 /**
  * Create a new commit in the repository with an callback to supply parents.
@@ -56,6 +56,6 @@ alias git_commit_parent_callback = const (libgit2_d.oid.git_oid)* function(size_
  * @see git_commit_create
  */
 //GIT_EXTERN
-int git_commit_create_from_callback(libgit2_d.oid.git_oid* id, libgit2_d.types.git_repository* repo, const (char)* update_ref, const (libgit2_d.types.git_signature)* author, const (libgit2_d.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2_d.oid.git_oid)* tree, .git_commit_parent_callback parent_cb, void* parent_payload);
+int git_commit_create_from_callback(libgit2.oid.git_oid* id, libgit2.types.git_repository* repo, const (char)* update_ref, const (libgit2.types.git_signature)* author, const (libgit2.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2.oid.git_oid)* tree, .git_commit_parent_callback parent_cb, void* parent_payload);
 
 /* @} */

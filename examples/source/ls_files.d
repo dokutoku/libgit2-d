@@ -11,15 +11,15 @@
  * with this software. If not, see
  * <http://creativecommons.org/publicdomain/zero/1.0/>.
  */
-module libgit2_d.example.ls_files;
+module libgit2.example.ls_files;
 
 
 private static import core.stdc.stdio;
 private static import core.stdc.stdlib;
 private static import core.stdc.string;
-private static import libgit2_d.index;
-private static import libgit2_d.repository;
-private static import libgit2_d.types;
+private static import libgit2.index;
+private static import libgit2.repository;
+private static import libgit2.types;
 
 package:
 
@@ -107,7 +107,7 @@ private int parse_options(.ls_options* opts, int argc, char** argv)
 	}
 
 nothrow @nogc
-private int print_paths(.ls_options* opts, libgit2_d.types.git_index* index)
+private int print_paths(.ls_options* opts, libgit2.types.git_index* index)
 
 	in
 	{
@@ -115,14 +115,14 @@ private int print_paths(.ls_options* opts, libgit2_d.types.git_index* index)
 
 	do
 	{
-		const (libgit2_d.index.git_index_entry)* entry;
+		const (libgit2.index.git_index_entry)* entry;
 
 		/* if there are no files explicitly listed by the user print all entries in the index */
 		if (opts.file_count == 0) {
-			size_t entry_count = libgit2_d.index.git_index_entrycount(index);
+			size_t entry_count = libgit2.index.git_index_entrycount(index);
 
 			for (size_t i = 0; i < entry_count; i++) {
-				entry = libgit2_d.index.git_index_get_byindex(index, i);
+				entry = libgit2.index.git_index_get_byindex(index, i);
 				core.stdc.stdio.puts(entry.path);
 			}
 
@@ -132,7 +132,7 @@ private int print_paths(.ls_options* opts, libgit2_d.types.git_index* index)
 		/* loop through the files found in the args and print them if they exist */
 		for (size_t i = 0; i < opts.file_count; ++i) {
 			const (char)* path = opts.files[i];
-			entry = libgit2_d.index.git_index_get_bypath(index, path, libgit2_d.index.git_index_stage_t.GIT_INDEX_STAGE_NORMAL);
+			entry = libgit2.index.git_index_get_bypath(index, path, libgit2.index.git_index_stage_t.GIT_INDEX_STAGE_NORMAL);
 
 			if (entry != null) {
 				core.stdc.stdio.puts(path);
@@ -149,8 +149,8 @@ private int print_paths(.ls_options* opts, libgit2_d.types.git_index* index)
 
 extern (C)
 nothrow @nogc
-//int lg2_ls_files(libgit2_d.types.git_repository* repo, int argc, char*[] argv)
-public int lg2_ls_files(libgit2_d.types.git_repository* repo, int argc, char** argv)
+//int lg2_ls_files(libgit2.types.git_repository* repo, int argc, char*[] argv)
+public int lg2_ls_files(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in
 	{
@@ -165,13 +165,13 @@ public int lg2_ls_files(libgit2_d.types.git_repository* repo, int argc, char** a
 			return error;
 		}
 
-		libgit2_d.types.git_index* index = null;
+		libgit2.types.git_index* index = null;
 
 		scope (exit) {
-			libgit2_d.index.git_index_free(index);
+			libgit2.index.git_index_free(index);
 		}
 
-		error = libgit2_d.repository.git_repository_index(&index, repo);
+		error = libgit2.repository.git_repository_index(&index, repo);
 
 		if (error < 0) {
 			return error;

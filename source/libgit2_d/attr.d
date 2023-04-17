@@ -4,10 +4,10 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.attr;
+module libgit2.attr;
 
 
-private static import libgit2_d.types;
+private static import libgit2.types;
 
 /*
  * @file git2/attr.h
@@ -205,7 +205,7 @@ enum GIT_ATTR_CHECK_INCLUDE_HEAD = 1 << 3;
  *      name = The name of the attribute to look up.
  */
 //GIT_EXTERN
-int git_attr_get(const (char)** value_out, libgit2_d.types.git_repository* repo, uint flags, const (char)* path, const (char)* name);
+int git_attr_get(const (char)** value_out, libgit2.types.git_repository* repo, uint flags, const (char)* path, const (char)* name);
 
 /**
  * Look up a list of git attributes for path.
@@ -232,7 +232,7 @@ int git_attr_get(const (char)** value_out, libgit2_d.types.git_repository* repo,
  *      names = An array of num_attr strings containing attribute names.
  */
 //GIT_EXTERN
-int git_attr_get_many(const (char)** values_out, libgit2_d.types.git_repository* repo, uint flags, const (char)* path, size_t num_attr, const (char)** names);
+int git_attr_get_many(const (char)** values_out, libgit2.types.git_repository* repo, uint flags, const (char)* path, size_t num_attr, const (char)** names);
 
 /**
  * The callback used with git_attr_foreach.
@@ -266,7 +266,7 @@ alias git_attr_foreach_cb = int function(const (char)* name, const (char)* value
  * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
-int git_attr_foreach(libgit2_d.types.git_repository* repo, uint flags, const (char)* path, .git_attr_foreach_cb callback, void* payload);
+int git_attr_foreach(libgit2.types.git_repository* repo, uint flags, const (char)* path, .git_attr_foreach_cb callback, void* payload);
 
 /**
  * Flush the gitattributes cache.
@@ -282,7 +282,7 @@ int git_attr_foreach(libgit2_d.types.git_repository* repo, uint flags, const (ch
  * Returns: 0 on success, or an error code
  */
 //GIT_EXTERN
-int git_attr_cache_flush(libgit2_d.types.git_repository* repo);
+int git_attr_cache_flush(libgit2.types.git_repository* repo);
 
 /**
  * Add a macro definition.
@@ -295,6 +295,6 @@ int git_attr_cache_flush(libgit2_d.types.git_repository* repo);
  *     git_attr_add_macro(repo, "binary", "-diff -crlf");
  */
 //GIT_EXTERN
-int git_attr_add_macro(libgit2_d.types.git_repository* repo, const (char)* name, const (char)* values);
+int git_attr_add_macro(libgit2.types.git_repository* repo, const (char)* name, const (char)* values);
 
 /* @} */

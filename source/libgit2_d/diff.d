@@ -4,13 +4,13 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.diff;
+module libgit2.diff;
 
 
-private static import libgit2_d.buffer;
-private static import libgit2_d.oid;
-private static import libgit2_d.strarray;
-private static import libgit2_d.types;
+private static import libgit2.buffer;
+private static import libgit2.oid;
+private static import libgit2.strarray;
+private static import libgit2.types;
 
 /*
  * @file git2/diff.h
@@ -422,7 +422,7 @@ enum
  * `flags` is a combination of the `git_diff_flag_t` types
  *
  * `mode` is, roughly, the stat() `st_mode` value for the item.  This will
- * be restricted to one of the `libgit2_d.types.git_filemode_t` values.
+ * be restricted to one of the `libgit2.types.git_filemode_t` values.
  *
  * The `id_abbrev` represents the known length of the `id` field, when
  * converted to a hex string.  It is generally `GIT_OID_HEXSZ`, unless this
@@ -431,9 +431,9 @@ enum
  */
 struct git_diff_file
 {
-	libgit2_d.oid.git_oid id;
+	libgit2.oid.git_oid id;
 	const (char)* path;
-	libgit2_d.types.git_object_size_t size;
+	libgit2.types.git_object_size_t size;
 	uint flags;
 	ushort mode;
 	ushort id_abbrev;
@@ -558,13 +558,13 @@ struct git_diff_options
 	/**
 	 * Overrides the submodule ignore setting for all submodules in the diff.
 	 */
-	libgit2_d.types.git_submodule_ignore_t ignore_submodules;
+	libgit2.types.git_submodule_ignore_t ignore_submodules;
 
 	/**
 	 * An array of paths / fnmatch patterns to constrain diff.
 	 * All paths are included by default.
 	 */
-	libgit2_d.strarray.git_strarray pathspec;
+	libgit2.strarray.git_strarray pathspec;
 
 	/**
 	 * An optional callback function, notifying the consumer of changes to
@@ -608,7 +608,7 @@ struct git_diff_options
 	 * automatically; pass a negative value to disable.
 	 * Defaults to 512MB.
 	 */
-	libgit2_d.types.git_off_t max_size;
+	libgit2.types.git_off_t max_size;
 
 	/**
 	 * The virtual "directory" prefix for old file names in hunk headers.
@@ -639,7 +639,7 @@ pure nothrow @safe @nogc
 
 	do
 	{
-		libgit2_d.strarray.git_strarray PATHSPEC_OPTION =
+		libgit2.strarray.git_strarray PATHSPEC_OPTION =
 		{
 			strings: null,
 			count: 0,
@@ -649,7 +649,7 @@ pure nothrow @safe @nogc
 		{
 			version_: .GIT_DIFF_OPTIONS_VERSION,
 			flags: 0,
-			ignore_submodules: libgit2_d.types.git_submodule_ignore_t.GIT_SUBMODULE_IGNORE_UNSPECIFIED,
+			ignore_submodules: libgit2.types.git_submodule_ignore_t.GIT_SUBMODULE_IGNORE_UNSPECIFIED,
 			pathspec: PATHSPEC_OPTION,
 			notify_cb: null,
 			progress_cb: null,
@@ -931,7 +931,7 @@ struct git_diff_line
 	/**
 	 * Offset in the original file to the content
 	 */
-	libgit2_d.types.git_off_t content_offset;
+	libgit2.types.git_off_t content_offset;
 
 	/**
 	 * Pointer to diff text, not NUL-byte terminated
@@ -1221,7 +1221,7 @@ void git_diff_free(.git_diff* diff);
  *      opts = Structure with options to influence diff or null for defaults.
  */
 //GIT_EXTERN
-int git_diff_tree_to_tree(.git_diff** diff, libgit2_d.types.git_repository* repo, libgit2_d.types.git_tree* old_tree, libgit2_d.types.git_tree* new_tree, const (.git_diff_options)* opts);
+int git_diff_tree_to_tree(.git_diff** diff, libgit2.types.git_repository* repo, libgit2.types.git_tree* old_tree, libgit2.types.git_tree* new_tree, const (.git_diff_options)* opts);
 
 /**
  * Create a diff between a tree and repository index.
@@ -1244,7 +1244,7 @@ int git_diff_tree_to_tree(.git_diff** diff, libgit2_d.types.git_repository* repo
  *      opts = Structure with options to influence diff or null for defaults.
  */
 //GIT_EXTERN
-int git_diff_tree_to_index(.git_diff** diff, libgit2_d.types.git_repository* repo, libgit2_d.types.git_tree* old_tree, libgit2_d.types.git_index* index, const (.git_diff_options)* opts);
+int git_diff_tree_to_index(.git_diff** diff, libgit2.types.git_repository* repo, libgit2.types.git_tree* old_tree, libgit2.types.git_index* index, const (.git_diff_options)* opts);
 
 /**
  * Create a diff between the repository index and the workdir directory.
@@ -1268,7 +1268,7 @@ int git_diff_tree_to_index(.git_diff** diff, libgit2_d.types.git_repository* rep
  *      opts = Structure with options to influence diff or null for defaults.
  */
 //GIT_EXTERN
-int git_diff_index_to_workdir(.git_diff** diff, libgit2_d.types.git_repository* repo, libgit2_d.types.git_index* index, const (.git_diff_options)* opts);
+int git_diff_index_to_workdir(.git_diff** diff, libgit2.types.git_repository* repo, libgit2.types.git_index* index, const (.git_diff_options)* opts);
 
 /**
  * Create a diff between a tree and the working directory.
@@ -1295,7 +1295,7 @@ int git_diff_index_to_workdir(.git_diff** diff, libgit2_d.types.git_repository* 
  *      opts = Structure with options to influence diff or null for defaults.
  */
 //GIT_EXTERN
-int git_diff_tree_to_workdir(.git_diff** diff, libgit2_d.types.git_repository* repo, libgit2_d.types.git_tree* old_tree, const (.git_diff_options)* opts);
+int git_diff_tree_to_workdir(.git_diff** diff, libgit2.types.git_repository* repo, libgit2.types.git_tree* old_tree, const (.git_diff_options)* opts);
 
 /**
  * Create a diff between a tree and the working directory using index data
@@ -1312,7 +1312,7 @@ int git_diff_tree_to_workdir(.git_diff** diff, libgit2_d.types.git_repository* r
  *      opts = Structure with options to influence diff or null for defaults.
  */
 //GIT_EXTERN
-int git_diff_tree_to_workdir_with_index(.git_diff** diff, libgit2_d.types.git_repository* repo, libgit2_d.types.git_tree* old_tree, const (.git_diff_options)* opts);
+int git_diff_tree_to_workdir_with_index(.git_diff** diff, libgit2.types.git_repository* repo, libgit2.types.git_tree* old_tree, const (.git_diff_options)* opts);
 
 /**
  * Create a diff with the difference between two index objects.
@@ -1328,7 +1328,7 @@ int git_diff_tree_to_workdir_with_index(.git_diff** diff, libgit2_d.types.git_re
  *      opts = Structure with options to influence diff or null for defaults.
  */
 //GIT_EXTERN
-int git_diff_index_to_index(.git_diff** diff, libgit2_d.types.git_repository* repo, libgit2_d.types.git_index* old_index, libgit2_d.types.git_index* new_index, const (.git_diff_options)* opts);
+int git_diff_index_to_index(.git_diff** diff, libgit2.types.git_repository* repo, libgit2.types.git_index* old_index, libgit2.types.git_index* new_index, const (.git_diff_options)* opts);
 
 /**
  * Merge one diff into another.
@@ -1553,7 +1553,7 @@ int git_diff_print(.git_diff* diff, .git_diff_format_t format, .git_diff_line_cb
  * Returns: 0 on success or error code
  */
 //GIT_EXTERN
-int git_diff_to_buf(libgit2_d.buffer.git_buf* out_, .git_diff* diff, .git_diff_format_t format);
+int git_diff_to_buf(libgit2.buffer.git_buf* out_, .git_diff* diff, .git_diff_format_t format);
 
 /*@}*/
 
@@ -1592,7 +1592,7 @@ int git_diff_to_buf(libgit2_d.buffer.git_buf* out_, .git_diff* diff, .git_diff_f
  * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
-int git_diff_blobs(const (libgit2_d.types.git_blob)* old_blob, const (char)* old_as_path, const (libgit2_d.types.git_blob)* new_blob, const (char)* new_as_path, const (.git_diff_options)* options, .git_diff_file_cb file_cb, .git_diff_binary_cb binary_cb, .git_diff_hunk_cb hunk_cb, .git_diff_line_cb line_cb, void* payload);
+int git_diff_blobs(const (libgit2.types.git_blob)* old_blob, const (char)* old_as_path, const (libgit2.types.git_blob)* new_blob, const (char)* new_as_path, const (.git_diff_options)* options, .git_diff_file_cb file_cb, .git_diff_binary_cb binary_cb, .git_diff_hunk_cb hunk_cb, .git_diff_line_cb line_cb, void* payload);
 
 /**
  * Directly run a diff between a blob and a buffer.
@@ -1622,7 +1622,7 @@ int git_diff_blobs(const (libgit2_d.types.git_blob)* old_blob, const (char)* old
  * Returns: 0 on success, non-zero callback return value, or error code
  */
 //GIT_EXTERN
-int git_diff_blob_to_buffer(const (libgit2_d.types.git_blob)* old_blob, const (char)* old_as_path, const (char)* buffer, size_t buffer_len, const (char)* buffer_as_path, const (.git_diff_options)* options, .git_diff_file_cb file_cb, .git_diff_binary_cb binary_cb, .git_diff_hunk_cb hunk_cb, .git_diff_line_cb line_cb, void* payload);
+int git_diff_blob_to_buffer(const (libgit2.types.git_blob)* old_blob, const (char)* old_as_path, const (char)* buffer, size_t buffer_len, const (char)* buffer_as_path, const (.git_diff_options)* options, .git_diff_file_cb file_cb, .git_diff_binary_cb binary_cb, .git_diff_hunk_cb hunk_cb, .git_diff_line_cb line_cb, void* payload);
 
 /**
  * Directly run a diff between two buffers.
@@ -1780,7 +1780,7 @@ size_t git_diff_stats_deletions(const (.git_diff_stats)* stats);
  * Returns: 0 on success; non-zero on error
  */
 //GIT_EXTERN
-int git_diff_stats_to_buf(libgit2_d.buffer.git_buf* out_, const (.git_diff_stats)* stats, .git_diff_stats_format_t format, size_t width);
+int git_diff_stats_to_buf(libgit2.buffer.git_buf* out_, const (.git_diff_stats)* stats, .git_diff_stats_format_t format, size_t width);
 
 /**
  * Deallocate a `git_diff_stats`.
@@ -1840,7 +1840,7 @@ struct git_diff_format_email_options
 	/**
 	 * id to use for the commit
 	 */
-	const (libgit2_d.oid.git_oid)* id;
+	const (libgit2.oid.git_oid)* id;
 
 	/**
 	 * Summary of the change
@@ -1855,7 +1855,7 @@ struct git_diff_format_email_options
 	/**
 	 * Author of the change
 	 */
-	const (libgit2_d.types.git_signature)* author;
+	const (libgit2.types.git_signature)* author;
 }
 
 enum GIT_DIFF_FORMAT_EMAIL_OPTIONS_VERSION = 1;
@@ -1892,7 +1892,7 @@ pure nothrow @safe @nogc
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_diff_format_email(libgit2_d.buffer.git_buf* out_, .git_diff* diff, const (.git_diff_format_email_options)* opts);
+int git_diff_format_email(libgit2.buffer.git_buf* out_, .git_diff* diff, const (.git_diff_format_email_options)* opts);
 
 /**
  * Create an e-mail ready patch for a commit.
@@ -1911,7 +1911,7 @@ int git_diff_format_email(libgit2_d.buffer.git_buf* out_, .git_diff* diff, const
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_diff_commit_as_email(libgit2_d.buffer.git_buf* out_, libgit2_d.types.git_repository* repo, libgit2_d.types.git_commit* commit, size_t patch_no, size_t total_patches, uint flags, const (.git_diff_options)* diff_opts);
+int git_diff_commit_as_email(libgit2.buffer.git_buf* out_, libgit2.types.git_repository* repo, libgit2.types.git_commit* commit, size_t patch_no, size_t total_patches, uint flags, const (.git_diff_options)* diff_opts);
 
 /**
  * Initialize git_diff_format_email_options structure
@@ -1990,6 +1990,6 @@ int git_diff_patchid_options_init(.git_diff_patchid_options* opts, uint version_
  * Returns: 0 on success, an error code otherwise.
  */
 //GIT_EXTERN
-int git_diff_patchid(libgit2_d.oid.git_oid* out_, .git_diff* diff, .git_diff_patchid_options* opts);
+int git_diff_patchid(libgit2.oid.git_oid* out_, .git_diff* diff, .git_diff_patchid_options* opts);
 
 /* @} */

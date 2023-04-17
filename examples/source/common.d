@@ -11,7 +11,7 @@
  * with this software. If not, see
  * <http://creativecommons.org/publicdomain/zero/1.0/>.
  */
-module libgit2_d.example.common;
+module libgit2.example.common;
 
 
 private static import core.stdc.errno;
@@ -26,14 +26,14 @@ private static import core.sys.posix.sys.types;
 private static import core.sys.posix.unistd;
 private static import core.sys.windows.stat;
 private static import core.sys.windows.winbase;
-private static import libgit2_d.annotated_commit;
-private static import libgit2_d.credential;
-private static import libgit2_d.diff;
-private static import libgit2_d.errors;
-private static import libgit2_d.object;
-private static import libgit2_d.refs;
-private static import libgit2_d.revparse;
-private static import libgit2_d.types;
+private static import libgit2.annotated_commit;
+private static import libgit2.credential;
+private static import libgit2.diff;
+private static import libgit2.errors;
+private static import libgit2.object;
+private static import libgit2.refs;
+private static import libgit2.revparse;
+private static import libgit2.types;
 
 package:
 
@@ -107,7 +107,7 @@ public void check_lg2(int error, const (char)* message, const (char)* extra)
 			return;
 		}
 
-		const (libgit2_d.errors.git_error)* lg2err = libgit2_d.errors.git_error_last();
+		const (libgit2.errors.git_error)* lg2err = libgit2.errors.git_error_last();
 		const (char)* lg2msg = "";
 		const (char)* lg2spacer = "";
 
@@ -152,7 +152,7 @@ public void fatal(const (char)* message, const (char)* extra)
  */
 extern (C)
 nothrow @nogc
-public int diff_output(const (libgit2_d.diff.git_diff_delta)* d, const (libgit2_d.diff.git_diff_hunk)* h, const (libgit2_d.diff.git_diff_line)* l, void* p)
+public int diff_output(const (libgit2.diff.git_diff_delta)* d, const (libgit2.diff.git_diff_hunk)* h, const (libgit2.diff.git_diff_line)* l, void* p)
 
 	in
 	{
@@ -169,7 +169,7 @@ public int diff_output(const (libgit2_d.diff.git_diff_delta)* d, const (libgit2_
 			fp = core.stdc.stdio.stdout;
 		}
 
-		if ((l.origin == libgit2_d.diff.git_diff_line_t.GIT_DIFF_LINE_CONTEXT) || (l.origin == libgit2_d.diff.git_diff_line_t.GIT_DIFF_LINE_ADDITION) || (l.origin == libgit2_d.diff.git_diff_line_t.GIT_DIFF_LINE_DELETION)) {
+		if ((l.origin == libgit2.diff.git_diff_line_t.GIT_DIFF_LINE_CONTEXT) || (l.origin == libgit2.diff.git_diff_line_t.GIT_DIFF_LINE_ADDITION) || (l.origin == libgit2.diff.git_diff_line_t.GIT_DIFF_LINE_DELETION)) {
 			core.stdc.stdio.fputc(l.origin, fp);
 		}
 
@@ -183,7 +183,7 @@ public int diff_output(const (libgit2_d.diff.git_diff_delta)* d, const (libgit2_
  * and exit the program if `treeish` cannot be resolved to a tree
  */
 nothrow @nogc
-public void treeish_to_tree(libgit2_d.types.git_tree** out_, libgit2_d.types.git_repository* repo, const (char)* treeish)
+public void treeish_to_tree(libgit2.types.git_tree** out_, libgit2.types.git_repository* repo, const (char)* treeish)
 
 	in
 	{
@@ -191,13 +191,13 @@ public void treeish_to_tree(libgit2_d.types.git_tree** out_, libgit2_d.types.git
 
 	do
 	{
-		libgit2_d.types.git_object* obj = null;
+		libgit2.types.git_object* obj = null;
 
-		.check_lg2(libgit2_d.revparse.git_revparse_single(&obj, repo, treeish), "looking up object", treeish);
+		.check_lg2(libgit2.revparse.git_revparse_single(&obj, repo, treeish), "looking up object", treeish);
 
-		.check_lg2(libgit2_d.object.git_object_peel(cast(libgit2_d.types.git_object**)(out_), obj, libgit2_d.types.git_object_t.GIT_OBJECT_TREE), "resolving object to tree", treeish);
+		.check_lg2(libgit2.object.git_object_peel(cast(libgit2.types.git_object**)(out_), obj, libgit2.types.git_object_t.GIT_OBJECT_TREE), "resolving object to tree", treeish);
 
-		libgit2_d.object.git_object_free(obj);
+		libgit2.object.git_object_free(obj);
 	}
 
 /**
@@ -226,7 +226,7 @@ public void* xrealloc(void* oldp, size_t newsz)
  * Convert a refish to an annotated commit.
  */
 nothrow @nogc
-public int resolve_refish(libgit2_d.types.git_annotated_commit** commit, libgit2_d.types.git_repository* repo, const (char)* refish)
+public int resolve_refish(libgit2.types.git_annotated_commit** commit, libgit2.types.git_repository* repo, const (char)* refish)
 
 	in
 	{
@@ -235,22 +235,22 @@ public int resolve_refish(libgit2_d.types.git_annotated_commit** commit, libgit2
 
 	do
 	{
-		libgit2_d.types.git_reference* ref_;
-		int err = libgit2_d.refs.git_reference_dwim(&ref_, repo, refish);
+		libgit2.types.git_reference* ref_;
+		int err = libgit2.refs.git_reference_dwim(&ref_, repo, refish);
 
-		if (err == libgit2_d.errors.git_error_code.GIT_OK) {
-			libgit2_d.annotated_commit.git_annotated_commit_from_ref(commit, repo, ref_);
-			libgit2_d.refs.git_reference_free(ref_);
+		if (err == libgit2.errors.git_error_code.GIT_OK) {
+			libgit2.annotated_commit.git_annotated_commit_from_ref(commit, repo, ref_);
+			libgit2.refs.git_reference_free(ref_);
 
 			return 0;
 		}
 
-		libgit2_d.types.git_object* obj;
-		err = libgit2_d.revparse.git_revparse_single(&obj, repo, refish);
+		libgit2.types.git_object* obj;
+		err = libgit2.revparse.git_revparse_single(&obj, repo, refish);
 
-		if (err == libgit2_d.errors.git_error_code.GIT_OK) {
-			err = libgit2_d.annotated_commit.git_annotated_commit_lookup(commit, repo, libgit2_d.object.git_object_id(obj));
-			libgit2_d.object.git_object_free(obj);
+		if (err == libgit2.errors.git_error_code.GIT_OK) {
+			err = libgit2.annotated_commit.git_annotated_commit_lookup(commit, repo, libgit2.object.git_object_id(obj));
+			libgit2.object.git_object_free(obj);
 		}
 
 		return err;
@@ -339,7 +339,7 @@ private int ask(char** out_, const (char)* prompt, char optional)
  */
 extern (C)
 nothrow @nogc
-public int cred_acquire_cb(libgit2_d.credential.git_credential** out_, const (char)* url, const (char)* username_from_url, uint allowed_types, void* payload)
+public int cred_acquire_cb(libgit2.credential.git_credential** out_, const (char)* url, const (char)* username_from_url, uint allowed_types, void* payload)
 
 	in
 	{
@@ -392,7 +392,7 @@ public int cred_acquire_cb(libgit2_d.credential.git_credential** out_, const (ch
 			}
 		}
 
-		if (allowed_types & libgit2_d.credential.git_credential_t.GIT_CREDENTIAL_SSH_KEY) {
+		if (allowed_types & libgit2.credential.git_credential_t.GIT_CREDENTIAL_SSH_KEY) {
 			int n;
 
 			error = .ask(&privkey, "SSH Key:", 0);
@@ -425,17 +425,17 @@ public int cred_acquire_cb(libgit2_d.credential.git_credential** out_, const (ch
 				return error;
 			}
 
-			error = libgit2_d.credential.git_credential_ssh_key_new(out_, username, pubkey, privkey, password);
-		} else if (allowed_types & libgit2_d.credential.git_credential_t.GIT_CREDENTIAL_USERPASS_PLAINTEXT) {
+			error = libgit2.credential.git_credential_ssh_key_new(out_, username, pubkey, privkey, password);
+		} else if (allowed_types & libgit2.credential.git_credential_t.GIT_CREDENTIAL_USERPASS_PLAINTEXT) {
 			error = .ask(&password, "Password:", 1);
 
 			if (error < 0) {
 				return error;
 			}
 
-			error = libgit2_d.credential.git_credential_userpass_plaintext_new(out_, username, password);
-		} else if (allowed_types & libgit2_d.credential.git_credential_t.GIT_CREDENTIAL_USERNAME) {
-			error = libgit2_d.credential.git_credential_username_new(out_, username);
+			error = libgit2.credential.git_credential_userpass_plaintext_new(out_, username, password);
+		} else if (allowed_types & libgit2.credential.git_credential_t.GIT_CREDENTIAL_USERNAME) {
+			error = libgit2.credential.git_credential_username_new(out_, username);
 		}
 
 		return error;

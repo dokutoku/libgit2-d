@@ -11,18 +11,18 @@
  * with this software. If not, see
  * <http://creativecommons.org/publicdomain/zero/1.0/>.
  */
-module libgit2_d.example.describe;
+module libgit2.example.describe;
 
 
 private static import core.stdc.stdio;
 private static import core.stdc.stdlib;
 private static import core.stdc.string;
-private static import libgit2_d.buffer;
-private static import libgit2_d.describe;
-private static import libgit2_d.example.args;
-private static import libgit2_d.example.common;
-private static import libgit2_d.revparse;
-private static import libgit2_d.types;
+private static import libgit2.buffer;
+private static import libgit2.describe;
+private static import libgit2.example.args;
+private static import libgit2.example.common;
+private static import libgit2.revparse;
+private static import libgit2.types;
 
 package:
 
@@ -55,8 +55,8 @@ public struct describe_options
 {
 	const (char)** commits;
 	size_t commit_count;
-	libgit2_d.describe.git_describe_options describe_options;
-	libgit2_d.describe.git_describe_format_options format_options;
+	libgit2.describe.git_describe_options describe_options;
+	libgit2.describe.git_describe_format_options format_options;
 }
 
 nothrow @nogc
@@ -70,12 +70,12 @@ private void opts_add_commit(.describe_options* opts, const (char)* commit)
 	do
 	{
 		size_t sz = ++opts.commit_count * opts.commits[0].sizeof;
-		opts.commits = cast(const (char)**)(libgit2_d.example.common.xrealloc(cast(void*)(opts.commits), sz));
+		opts.commits = cast(const (char)**)(libgit2.example.common.xrealloc(cast(void*)(opts.commits), sz));
 		opts.commits[opts.commit_count - 1] = commit;
 	}
 
 nothrow @nogc
-private void do_describe_single(libgit2_d.types.git_repository* repo, .describe_options* opts, const (char)* rev)
+private void do_describe_single(libgit2.types.git_repository* repo, .describe_options* opts, const (char)* rev)
 
 	in
 	{
@@ -83,25 +83,25 @@ private void do_describe_single(libgit2_d.types.git_repository* repo, .describe_
 
 	do
 	{
-		libgit2_d.types.git_object* commit;
-		libgit2_d.describe.git_describe_result* describe_result;
+		libgit2.types.git_object* commit;
+		libgit2.describe.git_describe_result* describe_result;
 
 		if (rev != null) {
-			libgit2_d.example.common.check_lg2(libgit2_d.revparse.git_revparse_single(&commit, repo, rev), "Failed to lookup rev", rev);
+			libgit2.example.common.check_lg2(libgit2.revparse.git_revparse_single(&commit, repo, rev), "Failed to lookup rev", rev);
 
-			libgit2_d.example.common.check_lg2(libgit2_d.describe.git_describe_commit(&describe_result, commit, &opts.describe_options), "Failed to describe rev", rev);
+			libgit2.example.common.check_lg2(libgit2.describe.git_describe_commit(&describe_result, commit, &opts.describe_options), "Failed to describe rev", rev);
 		} else {
-			libgit2_d.example.common.check_lg2(libgit2_d.describe.git_describe_workdir(&describe_result, repo, &opts.describe_options), "Failed to describe workdir", null);
+			libgit2.example.common.check_lg2(libgit2.describe.git_describe_workdir(&describe_result, repo, &opts.describe_options), "Failed to describe workdir", null);
 		}
 
-		libgit2_d.buffer.git_buf buf = libgit2_d.buffer.git_buf.init;
-		libgit2_d.example.common.check_lg2(libgit2_d.describe.git_describe_format(&buf, describe_result, &opts.format_options), "Failed to format describe rev", rev);
+		libgit2.buffer.git_buf buf = libgit2.buffer.git_buf.init;
+		libgit2.example.common.check_lg2(libgit2.describe.git_describe_format(&buf, describe_result, &opts.format_options), "Failed to format describe rev", rev);
 
 		core.stdc.stdio.printf("%s\n", buf.ptr_);
 	}
 
 nothrow @nogc
-private void do_describe(libgit2_d.types.git_repository* repo, .describe_options* opts)
+private void do_describe(libgit2.types.git_repository* repo, .describe_options* opts)
 
 	in
 	{
@@ -143,7 +143,7 @@ private void parse_options(.describe_options* opts, int argc, char** argv)
 
 	do
 	{
-		libgit2_d.example.args.args_info args = libgit2_d.example.args.ARGS_INFO_INIT(argc, argv);
+		libgit2.example.args.args_info args = libgit2.example.args.ARGS_INFO_INIT(argc, argv);
 
 		for (args.pos = 1; args.pos < argc; ++args.pos) {
 			const (char)* curr = argv[args.pos];
@@ -151,9 +151,9 @@ private void parse_options(.describe_options* opts, int argc, char** argv)
 			if (curr[0] != '-') {
 				.opts_add_commit(opts, curr);
 			} else if (!core.stdc.string.strcmp(curr, "--all")) {
-				opts.describe_options.describe_strategy = libgit2_d.describe.git_describe_strategy_t.GIT_DESCRIBE_ALL;
+				opts.describe_options.describe_strategy = libgit2.describe.git_describe_strategy_t.GIT_DESCRIBE_ALL;
 			} else if (!core.stdc.string.strcmp(curr, "--tags")) {
-				opts.describe_options.describe_strategy = libgit2_d.describe.git_describe_strategy_t.GIT_DESCRIBE_TAGS;
+				opts.describe_options.describe_strategy = libgit2.describe.git_describe_strategy_t.GIT_DESCRIBE_TAGS;
 			} else if (!core.stdc.string.strcmp(curr, "--exact-match")) {
 				opts.describe_options.max_candidates_tags = 0;
 			} else if (!core.stdc.string.strcmp(curr, "--long")) {
@@ -162,10 +162,10 @@ private void parse_options(.describe_options* opts, int argc, char** argv)
 				opts.describe_options.show_commit_oid_as_fallback = 1;
 			} else if (!core.stdc.string.strcmp(curr, "--first-parent")) {
 				opts.describe_options.only_follow_first_parent = 1;
-			} else if (libgit2_d.example.args.optional_str_arg(&opts.format_options.dirty_suffix, &args, "--dirty", "-dirty")) {
-			} else if (libgit2_d.example.args.match_int_arg(cast(int*)(&opts.format_options.abbreviated_size), &args, "--abbrev", 0)) {
-			} else if (libgit2_d.example.args.match_int_arg(cast(int*)(&opts.describe_options.max_candidates_tags), &args, "--candidates", 0)) {
-			} else if (libgit2_d.example.args.match_str_arg(&opts.describe_options.pattern, &args, "--match")) {
+			} else if (libgit2.example.args.optional_str_arg(&opts.format_options.dirty_suffix, &args, "--dirty", "-dirty")) {
+			} else if (libgit2.example.args.match_int_arg(cast(int*)(&opts.format_options.abbreviated_size), &args, "--abbrev", 0)) {
+			} else if (libgit2.example.args.match_int_arg(cast(int*)(&opts.describe_options.max_candidates_tags), &args, "--candidates", 0)) {
+			} else if (libgit2.example.args.match_str_arg(&opts.describe_options.pattern, &args, "--match")) {
 			} else {
 				.print_usage();
 			}
@@ -173,7 +173,7 @@ private void parse_options(.describe_options* opts, int argc, char** argv)
 
 		if (opts.commit_count > 0) {
 			if (opts.format_options.dirty_suffix) {
-				libgit2_d.example.common.fatal("--dirty is incompatible with commit-ishes", null);
+				libgit2.example.common.fatal("--dirty is incompatible with commit-ishes", null);
 			}
 		} else {
 			if ((!opts.format_options.dirty_suffix) || (!opts.format_options.dirty_suffix[0])) {
@@ -198,13 +198,13 @@ private void describe_options_init(.describe_options* opts)
 
 		opts.commits = null;
 		opts.commit_count = 0;
-		libgit2_d.describe.git_describe_options_init(&opts.describe_options, libgit2_d.describe.GIT_DESCRIBE_OPTIONS_VERSION);
-		libgit2_d.describe.git_describe_format_options_init(&opts.format_options, libgit2_d.describe.GIT_DESCRIBE_FORMAT_OPTIONS_VERSION);
+		libgit2.describe.git_describe_options_init(&opts.describe_options, libgit2.describe.GIT_DESCRIBE_OPTIONS_VERSION);
+		libgit2.describe.git_describe_format_options_init(&opts.format_options, libgit2.describe.GIT_DESCRIBE_FORMAT_OPTIONS_VERSION);
 	}
 
 extern (C)
 nothrow @nogc
-public int lg2_describe(libgit2_d.types.git_repository* repo, int argc, char** argv)
+public int lg2_describe(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in
 	{

@@ -4,11 +4,11 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.apply;
+module libgit2.apply;
 
 
-private static import libgit2_d.diff;
-private static import libgit2_d.types;
+private static import libgit2.diff;
+private static import libgit2.types;
 
 /*
  * @file git2/apply.h
@@ -35,7 +35,7 @@ public:
  *      delta = The delta to be applied
  *      payload = User-specified payload
  */
-alias git_apply_delta_cb = int function(const (libgit2_d.diff.git_diff_delta)* delta, void* payload);
+alias git_apply_delta_cb = int function(const (libgit2.diff.git_diff_delta)* delta, void* payload);
 
 /**
  * When applying a patch, callback that will be made per hunk.
@@ -51,7 +51,7 @@ alias git_apply_delta_cb = int function(const (libgit2_d.diff.git_diff_delta)* d
  *      hunk = The hunk to be applied
  *      payload = User-specified payload
  */
-alias git_apply_hunk_cb = int function(const (libgit2_d.diff.git_diff_hunk)* hunk, void* payload);
+alias git_apply_hunk_cb = int function(const (libgit2.diff.git_diff_hunk)* hunk, void* payload);
 
 /**
  * Flags controlling the behavior of git_apply
@@ -140,7 +140,7 @@ int git_apply_options_init(.git_apply_options* opts, uint version_);
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_apply_to_tree(libgit2_d.types.git_index** out_, libgit2_d.types.git_repository* repo, libgit2_d.types.git_tree* preimage, libgit2_d.diff.git_diff* diff, const (.git_apply_options)* options);
+int git_apply_to_tree(libgit2.types.git_index** out_, libgit2.types.git_repository* repo, libgit2.types.git_tree* preimage, libgit2.diff.git_diff* diff, const (.git_apply_options)* options);
 
 /**
  * Possible application locations for git_apply
@@ -187,6 +187,6 @@ enum
  * Returns: 0 or an error code
  */
 //GIT_EXTERN
-int git_apply(libgit2_d.types.git_repository* repo, libgit2_d.diff.git_diff* diff, .git_apply_location_t location, const (.git_apply_options)* options);
+int git_apply(libgit2.types.git_repository* repo, libgit2.diff.git_diff* diff, .git_apply_location_t location, const (.git_apply_options)* options);
 
 /* @} */

@@ -4,10 +4,10 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
-module libgit2_d.ignore;
+module libgit2.ignore;
 
 
-private static import libgit2_d.types;
+private static import libgit2.types;
 
 extern (C):
 nothrow @nogc:
@@ -36,7 +36,7 @@ public:
  * Returns: 0 on success
  */
 //GIT_EXTERN
-int git_ignore_add_rule(libgit2_d.types.git_repository* repo, const (char)* rules);
+int git_ignore_add_rule(libgit2.types.git_repository* repo, const (char)* rules);
 
 /**
  * Clear ignore rules that were explicitly added.
@@ -52,7 +52,7 @@ int git_ignore_add_rule(libgit2_d.types.git_repository* repo, const (char)* rule
  * Returns: 0 on success
  */
 //GIT_EXTERN
-int git_ignore_clear_internal_rules(libgit2_d.types.git_repository* repo);
+int git_ignore_clear_internal_rules(libgit2.types.git_repository* repo);
 
 /**
  * Test if the ignore rules apply to a given path.
@@ -72,4 +72,4 @@ int git_ignore_clear_internal_rules(libgit2_d.types.git_repository* repo);
  * Returns: 0 if ignore rules could be processed for the file (regardless of whether it exists or not), or an error < 0 if they could not.
  */
 //GIT_EXTERN
-int git_ignore_path_is_ignored(int* ignored, libgit2_d.types.git_repository* repo, const (char)* path);
+int git_ignore_path_is_ignored(int* ignored, libgit2.types.git_repository* repo, const (char)* path);

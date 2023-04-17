@@ -1,13 +1,13 @@
 /**
  * Argument-processing helper structure
  */
-module libgit2_d.example.args;
+module libgit2.example.args;
 
 
 private static import core.stdc.stdlib;
 private static import core.stdc.string;
-private static import libgit2_d.example.common;
-private static import libgit2_d.strarray;
+private static import libgit2.example.common;
+private static import libgit2.strarray;
 private static import std.bitmanip;
 
 package:
@@ -76,7 +76,7 @@ size_t is_prefixed(const (char)* str, const (char)* pfx)
  * default value `def` will be given. otherwise return 0.
  */
 nothrow @nogc
-int optional_str_arg(const (char)** out_, libgit2_d.example.args.args_info* args, const (char)* opt, const (char)* def)
+int optional_str_arg(const (char)** out_, libgit2.example.args.args_info* args, const (char)* opt, const (char)* def)
 
 	in
 	{
@@ -119,7 +119,7 @@ int optional_str_arg(const (char)** out_, libgit2_d.example.args.args_info* args
  * an equal sign, take the remainder as a string; otherwise return 0.
  */
 nothrow @nogc
-int match_str_arg(const (char)** out_, libgit2_d.example.args.args_info* args, const (char)* opt)
+int match_str_arg(const (char)** out_, libgit2.example.args.args_info* args, const (char)* opt)
 
 	in
 	{
@@ -136,7 +136,7 @@ int match_str_arg(const (char)** out_, libgit2_d.example.args.args_info* args, c
 
 		if (!found[len]) {
 			if ((args.pos + 1) == args.argc) {
-				libgit2_d.example.common.fatal("expected value following argument", opt);
+				libgit2.example.common.fatal("expected value following argument", opt);
 			}
 
 			args.pos += 1;
@@ -155,7 +155,7 @@ int match_str_arg(const (char)** out_, libgit2_d.example.args.args_info* args, c
 	}
 
 nothrow @nogc
-private const (char)* match_numeric_arg(libgit2_d.example.args.args_info* args, const (char)* opt)
+private const (char)* match_numeric_arg(libgit2.example.args.args_info* args, const (char)* opt)
 
 	in
 	{
@@ -172,7 +172,7 @@ private const (char)* match_numeric_arg(libgit2_d.example.args.args_info* args, 
 
 		if (!found[len]) {
 			if ((args.pos + 1) == args.argc) {
-				libgit2_d.example.common.fatal("expected numeric value following argument", opt);
+				libgit2.example.common.fatal("expected numeric value following argument", opt);
 			}
 
 			args.pos += 1;
@@ -195,7 +195,7 @@ private const (char)* match_numeric_arg(libgit2_d.example.args.args_info* args, 
  * uint16_t value; otherwise return 0.
  */
 nothrow @nogc
-int match_uint16_arg(ushort* out_, libgit2_d.example.args.args_info* args, const (char)* opt)
+int match_uint16_arg(ushort* out_, libgit2.example.args.args_info* args, const (char)* opt)
 
 	in
 	{
@@ -213,7 +213,7 @@ int match_uint16_arg(ushort* out_, libgit2_d.example.args.args_info* args, const
 		ushort val = cast(ushort)(core.stdc.stdlib.strtoul(found, &endptr, 0));
 
 		if ((endptr == null) || (*endptr != '\0')) {
-			libgit2_d.example.common.fatal("expected number after argument", opt);
+			libgit2.example.common.fatal("expected number after argument", opt);
 		}
 
 		if (out_ != null) {
@@ -230,7 +230,7 @@ int match_uint16_arg(ushort* out_, libgit2_d.example.args.args_info* args, const
  * uint32_t value; otherwise return 0.
  */
 nothrow @nogc
-int match_uint32_arg(uint* out_, libgit2_d.example.args.args_info* args, const (char)* opt)
+int match_uint32_arg(uint* out_, libgit2.example.args.args_info* args, const (char)* opt)
 
 	in
 	{
@@ -249,7 +249,7 @@ int match_uint32_arg(uint* out_, libgit2_d.example.args.args_info* args, const (
 		ushort val = cast(ushort)(core.stdc.stdlib.strtoul(found, &endptr, 0));
 
 		if ((endptr == null) || (*endptr != '\0')) {
-			libgit2_d.example.common.fatal("expected number after argument", opt);
+			libgit2.example.common.fatal("expected number after argument", opt);
 		}
 
 		if (out_ != null) {
@@ -272,9 +272,9 @@ private int match_int_internal(int* out_, const (char)* str, int allow_negative,
 		int val = cast(int)(core.stdc.stdlib.strtol(str, &endptr, 10));
 
 		if ((endptr == null) || (*endptr != '\0')) {
-			libgit2_d.example.common.fatal("expected number", opt);
+			libgit2.example.common.fatal("expected number", opt);
 		} else if ((val < 0) && (!allow_negative)) {
-			libgit2_d.example.common.fatal("negative values are not allowed", opt);
+			libgit2.example.common.fatal("negative values are not allowed", opt);
 		}
 
 		if (out_ != null) {
@@ -292,7 +292,7 @@ private int match_int_internal(int* out_, const (char)* str, int allow_negative,
  * and 0 will be returned.
  */
 nothrow @nogc
-int match_bool_arg(int* out_, libgit2_d.example.args.args_info* args, const (char)* opt)
+int match_bool_arg(int* out_, libgit2.example.args.args_info* args, const (char)* opt)
 
 	in
 	{
@@ -341,7 +341,7 @@ int is_integer(int* out_, const (char)* str, int allow_negative)
  * int value; otherwise return 0.
  */
 nothrow @nogc
-int match_int_arg(int* out_, libgit2_d.example.args.args_info* args, const (char)* opt, int allow_negative)
+int match_int_arg(int* out_, libgit2.example.args.args_info* args, const (char)* opt, int allow_negative)
 
 	in
 	{
@@ -362,7 +362,7 @@ int match_int_arg(int* out_, libgit2_d.example.args.args_info* args, const (char
  * Check if we're processing past the single -- separator
  */
 nothrow @nogc
-int match_arg_separator(libgit2_d.example.args.args_info* args)
+int match_arg_separator(libgit2.example.args.args_info* args)
 
 	in
 	{
@@ -388,7 +388,7 @@ int match_arg_separator(libgit2_d.example.args.args_info* args)
  * Consume all remaining arguments in a git_strarray
  */
 nothrow @nogc
-void strarray_from_args(libgit2_d.strarray.git_strarray* array, libgit2_d.example.args.args_info* args)
+void strarray_from_args(libgit2.strarray.git_strarray* array, libgit2.example.args.args_info* args)
 
 	in
 	{
