@@ -1,3 +1,7 @@
+/**
+ * This part is not strictly libgit2-dependent, but you can use this
+ * as a starting point for a git-like tool
+ */
 module libgit2.example.lg2;
 
 
@@ -39,8 +43,6 @@ private static import libgit2.types;
 
 package:
 
-/* This part is not strictly libgit2-dependent, but you can use this
- * as a starting point for a git-like tool */
 
 public alias git_command_fn = extern (C) nothrow @nogc int function(libgit2.types.git_repository*, int, char**);
 

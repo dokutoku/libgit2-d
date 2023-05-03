@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.pack;
 
 
@@ -186,7 +189,7 @@ int git_packbuilder_write_buf(libgit2.buffer.git_buf* buf, libgit2.types.git_pac
  *
  * Params:
  *      pb = The packbuilder
- *      path = Path to the directory where the packfile and index should be stored, or NULL for default location
+ *      path = Path to the directory where the packfile and index should be stored, or null for default location
  *      mode = permissions to use creating a packfile or 0 for defaults
  *      progress_cb = function to call with progress information from the indexer (optional)
  *      progress_cb_payload = payload for the progress callback (optional)

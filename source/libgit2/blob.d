@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.blob;
 
 
@@ -272,7 +275,7 @@ int git_blob_create_from_disk(libgit2.oid.git_oid* id, libgit2.types.git_reposit
  * Params:
  *      out_ = the stream into which to write
  *      repo = Repository where the blob will be written. This repository can be bare or not.
- *      hintpath = If not NULL, will be used to select data filters to apply onto the content of the blob to be created.
+ *      hintpath = If not null, will be used to select data filters to apply onto the content of the blob to be created.
  *
  * Returns: 0 or error code
  */
@@ -311,7 +314,7 @@ int git_blob_create_from_buffer(libgit2.oid.git_oid* id, libgit2.types.git_repos
  * Determine if the blob content is most certainly binary or not.
  *
  * The heuristic used to guess if a file is binary is taken from core git:
- * Searching for NUL bytes and looking for a reasonable ratio of printable
+ * Searching for null bytes and looking for a reasonable ratio of printable
  * to non-printable characters among the first 8000 bytes.
  *
  * Params:

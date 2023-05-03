@@ -9,7 +9,20 @@
  *
  * You should have received a copy of the CC0 Public Domain Dedication along
  * with this software. If not, see
- * <http://creativecommons.org/publicdomain/zero/1.0/>.
+ * <https://creativecommons.org/publicdomain/zero/1.0/>.
+ */
+/**
+ * This is a sample program that is similar to "git init".  See the
+ * documentation for that (try "git help init") to understand what this
+ * program is emulating.
+ *
+ * This demonstrates using the libgit2 APIs to initialize a new repository.
+ *
+ * This also contains a special additional option that regular "git init"
+ * does not support which is "--initial-commit" to make a first empty commit.
+ * That is demonstrated in the "create_initial_commit" helper function.
+ *
+ * License: $(LINK2 https://creativecommons.org/publicdomain/zero/1.0/, CC0 1.0 Universal)
  */
 module libgit2.example.init;
 
@@ -29,18 +42,6 @@ private static import libgit2.tree;
 private static import libgit2.types;
 
 package:
-
-/**
- * This is a sample program that is similar to "git init".  See the
- * documentation for that (try "git help init") to understand what this
- * program is emulating.
- *
- * This demonstrates using the libgit2 APIs to initialize a new repository.
- *
- * This also contains a special additional option that regular "git init"
- * does not support which is "--initial-commit" to make a first empty commit.
- * That is demonstrated in the "create_initial_commit" helper function.
- */
 
 /**
  * Forward declarations of helpers

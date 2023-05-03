@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.common;
 
 
@@ -270,7 +273,7 @@ enum
  *		> applied to shared attributes and ignore files, too.
  *		>
  *		> - `path` lists directories delimited by GIT_PATH_LIST_SEPARATOR.
- *		>   Pass NULL to reset to the default (generally based on environment
+ *		>   Pass null to reset to the default (generally based on environment
  *		>   variables).  Use magic path `$PATH` to include the old value
  *		>   of the path (if you want to prepend or append, for instance).
  *		>
@@ -327,7 +330,7 @@ enum
  *		> - `path` is the location of a directory holding several
  *		>   certificates, one per file.
  *		>
- * 		> Either parameter may be `NULL`, but not both.
+ * 		> Either parameter may be `null`, but not both.
  *
  *	* opts(GIT_OPT_SET_USER_AGENT, const char *user_agent)
  *
@@ -404,7 +407,7 @@ enum
  *
  *		> Set the memory allocator to a different memory allocator. This
  *		> allocator will then be used to make all memory allocations for
- *		> libgit2 operations.  If the given `allocator` is NULL, then the
+ *		> libgit2 operations.  If the given `allocator` is null, then the
  *		> system default will be restored.
  *
  *	 opts(GIT_OPT_ENABLE_UNSAVED_INDEX_SAFETY, int enabled)

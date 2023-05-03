@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.credential_helpers;
 
 
@@ -38,7 +41,7 @@ struct git_credential_userpass_payload
  * Params:
  *      out_ = The newly created credential object.
  *      url = The resource for which we are demanding a credential.
- *      user_from_url = The username that was embedded in a "user\@host" remote url, or NULL if not included.
+ *      user_from_url = The username that was embedded in a "user\@host" remote url, or null if not included.
  *      allowed_types = A bitmask stating which credential types are OK to return.
  *      payload = The payload provided when specifying this callback.  (This is interpreted as a `git_credential_userpass_payload*`.)
  */

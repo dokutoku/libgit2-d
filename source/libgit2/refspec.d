@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.refspec;
 
 
@@ -73,7 +76,7 @@ const (char)* git_refspec_dst(const (libgit2.types.git_refspec)* refspec);
  * Params:
  *      refspec = the refspec
  *
- * @returns the refspec's original string
+ * Returns: s the refspec's original string
  */
 @GIT_EXTERN
 const (char)* git_refspec_string(const (libgit2.types.git_refspec)* refspec);

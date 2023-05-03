@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.buffer;
 
 
@@ -43,7 +46,7 @@ struct git_buf
 	/**
 	 * The buffer contents.
 	 *
-	 * `ptr_` points to the start of the allocated memory.  If it is NULL,
+	 * `ptr_` points to the start of the allocated memory.  If it is null,
 	 * then the `git_buf` is considered empty and libgit2 will feel free
 	 * to overwrite it with new data.
 	 */
@@ -147,12 +150,12 @@ int git_buf_set(.git_buf* buffer, const (void)* data, size_t datalen);
 int git_buf_is_binary(const (.git_buf)* buf);
 
 /**
- * Check quickly if buffer contains a NUL byte
+ * Check quickly if buffer contains a null byte
  *
  * Params:
  *      buf = Buffer to check
  *
- * Returns: 1 if buffer contains a NUL byte
+ * Returns: 1 if buffer contains a null byte
  */
 @GIT_EXTERN
 int git_buf_contains_nul(const (.git_buf)* buf);

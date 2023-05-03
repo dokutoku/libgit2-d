@@ -9,7 +9,26 @@
  *
  * You should have received a copy of the CC0 Public Domain Dedication along
  * with this software. If not, see
- * <http://creativecommons.org/publicdomain/zero/1.0/>.
+ * <https://creativecommons.org/publicdomain/zero/1.0/>.
+ */
+/**
+ * This example demonstrates the libgit2 rev walker APIs to roughly
+ * simulate the output of `git log` and a few of command line arguments.
+ * `git log` has many many options and this only shows a few of them.
+ *
+ * This does not have:
+ *
+ * - Robust error handling
+ * - Colorized or paginated output formatting
+ * - Most of the `git log` options
+ *
+ * This does have:
+ *
+ * - Examples of translating command line arguments to equivalent libgit2
+ *   revwalker configuration calls
+ * - Simplified options to apply pathspec limits and to show basic diffs
+ *
+ * License: $(LINK2 https://creativecommons.org/publicdomain/zero/1.0/, CC0 1.0 Universal)
  */
 module libgit2.example.log;
 
@@ -35,24 +54,6 @@ private static import libgit2.types;
 package:
 
 /**
- * This example demonstrates the libgit2 rev walker APIs to roughly
- * simulate the output of `git log` and a few of command line arguments.
- * `git log` has many many options and this only shows a few of them.
- *
- * This does not have:
- *
- * - Robust error handling
- * - Colorized or paginated output formatting
- * - Most of the `git log` options
- *
- * This does have:
- *
- * - Examples of translating command line arguments to equivalent libgit2
- *   revwalker configuration calls
- * - Simplified options to apply pathspec limits and to show basic diffs
- */
-
-/**
  * log_state represents walker being configured while handling options
  */
 public struct log_state
@@ -65,7 +66,7 @@ public struct log_state
 	int revisions;
 }
 
-/** utility functions that are called to configure the walker */
+/* utility functions that are called to configure the walker */
 //private void set_sorting(.log_state* s, uint sort_mode);
 //private void push_rev(.log_state* s, libgit2.types.git_object* obj, int hide);
 //private int add_revision(.log_state* s, const (char)* revstr);
@@ -88,13 +89,13 @@ public struct log_options
 	const (char)* grep;
 }
 
-/** utility functions that parse options and help with log output */
+/* utility functions that parse options and help with log output */
 //private int parse_options(.log_state* s, .log_options* opt, int argc, char** argv);
 //private void print_time(const (libgit2.types.git_time)* intime, const (char)* prefix);
 //private void print_commit(libgit2.types.git_commit* commit, .log_options* opts);
 //private int match_with_parent(libgit2.types.git_commit* commit, int i, libgit2.diff.git_diff_options*);
 
-/** utility functions for filtering */
+/* utility functions for filtering */
 //private int signature_matches(const (libgit2.types.git_signature)* sig, const (char)* filter);
 //private int log_message_matches(const (libgit2.types.git_commit)* commit, const (char)* filter);
 

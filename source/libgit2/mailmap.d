@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.mailmap;
 
 
@@ -50,9 +53,9 @@ void git_mailmap_free(libgit2.types.git_mailmap* mm);
  *
  * Params:
  *      mm = mailmap to add the entry to
- *      real_name = the real name to use, or NULL
- *      real_email = the real email to use, or NULL
- *      replace_name = the name to replace, or NULL
+ *      real_name = the real name to use, or null
+ *      real_email = the real email to use, or null
+ *      replace_name = the name to replace, or null
  *      replace_email = the email to replace
  *
  * Returns: 0 on success, or an error code
@@ -100,7 +103,7 @@ int git_mailmap_from_repository(libgit2.types.git_mailmap** out_, libgit2.types.
  * Params:
  *      real_name = pointer to store the real name
  *      real_email = pointer to store the real email
- *      mm = the mailmap to perform a lookup with (may be NULL)
+ *      mm = the mailmap to perform a lookup with (may be null)
  *      name = the name to look up
  *      email = the email to look up
  *

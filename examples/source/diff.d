@@ -9,7 +9,19 @@
  *
  * You should have received a copy of the CC0 Public Domain Dedication along
  * with this software. If not, see
- * <http://creativecommons.org/publicdomain/zero/1.0/>.
+ * <https://creativecommons.org/publicdomain/zero/1.0/>.
+ */
+/**
+ * This example demonstrates the use of the libgit2 diff APIs to
+ * create `libgit2.diff.git_diff` objects and display them, emulating a number of
+ * core Git `diff` command line options.
+ *
+ * This covers on a portion of the core Git diff options and doesn't
+ * have particularly good error handling, but it should show most of
+ * the core libgit2 diff APIs, including various types of diffs and
+ * how to do renaming detection and patch formatting.
+ *
+ * License: $(LINK2 https://creativecommons.org/publicdomain/zero/1.0/, CC0 1.0 Universal)
  */
 module libgit2.example.diff;
 
@@ -26,17 +38,6 @@ private static import libgit2.tree;
 private static import libgit2.types;
 
 package:
-
-/**
- * This example demonstrates the use of the libgit2 diff APIs to
- * create `libgit2.diff.git_diff` objects and display them, emulating a number of
- * core Git `diff` command line options.
- *
- * This covers on a portion of the core Git diff options and doesn't
- * have particularly good error handling, but it should show most of
- * the core libgit2 diff APIs, including various types of diffs and
- * how to do renaming detection and patch formatting.
- */
 
 private const (char)*[] colors =
 [
@@ -80,7 +81,7 @@ public struct diff_options
 	const (char)* dir;
 }
 
-/** These functions are implemented at the end */
+/* These functions are implemented at the end */
 //private void usage(const (char)* message, const (char)* arg);
 //private void parse_opts(.diff_options* o, int argc, char*[] argv);
 //private int color_printer(const (libgit2.diff.git_diff_delta)*, const (libgit2.diff.git_diff_hunk)*, const (libgit2.diff.git_diff_line)*, void*);

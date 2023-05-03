@@ -9,7 +9,22 @@
  *
  * You should have received a copy of the CC0 Public Domain Dedication along
  * with this software. If not, see
- * <http://creativecommons.org/publicdomain/zero/1.0/>.
+ * <https://creativecommons.org/publicdomain/zero/1.0/>.
+ */
+/**
+ * This example demonstrates the libgit2 commit APIs to roughly
+ * simulate `git commit` with the commit message argument.
+ *
+ * This does not have:
+ *
+ * - Robust error handling
+ * - Most of the `git commit` options
+ *
+ * This does have:
+ *
+ * - Example of performing a git commit with a comment
+ *
+ * License: $(LINK2 https://creativecommons.org/publicdomain/zero/1.0/, CC0 1.0 Universal)
  */
 module libgit2.example.commit;
 
@@ -29,20 +44,6 @@ private static import libgit2.types;
 
 package:
 
-/**
- * This example demonstrates the libgit2 commit APIs to roughly
- * simulate `git commit` with the commit message argument.
- *
- * This does not have:
- *
- * - Robust error handling
- * - Most of the `git commit` options
- *
- * This does have:
- *
- * - Example of performing a git commit with a comment
- *
- */
 extern (C)
 nothrow @nogc
 public int lg2_commit(libgit2.types.git_repository* repo, int argc, char** argv)

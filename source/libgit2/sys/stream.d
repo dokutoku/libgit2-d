@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.sys.stream;
 
 
@@ -75,7 +78,7 @@ struct git_stream_registration
 	 *
 	 * Params:
 	 *      out_ = The created stream
-	 *      in = An existing stream to add TLS to
+	 *      in_ = An existing stream to add TLS to
 	 *      host = The hostname that the stream is connected to, for certificate validation
 	 *
 	 * Returns: 0 or an error code
@@ -110,7 +113,7 @@ enum
  * Register stream constructors for the library to use
  *
  * If a registration structure is already set, it will be overwritten.
- * Pass `NULL` in order to deregister the current constructor and return
+ * Pass `null` in order to deregister the current constructor and return
  * to the system defaults.
  *
  * The type parameter may be a bitwise AND of types.

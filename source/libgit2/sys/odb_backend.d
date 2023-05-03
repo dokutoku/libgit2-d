@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.sys.odb_backend;
 
 
@@ -137,7 +140,7 @@ int git_odb_init_backend(.git_odb_backend* backend, uint version_);
  *      backend = the ODB backend that is allocating this memory
  *      len = the number of bytes to allocate
  *
- * Returns: the allocated buffer on success or NULL if out of memory
+ * Returns: the allocated buffer on success or null if out of memory
  */
 @GIT_EXTERN
 void* git_odb_backend_data_alloc(.git_odb_backend* backend, size_t len);

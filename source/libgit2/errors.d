@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.errors;
 
 
@@ -312,7 +315,7 @@ enum
  * Return the last `git_error` object that was generated for the
  * current thread.
  *
- * The default behaviour of this function is to return NULL if no previous error has occurred.
+ * The default behaviour of this function is to return null if no previous error has occurred.
  * However, libgit2's error strings are not cleared aggressively, so a prior
  * (unrelated) error may be returned. This can be avoided by only calling
  * this function if the prior call to a libgit2 API returned an error.

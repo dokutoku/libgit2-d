@@ -9,7 +9,19 @@
  *
  * You should have received a copy of the CC0 Public Domain Dedication along
  * with this software. If not, see
- * <http://creativecommons.org/publicdomain/zero/1.0/>.
+ * <https://creativecommons.org/publicdomain/zero/1.0/>.
+ */
+/**
+ * This example demonstrates the libgit2 index APIs to roughly
+ * simulate the output of `git ls-files`.
+ * `git ls-files` has many options and this currently does not show them.
+ *
+ * `git ls-files` base command shows all paths in the index at that time.
+ * This includes staged and committed files, but unstaged files will not display.
+ *
+ * This currently supports the default behavior and the `--error-unmatch` option.
+ *
+ * License: $(LINK2 https://creativecommons.org/publicdomain/zero/1.0/, CC0 1.0 Universal)
  */
 module libgit2.example.ls_files;
 
@@ -22,17 +34,6 @@ private static import libgit2.repository;
 private static import libgit2.types;
 
 package:
-
-/**
- * This example demonstrates the libgit2 index APIs to roughly
- * simulate the output of `git ls-files`.
- * `git ls-files` has many options and this currently does not show them.
- *
- * `git ls-files` base command shows all paths in the index at that time.
- * This includes staged and committed files, but unstaged files will not display.
- *
- * This currently supports the default behavior and the `--error-unmatch` option.
- */
 
 public struct ls_options
 {

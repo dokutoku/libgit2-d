@@ -9,7 +9,20 @@
  *
  * You should have received a copy of the CC0 Public Domain Dedication along
  * with this software. If not, see
- * <http://creativecommons.org/publicdomain/zero/1.0/>.
+ * <https://creativecommons.org/publicdomain/zero/1.0/>.
+ */
+/**
+ * The following example demonstrates how to add files with libgit2.
+ *
+ * It will use the repository in the current working directory, and act
+ * on files passed as its parameters.
+ *
+ * Recognized options are:
+ *   -v/--verbose: show the file's status after acting on it.
+ *   -n/--dry-run: do not actually change the index.
+ *   -u/--update: update the index instead of adding to it.
+ *
+ * License: $(LINK2 https://creativecommons.org/publicdomain/zero/1.0/, CC0 1.0 Universal)
  */
 module libgit2.example.add;
 
@@ -26,18 +39,6 @@ private static import libgit2.strarray;
 private static import libgit2.types;
 
 package:
-
-/**
- * The following example demonstrates how to add files with libgit2.
- *
- * It will use the repository in the current working directory, and act
- * on files passed as its parameters.
- *
- * Recognized options are:
- *   -v/--verbose: show the file's status after acting on it.
- *   -n/--dry-run: do not actually change the index.
- *   -u/--update: update the index instead of adding to it.
- */
 
 public enum index_mode
 {

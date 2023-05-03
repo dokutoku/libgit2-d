@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.blame;
 
 
@@ -121,7 +124,7 @@ struct git_blame_options
 
 	/**
 	 * The id of the oldest commit to consider.
-	 * The default is the first commit encountered with a NULL parent.
+	 * The default is the first commit encountered with a null parent.
 	 */
 	libgit2.oid.git_oid oldest_commit;
 

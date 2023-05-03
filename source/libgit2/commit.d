@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.commit;
 
 
@@ -220,7 +223,7 @@ const (libgit2.types.git_signature)* git_commit_author(const (libgit2.types.git_
  * Params:
  *      out_ = a pointer to store the resolved signature.
  *      commit = a previously loaded commit.
- *      mailmap = the mailmap to resolve with. (may be NULL)
+ *      mailmap = the mailmap to resolve with. (may be null)
  *
  * Returns: 0 or an error code
  */
@@ -236,7 +239,7 @@ int git_commit_committer_with_mailmap(libgit2.types.git_signature** out_, const 
  * Params:
  *      out_ = a pointer to store the resolved signature.
  *      commit = a previously loaded commit.
- *      mailmap = the mailmap to resolve with. (may be NULL)
+ *      mailmap = the mailmap to resolve with. (may be null)
  *
  * Returns: 0 or an error code
  */
@@ -465,8 +468,8 @@ int git_commit_create_buffer(libgit2.buffer.git_buf* out_, libgit2.types.git_rep
  *      out_ = the resulting commit id
  *      repo = ?
  *      commit_content = the content of the unsigned commit object
- *      signature = the signature to add to the commit. Leave `NULL` to create a commit without adding a signature field.
- *      signature_field = which header field should contain this signature. Leave `NULL` for the default of "gpgsig"
+ *      signature = the signature to add to the commit. Leave `null` to create a commit without adding a signature field.
+ *      signature_field = which header field should contain this signature. Leave `null` for the default of "gpgsig"
  *
  * Returns: 0 or an error code
  */

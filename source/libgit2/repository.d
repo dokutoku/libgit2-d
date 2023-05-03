@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.repository;
 
 
@@ -133,7 +136,7 @@ enum git_repository_open_flag_t
 	 * Find and open a git repository, respecting the environment variables
 	 * used by the git command-line tools.
 	 * If set, `git_repository_open_ext` will ignore the other flags and
-	 * the `ceiling_dirs` argument, and will allow a NULL `path` to use
+	 * the `ceiling_dirs` argument, and will allow a null `path` to use
 	 * `GIT_DIR` or search from the current directory.
 	 * The search for a repository will respect $GIT_CEILING_DIRECTORIES and
 	 * $GIT_DISCOVERY_ACROSS_FILESYSTEM.  The opened repository will
@@ -343,7 +346,7 @@ struct git_repository_init_options
 	uint mode;
 
 	/**
-	 * The path to the working dir or NULL for default (i.e. repo_path parent
+	 * The path to the working dir or null for default (i.e. repo_path parent
 	 * on non-bare repos). IF THIS IS RELATIVE PATH, IT WILL BE EVALUATED
 	 * RELATIVE TO THE REPO_PATH. If this is not the "natural" working
 	 * directory, a .git gitlink file will be created here linking to the
@@ -359,13 +362,13 @@ struct git_repository_init_options
 
 	/**
 	 * When git_repository_init_flag_t.GIT_REPOSITORY_INIT_EXTERNAL_TEMPLATE is set, this contains
-	 * the path to use for the template directory. If this is NULL, the config
+	 * the path to use for the template directory. If this is null, the config
 	 * or default directory options will be used instead.
 	 */
 	const (char)* template_path;
 
 	/**
-	 * The name of the head to point HEAD at. If NULL, then this will be
+	 * The name of the head to point HEAD at. If null, then this will be
 	 * treated as "master" and the HEAD ref will be set to "refs/heads/master".
 	 * If this begins with "refs/" it will be used verbatim;
 	 * otherwise "refs/heads/" will be prefixed.
@@ -373,7 +376,7 @@ struct git_repository_init_options
 	const (char)* initial_head;
 
 	/**
-	 * If this is non-NULL, then after the rest of the repository
+	 * If this is non-null, then after the rest of the repository
 	 * initialization is completed, an "origin" remote will be added
 	 * pointing to this URL.
 	 */

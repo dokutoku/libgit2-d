@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.credential;
 
 
@@ -145,7 +148,7 @@ alias git_credential_ssh_custom = libgit2.sys.credential.git_credential_ssh_cust
  * Params:
  *      out_ = The newly created credential object.
  *      url = The resource for which we are demanding a credential.
- *      username_from_url = The username that was embedded in a "user\@host" remote url, or NULL if not included.
+ *      username_from_url = The username that was embedded in a "user\@host" remote url, or null if not included.
  *      allowed_types = A bitmask stating which credential types are OK to return.
  *      payload = The payload provided when specifying this callback.
  */
@@ -169,7 +172,7 @@ void git_credential_free(.git_credential* cred);
  * Params:
  *      cred = object to check
  *
- * Returns: 1 if the credential object has non-NULL username, 0 otherwise
+ * Returns: 1 if the credential object has non-null username, 0 otherwise
  */
 @GIT_EXTERN
 int git_credential_has_username(.git_credential* cred);
@@ -180,7 +183,7 @@ int git_credential_has_username(.git_credential* cred);
  * Params:
  *      cred = object to check
  *
- * Returns: the credential username, or NULL if not applicable
+ * Returns: the credential username, or null if not applicable
  */
 @GIT_EXTERN
 const (char)* git_credential_get_username(.git_credential* cred);

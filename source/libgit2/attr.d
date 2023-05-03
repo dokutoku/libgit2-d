@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.attr;
 
 
@@ -249,7 +252,7 @@ int git_attr_get_many(const (char)** values_out, libgit2.types.git_repository* r
 /*
  * Params:
  *      name = The attribute name.
- *      value = The attribute value. May be NULL if the attribute is explicitly set to UNSPECIFIED using the '!' sign.
+ *      value = The attribute value. May be null if the attribute is explicitly set to UNSPECIFIED using the '!' sign.
  *      payload = A user-specified pointer.
  */
 alias git_attr_foreach_cb = int function(const (char)* name, const (char)* value, void* payload);

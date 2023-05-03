@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.oid;
 
 
@@ -160,7 +163,7 @@ char* git_oid_tostr_s(const (.git_oid)* oid);
  *
  * If the buffer is smaller than GIT_OID_HEXSZ+1, then the resulting
  * oid c-string will be truncated to n-1 characters (but will still be
- * NUL-byte terminated).
+ * null-byte terminated).
  *
  * If there are any input parameter errors (out == null, n == 0, oid ==
  * null), then a pointer to an empty string is returned, so that the

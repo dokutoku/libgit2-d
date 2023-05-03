@@ -9,7 +9,16 @@
  *
  * You should have received a copy of the CC0 Public Domain Dedication along
  * with this software. If not, see
- * <http://creativecommons.org/publicdomain/zero/1.0/>.
+ * <https://creativecommons.org/publicdomain/zero/1.0/>.
+ */
+/**
+ * This is a sample program that is similar to "git remote".  See the
+ * documentation for that (try "git help remote") to understand what this
+ * program is emulating.
+ *
+ * This demonstrates using the libgit2 APIs to modify remotes of a repository.
+ *
+ * License: $(LINK2 https://creativecommons.org/publicdomain/zero/1.0/, CC0 1.0 Universal)
  */
 module libgit2.example.remote;
 
@@ -23,14 +32,6 @@ private static import libgit2.strarray;
 private static import libgit2.types;
 
 package:
-
-/**
- * This is a sample program that is similar to "git remote".  See the
- * documentation for that (try "git help remote") to understand what this
- * program is emulating.
- *
- * This demonstrates using the libgit2 APIs to modify remotes of a repository.
- */
 
 public enum subcmd
 {

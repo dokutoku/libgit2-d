@@ -9,9 +9,8 @@
  *
  * You should have received a copy of the CC0 Public Domain Dedication along
  * with this software. If not, see
- * <http://creativecommons.org/publicdomain/zero/1.0/>.
+ * <https://creativecommons.org/publicdomain/zero/1.0/>.
  */
-
 /**
  * [**libgit2**][lg] is a portable, pure C implementation of the Git core
  * methods provided as a re-entrant linkable library with a solid API,
@@ -34,6 +33,8 @@
  * [lg]: http://libgit2.github.com
  * [ap]: http://libgit2.github.com/libgit2
  * [pg]: https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain
+ *
+ * License: $(LINK2 https://creativecommons.org/publicdomain/zero/1.0/, CC0 1.0 Universal)
  */
 module libgit2.example.general;
 
@@ -64,7 +65,7 @@ private static import libgit2.types;
 
 package:
 
-/**
+/*
  * ### Includes
  *
  * Including the `git2.h` header will include all the other libgit2 headers
@@ -411,7 +412,7 @@ private void commit_parsing(libgit2.types.git_repository* repo)
 		 * Each of the properties of the commit object are accessible via methods,
 		 * including commonly needed variations, such as `libgit2.commit.git_commit_time` which
 		 * returns the author time and `libgit2.commit.git_commit_message` which gives you the
-		 * commit message (as a NUL-terminated string).
+		 * commit message (as a null-terminated string).
 		 */
 		const (char)* message = libgit2.commit.git_commit_message(commit);
 		const (libgit2.types.git_signature)* author = libgit2.commit.git_commit_author(commit);

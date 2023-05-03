@@ -9,7 +9,24 @@
  *
  * You should have received a copy of the CC0 Public Domain Dedication along
  * with this software. If not, see
- * <http://creativecommons.org/publicdomain/zero/1.0/>.
+ * <https://creativecommons.org/publicdomain/zero/1.0/>.
+ */
+/**
+ * The following example partially reimplements the `git tag` command
+ * and some of its options.
+ *
+ * These commands should work:
+ *
+ * - Tag name listing (`tag`)
+ * - Filtered tag listing with messages (`tag -n3 -l "v0.1*"`)
+ * - Lightweight tag creation (`tag test v0.18.0`)
+ * - Tag creation (`tag -a -m "Test message" test v0.18.0`)
+ * - Tag deletion (`tag -d test`)
+ *
+ * The command line parsing logic is simplified and doesn't handle
+ * all of the use cases.
+ *
+ * License: $(LINK2 https://creativecommons.org/publicdomain/zero/1.0/, CC0 1.0 Universal)
  */
 module libgit2.example.tag;
 
@@ -30,22 +47,6 @@ private static import libgit2.tag;
 private static import libgit2.types;
 
 package:
-
-/**
- * The following example partially reimplements the `git tag` command
- * and some of its options.
- *
- * These commands should work:
- *
- * - Tag name listing (`tag`)
- * - Filtered tag listing with messages (`tag -n3 -l "v0.1*"`)
- * - Lightweight tag creation (`tag test v0.18.0`)
- * - Tag creation (`tag -a -m "Test message" test v0.18.0`)
- * - Tag deletion (`tag -d test`)
- *
- * The command line parsing logic is simplified and doesn't handle
- * all of the use cases.
- */
 
 /**
  * tag_options represents the parsed command line options

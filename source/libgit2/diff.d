@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.diff;
 
 
@@ -415,7 +418,7 @@ enum
  * absent side of a diff (e.g. the `old_file` of a `git_delta_t.GIT_DELTA_ADDED` delta),
  * then the oid will be zeroes.
  *
- * `path` is the NUL-terminated path to the entry relative to the working
+ * `path` is the null-terminated path to the entry relative to the working
  * directory of the repository.
  *
  * `size` is the size of the entry in bytes.
@@ -823,7 +826,7 @@ struct git_diff_hunk
 	size_t header_len;
 
 	/**
-	 * Header text, NUL-byte terminated
+	 * Header text, null-byte terminated
 	 */
 	char[.GIT_DIFF_HUNK_HEADER_SIZE] header = '\0'; 
 }
@@ -899,7 +902,7 @@ enum
  * the new version), or a removed line (i.e. only in the old version).
  * Unfortunately, we don't know anything about the encoding of data in the
  * file being diffed, so we cannot tell you much about the line content.
- * Line data will not be NUL-byte terminated, however, because it will be
+ * Line data will not be null-byte terminated, however, because it will be
  * just a span of bytes inside the larger file.
  */
 struct git_diff_line
@@ -935,7 +938,7 @@ struct git_diff_line
 	libgit2.types.git_off_t content_offset;
 
 	/**
-	 * Pointer to diff text, not NUL-byte terminated
+	 * Pointer to diff text, not null-byte terminated
 	 */
 	const (char)* content;
 }
@@ -1146,7 +1149,7 @@ struct git_diff_find_options
 	/**
 	 * The `metric` option allows you to plug in a custom similarity metric.
 	 *
-	 * Set it to NULL to use the default internal metric.
+	 * Set it to null to use the default internal metric.
 	 *
 	 * The default metric is based on sampling hashes of ranges of data in
 	 * the file, which is a pretty good similarity approximation that should

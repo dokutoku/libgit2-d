@@ -9,25 +9,8 @@
  *
  * You should have received a copy of the CC0 Public Domain Dedication along
  * with this software. If not, see
- * <http://creativecommons.org/publicdomain/zero/1.0/>.
+ * <https://creativecommons.org/publicdomain/zero/1.0/>.
  */
-module libgit2.example.status;
-
-
-private static import core.stdc.stdio;
-private static import core.stdc.string;
-private static import libgit2.diff;
-private static import libgit2.errors;
-private static import libgit2.example.args;
-private static import libgit2.example.common;
-private static import libgit2.refs;
-private static import libgit2.repository;
-private static import libgit2.status;
-private static import libgit2.submodule;
-private static import libgit2.types;
-
-package:
-
 /**
  * This example demonstrates the use of the libgit2 status APIs,
  * particularly the `libgit2.types.git_status_list` object, to roughly simulate the
@@ -46,7 +29,25 @@ package:
  * - A sample status formatter that matches the default "long" format
  *   from `git status`
  * - A sample status formatter that matches the "short" format
+ *
+ * License: $(LINK2 https://creativecommons.org/publicdomain/zero/1.0/, CC0 1.0 Universal)
  */
+module libgit2.example.status;
+
+
+private static import core.stdc.stdio;
+private static import core.stdc.string;
+private static import libgit2.diff;
+private static import libgit2.errors;
+private static import libgit2.example.args;
+private static import libgit2.example.common;
+private static import libgit2.refs;
+private static import libgit2.repository;
+private static import libgit2.status;
+private static import libgit2.submodule;
+private static import libgit2.types;
+
+package:
 
 public enum
 {

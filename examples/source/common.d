@@ -9,7 +9,10 @@
  *
  * You should have received a copy of the CC0 Public Domain Dedication along
  * with this software. If not, see
- * <http://creativecommons.org/publicdomain/zero/1.0/>.
+ * <https://creativecommons.org/publicdomain/zero/1.0/>.
+ */
+/**
+ * License: $(LINK2 https://creativecommons.org/publicdomain/zero/1.0/, CC0 1.0 Universal)
  */
 module libgit2.example.common;
 
@@ -447,7 +450,7 @@ public int cred_acquire_cb(libgit2.credential.git_credential** out_, const (char
  * Params:
  *      path = The path to the file that shall be read
  *
- * Returns: NUL-terminated buffer if the file was successfully read, null-pointer otherwise
+ * Returns: null-terminated buffer if the file was successfully read, null-pointer otherwise
  */
 nothrow @nogc
 public char* read_file(const (char)* path)

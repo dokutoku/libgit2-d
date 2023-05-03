@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.sys.refdb_backend;
 
 
@@ -87,7 +90,7 @@ struct git_refdb_backend
 	 */
 	/*
 	 * Params:
-	 *      out_ = The implementation shall set this to the allocated reference, if it could be found, otherwise to `NULL`.
+	 *      out_ = The implementation shall set this to the allocated reference, if it could be found, otherwise to `null`.
 	 *      backend = ?
 	 *      ref_name = The reference's name that should be checked for existence.
 	 */
@@ -122,8 +125,8 @@ struct git_refdb_backend
 	 *      force = Whether to write the reference if a reference with the same name already exists.
 	 *      who = The person updating the reference. Shall be used to create a reflog entry.
 	 *      message = The message detailing what kind of reference update is performed. Shall be used to create a reflog entry.
-	 *      old = If not `NULL` and `force` is not set, then the implementation needs to ensure that the reference is currently at the given OID before writing the new value. If both `old` and `old_target` are `NULL`, then the reference should not exist at the point of writing.
-	 *      old_target = If not `NULL` and `force` is not set, then the implementation needs to ensure that the symbolic reference is currently at the given target before writing the new value. If both `old` and `old_target` are `NULL`, then the reference should not exist at the point of writing.
+	 *      old = If not `null` and `force` is not set, then the implementation needs to ensure that the reference is currently at the given OID before writing the new value. If both `old` and `old_target` are `null`, then the reference should not exist at the point of writing.
+	 *      old_target = If not `null` and `force` is not set, then the implementation needs to ensure that the symbolic reference is currently at the given target before writing the new value. If both `old` and `old_target` are `null`, then the reference should not exist at the point of writing.
 	 */
 	int function(.git_refdb_backend* backend, const (libgit2.types.git_reference)* ref_, int force, const (libgit2.types.git_signature)* who, const (char)* message, const (libgit2.oid.git_oid)* old, const (char)* old_target) write;
 
@@ -136,7 +139,7 @@ struct git_refdb_backend
 	 */
 	/*
 	 * Params:
-	 *      out_ = The implementation shall set this to the newly created reference or `NULL` on error.
+	 *      out_ = The implementation shall set this to the newly created reference or `null` on error.
 	 *      backend = ?
 	 *      old_name = The current name of the reference that is to be renamed.
 	 *      new_name = The new name that the old reference shall be renamed to.
@@ -159,8 +162,8 @@ struct git_refdb_backend
 	 * Params:
 	 *      backend = ?
 	 *      ref_name = The name of the reference name that shall be deleted.
-	 *      old_id = If not `NULL` and `force` is not set, then the implementation needs to ensure that the reference is currently at the given OID before writing the new value.
-	 *      old_target = If not `NULL` and `force` is not set, then the implementation needs to ensure that the symbolic reference is currently at the given target before writing the new value.
+	 *      old_id = If not `null` and `force` is not set, then the implementation needs to ensure that the reference is currently at the given OID before writing the new value.
+	 *      old_target = If not `null` and `force` is not set, then the implementation needs to ensure that the symbolic reference is currently at the given target before writing the new value.
 	 */
 	int function(.git_refdb_backend* backend, const (char)* ref_name, const (libgit2.oid.git_oid)* old_id, const (char)* old_target) del;
 

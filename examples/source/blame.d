@@ -9,7 +9,13 @@
  *
  * You should have received a copy of the CC0 Public Domain Dedication along
  * with this software. If not, see
- * <http://creativecommons.org/publicdomain/zero/1.0/>.
+ * <https://creativecommons.org/publicdomain/zero/1.0/>.
+ */
+/**
+ * This example demonstrates how to invoke the libgit2 blame API to roughly
+ * simulate the output of `git blame` and a few of its command line arguments.
+ *
+ * License: $(LINK2 https://creativecommons.org/publicdomain/zero/1.0/, CC0 1.0 Universal)
  */
 module libgit2.example.blame;
 
@@ -27,11 +33,6 @@ private static import libgit2.types;
 private static import std.ascii;
 
 package:
-
-/**
- * This example demonstrates how to invoke the libgit2 blame API to roughly
- * simulate the output of `git blame` and a few of its command line arguments.
- */
 
 public struct blame_opts
 {

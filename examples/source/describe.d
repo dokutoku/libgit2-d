@@ -9,23 +9,8 @@
  *
  * You should have received a copy of the CC0 Public Domain Dedication along
  * with this software. If not, see
- * <http://creativecommons.org/publicdomain/zero/1.0/>.
+ * <https://creativecommons.org/publicdomain/zero/1.0/>.
  */
-module libgit2.example.describe;
-
-
-private static import core.stdc.stdio;
-private static import core.stdc.stdlib;
-private static import core.stdc.string;
-private static import libgit2.buffer;
-private static import libgit2.describe;
-private static import libgit2.example.args;
-private static import libgit2.example.common;
-private static import libgit2.revparse;
-private static import libgit2.types;
-
-package:
-
 /**
  * The following example partially reimplements the `git describe` command
  * and some of its options.
@@ -46,7 +31,23 @@ package:
  *
  * The command line parsing logic is simplified and doesn't handle
  * all of the use cases.
+ *
+ * License: $(LINK2 https://creativecommons.org/publicdomain/zero/1.0/, CC0 1.0 Universal)
  */
+module libgit2.example.describe;
+
+
+private static import core.stdc.stdio;
+private static import core.stdc.stdlib;
+private static import core.stdc.string;
+private static import libgit2.buffer;
+private static import libgit2.describe;
+private static import libgit2.example.args;
+private static import libgit2.example.common;
+private static import libgit2.revparse;
+private static import libgit2.types;
+
+package:
 
 /**
  * describe_options represents the parsed command line options

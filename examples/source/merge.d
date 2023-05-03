@@ -9,7 +9,17 @@
  *
  * You should have received a copy of the CC0 Public Domain Dedication along
  * with this software. If not, see
- * <http://creativecommons.org/publicdomain/zero/1.0/>.
+ * <https://creativecommons.org/publicdomain/zero/1.0/>.
+ */
+/**
+ * The following example demonstrates how to do merges with libgit2.
+ *
+ * It will merge whatever commit-ish you pass in into the current branch.
+ *
+ * Recognized options are :
+ *  --no-commit: don't actually commit the merge.
+ *
+ * License: $(LINK2 https://creativecommons.org/publicdomain/zero/1.0/, CC0 1.0 Universal)
  */
 module libgit2.example.merge;
 
@@ -36,15 +46,6 @@ private static import libgit2.types;
 private static import std.bitmanip;
 
 package:
-
-/** The following example demonstrates how to do merges with libgit2.
- *
- * It will merge whatever commit-ish you pass in into the current branch.
- *
- * Recognized options are :
- *  --no-commit: don't actually commit the merge.
- *
- */
 
 public struct merge_options
 {

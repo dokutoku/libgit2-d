@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.remote;
 
 
@@ -82,13 +85,13 @@ struct git_remote_create_options
 
 	/**
 	 * The repository that should own the remote.
-	 * Setting this to NULL results in a detached remote.
+	 * Setting this to null results in a detached remote.
 	 */
 	libgit2.types.git_repository* repository;
 
 	/**
 	 * The remote's name.
-	 * Setting this to NULL results in an in-memory/anonymous remote.
+	 * Setting this to null results in an in-memory/anonymous remote.
 	 */
 	const (char)* name;
 
@@ -139,7 +142,7 @@ int git_remote_create_options_init(.git_remote_create_options* opts, uint versio
  *
  * This function allows more fine-grained control over the remote creation.
  *
- * Passing NULL as the opts argument will result in a detached remote.
+ * Passing null as the opts argument will result in a detached remote.
  *
  * Params:
  *      out_ = the resulting remote

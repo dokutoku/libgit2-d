@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.branch;
 
 
@@ -122,8 +125,8 @@ void git_branch_iterator_free(.git_branch_iterator* iter);
  * See `git_tag_create()` for rules about valid names.
  *
  * Note that if the move succeeds, the old reference object will not
- + be valid anymore, and should be freed immediately by the user using
- + `git_reference_free()`.
+ * be valid anymore, and should be freed immediately by the user using
+ * `git_reference_free()`.
  *
  * Params:
  *      out_ = New reference object for the updated name.
@@ -192,7 +195,7 @@ int git_branch_upstream(libgit2.types.git_reference** out_, const (libgit2.types
  * Set a branch's upstream branch
  *
  * This will update the configuration to set the branch named `branch_name` as the upstream of `branch`.
- * Pass a NULL name to unset the upstream information.
+ * Pass a null name to unset the upstream information.
  *
  * @note the actual tracking reference must have been already created for the
  * operation to succeed.

@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.describe;
 
 
@@ -190,7 +193,7 @@ struct git_describe_result;
  * Params:
  *      result = pointer to store the result. You must free this once you're done with it.
  *      committish = a committish to describe
- *      opts = the lookup options (or NULL for defaults)
+ *      opts = the lookup options (or null for defaults)
  */
 @GIT_EXTERN
 int git_describe_commit(.git_describe_result** result, libgit2.types.git_object* committish, .git_describe_options* opts);
@@ -205,7 +208,7 @@ int git_describe_commit(.git_describe_result** result, libgit2.types.git_object*
  * Params:
  *      out_ = pointer to store the result. You must free this once you're done with it.
  *      repo = the repository in which to perform the describe
- *      opts = the lookup options (or NULL for defaults)
+ *      opts = the lookup options (or null for defaults)
  */
 @GIT_EXTERN
 int git_describe_workdir(.git_describe_result** out_, libgit2.types.git_repository* repo, .git_describe_options* opts);
@@ -216,7 +219,7 @@ int git_describe_workdir(.git_describe_result** out_, libgit2.types.git_reposito
  * Params:
  *      out_ = The buffer to store the result
  *      result = the result from `git_describe_commit()` or `git_describe_workdir()`.
- *      opts = the formatting options (or NULL for defaults)
+ *      opts = the formatting options (or null for defaults)
  */
 @GIT_EXTERN
 int git_describe_format(libgit2.buffer.git_buf* out_, const (.git_describe_result)* result, const (.git_describe_format_options)* opts);

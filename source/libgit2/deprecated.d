@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.deprecated_;
 
 
@@ -550,9 +553,11 @@ version (GIT_DEPRECATE_HARD) {
 	 * This function is deprecated, but there is no plan to remove this
 	 * function at this time.
 	 *
-	 * @param tgt target
-	 * @param src source
-	 * @return 0 on success, < 0 on allocation failure
+	 * Params:
+	 *      tgt = target
+	 *      src = source
+	 *
+	 * Returns: 0 on success, < 0 on allocation failure
 	 */
 	@GIT_EXTERN
 	int git_strarray_copy(libgit2.strarray.git_strarray* tgt, const (libgit2.strarray.git_strarray)* src);

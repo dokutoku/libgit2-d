@@ -4,6 +4,9 @@
  * This file is part of libgit2, distributed under the GNU GPL v2 with
  * a Linking Exception. For full terms see the included COPYING file.
  */
+/**
+ * License: GPL-2.0(Linking Exception)
+ */
 module libgit2.sys.alloc;
 
 
@@ -53,7 +56,7 @@ struct git_allocator
 	/**
 	 * This function shall deallocate the old object `ptr_` and return a
 	 * pointer to a new object that has the size specified by `size`. In
-	 * case `ptr_` is `NULL`, a new array shall be allocated.
+	 * case `ptr_` is `null`, a new array shall be allocated.
 	 */
 	void* function(void* ptr_, size_t size, const (char)* file, int line) grealloc;
 
@@ -71,7 +74,7 @@ struct git_allocator
 
 	/**
 	 * This function shall free the memory pointed to by `ptr_`. In case
-	 * `ptr_` is `NULL`, this shall be a no-op.
+	 * `ptr_` is `null`, this shall be a no-op.
 	 */
 	void function(void* ptr_) gfree;
 }
