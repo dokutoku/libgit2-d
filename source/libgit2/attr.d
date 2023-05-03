@@ -24,93 +24,90 @@ extern (C):
 nothrow @nogc:
 public:
 
-//Linker error
-version (none) {
-	/**
-	 * GIT_ATTR_TRUE checks if an attribute is set on.  In core git
-	 * parlance, this the value for "Set" attributes.
-	 *
-	 * For example, if the attribute file contains:
-	 *
-	 *    *.c foo
-	 *
-	 * Then for file `xyz.c` looking up attribute "foo" gives a value for
-	 * which `GIT_ATTR_TRUE(value)` is true.
-	 */
-	pragma(inline, true)
-	nothrow @nogc
-	bool GIT_ATTR_IS_TRUE(const (char)* attr)
+/**
+ * GIT_ATTR_TRUE checks if an attribute is set on.  In core git
+ * parlance, this the value for "Set" attributes.
+ *
+ * For example, if the attribute file contains:
+ *
+ *    *.c foo
+ *
+ * Then for file `xyz.c` looking up attribute "foo" gives a value for
+ * which `GIT_ATTR_TRUE(value)` is true.
+ */
+pragma(inline, true)
+nothrow @nogc
+bool GIT_ATTR_IS_TRUE(const (char)* attr)
 
-		do
-		{
-			return .git_attr_value(attr) == .git_attr_t.GIT_ATTR_VALUE_TRUE;
-		}
+	do
+	{
+		return .git_attr_value(attr) == .git_attr_value_t.GIT_ATTR_VALUE_TRUE;
+	}
 
-	/**
-	 * GIT_ATTR_FALSE checks if an attribute is set off.  In core git
-	 * parlance, this is the value for attributes that are "Unset" (not to
-	 * be confused with values that a "Unspecified").
-	 *
-	 * For example, if the attribute file contains:
-	 *
-	 *    *.h -foo
-	 *
-	 * Then for file `zyx.h` looking up attribute "foo" gives a value for
-	 * which `GIT_ATTR_FALSE(value)` is true.
-	 */
-	pragma(inline, true)
-	nothrow @nogc
-	bool GIT_ATTR_IS_FALSE(const (char)* attr)
+/**
+ * GIT_ATTR_FALSE checks if an attribute is set off.  In core git
+ * parlance, this is the value for attributes that are "Unset" (not to
+ * be confused with values that a "Unspecified").
+ *
+ * For example, if the attribute file contains:
+ *
+ *    *.h -foo
+ *
+ * Then for file `zyx.h` looking up attribute "foo" gives a value for
+ * which `GIT_ATTR_FALSE(value)` is true.
+ */
+pragma(inline, true)
+nothrow @nogc
+bool GIT_ATTR_IS_FALSE(const (char)* attr)
 
-		do
-		{
-			return .git_attr_value(attr) == .git_attr_t.GIT_ATTR_VALUE_FALSE;
-		}
+	do
+	{
+		return .git_attr_value(attr) == .git_attr_value_t.GIT_ATTR_VALUE_FALSE;
+	}
 
-	/**
-	 * GIT_ATTR_UNSPECIFIED checks if an attribute is unspecified.  This
-	 * may be due to the attribute not being mentioned at all or because
-	 * the attribute was explicitly set unspecified via the `!` operator.
-	 *
-	 * For example, if the attribute file contains:
-	 *
-	 *    *.c foo
-	 *    *.h -foo
-	 *    onefile.c !foo
-	 *
-	 * Then for `onefile.c` looking up attribute "foo" yields a value with
-	 * `GIT_ATTR_UNSPECIFIED(value)` of true.  Also, looking up "foo" on
-	 * file `onefile.rb` or looking up "bar" on any file will all give
-	 * `GIT_ATTR_UNSPECIFIED(value)` of true.
-	 */
-	pragma(inline, true)
-	nothrow @nogc
-	bool GIT_ATTR_IS_UNSPECIFIED(const (char)* attr)
+/**
+ * GIT_ATTR_UNSPECIFIED checks if an attribute is unspecified.  This
+ * may be due to the attribute not being mentioned at all or because
+ * the attribute was explicitly set unspecified via the `!` operator.
+ *
+ * For example, if the attribute file contains:
+ *
+ *    *.c foo
+ *    *.h -foo
+ *    onefile.c !foo
+ *
+ * Then for `onefile.c` looking up attribute "foo" yields a value with
+ * `GIT_ATTR_UNSPECIFIED(value)` of true.  Also, looking up "foo" on
+ * file `onefile.rb` or looking up "bar" on any file will all give
+ * `GIT_ATTR_UNSPECIFIED(value)` of true.
+ */
+pragma(inline, true)
+nothrow @nogc
+bool GIT_ATTR_IS_UNSPECIFIED(const (char)* attr)
 
-		do
-		{
-			return .git_attr_value(attr) == .git_attr_t.GIT_ATTR_VALUE_UNSPECIFIED;
-		}
+	do
+	{
+		return .git_attr_value(attr) == .git_attr_value_t.GIT_ATTR_VALUE_UNSPECIFIED;
+	}
 
-	/**
-	 * GIT_ATTR_HAS_VALUE checks if an attribute is set to a value (as
-	 * opposed to TRUE, FALSE or UNSPECIFIED).  This would be the case if
-	 * for a file with something like:
-	 *
-	 *    *.txt eol=lf
-	 *
-	 * Given this, looking up "eol" for `onefile.txt` will give back the
-	 * string "lf" and `GIT_ATTR_SET_TO_VALUE(attr)` will return true.
-	 */
-	pragma(inline, true)
-	nothrow @nogc
-	bool GIT_ATTR_HAS_VALUE(const (char)* attr)
+/**
+ * GIT_ATTR_HAS_VALUE checks if an attribute is set to a value (as
+ * opposed to TRUE, FALSE or UNSPECIFIED).  This would be the case if
+ * for a file with something like:
+ *
+ *    *.txt eol=lf
+ *
+ * Given this, looking up "eol" for `onefile.txt` will give back the
+ * string "lf" and `GIT_ATTR_SET_TO_VALUE(attr)` will return true.
+ */
+pragma(inline, true)
+nothrow @nogc
+bool GIT_ATTR_HAS_VALUE(const (char)* attr)
 
-		do
-		{
-			return .git_attr_value(attr) == .git_attr_t.GIT_ATTR_VALUE_STRING;
-		}
-}
+	do
+	{
+		return .git_attr_value(attr) == .git_attr_value_t.GIT_ATTR_VALUE_STRING;
+	}
 
 /**
  * Possible states for an attribute

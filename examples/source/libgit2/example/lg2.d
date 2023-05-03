@@ -124,71 +124,70 @@ private void usage(const (char)* prog)
 		core.stdc.stdlib.exit(core.stdc.stdlib.EXIT_FAILURE);
 	}
 
-version (LIBGIT2_EXAMPLE) {
-	extern (C)
-	nothrow @nogc
-	public int main(int argc, char** argv)
+version (LIBGIT2_EXAMPLE)
+extern (C)
+nothrow @nogc
+public int main(int argc, char** argv)
 
-		do
-		{
-			if (argc < 2) {
-				.usage(argv[0]);
+	do
+	{
+		if (argc < 2) {
+			.usage(argv[0]);
+		}
+
+		libgit2.example.args.args_info args = libgit2.example.args.ARGS_INFO_INIT(argc, argv);
+		libgit2.global.git_libgit2_init();
+
+		const (char)* git_dir = null;
+
+		for (args.pos = 1; args.pos < args.argc; ++args.pos) {
+			char* a = args.argv[args.pos];
+
+			if (a[0] != '-') {
+				/* non-arg */
+				break;
+			} else if (libgit2.example.args.optional_str_arg(&git_dir, &args, "--git-dir", ".git")) {
+				continue;
+			} else if (libgit2.example.args.match_arg_separator(&args)) {
+				break;
+			}
+		}
+
+		if (args.pos == args.argc) {
+			.usage(argv[0]);
+		}
+
+		if (git_dir == null) {
+			git_dir = ".";
+		}
+
+		libgit2.types.git_repository* repo = null;
+		int return_code = 1;
+
+		scope (exit) {
+			libgit2.repository.git_repository_free(repo);
+			libgit2.global.git_libgit2_shutdown();
+		}
+
+		for (size_t i = 0; i < commands.length; ++i) {
+			if (core.stdc.string.strcmp(args.argv[args.pos], commands[i].name)) {
+				continue;
 			}
 
-			libgit2.example.args.args_info args = libgit2.example.args.ARGS_INFO_INIT(argc, argv);
-			libgit2.global.git_libgit2_init();
-
-			const (char)* git_dir = null;
-
-			for (args.pos = 1; args.pos < args.argc; ++args.pos) {
-				char* a = args.argv[args.pos];
-
-				if (a[0] != '-') {
-					/* non-arg */
-					break;
-				} else if (libgit2.example.args.optional_str_arg(&git_dir, &args, "--git-dir", ".git")) {
-					continue;
-				} else if (libgit2.example.args.match_arg_separator(&args)) {
-					break;
-				}
+			/*
+			 * Before running the actual command, create an instance
+			 * of the local repository and pass it to the function.
+			 */
+			if (commands[i].requires_repo) {
+				libgit2.example.common.check_lg2(libgit2.repository.git_repository_open_ext(&repo, git_dir, 0, null), "Unable to open repository '%s'", git_dir);
 			}
 
-			if (args.pos == args.argc) {
-				.usage(argv[0]);
-			}
-
-			if (git_dir == null) {
-				git_dir = ".";
-			}
-
-			libgit2.types.git_repository* repo = null;
-			int return_code = 1;
-
-			scope (exit) {
-				libgit2.repository.git_repository_free(repo);
-				libgit2.global.git_libgit2_shutdown();
-			}
-
-			for (size_t i = 0; i < commands.length; ++i) {
-				if (core.stdc.string.strcmp(args.argv[args.pos], commands[i].name)) {
-					continue;
-				}
-
-				/*
-				 * Before running the actual command, create an instance
-				 * of the local repository and pass it to the function.
-				 */
-				if (commands[i].requires_repo) {
-					libgit2.example.common.check_lg2(libgit2.repository.git_repository_open_ext(&repo, git_dir, 0, null), "Unable to open repository '%s'", git_dir);
-				}
-
-				return_code = run_command(commands[i].fn, repo, args);
-
-				return return_code;
-			}
-
-			core.stdc.stdio.fprintf(core.stdc.stdio.stderr, "Command not found: %s\n", argv[1]);
+			return_code = run_command(commands[i].fn, repo, args);
 
 			return return_code;
 		}
-}
+
+		core.stdc.stdio.fprintf(core.stdc.stdio.stderr, "Command not found: %s\n", argv[1]);
+
+		return return_code;
+	}
