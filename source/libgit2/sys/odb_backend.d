@@ -102,7 +102,7 @@ struct git_odb_backend
 enum GIT_ODB_BACKEND_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_odb_backend GIT_ODB_BACKEND_INIT()
 
 	do

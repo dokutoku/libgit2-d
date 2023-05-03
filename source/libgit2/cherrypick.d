@@ -52,7 +52,7 @@ struct git_cherrypick_options
 enum GIT_CHERRYPICK_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_cherrypick_options GIT_CHERRYPICK_OPTIONS_INIT()
 
 	do

@@ -70,7 +70,7 @@ struct git_buf
  * Static initializer for git_buf from static buffer
  */
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_buf GIT_BUF_INIT_CONST(char* STR, size_t LEN)
 
 	do

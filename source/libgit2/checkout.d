@@ -462,7 +462,7 @@ struct git_checkout_options
 enum GIT_CHECKOUT_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_checkout_options GIT_CHECKOUT_OPTIONS_INIT()
 
 	do

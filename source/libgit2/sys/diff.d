@@ -80,7 +80,7 @@ struct git_diff_perfdata
 enum GIT_DIFF_PERFDATA_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_diff_perfdata GIT_DIFF_PERFDATA_INIT()
 
 	do

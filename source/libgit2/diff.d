@@ -638,7 +638,7 @@ enum GIT_DIFF_OPTIONS_VERSION = 1;
  */
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_diff_options GIT_DIFF_OPTIONS_INIT()
 
 	do
@@ -1162,7 +1162,7 @@ struct git_diff_find_options
 enum GIT_DIFF_FIND_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_diff_find_options GIT_DIFF_FIND_OPTIONS_INIT()
 
 	do
@@ -1865,7 +1865,7 @@ struct git_diff_format_email_options
 enum GIT_DIFF_FORMAT_EMAIL_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_diff_format_email_options GIT_DIFF_FORMAT_EMAIL_OPTIONS_INIT()
 
 	do
@@ -1946,7 +1946,7 @@ struct git_diff_patchid_options
 enum GIT_DIFF_PATCHID_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_diff_patchid_options GIT_DIFF_PATCHID_OPTIONS_INIT()
 
 	do

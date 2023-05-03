@@ -179,7 +179,7 @@ struct git_clone_options
 enum GIT_CLONE_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_clone_options GIT_CLONE_OPTIONS_INIT()
 
 	do

@@ -286,7 +286,7 @@ struct git_filter
 enum GIT_FILTER_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_filter GIT_FILTER_INIT()
 
 	do

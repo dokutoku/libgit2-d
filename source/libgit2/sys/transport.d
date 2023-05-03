@@ -134,7 +134,7 @@ struct git_transport
 enum GIT_TRANSPORT_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_transport GIT_TRANSPORT_INIT()
 
 	do

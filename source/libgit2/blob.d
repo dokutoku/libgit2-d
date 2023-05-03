@@ -170,7 +170,7 @@ struct git_blob_filter_options
 enum GIT_BLOB_FILTER_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_blob_filter_options GIT_BLOB_FILTER_OPTIONS_INIT()
 
 	do

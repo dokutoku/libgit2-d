@@ -52,7 +52,7 @@ struct git_revert_options
 enum GIT_REVERT_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_revert_options GIT_REVERT_OPTIONS_INIT()
 
 	do

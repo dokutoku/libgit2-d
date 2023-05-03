@@ -151,7 +151,7 @@ enum
 enum GIT_REBASE_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_rebase_options GIT_REBASE_OPTIONS_INIT()
 
 	do

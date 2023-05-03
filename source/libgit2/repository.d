@@ -386,7 +386,7 @@ struct git_repository_init_options
 enum GIT_REPOSITORY_INIT_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_repository_init_options GIT_REPOSITORY_INIT_OPTIONS_INIT()
 
 	do

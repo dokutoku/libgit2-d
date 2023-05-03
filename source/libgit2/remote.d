@@ -109,7 +109,7 @@ struct git_remote_create_options
 enum GIT_REMOTE_CREATE_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_remote_create_options GIT_REMOTE_CREATE_OPTIONS_INIT()
 
 	do
@@ -708,7 +708,7 @@ struct git_remote_callbacks
 enum GIT_REMOTE_CALLBACKS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_remote_callbacks GIT_REMOTE_CALLBACKS_INIT()
 
 	do
@@ -852,7 +852,7 @@ struct git_fetch_options
 enum GIT_FETCH_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_fetch_options GIT_FETCH_OPTIONS_INIT()
 
 	do
@@ -921,7 +921,7 @@ struct git_push_options
 enum GIT_PUSH_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_push_options GIT_PUSH_OPTIONS_INIT()
 
 	do

@@ -62,7 +62,7 @@ struct git_merge_file_input
 enum GIT_MERGE_FILE_INPUT_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_merge_file_input GIT_MERGE_FILE_INPUT_INIT()
 
 	do
@@ -289,7 +289,7 @@ struct git_merge_file_options
 enum GIT_MERGE_FILE_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_merge_file_options GIT_MERGE_FILE_OPTIONS_INIT()
 
 	do
@@ -414,7 +414,7 @@ struct git_merge_options
 enum GIT_MERGE_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_merge_options GIT_MERGE_OPTIONS_INIT()
 
 	do

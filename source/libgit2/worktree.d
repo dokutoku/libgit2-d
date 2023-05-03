@@ -116,7 +116,7 @@ struct git_worktree_add_options
 enum GIT_WORKTREE_ADD_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_worktree_add_options GIT_WORKTREE_ADD_OPTIONS_INIT()
 
 	do
@@ -274,7 +274,7 @@ struct git_worktree_prune_options
 enum GIT_WORKTREE_PRUNE_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_worktree_prune_options GIT_WORKTREE_PRUNE_OPTIONS_INIT()
 
 	do

@@ -306,7 +306,7 @@ struct git_refdb_backend
 enum GIT_REFDB_BACKEND_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_refdb_backend GIT_REFDB_BACKEND_INIT()
 
 	do

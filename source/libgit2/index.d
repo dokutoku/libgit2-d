@@ -109,7 +109,7 @@ enum
 }
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 ushort GIT_INDEX_ENTRY_STAGE(const ref .git_index_entry E)
 
 	do
@@ -118,7 +118,7 @@ ushort GIT_INDEX_ENTRY_STAGE(const ref .git_index_entry E)
 	}
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 void GIT_INDEX_ENTRY_STAGE_SET(T)(ref .git_index_entry E, T S)
 	if (std.traits.isIntegral!(T))
 

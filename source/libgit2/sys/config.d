@@ -104,7 +104,7 @@ struct git_config_backend
 enum GIT_CONFIG_BACKEND_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_config_backend GIT_CONFIG_BACKEND_INIT()
 
 	do

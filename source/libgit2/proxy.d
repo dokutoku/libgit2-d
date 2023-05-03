@@ -97,7 +97,7 @@ struct git_proxy_options
 enum GIT_PROXY_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_proxy_options GIT_PROXY_OPTIONS_INIT()
 
 	do

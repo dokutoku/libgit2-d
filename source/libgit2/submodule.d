@@ -120,7 +120,7 @@ enum GIT_SUBMODULE_STATUS__INDEX_FLAGS = 0x0070u;
 enum GIT_SUBMODULE_STATUS__WD_FLAGS = 0x3F80u;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 bool GIT_SUBMODULE_STATUS_IS_UNMODIFIED(T)(S)
 	if (std.traits.isIntegral!(T))
 
@@ -130,7 +130,7 @@ bool GIT_SUBMODULE_STATUS_IS_UNMODIFIED(T)(S)
 	}
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 bool GIT_SUBMODULE_STATUS_IS_INDEX_UNMODIFIED(T)(S)
 	if (std.traits.isIntegral!(T))
 
@@ -140,7 +140,7 @@ bool GIT_SUBMODULE_STATUS_IS_INDEX_UNMODIFIED(T)(S)
 	}
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 bool GIT_SUBMODULE_STATUS_IS_WD_UNMODIFIED(T)(S)
 	if (std.traits.isIntegral!(T))
 
@@ -150,7 +150,7 @@ bool GIT_SUBMODULE_STATUS_IS_WD_UNMODIFIED(T)(S)
 	}
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 bool GIT_SUBMODULE_STATUS_IS_WD_DIRTY(T)(S)
 	if (std.traits.isIntegral!(T))
 
@@ -209,7 +209,7 @@ struct git_submodule_update_options
 enum GIT_SUBMODULE_UPDATE_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_submodule_update_options GIT_SUBMODULE_UPDATE_OPTIONS_INIT()
 
 	do

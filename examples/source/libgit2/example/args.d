@@ -32,7 +32,7 @@ struct args_info
 }
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .args_info ARGS_INFO_INIT(int argc, char** argv)
 
 	do

@@ -90,7 +90,7 @@ enum GIT_DESCRIBE_DEFAULT_ABBREVIATED_SIZE = 7;
 enum GIT_DESCRIBE_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_describe_options GIT_DESCRIBE_OPTIONS_INIT()
 
 	do
@@ -151,7 +151,7 @@ struct git_describe_format_options
 enum GIT_DESCRIBE_FORMAT_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_describe_format_options GIT_DESCRIBE_FORMAT_OPTIONS_INIT()
 
 	do

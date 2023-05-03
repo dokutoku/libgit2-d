@@ -114,7 +114,7 @@ struct git_apply_options
 enum GIT_APPLY_OPTIONS_VERSION = 1;
 
 pragma(inline, true)
-pure nothrow @safe @nogc
+pure nothrow @safe @nogc @live
 .git_apply_options GIT_APPLY_OPTIONS_INIT()
 
 	do
