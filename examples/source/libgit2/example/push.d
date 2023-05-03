@@ -35,8 +35,6 @@ private static import libgit2.remote;
 private static import libgit2.strarray;
 private static import libgit2.types;
 
-package:
-
 /**
  * Entry point for this command
  */

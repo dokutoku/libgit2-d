@@ -41,11 +41,10 @@ private static import libgit2.global;
 private static import libgit2.repository;
 private static import libgit2.types;
 
-package:
-
 
 public alias git_command_fn = extern (C) nothrow @nogc int function(libgit2.types.git_repository*, int, char**);
 
+extern (C)
 public struct commands_t
 {
 	immutable (char)* name;

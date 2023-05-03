@@ -10,8 +10,7 @@ private static import libgit2.indexer;
 private static import libgit2.repository;
 private static import libgit2.types;
 
-package:
-
+extern (C)
 public struct progress_data
 {
 	libgit2.indexer.git_indexer_progress fetch_progress;

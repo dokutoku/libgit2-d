@@ -23,8 +23,6 @@ private static import libgit2.errors;
 private static import libgit2.repository;
 private static import libgit2.types;
 
-package:
-
 nothrow @nogc
 private int config_get(libgit2.types.git_config* cfg, const (char)* key)
 

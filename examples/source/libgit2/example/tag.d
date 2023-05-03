@@ -46,11 +46,10 @@ private static import libgit2.strarray;
 private static import libgit2.tag;
 private static import libgit2.types;
 
-package:
-
 /**
  * tag_options represents the parsed command line options
  */
+extern (C)
 public struct tag_options
 {
 	const (char)* message;
@@ -64,6 +63,7 @@ public struct tag_options
 /**
  * tag_state represents the current program state for dragging around
  */
+extern (C)
 public struct tag_state
 {
 	libgit2.types.git_repository* repo;

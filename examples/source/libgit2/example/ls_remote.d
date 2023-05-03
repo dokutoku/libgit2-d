@@ -9,8 +9,6 @@ private static import libgit2.oid;
 private static import libgit2.remote;
 private static import libgit2.types;
 
-package:
-
 nothrow @nogc
 private int use_remote(libgit2.types.git_repository* repo, char* name)
 

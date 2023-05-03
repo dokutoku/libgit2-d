@@ -38,8 +38,6 @@ private static import libgit2.refs;
 private static import libgit2.revparse;
 private static import libgit2.types;
 
-package:
-
 version (Windows) {
 	alias open = core.stdc.stdio._open;
 
@@ -97,6 +95,7 @@ version (Windows) {
  * Check libgit2 error code, printing error to stderr on failure and
  * exiting the program.
  */
+extern (C)
 nothrow @nogc
 public void check_lg2(int error, const (char)* message, const (char)* extra)
 
@@ -131,6 +130,7 @@ public void check_lg2(int error, const (char)* message, const (char)* extra)
 /**
  * Exit the program, printing error to stderr
  */
+extern (C)
 nothrow @nogc
 public void fatal(const (char)* message, const (char)* extra)
 
@@ -185,6 +185,7 @@ public int diff_output(const (libgit2.diff.git_diff_delta)* d, const (libgit2.di
  * Convert a treeish argument to an actual tree; this will call check_lg2
  * and exit the program if `treeish` cannot be resolved to a tree
  */
+extern (C)
 nothrow @nogc
 public void treeish_to_tree(libgit2.types.git_tree** out_, libgit2.types.git_repository* repo, const (char)* treeish)
 
@@ -206,6 +207,7 @@ public void treeish_to_tree(libgit2.types.git_tree** out_, libgit2.types.git_rep
 /**
  * A realloc that exits on failure
  */
+extern (C)
 nothrow @nogc
 public void* xrealloc(void* oldp, size_t newsz)
 
@@ -228,6 +230,7 @@ public void* xrealloc(void* oldp, size_t newsz)
 /**
  * Convert a refish to an annotated commit.
  */
+extern (C)
 nothrow @nogc
 public int resolve_refish(libgit2.types.git_annotated_commit** commit, libgit2.types.git_repository* repo, const (char)* refish)
 
@@ -452,6 +455,7 @@ public int cred_acquire_cb(libgit2.credential.git_credential** out_, const (char
  *
  * Returns: null-terminated buffer if the file was successfully read, null-pointer otherwise
  */
+extern (C)
 nothrow @nogc
 public char* read_file(const (char)* path)
 

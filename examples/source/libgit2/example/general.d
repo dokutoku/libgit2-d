@@ -63,8 +63,6 @@ private static import libgit2.tag;
 private static import libgit2.tree;
 private static import libgit2.types;
 
-package:
-
 /*
  * ### Includes
  *

@@ -32,8 +32,7 @@ private static import libgit2.revparse;
 private static import libgit2.types;
 private static import std.ascii;
 
-package:
-
+extern (C)
 public struct blame_opts
 {
 	char* path;

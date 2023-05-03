@@ -51,11 +51,10 @@ private static import libgit2.revwalk;
 private static import libgit2.tree;
 private static import libgit2.types;
 
-package:
-
 /**
  * log_state represents walker being configured while handling options
  */
+extern (C)
 public struct log_state
 {
 	libgit2.types.git_repository* repo;
@@ -74,6 +73,7 @@ public struct log_state
 /**
  * log_options holds other command line options that affect log output
  */
+extern (C)
 public struct log_options
 {
 	int show_diff;

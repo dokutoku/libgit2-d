@@ -27,8 +27,6 @@ private static import libgit2.signature;
 private static import libgit2.stash;
 private static import libgit2.types;
 
-package:
-
 enum subcmd
 {
 	SUBCMD_APPLY,

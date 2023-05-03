@@ -38,8 +38,6 @@ private static import libgit2.status;
 private static import libgit2.strarray;
 private static import libgit2.types;
 
-package:
-
 public enum index_mode
 {
 	INDEX_NONE,
@@ -53,6 +51,7 @@ public enum
 	INDEX_ADD = .index_mode.INDEX_ADD,
 }
 
+extern (C)
 public struct index_options
 {
 	int dry_run;

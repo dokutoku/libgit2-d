@@ -25,8 +25,6 @@ private static import libgit2.oid;
 private static import libgit2.repository;
 private static import libgit2.types;
 
-package:
-
 extern (C)
 nothrow @nogc
 public int lg2_show_index(libgit2.types.git_repository* repo, int argc, char** argv)

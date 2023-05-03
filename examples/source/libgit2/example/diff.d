@@ -37,8 +37,6 @@ private static import libgit2.patch;
 private static import libgit2.tree;
 private static import libgit2.types;
 
-package:
-
 private const (char)*[] colors =
 [
 	"\033[m", /* reset */
@@ -67,6 +65,7 @@ public enum
 /**
  * The 'diff_options' struct captures all the various parsed command line options.
  */
+extern (C)
 public struct diff_options
 {
 	libgit2.diff.git_diff_options diffopts;

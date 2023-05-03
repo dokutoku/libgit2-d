@@ -33,8 +33,7 @@ private static import libgit2.index;
 private static import libgit2.repository;
 private static import libgit2.types;
 
-package:
-
+extern (C)
 public struct ls_options
 {
 	int error_unmatch;

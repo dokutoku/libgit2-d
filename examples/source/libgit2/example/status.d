@@ -47,8 +47,6 @@ private static import libgit2.status;
 private static import libgit2.submodule;
 private static import libgit2.types;
 
-package:
-
 public enum
 {
 	FORMAT_DEFAULT = 0,
@@ -59,6 +57,7 @@ public enum
 
 public enum MAX_PATHSPEC = 8;
 
+extern (C)
 public struct status_opts
 {
 	libgit2.status.git_status_options statusopt;

@@ -42,8 +42,6 @@ private static import libgit2.signature;
 private static import libgit2.tree;
 private static import libgit2.types;
 
-package:
-
 extern (C)
 nothrow @nogc
 public int lg2_commit(libgit2.types.git_repository* repo, int argc, char** argv)

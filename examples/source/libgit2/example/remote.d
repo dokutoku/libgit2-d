@@ -31,8 +31,6 @@ private static import libgit2.remote;
 private static import libgit2.strarray;
 private static import libgit2.types;
 
-package:
-
 public enum subcmd
 {
 	subcmd_add,
@@ -52,6 +50,7 @@ public enum
 	subcmd_show = .subcmd.subcmd_show,
 }
 
+extern (C)
 public struct remote_opts
 {
 	.subcmd cmd;

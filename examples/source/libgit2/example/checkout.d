@@ -41,8 +41,6 @@ private static import libgit2.strarray;
 private static import libgit2.types;
 private static import std.bitmanip;
 
-package:
-
 /* Define the printf format specifer to use for size_t output */
 //#if defined(_MSC_VER) || defined(__MINGW32__)
 version (none) {
@@ -64,6 +62,7 @@ version (none) {
  *  --perf: show performance data.
  */
 
+extern (C)
 public struct checkout_options
 {
 	mixin

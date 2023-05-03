@@ -9,8 +9,6 @@ private static import libgit2.oid;
 private static import libgit2.remote;
 private static import libgit2.types;
 
-package:
-
 extern (C)
 nothrow @nogc
 private int progress_cb(const (char)* str, int len, void* data)

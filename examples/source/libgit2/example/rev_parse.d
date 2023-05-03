@@ -28,11 +28,10 @@ private static import libgit2.oid;
 private static import libgit2.revparse;
 private static import libgit2.types;
 
-package:
-
 /**
  * Forward declarations for helpers.
  */
+extern (C)
 public struct parse_state
 {
 	const (char)* repodir;

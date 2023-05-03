@@ -47,11 +47,10 @@ private static import libgit2.example.common;
 private static import libgit2.revparse;
 private static import libgit2.types;
 
-package:
-
 /**
  * describe_options represents the parsed command line options
  */
+extern (C)
 public struct describe_options
 {
 	const (char)** commits;

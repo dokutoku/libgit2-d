@@ -10,9 +10,8 @@ private static import libgit2.example.common;
 private static import libgit2.strarray;
 private static import std.bitmanip;
 
-package:
-
-struct args_info
+extern (C)
+public struct args_info
 {
 	int argc;
 	char** argv;
@@ -33,7 +32,7 @@ struct args_info
 
 pragma(inline, true)
 pure nothrow @safe @nogc @live
-.args_info ARGS_INFO_INIT(int argc, char** argv)
+public .args_info ARGS_INFO_INIT(int argc, char** argv)
 
 	do
 	{
@@ -55,8 +54,9 @@ pure nothrow @safe @nogc @live
  * Check if a string has the given prefix.  Returns 0 if not prefixed
  * or the length of the prefix if it is.
  */
+extern (C)
 nothrow @nogc
-size_t is_prefixed(const (char)* str, const (char)* pfx)
+public size_t is_prefixed(const (char)* str, const (char)* pfx)
 
 	in
 	{
@@ -75,8 +75,9 @@ size_t is_prefixed(const (char)* str, const (char)* pfx)
  * an equal sign, take the remainder as a string; if value not supplied,
  * default value `def` will be given. otherwise return 0.
  */
+extern (C)
 nothrow @nogc
-int optional_str_arg(const (char)** out_, libgit2.example.args.args_info* args, const (char)* opt, const (char)* def)
+public int optional_str_arg(const (char)** out_, libgit2.example.args.args_info* args, const (char)* opt, const (char)* def)
 
 	in
 	{
@@ -118,8 +119,9 @@ int optional_str_arg(const (char)** out_, libgit2.example.args.args_info* args, 
  * exactly, take the next arg as a string; if it matches as a prefix with
  * an equal sign, take the remainder as a string; otherwise return 0.
  */
+extern (C)
 nothrow @nogc
-int match_str_arg(const (char)** out_, libgit2.example.args.args_info* args, const (char)* opt)
+public int match_str_arg(const (char)** out_, libgit2.example.args.args_info* args, const (char)* opt)
 
 	in
 	{
@@ -194,8 +196,9 @@ private const (char)* match_numeric_arg(libgit2.example.args.args_info* args, co
  * is a prefix (equal sign optional), take the remainder of the arg as a
  * uint16_t value; otherwise return 0.
  */
+extern (C)
 nothrow @nogc
-int match_uint16_arg(ushort* out_, libgit2.example.args.args_info* args, const (char)* opt)
+public int match_uint16_arg(ushort* out_, libgit2.example.args.args_info* args, const (char)* opt)
 
 	in
 	{
@@ -229,8 +232,9 @@ int match_uint16_arg(ushort* out_, libgit2.example.args.args_info* args, const (
  * is a prefix (equal sign optional), take the remainder of the arg as a
  * uint32_t value; otherwise return 0.
  */
+extern (C)
 nothrow @nogc
-int match_uint32_arg(uint* out_, libgit2.example.args.args_info* args, const (char)* opt)
+public int match_uint32_arg(uint* out_, libgit2.example.args.args_info* args, const (char)* opt)
 
 	in
 	{
@@ -291,8 +295,9 @@ private int match_int_internal(int* out_, const (char)* str, int allow_negative,
  * If neither the positive or the negative form of opt matched, out will be -1,
  * and 0 will be returned.
  */
+extern (C)
 nothrow @nogc
-int match_bool_arg(int* out_, libgit2.example.args.args_info* args, const (char)* opt)
+public int match_bool_arg(int* out_, libgit2.example.args.args_info* args, const (char)* opt)
 
 	in
 	{
@@ -322,8 +327,9 @@ int match_bool_arg(int* out_, libgit2.example.args.args_info* args, const (char)
 /**
  * Match an integer string, returning 1 if matched, 0 if not.
  */
+extern (C)
 nothrow @nogc
-int is_integer(int* out_, const (char)* str, int allow_negative)
+public int is_integer(int* out_, const (char)* str, int allow_negative)
 
 	in
 	{
@@ -340,8 +346,9 @@ int is_integer(int* out_, const (char)* str, int allow_negative)
  * as a prefix (equal sign optional), take the remainder of the arg as a
  * int value; otherwise return 0.
  */
+extern (C)
 nothrow @nogc
-int match_int_arg(int* out_, libgit2.example.args.args_info* args, const (char)* opt, int allow_negative)
+public int match_int_arg(int* out_, libgit2.example.args.args_info* args, const (char)* opt, int allow_negative)
 
 	in
 	{
@@ -361,8 +368,9 @@ int match_int_arg(int* out_, libgit2.example.args.args_info* args, const (char)*
 /**
  * Check if we're processing past the single -- separator
  */
+extern (C)
 nothrow @nogc
-int match_arg_separator(libgit2.example.args.args_info* args)
+public int match_arg_separator(libgit2.example.args.args_info* args)
 
 	in
 	{
@@ -387,8 +395,9 @@ int match_arg_separator(libgit2.example.args.args_info* args)
 /**
  * Consume all remaining arguments in a git_strarray
  */
+extern (C)
 nothrow @nogc
-void strarray_from_args(libgit2.strarray.git_strarray* array, libgit2.example.args.args_info* args)
+public void strarray_from_args(libgit2.strarray.git_strarray* array, libgit2.example.args.args_info* args)
 
 	in
 	{

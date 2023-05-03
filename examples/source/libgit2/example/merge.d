@@ -45,8 +45,7 @@ private static import libgit2.tree;
 private static import libgit2.types;
 private static import std.bitmanip;
 
-package:
-
+extern (C)
 public struct merge_options
 {
 	const (char)** heads;

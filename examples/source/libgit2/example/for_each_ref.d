@@ -8,8 +8,6 @@ private static import libgit2.oid;
 private static import libgit2.refs;
 private static import libgit2.types;
 
-package:
-
 extern (C)
 nothrow @nogc
 private int show_ref(libgit2.types.git_reference* ref_, void* data)

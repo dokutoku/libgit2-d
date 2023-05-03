@@ -34,8 +34,6 @@ private static import libgit2.tag;
 private static import libgit2.tree;
 private static import libgit2.types;
 
-package:
-
 nothrow @nogc
 private void print_signature(const (char)* header, const (libgit2.types.git_signature)* sig)
 
@@ -178,6 +176,7 @@ public enum
 /**
  * Forward declarations for option-parsing helper
  */
+extern (C)
 public struct catfile_options
 {
 	const (char)* dir;

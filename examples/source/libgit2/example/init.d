@@ -41,11 +41,10 @@ private static import libgit2.signature;
 private static import libgit2.tree;
 private static import libgit2.types;
 
-package:
-
 /**
  * Forward declarations of helpers
  */
+extern (C)
 public struct init_opts
 {
 	int no_options;

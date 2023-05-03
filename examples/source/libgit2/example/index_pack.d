@@ -8,8 +8,6 @@ private static import libgit2.indexer;
 private static import libgit2.oid;
 private static import libgit2.types;
 
-package:
-
 /**
  * This could be run in the main loop whilst the application waits for
  * the indexing to finish in a worker thread
