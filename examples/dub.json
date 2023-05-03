@@ -1,8 +1,8 @@
 {
-	"name": "libgit2-d-examples",
-	"description": "libgit2 example.",
+	"name": "examples",
+	"description": "libgit2 examples.",
 	"authors": ["dokutoku"],
-	"copyright": "Copyright © 2019, dokutoku",
+	"copyright": "Copyright © 2019-2023, dokutoku",
 	"license": "CC0",
 	"dependencies":
 	{
@@ -14,12 +14,16 @@
 			"name": "application",
 			"targetType": "executable",
 			"libs": ["crypto", "git2", "ssl", "tls"],
-			"libs-windows": ["Rpcrt4", "advapi32", "crypt32", "ole32", "winhttp"],
+			"libs-posix": ["pcre"],
 			"versions": ["LIBGIT2_EXAMPLE"]
 		},
 		{
 			"name": "library",
 			"targetType": "library"
+		},
+		{
+			"name": "sourceLibrary",
+			"targetType": "sourceLibrary"
 		}
 	]
 }

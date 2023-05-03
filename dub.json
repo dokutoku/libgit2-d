@@ -3,7 +3,21 @@
 	"description": "D bindings for libgit2",
 	"homepage": "https://gitlab.com/dokutoku/libgit2-d",
 	"authors": ["dokutoku"],
-	"copyright": "Copyright © 2019, dokutoku",
+	"copyright": "Copyright © 2019-2023, dokutoku",
 	"license": "GPL-2.0(Linking Exception)",
-	"targetType": "sourceLibrary"
+	"subPackages":
+	[
+		"./examples"
+	],
+	"configurations":
+	[
+		{
+			"name": "library",
+			"targetType": "library"
+		},
+		{
+			"name": "sourceLibrary",
+			"targetType": "sourceLibrary"
+		}
+	]
 }
