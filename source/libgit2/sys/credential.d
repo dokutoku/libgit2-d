@@ -21,7 +21,6 @@ private static import libgit2.credential;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2):
 
 /**
  * The base structure for all credential types

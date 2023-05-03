@@ -23,7 +23,6 @@ private import libgit2.common: GIT_EXTERN;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2):
 
 /**
  * Create a new direct reference from an OID.

@@ -23,7 +23,6 @@ private import libgit2.common: GIT_EXTERN;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2):
 
 /**
  * Every backend's iterator must have a pointer to itself as the first

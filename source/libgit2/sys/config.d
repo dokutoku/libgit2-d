@@ -23,7 +23,6 @@ private import libgit2.common: GIT_EXTERN;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2):
 
 /**
  * Every iterator must have this struct as its first element, so the

@@ -15,7 +15,6 @@ private import libgit2.common: GIT_EXTERN;
 
 extern (C):
 nothrow @nogc:
-package(libgit2):
 
 @GIT_EXTERN
 libgit2.types.git_reflog_entry* git_reflog_entry__alloc();

@@ -12,7 +12,6 @@ module libgit2.sys.alloc;
 
 extern (C):
 nothrow @nogc:
-package(libgit2):
 
 /**
  * An instance for a custom memory allocator

@@ -22,7 +22,6 @@ private import libgit2.common: GIT_EXTERN;
  */
 extern (C):
 nothrow @nogc:
-package(libgit2):
 
 /**
  * Diff print callback that writes to a git_buf.

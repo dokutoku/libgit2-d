@@ -12,7 +12,6 @@ module libgit2.sys.cred;
 
 extern (C):
 nothrow @nogc:
-package(libgit2):
 
 /* These declarations have moved. */
 version (GIT_DEPRECATE_HARD) {

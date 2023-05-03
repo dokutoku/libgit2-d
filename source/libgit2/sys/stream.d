@@ -17,7 +17,6 @@ private import libgit2.common: GIT_EXTERN;
 
 extern (C):
 nothrow @nogc:
-package(libgit2):
 
 enum GIT_STREAM_VERSION = 1;
 
