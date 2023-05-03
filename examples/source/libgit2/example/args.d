@@ -48,7 +48,20 @@ public .args_info ARGS_INFO_INIT(int argc, char** argv)
 		return OUTPUT;
 	}
 
-//#define ARGS_CURRENT(args) args.argv[args.pos]
+pragma(inline, true)
+pure nothrow @trusted @nogc @live
+public char* ARGS_CURRENT(return scope const .args_info* args)
+
+	in
+	{
+		assert(args != null);
+		assert(args.argv != null);
+	}
+
+	do
+	{
+		return cast(char*)(args.argv[args.pos]);
+	}
 
 /**
  * Check if a string has the given prefix.  Returns 0 if not prefixed
