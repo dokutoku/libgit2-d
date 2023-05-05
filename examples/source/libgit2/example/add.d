@@ -154,6 +154,7 @@ public int print_matched_cb(const (char)* path, const (char)* matched_pathspec, 
 		return ret;
 	}
 
+extern (C)
 nothrow @nogc
 public void init_array(libgit2.strarray.git_strarray* array, int argc, char** argv)
 
@@ -174,6 +175,7 @@ public void init_array(libgit2.strarray.git_strarray* array, int argc, char** ar
 		return;
 	}
 
+extern (C)
 nothrow @nogc
 public void print_usage()
 
