@@ -444,7 +444,7 @@ private void diff_print_stats(libgit2.diff.git_diff* diff, .diff_options* o)
 		libgit2.buffer.git_buf b;
 		libgit2.example.common.check_lg2(libgit2.diff.git_diff_stats_to_buf(&b, stats, format, 80), "formatting stats", null);
 
-		b = libgit2.buffer.GIT_BUF_INIT_CONST(null, 0);
+		b = libgit2.buffer.GIT_BUF_INIT();
 		core.stdc.stdio.fputs(b.ptr_, core.stdc.stdio.stdout);
 
 		libgit2.buffer.git_buf_dispose(&b);

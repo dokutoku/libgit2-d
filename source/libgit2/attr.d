@@ -250,6 +250,8 @@ pure nothrow @safe @nogc @live
  *      flags = A combination of GIT_ATTR_CHECK... flags.
  *      path = The path to check for attributes.  Relative paths are interpreted relative to the repo root.  The file does not have to exist, but if it does not, then it will be treated as a plain file (not a directory).
  *      name = The name of the attribute to look up.
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_attr_get(const (char)** value_out, libgit2.types.git_repository* repo, uint flags, const (char)* path, const (char)* name);
@@ -263,6 +265,8 @@ int git_attr_get(const (char)** value_out, libgit2.types.git_repository* repo, u
  *      opts = The `git_attr_options` to use when querying these attributes.
  *      path = The path to check for attributes.  Relative paths are interpreted relative to the repo root.  The file does not have to exist, but if it does not, then it will be treated as a plain file (not a directory).
  *      name = The name of the attribute to look up.
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_attr_get_ext(const (char)** value_out, libgit2.types.git_repository* repo, .git_attr_options* opts, const (char)* path, const (char)* name);
@@ -290,6 +294,8 @@ int git_attr_get_ext(const (char)** value_out, libgit2.types.git_repository* rep
  *      path = The path inside the repo to check attributes.  This does not have to exist, but if it does not, then it will be treated as a plain file (i.e. not a directory).
  *      num_attr = The number of attributes being looked up
  *      names = An array of num_attr strings containing attribute names.
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_attr_get_many(const (char)** values_out, libgit2.types.git_repository* repo, uint flags, const (char)* path, size_t num_attr, const (char)** names);
@@ -304,6 +310,8 @@ int git_attr_get_many(const (char)** values_out, libgit2.types.git_repository* r
  *      path = The path inside the repo to check attributes.  This does not have to exist, but if it does not, then it will be treated as a plain file (i.e. not a directory).
  *      num_attr = The number of attributes being looked up
  *      names = An array of num_attr strings containing attribute names.
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_attr_get_many_ext(const (char)** values_out, libgit2.types.git_repository* repo, .git_attr_options* opts, const (char)* path, size_t num_attr, const (char)** names);
@@ -377,11 +385,18 @@ int git_attr_cache_flush(libgit2.types.git_repository* repo);
  * Add a macro definition.
  *
  * Macros will automatically be loaded from the top level `.gitattributes`
- * file of the repository (plus the build-in "binary" macro).  This
+ * file of the repository (plus the built-in "binary" macro).  This
  * function allows you to add others.  For example, to add the default
  * macro, you would call:
  *
  *     git_attr_add_macro(repo, "binary", "-diff -crlf");
+ *
+ * Params:
+ *      repo = The repository to add the macro in.
+ *      name = The name of the macro.
+ *      values = The value for the macro.
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_attr_add_macro(libgit2.types.git_repository* repo, const (char)* name, const (char)* values);

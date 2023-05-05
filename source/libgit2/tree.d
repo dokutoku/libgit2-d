@@ -304,7 +304,7 @@ int git_tree_entry_to_object(libgit2.types.git_object** object_out, libgit2.type
 int git_treebuilder_new(libgit2.types.git_treebuilder** out_, libgit2.types.git_repository* repo, const (libgit2.types.git_tree)* source);
 
 /**
- * Clear all the entires in the builder
+ * Clear all the entries in the builder
  *
  * Params:
  *      bld = Builder to clear
@@ -494,6 +494,8 @@ int git_tree_walk(const (libgit2.types.git_tree)* tree, .git_treewalk_mode mode,
  * Params:
  *      out_ = Pointer to store the copy of the tree
  *      source = Original tree to copy
+ *
+ * Returns: 0
  */
 @GIT_EXTERN
 int git_tree_dup(libgit2.types.git_tree** out_, libgit2.types.git_tree* source);

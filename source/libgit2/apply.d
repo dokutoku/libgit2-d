@@ -33,6 +33,8 @@ public:
  * - returns > 0, the delta will not be applied, but the apply process
  *      continues
  * - returns 0, the delta is applied, and the apply process continues.
+ *
+ * Returns: 0 if the delta is applied, < 0 if the apply process will be aborted or > 0 if the delta will not be applied.
  */
 /*
  * Params:
@@ -49,6 +51,8 @@ alias git_apply_delta_cb = int function(const (libgit2.diff.git_diff_delta)* del
  * - returns > 0, the hunk will not be applied, but the apply process
  *      continues
  * - returns 0, the hunk is applied, and the apply process continues.
+ *
+ * Returns: 0 if the hunk is applied, < 0 if the apply process will be aborted or > 0 if the hunk will not be applied.
  */
 /*
  * Params:
@@ -127,6 +131,18 @@ pure nothrow @safe @nogc @live
 		return OUTPUT;
 	}
 
+/**
+ * Initialize git_apply_options structure
+ *
+ * Initialize a `git_apply_options` with default values. Equivalent to creating
+ * an instance with GIT_APPLY_OPTIONS_INIT.
+ *
+ * Params:
+ *      opts = The `git_apply_options` struct to initialize.
+ *      version_ = The struct version; pass `GIT_APPLY_OPTIONS_VERSION`
+ *
+ * Returns: 0 on success or -1 on failure.
+ */
 @GIT_EXTERN
 int git_apply_options_init(.git_apply_options* opts, uint version_);
 

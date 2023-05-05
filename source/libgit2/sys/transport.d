@@ -14,6 +14,7 @@ private static import libgit2.cert;
 private static import libgit2.credential;
 private static import libgit2.indexer;
 private static import libgit2.proxy;
+private static import libgit2.remote;
 private static import libgit2.strarray;
 private static import libgit2.sys.credential;
 private static import libgit2.transport;
@@ -31,22 +32,6 @@ private import libgit2.common: GIT_EXTERN;
 extern (C):
 nothrow @nogc:
 
-/**
- * Flags to pass to transport
- *
- * Currently unused.
- */
-enum git_transport_flags_t
-{
-	GIT_TRANSPORTFLAGS_NONE = 0,
-}
-
-//Declaration name in C language
-enum
-{
-	GIT_TRANSPORTFLAGS_NONE = .git_transport_flags_t.GIT_TRANSPORTFLAGS_NONE,
-}
-
 struct git_transport
 {
 	/**
@@ -55,20 +40,25 @@ struct git_transport
 	uint version_;
 
 	/**
-	 * Set progress and error callbacks
-	 */
-	int function(.git_transport* transport, libgit2.transport.git_transport_message_cb progress_cb, libgit2.transport.git_transport_message_cb error_cb, libgit2.cert.git_transport_certificate_check_cb certificate_check_cb, void* payload) set_callbacks;
-
-	/**
-	 * Set custom headers for HTTP requests
-	 */
-	int function(.git_transport* transport, const (libgit2.strarray.git_strarray)* custom_headers) set_custom_headers;
-
-	/**
 	 * Connect the transport to the remote repository, using the given
 	 * direction.
 	 */
-	int function(.git_transport* transport, const (char)* url, libgit2.credential.git_credential_acquire_cb cred_acquire_cb, void* cred_acquire_payload, const (libgit2.proxy.git_proxy_options)* proxy_opts, int direction, int flags) connect;
+	int function(.git_transport* transport, const (char)* url, int direction, const (libgit2.remote.git_remote_connect_options)* connect_opts) connect;
+
+	/**
+	 * Resets the connect options for the given transport.  This
+	 * is useful for updating settings or callbacks for an already
+	 * connected transport.
+	 */
+	int function(.git_transport* transport, const (libgit2.remote.git_remote_connect_options)* connect_opts) set_connect_opts;
+
+	/**
+	 * Gets the capabilities for this remote repository.
+	 *
+	 * This function may be called after a successful call to
+	 * `connect()`.
+	 */
+	int function(uint* capabilities, .git_transport* transport) capabilities;
 
 	/**
 	 * Get the list of available references in the remote repository.
@@ -82,7 +72,7 @@ struct git_transport
 	/**
 	 * Executes the push whose context is in the git_push object.
 	 */
-	int function(.git_transport* transport, libgit2.types.git_push* push, const (libgit2.types.git_remote_callbacks)* callbacks) push;
+	int function(.git_transport* transport, libgit2.types.git_push* push) push;
 
 	/**
 	 * Negotiate a fetch with the remote repository.
@@ -99,17 +89,12 @@ struct git_transport
 	 * This function may be called after a successful call to
 	 * negotiate_fetch(), when the direction is git_direction.GIT_DIRECTION_FETCH.
 	 */
-	int function(.git_transport* transport, libgit2.types.git_repository* repo, libgit2.indexer.git_indexer_progress* stats, libgit2.indexer.git_indexer_progress_cb progress_cb, void* progress_payload) download_pack;
+	int function(.git_transport* transport, libgit2.types.git_repository* repo, libgit2.indexer.git_indexer_progress* stats) download_pack;
 
 	/**
 	 * Checks to see if the transport is connected
 	 */
 	int function(.git_transport* transport) is_connected;
-
-	/**
-	 * Reads the flags value previously passed into connect()
-	 */
-	int function(.git_transport* transport, int* flags) read_flags;
 
 	/**
 	 * Cancels any outstanding transport operation

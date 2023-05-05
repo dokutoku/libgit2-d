@@ -785,6 +785,11 @@ int git_repository_message(libgit2.buffer.git_buf* out_, libgit2.types.git_repos
  * Remove git's prepared message.
  *
  * Remove the message that `git_repository_message` retrieves.
+ *
+ * Params:
+ *      repo = Repository to remove prepared message from.
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_repository_message_remove(libgit2.types.git_repository* repo);
@@ -916,7 +921,7 @@ int git_repository_set_head(libgit2.types.git_repository* repo, const (char)* re
  * If the provided committish cannot be found in the repository, the HEAD
  * is unaltered and git_error_code.GIT_ENOTFOUND is returned.
  *
- * If the provided commitish cannot be peeled into a commit, the HEAD
+ * If the provided committish cannot be peeled into a commit, the HEAD
  * is unaltered and -1 is returned.
  *
  * Otherwise, the HEAD will eventually be detached and will directly point to
@@ -924,12 +929,12 @@ int git_repository_set_head(libgit2.types.git_repository* repo, const (char)* re
  *
  * Params:
  *      repo = Repository pointer
- *      commitish = Object id of the Commit the HEAD should point to
+ *      committish = Object id of the Commit the HEAD should point to
  *
  * Returns: 0 on success, or an error code
  */
 @GIT_EXTERN
-int git_repository_set_head_detached(libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* commitish);
+int git_repository_set_head_detached(libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* committish);
 
 /**
  * Make the repository HEAD directly point to the Commit.
@@ -944,7 +949,7 @@ int git_repository_set_head_detached(libgit2.types.git_repository* repo, const (
  * @see git_repository_set_head_detached
  */
 @GIT_EXTERN
-int git_repository_set_head_detached_from_annotated(libgit2.types.git_repository* repo, const (libgit2.types.git_annotated_commit)* commitish);
+int git_repository_set_head_detached_from_annotated(libgit2.types.git_repository* repo, const (libgit2.types.git_annotated_commit)* committish);
 
 /**
  * Detach the HEAD.
@@ -954,7 +959,7 @@ int git_repository_set_head_detached_from_annotated(libgit2.types.git_repository
  * If the HEAD is already detached and points to a Tag, the HEAD is
  * updated into making it point to the peeled Commit, and 0 is returned.
  *
- * If the HEAD is already detached and points to a non commitish, the HEAD is
+ * If the HEAD is already detached and points to a non committish, the HEAD is
  * unaltered, and -1 is returned.
  *
  * Otherwise, the HEAD will be detached and point to the peeled Commit.
@@ -1065,6 +1070,8 @@ int git_repository_is_shallow(libgit2.types.git_repository* repo);
  *      name = where to store the pointer to the name
  *      email = where to store the pointer to the email
  *      repo = the repository
+ *
+ * Returns: 0 or an error code
  */
 @GIT_EXTERN
 int git_repository_ident(const (char)** name, const (char)** email, const (libgit2.types.git_repository)* repo);
@@ -1080,6 +1087,8 @@ int git_repository_ident(const (char)** name, const (char)** email, const (libgi
  *      repo = the repository to configure
  *      name = the name to use for the reflog entries
  *      email = the email to use for the reflog entries
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_repository_set_ident(libgit2.types.git_repository* repo, const (char)* name, const (char)* email);

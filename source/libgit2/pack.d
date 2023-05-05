@@ -180,6 +180,8 @@ int git_packbuilder_insert_recur(libgit2.types.git_packbuilder* pb, const (libgi
  * Params:
  *      buf = Buffer where to write the packfile
  *      pb = The packbuilder
+ *
+ * Returns: 0 or an error code
  */
 @GIT_EXTERN
 int git_packbuilder_write_buf(libgit2.buffer.git_buf* buf, libgit2.types.git_packbuilder* pb);
@@ -199,17 +201,35 @@ int git_packbuilder_write_buf(libgit2.buffer.git_buf* buf, libgit2.types.git_pac
 @GIT_EXTERN
 int git_packbuilder_write(libgit2.types.git_packbuilder* pb, const (char)* path, uint mode, libgit2.indexer.git_indexer_progress_cb progress_cb, void* progress_cb_payload);
 
+version (GIT_DEPRECATE_HARD) {
+} else {
+	/**
+	* Get the packfile's hash
+	*
+	* A packfile's name is derived from the sorted hashing of all object
+	* names. This is only correct after the packfile has been written.
+	*
+	* @deprecated use git_packbuilder_name
+	* @param pb The packbuilder object
+	* @return 0 or an error code
+	*/
+	@GIT_EXTERN
+	const (libgit2.oid.git_oid)* git_packbuilder_hash(libgit2.types.git_packbuilder* pb);
+}
+
 /**
- * Get the packfile's hash
+ * Get the unique name for the resulting packfile.
  *
- * A packfile's name is derived from the sorted hashing of all object
- * names. This is only correct after the packfile has been written.
+ * The packfile's name is derived from the packfile's content.
+ * This is only correct after the packfile has been written.
  *
  * Params:
- *      pb = The packbuilder object
+ *      pb = the packbuilder instance
+ *
+ * Returns: a null terminated string for the packfile name
  */
 @GIT_EXTERN
-const (libgit2.oid.git_oid)* git_packbuilder_hash(libgit2.types.git_packbuilder* pb);
+const (char)* git_packbuilder_name(libgit2.types.git_packbuilder* pb);
 
 /**
  * Callback used to iterate over packed objects

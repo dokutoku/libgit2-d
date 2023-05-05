@@ -74,7 +74,7 @@ public int lg2_blame(libgit2.types.git_repository* repo, int argc, char** argv)
 		libgit2.revparse.git_revspec revspec = libgit2.revparse.git_revspec.init;
 
 		/**
-		 * The commit range comes in "commitish" form. Use the rev-parse API to
+		 * The commit range comes in "committish" form. Use the rev-parse API to
 		 * nail down the end points.
 		 */
 		if (o.commitspec != null) {
@@ -99,7 +99,7 @@ public int lg2_blame(libgit2.types.git_repository* repo, int argc, char** argv)
 
 		/**
 		 * Get the raw data inside the blob for output. We use the
-		 * `commitish:path/to/file.txt` format to find it.
+		 * `committish:path/to/file.txt` format to find it.
 		 */
 		if (libgit2.oid.git_oid_is_zero(&blameopts.newest_commit)) {
 			core.stdc.string.strcpy(&(spec[0]), "HEAD");

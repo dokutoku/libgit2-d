@@ -120,6 +120,14 @@ enum git_merge_flag_t
 	 * merge base to `git-merge-resolve`.
 	 */
 	GIT_MERGE_NO_RECURSIVE = 1 << 3,
+
+	/**
+	 * Treat this merge as if it is to produce the virtual base
+	 * of a recursive merge.  This will ensure that there are
+	 * no conflicts, any conflicting regions will keep conflict
+	 * markers in the merge result.
+	 */
+	GIT_MERGE_VIRTUAL_BASE = 1 << 4,
 }
 
 //Declaration name in C language
@@ -129,6 +137,7 @@ enum
 	GIT_MERGE_FAIL_ON_CONFLICT = .git_merge_flag_t.GIT_MERGE_FAIL_ON_CONFLICT,
 	GIT_MERGE_SKIP_REUC = .git_merge_flag_t.GIT_MERGE_SKIP_REUC,
 	GIT_MERGE_NO_RECURSIVE = .git_merge_flag_t.GIT_MERGE_NO_RECURSIVE,
+	GIT_MERGE_VIRTUAL_BASE = .git_merge_flag_t.GIT_MERGE_VIRTUAL_BASE,
 }
 
 /**
@@ -226,6 +235,18 @@ enum git_merge_file_flag_t
 	 * Take extra time to find minimal diff
 	 */
 	GIT_MERGE_FILE_DIFF_MINIMAL = 1 << 7,
+
+	/**
+	 * Create zdiff3 ("zealous diff3")-style files
+	 */
+	GIT_MERGE_FILE_STYLE_ZDIFF3 = 1 << 8,
+
+	/**
+	 * Do not produce file conflicts when common regions have
+	 * changed; keep the conflict markers in the file and accept
+	 * that as the merge result.
+	 */
+	GIT_MERGE_FILE_ACCEPT_CONFLICTS = 1 << 9,
 }
 
 //Declaration name in C language
@@ -240,6 +261,8 @@ enum
 	GIT_MERGE_FILE_IGNORE_WHITESPACE_EOL = .git_merge_file_flag_t.GIT_MERGE_FILE_IGNORE_WHITESPACE_EOL,
 	GIT_MERGE_FILE_DIFF_PATIENCE = .git_merge_file_flag_t.GIT_MERGE_FILE_DIFF_PATIENCE,
 	GIT_MERGE_FILE_DIFF_MINIMAL = .git_merge_file_flag_t.GIT_MERGE_FILE_DIFF_MINIMAL,
+	GIT_MERGE_FILE_STYLE_ZDIFF3 = .git_merge_file_flag_t.GIT_MERGE_FILE_STYLE_ZDIFF3,
+	GIT_MERGE_FILE_ACCEPT_CONFLICTS = .git_merge_file_flag_t.GIT_MERGE_FILE_ACCEPT_CONFLICTS,
 }
 
 enum GIT_MERGE_CONFLICT_MARKER_SIZE = 7;
@@ -528,7 +551,7 @@ enum
  *
  * Params:
  *      analysis_out = analysis enumeration that the result is written into
- *      preference_out = ?
+ *      preference_out = One of the `git_merge_preference_t` flag.
  *      repo = the repository to merge
  *      their_heads = the heads to merge into
  *      their_heads_len = the number of heads to merge
@@ -544,7 +567,7 @@ int git_merge_analysis(.git_merge_analysis_t* analysis_out, .git_merge_preferenc
  *
  * Params:
  *      analysis_out = analysis enumeration that the result is written into
- *      preference_out = ?
+ *      preference_out = One of the `git_merge_preference_t` flag.
  *      repo = the repository to merge
  *      our_ref = the reference to perform the analysis from
  *      their_heads = the heads to merge into

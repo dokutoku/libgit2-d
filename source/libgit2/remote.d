@@ -50,6 +50,39 @@ public:
 int git_remote_create(libgit2.types.git_remote** out_, libgit2.types.git_repository* repo, const (char)* name, const (char)* url);
 
 /**
+ * Remote redirection settings; whether redirects to another host
+ * are permitted.  By default, git will follow a redirect on the
+ * initial request (`/info/refs`), but not subsequent requests.
+ */
+enum git_remote_redirect_t
+{
+	/**
+	 * Do not follow any off-site redirects at any stage of
+	 * the fetch or push.
+	 */
+	GIT_REMOTE_REDIRECT_NONE = 1 << 0,
+
+	/**
+	 * Allow off-site redirects only upon the initial request.
+	 * This is the default.
+	 */
+	GIT_REMOTE_REDIRECT_INITIAL = 1 << 1,
+
+	/**
+	 * Allow redirects at any stage in the fetch or push.
+	 */
+	GIT_REMOTE_REDIRECT_ALL = 1 << 2,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_REMOTE_REDIRECT_NONE = .git_remote_redirect_t.GIT_REMOTE_REDIRECT_NONE,
+	GIT_REMOTE_REDIRECT_INITIAL = .git_remote_redirect_t.GIT_REMOTE_REDIRECT_INITIAL,
+	GIT_REMOTE_REDIRECT_ALL = .git_remote_redirect_t.GIT_REMOTE_REDIRECT_ALL,
+}
+
+/**
  * Remote creation options flags
  */
 enum git_remote_create_flags
@@ -372,6 +405,8 @@ int git_remote_add_fetch(libgit2.types.git_repository* repo, const (char)* remot
  * Params:
  *      array = pointer to the array in which to store the strings
  *      remote = the remote to query
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_remote_get_fetch_refspecs(libgit2.strarray.git_strarray* array, const (libgit2.types.git_remote)* remote);
@@ -401,6 +436,8 @@ int git_remote_add_push(libgit2.types.git_repository* repo, const (char)* remote
  * Params:
  *      array = pointer to the array in which to store the strings
  *      remote = the remote to query
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_remote_get_push_refspecs(libgit2.strarray.git_strarray* array, const (libgit2.types.git_remote)* remote);
@@ -427,25 +464,6 @@ size_t git_remote_refspec_count(const (libgit2.types.git_remote)* remote);
  */
 @GIT_EXTERN
 const (libgit2.types.git_refspec)* git_remote_get_refspec(const (libgit2.types.git_remote)* remote, size_t n);
-
-/**
- * Open a connection to a remote
- *
- * The transport is selected based on the URL. The direction argument
- * is due to a limitation of the git protocol (over TCP or SSH) which
- * starts up a specific binary which can only do the one or the other.
- *
- * Params:
- *      remote = the remote to connect to
- *      direction = git_direction.GIT_DIRECTION_FETCH if you want to fetch or git_direction.GIT_DIRECTION_PUSH if you want to push
- *      callbacks = the callbacks to use for this connection
- *      proxy_opts = proxy settings
- *      custom_headers = extra HTTP headers to use in this connection
- *
- * Returns: 0 or an error code
- */
-@GIT_EXTERN
-int git_remote_connect(libgit2.types.git_remote* remote, libgit2.net.git_direction direction, const (.git_remote_callbacks)* callbacks, const (libgit2.proxy.git_proxy_options)* proxy_opts, const (libgit2.strarray.git_strarray)* custom_headers);
 
 /**
  * Get the remote repository's reference advertisement list
@@ -902,6 +920,13 @@ struct git_fetch_options
 	libgit2.proxy.git_proxy_options proxy_opts;
 
 	/**
+	 * Whether to allow off-site redirects.  If this is not
+	 * specified, the `http.followRedirects` configuration setting
+	 * will be consulted.
+	 */
+	.git_remote_redirect_t follow_redirects;
+
+	/**
 	 * Extra headers for this fetch operation
 	 */
 	libgit2.strarray.git_strarray custom_headers;
@@ -971,6 +996,13 @@ struct git_push_options
 	libgit2.proxy.git_proxy_options proxy_opts;
 
 	/**
+	 * Whether to allow off-site redirects.  If this is not
+	 * specified, the `http.followRedirects` configuration setting
+	 * will be consulted.
+	 */
+	git_remote_redirect_t follow_redirects;
+
+	/**
 	 * Extra headers for this push operation
 	 */
 	libgit2.strarray.git_strarray custom_headers;
@@ -1011,6 +1043,115 @@ pure nothrow @safe @nogc @live
 int git_push_options_init(.git_push_options* opts, uint version_);
 
 /**
+ * Remote creation options structure
+ *
+ * Initialize with `GIT_REMOTE_CREATE_OPTIONS_INIT`. Alternatively, you can
+ * use `git_remote_create_options_init`.
+ *
+ */
+struct git_remote_connect_options
+{
+	uint version_;
+
+	/**
+	 * Callbacks to use for this connection
+	 */
+	.git_remote_callbacks callbacks;
+
+	/**
+	 * HTTP Proxy settings
+	 */
+	libgit2.proxy.git_proxy_options proxy_opts;
+
+	/**
+	 * Whether to allow off-site redirects.  If this is not
+	 * specified, the `http.followRedirects` configuration setting
+	 * will be consulted.
+	 */
+	.git_remote_redirect_t follow_redirects;
+
+	/**
+	 * Extra HTTP headers to use in this connection
+	 */
+	libgit2.strarray.git_strarray custom_headers;
+}
+
+enum GIT_REMOTE_CONNECT_OPTIONS_VERSION = 1;
+
+pragma(inline, true)
+pure nothrow @safe @nogc @live
+.git_remote_connect_options GIT_REMOTE_CONNECT_OPTIONS_INIT()
+
+	do
+	{
+		.git_remote_connect_options OUTPUT =
+		{
+			version_: .GIT_REMOTE_CONNECT_OPTIONS_VERSION,
+			callbacks: .GIT_REMOTE_CALLBACKS_INIT(),
+			proxy_opts: libgit2.proxy.GIT_PROXY_OPTIONS_INIT(),
+		};
+
+		return OUTPUT;
+	}
+
+/**
+ * Initialize git_remote_connect_options structure.
+ *
+ * Initializes a `git_remote_connect_options` with default values.
+ * Equivalent to creating an instance with
+ * `GIT_REMOTE_CONNECT_OPTIONS_INIT`.
+ *
+ * Params:
+ *      opts = The `git_remote_connect_options` struct to initialize.
+ *      version_ = The struct version; pass `GIT_REMOTE_CONNECT_OPTIONS_VERSION`.
+ *
+ * Returns: Zero on success; -1 on failure.
+ */
+@GIT_EXTERN
+int git_remote_connect_options_init(.git_remote_connect_options* opts, uint version_);
+
+/**
+ * Open a connection to a remote.
+ *
+ * The transport is selected based on the URL; the direction argument
+ * is due to a limitation of the git protocol which starts up a
+ * specific binary which can only do the one or the other.
+ *
+ * Params:
+ *      remote = the remote to connect to
+ *      direction = GIT_DIRECTION_FETCH if you want to fetch or GIT_DIRECTION_PUSH if you want to push
+ *      callbacks = the callbacks to use for this connection
+ *      proxy_opts = proxy settings
+ *      custom_headers = extra HTTP headers to use in this connection
+ *
+ * Returns: 0 or an error code
+ */
+@GIT_EXTERN
+int git_remote_connect(libgit2.types.git_remote* remote, libgit2.net.git_direction direction, const (.git_remote_callbacks)* callbacks, const (libgit2.proxy.git_proxy_options)* proxy_opts, const (libgit2.strarray.git_strarray)* custom_headers);
+
+/**
+ * Open a connection to a remote with extended options.
+ *
+ * The transport is selected based on the URL; the direction argument
+ * is due to a limitation of the git protocol which starts up a
+ * specific binary which can only do the one or the other.
+ *
+ * The given options structure will form the defaults for connection
+ * options and callback setup.  Callers may override these defaults
+ * by specifying `git_fetch_options` or `git_push_options` in
+ * subsequent calls.
+ *
+ * Params:
+ *      remote = the remote to connect to
+ *      direction = GIT_DIRECTION_FETCH if you want to fetch or GIT_DIRECTION_PUSH if you want to push
+ *      opts = the remote connection options
+ *
+ * Returns: 0 or an error code
+ */
+@GIT_EXTERN
+int git_remote_connect_ext(libgit2.types.git_remote* remote, libgit2.net.git_direction direction, const (.git_remote_connect_options)* opts);
+
+/**
  * Download and index the packfile
  *
  * Connect to the remote if it hasn't been done yet, negotiate with
@@ -1020,10 +1161,14 @@ int git_push_options_init(.git_push_options* opts, uint version_);
  * The .idx file will be created and both it and the packfile with be
  * renamed to their final name.
  *
+ * If options are specified and this remote is already connected then
+ * the existing remote connection options will be discarded and the
+ * remote will now use the new options.
+ *
  * Params:
  *      remote = the remote
  *      refspecs = the refspecs to use for this negotiation and download. Use null or an empty array to use the base refspecs
- *      opts = the options to use for this fetch
+ *      opts = the options to use for this fetch or null
  *
  * Returns: 0 or an error code
  */
@@ -1034,8 +1179,12 @@ int git_remote_download(libgit2.types.git_remote* remote, const (libgit2.strarra
  * Create a packfile and send it to the server
  *
  * Connect to the remote if it hasn't been done yet, negotiate with
- * the remote git which objects are missing, create a packfile with the missing
- * objects and send it.
+ * the remote git which objects are missing, create a packfile with
+ * the missing objects and send it.
+ *
+ * If options are specified and this remote is already connected then
+ * the existing remote connection options will be discarded and the
+ * remote will now use the new options.
  *
  * Params:
  *      remote = the remote
@@ -1048,12 +1197,15 @@ int git_remote_download(libgit2.types.git_remote* remote, const (libgit2.strarra
 int git_remote_upload(libgit2.types.git_remote* remote, const (libgit2.strarray.git_strarray)* refspecs, const (.git_push_options)* opts);
 
 /**
- * Update the tips to the new state
+ * Update the tips to the new state.
+ *
+ * If callbacks are not specified then the callbacks specified to
+ * `git_remote_connect` will be used (if it was called).
  *
  * Params:
  *      remote = the remote to update
  *      reflog_message = The message to insert into the reflogs. If null and fetching, the default is "fetch <name>", where <name> is the name of the remote (or its url, for in-memory remotes). This parameter is ignored when pushing.
- *      callbacks = pointer to the callback structure to use
+ *      callbacks = pointer to the callback structure to use or null
  *      update_fetchhead = whether to write to FETCH_HEAD. Pass 1 to behave like git.
  *      download_tags = what the behaviour for downloading tags is for this fetch. This is ignored for push. This must be the same value passed to `git_remote_download()`.
  *
@@ -1063,15 +1215,19 @@ int git_remote_upload(libgit2.types.git_remote* remote, const (libgit2.strarray.
 int git_remote_update_tips(libgit2.types.git_remote* remote, const (.git_remote_callbacks)* callbacks, int update_fetchhead, .git_remote_autotag_option_t download_tags, const (char)* reflog_message);
 
 /**
- * Download new data and update tips
+ * Download new data and update tips.
  *
  * Convenience function to connect to a remote, download the data,
  * disconnect and update the remote-tracking branches.
  *
+ * If options are specified and this remote is already connected then
+ * the existing remote connection options will be discarded and the
+ * remote will now use the new options.
+ *
  * Params:
  *      remote = the remote to fetch from
  *      refspecs = the refspecs to use for this fetch. Pass null or an empty array to use the base refspecs.
- *      opts = options to use for this fetch
+ *      opts = options to use for this fetch or null
  *      reflog_message = The message to insert into the reflogs. If null, the default is "fetch"
  *
  * Returns: 0 or an error code
@@ -1080,7 +1236,10 @@ int git_remote_update_tips(libgit2.types.git_remote* remote, const (.git_remote_
 int git_remote_fetch(libgit2.types.git_remote* remote, const (libgit2.strarray.git_strarray)* refspecs, const (.git_fetch_options)* opts, const (char)* reflog_message);
 
 /**
- * Prune tracking refs that are no longer present on remote
+ * Prune tracking refs that are no longer present on remote.
+ *
+ * If callbacks are not specified then the callbacks specified to
+ * `git_remote_connect` will be used (if it was called).
  *
  * Params:
  *      remote = the remote to prune
@@ -1092,14 +1251,18 @@ int git_remote_fetch(libgit2.types.git_remote* remote, const (libgit2.strarray.g
 int git_remote_prune(libgit2.types.git_remote* remote, const (.git_remote_callbacks)* callbacks);
 
 /**
- * Perform a push
+ * Perform a push.
  *
- * Peform all the steps from a push.
+ * If options are specified and this remote is already connected then
+ * the existing remote connection options will be discarded and the
+ * remote will now use the new options.
  *
  * Params:
  *      remote = the remote to push to
  *      refspecs = the refspecs to use for pushing. If null or an empty array, the configured refspecs will be used
  *      opts = options to use for this push
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_remote_push(libgit2.types.git_remote* remote, const (libgit2.strarray.git_strarray)* refspecs, const (.git_push_options)* opts);

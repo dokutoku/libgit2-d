@@ -140,6 +140,8 @@ int git_indexer_options_init(.git_indexer_options* opts, uint version_);
  *      mode = permissions to use creating packfile or 0 for defaults
  *      odb = object database from which to read base objects when fixing thin packs. Pass null if no thin pack is expected (an error will be returned if there are bases missing)
  *      opts = Optional structure containing additional options. See `git_indexer_options` above.
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_indexer_new(.git_indexer** out_, const (char)* path, uint mode, libgit2.types.git_odb* odb, .git_indexer_options* opts);
@@ -152,6 +154,8 @@ int git_indexer_new(.git_indexer** out_, const (char)* path, uint mode, libgit2.
  *      data = the data to add
  *      size = the size of the data in bytes
  *      stats = stat storage
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_indexer_append(.git_indexer* idx, const (void)* data, size_t size, .git_indexer_progress* stats);
@@ -163,22 +167,42 @@ int git_indexer_append(.git_indexer* idx, const (void)* data, size_t size, .git_
  *
  * Params:
  *      idx = the indexer
- *      stats = ?
+ *      stats = Stat storage.
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_indexer_commit(.git_indexer* idx, .git_indexer_progress* stats);
 
+version (GIT_DEPRECATE_HARD) {
+} else {
+	/**
+	* Get the packfile's hash
+	*
+	* A packfile's name is derived from the sorted hashing of all object
+	* names. This is only correct after the index has been finalized.
+	*
+	* @deprecated use git_indexer_name
+	* @param idx the indexer instance
+	* @return the packfile's hash
+	*/
+	@GIT_EXTERN
+	const (libgit2.oid.git_oid)* git_indexer_hash(const (.git_indexer)* idx);
+}
+
 /**
- * Get the packfile's hash
+ * Get the unique name for the resulting packfile.
  *
- * A packfile's name is derived from the sorted hashing of all object
- * names. This is only correct after the index has been finalized.
+ * The packfile's name is derived from the packfile's content.
+ * This is only correct after the index has been finalized.
  *
  * Params:
  *      idx = the indexer instance
+ *
+ * Returns: a null terminated string for the packfile name
  */
 @GIT_EXTERN
-const (libgit2.oid.git_oid)* git_indexer_hash(const (.git_indexer)* idx);
+const (char)* git_indexer_name(const (.git_indexer)* idx);
 
 /**
  * Free the indexer and its resources

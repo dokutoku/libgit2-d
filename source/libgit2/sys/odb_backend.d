@@ -68,11 +68,8 @@ struct git_odb_backend
 	 * If the backend implements a refreshing mechanism, it should be exposed
 	 * through this endpoint. Each call to `git_odb_refresh()` will invoke it.
 	 *
-	 * However, the backend implementation should try to stay up-to-date as much
-	 * as possible by itself as libgit2 will not automatically invoke
-	 * `git_odb_refresh()`. For instance, a potential strategy for the backend
-	 * implementation to achieve this could be to internally invoke this
-	 * endpoint on failed lookups (ie. `exists()`, `read()`, `read_header()`).
+	 * The odb layer will automatically call this when needed on failed
+	 * lookups (ie. `exists()`, `read()`, `read_header()`).
 	 */
 	int function(.git_odb_backend*) refresh;
 

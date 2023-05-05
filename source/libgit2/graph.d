@@ -39,6 +39,8 @@ public:
  *      repo = the repository where the commits exist
  *      local = the commit for local
  *      upstream = the commit for upstream
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_graph_ahead_behind(size_t* ahead, size_t* behind, libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* local, const (libgit2.oid.git_oid)* upstream);

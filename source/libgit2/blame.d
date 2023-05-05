@@ -246,6 +246,11 @@ struct git_blame;
 
 /**
  * Gets the number of hunks that exist in the blame structure.
+ *
+ * Params:
+ *      blame = The blame structure to query.
+ *
+ * Returns: The number of hunks.
  */
 @GIT_EXTERN
 uint git_blame_get_hunk_count(.git_blame* blame);

@@ -67,7 +67,7 @@ int git_reference_name_to_id(libgit2.oid.git_oid* out_, libgit2.types.git_reposi
 /**
  * Lookup a reference by DWIMing its short name
  *
- * Apply the git precendence rules to the given shorthand to determine
+ * Apply the git precedence rules to the given shorthand to determine
  * which reference the user is referring to.
  *
  * Params:

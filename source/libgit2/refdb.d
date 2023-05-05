@@ -59,6 +59,11 @@ int git_refdb_open(libgit2.types.git_refdb** out_, libgit2.types.git_repository*
  * Suggests that the given refdb compress or optimize its references.
  * This mechanism is implementation specific.  For on-disk reference
  * databases, for example, this may pack all loose references.
+ *
+ * Params:
+ *      refdb = The reference database to optimize.
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_refdb_compress(libgit2.types.git_refdb* refdb);

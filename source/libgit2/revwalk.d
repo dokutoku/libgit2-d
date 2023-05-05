@@ -302,6 +302,9 @@ int git_revwalk_push_range(libgit2.types.git_revwalk* walk, const (char)* range)
  *
  * No parents other than the first for each commit will be enqueued.
  *
+ * Params:
+ *      walk = The revision walker.
+ *
  * Returns: 0 or an error code
  */
 @GIT_EXTERN
@@ -332,6 +335,8 @@ libgit2.types.git_repository* git_revwalk_repository(libgit2.types.git_revwalk* 
  * This is a callback function that user can provide to hide a
  * commit and its parents. If the callback function returns non-zero value,
  * then this commit and its parents will be hidden.
+ *
+ * Returns: non-zero to hide the commmit and it parent.
  */
 /*
  * Params:
@@ -347,6 +352,8 @@ alias git_revwalk_hide_cb = int function(const (libgit2.oid.git_oid)* commit_id,
  *      walk = the revision walker
  *      hide_cb = callback function to hide a commit and its parents
  *      payload = data payload to be passed to callback function
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_revwalk_add_hide_cb(libgit2.types.git_revwalk* walk, .git_revwalk_hide_cb hide_cb, void* payload);

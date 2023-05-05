@@ -39,7 +39,7 @@ public:
  *
  * Params:
  *      out_ = Pointer where to store the underlying reference.
- *      repo = ?
+ *      repo = the repository to create the branch in.
  *      branch_name = Name for the branch; this name is validated for consistency. It should also not conflict with an already existing branch name.
  *      target = Commit to which this branch should point. This object must belong to the given `repo`.
  *      force = Overwrite existing branch.

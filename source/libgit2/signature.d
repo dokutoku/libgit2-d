@@ -87,7 +87,7 @@ int git_signature_default(libgit2.types.git_signature** out_, libgit2.types.git_
  *      out_ = new signature
  *      buf = signature string
  *
- * Returns: 0 on success, or an error code
+ * Returns: 0 on success, git_error_code.GIT_EINVALID if the signature is not parseable, or an error code
  */
 @GIT_EXTERN
 int git_signature_from_buffer(libgit2.types.git_signature** out_, const (char)* buf);

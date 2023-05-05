@@ -194,6 +194,8 @@ struct git_describe_result;
  *      result = pointer to store the result. You must free this once you're done with it.
  *      committish = a committish to describe
  *      opts = the lookup options (or null for defaults)
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_describe_commit(.git_describe_result** result, libgit2.types.git_object* committish, .git_describe_options* opts);
@@ -202,13 +204,15 @@ int git_describe_commit(.git_describe_result** result, libgit2.types.git_object*
  * Describe a commit
  *
  * Perform the describe operation on the current commit and the
- * worktree. After peforming describe on HEAD, a status is run and the
+ * worktree. After performing describe on HEAD, a status is run and the
  * description is considered to be dirty if there are.
  *
  * Params:
  *      out_ = pointer to store the result. You must free this once you're done with it.
  *      repo = the repository in which to perform the describe
  *      opts = the lookup options (or null for defaults)
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_describe_workdir(.git_describe_result** out_, libgit2.types.git_repository* repo, .git_describe_options* opts);
@@ -220,12 +224,17 @@ int git_describe_workdir(.git_describe_result** out_, libgit2.types.git_reposito
  *      out_ = The buffer to store the result
  *      result = the result from `git_describe_commit()` or `git_describe_workdir()`.
  *      opts = the formatting options (or null for defaults)
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_describe_format(libgit2.buffer.git_buf* out_, const (.git_describe_result)* result, const (.git_describe_format_options)* opts);
 
 /**
  * Free the describe result.
+ *
+ * Params:
+ *      result = The result to free.
  */
 @GIT_EXTERN
 void git_describe_result_free(.git_describe_result* result);

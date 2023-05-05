@@ -277,6 +277,9 @@ int git_rebase_open(libgit2.types.git_rebase** out_, libgit2.types.git_repositor
 /**
  * Gets the original `HEAD` ref name for merge rebases.
  *
+ * Params:
+ *      rebase = The in-progress rebase.
+ *
  * Returns: The original `HEAD` ref name
  */
 @GIT_EXTERN
@@ -284,6 +287,9 @@ const (char)* git_rebase_orig_head_name(libgit2.types.git_rebase* rebase);
 
 /**
  * Gets the original `HEAD` id for merge rebases.
+ *
+ * Params:
+ *      rebase = The in-progress rebase.
  *
  * Returns: The original `HEAD` id
  */
@@ -293,6 +299,9 @@ const (libgit2.oid.git_oid)* git_rebase_orig_head_id(libgit2.types.git_rebase* r
 /**
  * Gets the `onto` ref name for merge rebases.
  *
+ * Params:
+ *      rebase = The in-progress rebase.
+ *
  * Returns: The `onto` ref name
  */
 @GIT_EXTERN
@@ -300,6 +309,9 @@ const (char)* git_rebase_onto_name(libgit2.types.git_rebase* rebase);
 
 /**
  * Gets the `onto` id for merge rebases.
+ *
+ * Params:
+ *      rebase = The in-progress rebase.
  *
  * Returns: The `onto` id
  */
@@ -369,6 +381,12 @@ int git_rebase_next(.git_rebase_operation** operation, libgit2.types.git_rebase*
  * This is only applicable for in-memory rebases; for rebases within
  * a working directory, the changes were applied to the repository's
  * index.
+ *
+ * Params:
+ *      index = The result index of the last operation.
+ *      rebase = The in-progress rebase.
+ *
+ * Returns: 0 or an error code
  */
 @GIT_EXTERN
 int git_rebase_inmemory_index(libgit2.types.git_index** index, libgit2.types.git_rebase* rebase);

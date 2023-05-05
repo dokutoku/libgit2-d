@@ -125,12 +125,17 @@ struct git_config_entry
 
 /**
  * Free a config entry
+ *
+ * Params:
+ *      entry = The entry to free.
  */
 @GIT_EXTERN
-void git_config_entry_free(.git_config_entry*);
+void git_config_entry_free(.git_config_entry* entry);
 
 /**
  * A config enumeration callback
+ *
+ * Returns: non-zero to terminate the iteration.
  */
 /*
  * Params:
@@ -349,6 +354,8 @@ int git_config_open_level(libgit2.types.git_config** out_, const (libgit2.types.
  * Params:
  *      out_ = pointer in which to store the config object
  *      config = the config object in which to look
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_config_open_global(libgit2.types.git_config** out_, libgit2.types.git_config* config);
@@ -526,6 +533,8 @@ int git_config_get_string_buf(libgit2.buffer.git_buf* out_, const (libgit2.types
  *      regexp = regular expression to filter which variables we're interested in. Use null to indicate all
  *      callback = the function to be called on each value of the variable
  *      payload = opaque pointer to pass to the callback
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_config_get_multivar_foreach(const (libgit2.types.git_config)* cfg, const (char)* name, const (char)* regexp, .git_config_foreach_cb callback, void* payload);
@@ -542,6 +551,8 @@ int git_config_get_multivar_foreach(const (libgit2.types.git_config)* cfg, const
  *      cfg = where to look for the variable
  *      name = the variable's name
  *      regexp = regular expression to filter which variables we're interested in. Use null to indicate all
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_config_multivar_iterator_new(.git_config_iterator** out_, const (libgit2.types.git_config)* cfg, const (char)* name, const (char)* regexp);
@@ -639,6 +650,8 @@ int git_config_set_string(libgit2.types.git_config* cfg, const (char)* name, con
  *      name = the variable's name
  *      regexp = a regular expression to indicate which values to replace
  *      value = the new value.
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_config_set_multivar(libgit2.types.git_config* cfg, const (char)* name, const (char)* regexp, const (char)* value);
@@ -650,6 +663,8 @@ int git_config_set_multivar(libgit2.types.git_config* cfg, const (char)* name, c
  * Params:
  *      cfg = the configuration
  *      name = the variable to delete
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_config_delete_entry(libgit2.types.git_config* cfg, const (char)* name);
@@ -698,7 +713,9 @@ int git_config_foreach(const (libgit2.types.git_config)* cfg, .git_config_foreac
  *
  * Params:
  *      out_ = pointer to store the iterator
- *      cfg = where to ge the variables from
+ *      cfg = where to get the variables from
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_config_iterator_new(.git_config_iterator** out_, const (libgit2.types.git_config)* cfg);
@@ -717,6 +734,8 @@ int git_config_iterator_new(.git_config_iterator** out_, const (libgit2.types.gi
  *      out_ = pointer to store the iterator
  *      cfg = where to ge the variables from
  *      regexp = regular expression to match the names
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_config_iterator_glob_new(.git_config_iterator** out_, const (libgit2.types.git_config)* cfg, const (char)* regexp);
@@ -794,6 +813,8 @@ int git_config_get_mapped(int* out_, const (libgit2.types.git_config)* cfg, cons
  *      maps = array of `git_configmap` objects specifying the possible mappings
  *      map_n = number of mapping objects in `maps`
  *      value = value to parse
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_config_lookup_map_value(int* out_, const (.git_configmap)* maps, size_t map_n, const (char)* value);
@@ -808,6 +829,8 @@ int git_config_lookup_map_value(int* out_, const (.git_configmap)* maps, size_t 
  * Params:
  *      out_ = place to store the result of the parsing
  *      value = value to parse
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_config_parse_bool(int* out_, const (char)* value);
@@ -822,6 +845,8 @@ int git_config_parse_bool(int* out_, const (char)* value);
  * Params:
  *      out_ = place to store the result of the parsing
  *      value = value to parse
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_config_parse_int32(int* out_, const (char)* value);
@@ -836,6 +861,8 @@ int git_config_parse_int32(int* out_, const (char)* value);
  * Params:
  *      out_ = place to store the result of the parsing
  *      value = value to parse
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_config_parse_int64(long* out_, const (char)* value);
@@ -853,6 +880,8 @@ int git_config_parse_int64(long* out_, const (char)* value);
  * Params:
  *      out_ = placae to store the result of parsing
  *      value = the path to evaluate
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_config_parse_path(libgit2.buffer.git_buf* out_, const (char)* value);
@@ -873,6 +902,8 @@ int git_config_parse_path(libgit2.buffer.git_buf* out_, const (char)* value);
  *      regexp = regular expression to match against config names (can be null)
  *      callback = the function to call on each variable
  *      payload = the data to pass to the callback
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_config_backend_foreach_match(libgit2.types.git_config_backend* backend, const (char)* regexp, .git_config_foreach_cb callback, void* payload);

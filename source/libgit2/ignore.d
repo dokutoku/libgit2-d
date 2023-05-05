@@ -35,7 +35,7 @@ public:
  *
  * Params:
  *      repo = The repository to add ignore rules to.
- *      rules = Text of rules, a la the contents of a .gitignore file. It is okay to have multiple rules in the text; if so, each rule should be terminated with a newline.
+ *      rules = Text of rules, the contents to add on a .gitignore file. It is okay to have multiple rules in the text; if so, each rule should be terminated with a newline.
  *
  * Returns: 0 on success
  */

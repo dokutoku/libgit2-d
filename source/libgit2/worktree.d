@@ -11,6 +11,7 @@ module libgit2.worktree;
 
 
 private static import libgit2.buffer;
+private static import libgit2.checkout;
 private static import libgit2.strarray;
 private static import libgit2.types;
 private import libgit2.common: GIT_EXTERN;
@@ -64,6 +65,8 @@ int git_worktree_lookup(libgit2.types.git_worktree** out_, libgit2.types.git_rep
  * Params:
  *      out_ = Out-pointer for the newly allocated worktree
  *      repo = Repository to look up worktree for
+ *
+ * Returns: 0 or an error code
  */
 @GIT_EXTERN
 int git_worktree_open_from_repository(libgit2.types.git_worktree** out_, libgit2.types.git_repository* repo);
@@ -111,6 +114,11 @@ struct git_worktree_add_options
 	 * reference to use for the new worktree HEAD
 	 */
 	libgit2.types.git_reference* ref_;
+
+	/**
+	 * Options for the checkout.
+	 */
+	libgit2.checkout.git_checkout_options checkout_options;
 }
 
 enum GIT_WORKTREE_ADD_OPTIONS_VERSION = 1;
@@ -126,6 +134,7 @@ pure nothrow @safe @nogc @live
 			version_: .GIT_WORKTREE_ADD_OPTIONS_VERSION,
 			lock: 0,
 			ref_: null,
+			checkout_options: libgit2.checkout.GIT_CHECKOUT_OPTIONS_INIT(),
 		};
 
 		return OUTPUT;
@@ -319,6 +328,12 @@ int git_worktree_prune_options_init(.git_worktree_prune_options* opts, uint vers
  * If the worktree is not valid and not locked or if the above
  * flags have been passed in, this function will return a
  * positive value.
+ *
+ * Params:
+ *      wt = Worktree to check.
+ *      opts = The prunable options.
+ *
+ * Returns: 1 if the worktree is prunable, 0 otherwise, or an error code.
  */
 @GIT_EXTERN
 int git_worktree_is_prunable(libgit2.types.git_worktree* wt, .git_worktree_prune_options* opts);

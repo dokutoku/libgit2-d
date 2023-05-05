@@ -238,6 +238,8 @@ int git_filter_list_apply_to_buffer(libgit2.buffer.git_buf* out_, .git_filter_li
  *      filters = the list of filters to apply
  *      repo = the repository in which to perform the filtering
  *      path = the path of the file to filter, a relative path will be taken as relative to the workdir
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_filter_list_apply_to_file(libgit2.buffer.git_buf* out_, .git_filter_list* filters, libgit2.types.git_repository* repo, const (char)* path);
@@ -249,6 +251,8 @@ int git_filter_list_apply_to_file(libgit2.buffer.git_buf* out_, .git_filter_list
  *      out_ = buffer into which to store the filtered file
  *      filters = the list of filters to apply
  *      blob = the blob to filter
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_filter_list_apply_to_blob(libgit2.buffer.git_buf* out_, .git_filter_list* filters, libgit2.types.git_blob* blob);
@@ -261,6 +265,8 @@ int git_filter_list_apply_to_blob(libgit2.buffer.git_buf* out_, .git_filter_list
  *      data = the buffer to filter
  *      len = the size of the buffer
  *      target = the stream into which the data will be written
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_filter_list_stream_buffer(.git_filter_list* filters, const (char)* data, size_t len, libgit2.types.git_writestream* target);
@@ -273,6 +279,8 @@ int git_filter_list_stream_buffer(.git_filter_list* filters, const (char)* data,
  *      repo = the repository in which to perform the filtering
  *      path = the path of the file to filter, a relative path will be taken as relative to the workdir
  *      target = the stream into which the data will be written
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_filter_list_stream_file(.git_filter_list* filters, libgit2.types.git_repository* repo, const (char)* path, libgit2.types.git_writestream* target);
@@ -284,6 +292,8 @@ int git_filter_list_stream_file(.git_filter_list* filters, libgit2.types.git_rep
  *      filters = the list of filters to apply
  *      blob = the blob to filter
  *      target = the stream into which the data will be written
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_filter_list_stream_blob(.git_filter_list* filters, libgit2.types.git_blob* blob, libgit2.types.git_writestream* target);

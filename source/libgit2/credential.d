@@ -281,7 +281,7 @@ alias git_credential_ssh_interactive_cb = void function(const (char)* name, int 
  * The supplied credential parameter will be internally duplicated.
  *
  * Params:
- *      out_ = ?
+ *      out_ = The newly created credential object.
  *      username = Username to use to authenticate.
  *      prompt_callback = The callback method used for prompts.
  *      payload = Additional data to pass to the callback.

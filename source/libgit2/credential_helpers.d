@@ -44,6 +44,8 @@ struct git_credential_userpass_payload
  *      user_from_url = The username that was embedded in a "user\@host" remote url, or null if not included.
  *      allowed_types = A bitmask stating which credential types are OK to return.
  *      payload = The payload provided when specifying this callback.  (This is interpreted as a `git_credential_userpass_payload*`.)
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_credential_userpass(libgit2.credential.git_credential** out_, const (char)* url, const (char)* user_from_url, uint allowed_types, void* payload);

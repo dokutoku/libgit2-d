@@ -466,7 +466,7 @@ int git_commit_create_buffer(libgit2.buffer.git_buf* out_, libgit2.types.git_rep
  *
  * Params:
  *      out_ = the resulting commit id
- *      repo = ?
+ *      repo = the repository to create the commit in.
  *      commit_content = the content of the unsigned commit object
  *      signature = the signature to add to the commit. Leave `null` to create a commit without adding a signature field.
  *      signature_field = which header field should contain this signature. Leave `null` for the default of "gpgsig"
@@ -483,6 +483,8 @@ int git_commit_create_with_signature(libgit2.oid.git_oid* out_, libgit2.types.gi
  * Params:
  *      out_ = Pointer to store the copy of the commit
  *      source = Original commit to copy
+ *
+ * Returns: 0
  */
 @GIT_EXTERN
 int git_commit_dup(libgit2.types.git_commit** out_, libgit2.types.git_commit* source);

@@ -35,7 +35,9 @@ private static import libgit2.commit;
 private static import libgit2.errors;
 private static import libgit2.example.common;
 private static import libgit2.index;
+private static import libgit2.object;
 private static import libgit2.oid;
+private static import libgit2.refs;
 private static import libgit2.repository;
 private static import libgit2.revparse;
 private static import libgit2.signature;
@@ -95,6 +97,8 @@ public int lg2_commit(libgit2.types.git_repository* repo, int argc, char** argv)
 		libgit2.index.git_index_free(index);
 		libgit2.signature.git_signature_free(signature);
 		libgit2.tree.git_tree_free(tree);
+		libgit2.object.git_object_free(parent);
+		libgit2.refs.git_reference_free(ref_);
 
 		return error;
 	}

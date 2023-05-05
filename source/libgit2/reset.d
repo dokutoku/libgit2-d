@@ -71,7 +71,7 @@ enum
  *
  * Params:
  *      repo = Repository where to perform the reset operation.
- *      target = Committish to which the Head should be moved to. This object must belong to the given `repo` and can either be a git_commit or a git_tag. When a git_tag is being passed, it should be dereferencable to a git_commit which oid will be used as the target of the branch.
+ *      target = Committish to which the Head should be moved to. This object must belong to the given `repo` and can either be a git_commit or a git_tag. When a git_tag is being passed, it should be dereferenceable to a git_commit which oid will be used as the target of the branch.
  *      reset_type = Kind of reset operation to perform.
  *      checkout_opts = Optional checkout options to be used for a HARD reset. The checkout_strategy field will be overridden (based on reset_type). This parameter can be used to propagate notify and progress callbacks.
  *

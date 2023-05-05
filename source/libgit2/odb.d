@@ -27,6 +27,25 @@ nothrow @nogc:
 public:
 
 /**
+ * Flags controlling the behavior of ODB lookup operations
+ */
+enum git_odb_lookup_flags_t
+{
+	/**
+	 * Don't call `git_odb_refresh` if the lookup fails. Useful when doing
+	 * a batch of lookup operations for objects that may legitimately not
+	 * exist. When using this flag, you may wish to manually call
+	 * `git_odb_refresh` before processing a batch of objects.
+	 */
+	GIT_ODB_LOOKUP_NO_REFRESH = 1 << 0,
+}
+
+enum
+{
+	GIT_ODB_LOOKUP_NO_REFRESH = .git_odb_lookup_flags_t.GIT_ODB_LOOKUP_NO_REFRESH,
+}
+
+/**
  * Function type for callbacks from git_odb_foreach.
  */
 alias git_odb_foreach_cb = int function(const (libgit2.oid.git_oid)* id, void* payload);
@@ -177,6 +196,20 @@ int git_odb_read_header(size_t* len_out, libgit2.types.git_object_t* type_out, l
 int git_odb_exists(libgit2.types.git_odb* db, const (libgit2.oid.git_oid)* id);
 
 /**
+ * Determine if the given object can be found in the object database, with
+ * extended options.
+ *
+ * Params:
+ *      db = database to be searched for the given object.
+ *      id = the object to search for.
+ *      flags = flags affecting the lookup (see `git_odb_lookup_flags_t`)
+ *
+ * Returns: 1 if the object was found, 0 otherwise
+ */
+@GIT_EXTERN
+int git_odb_exists_ext(libgit2.types.git_odb* db, const (libgit2.oid.git_oid)* id, uint flags);
+
+/**
  * Determine if an object can be found in the object database by an
  * abbreviated object ID.
  *
@@ -217,12 +250,13 @@ struct git_odb_expand_id
 
 /**
  * Determine if one or more objects can be found in the object database
- * by their abbreviated object ID and type.  The given array will be
- * updated in place:  for each abbreviated ID that is unique in the
- * database, and of the given type (if specified), the full object ID,
- * object ID length (`GIT_OID_HEXSZ`) and type will be written back to
- * the array.  For IDs that are not found (or are ambiguous), the
- * array entry will be zeroed.
+ * by their abbreviated object ID and type.
+ *
+ * The given array will be updated in place: for each abbreviated ID that is
+ * unique in the database, and of the given type (if specified),
+ * the full object ID, object ID length (`GIT_OID_HEXSZ`) and type will be
+ * written back to the array. For IDs that are not found (or are ambiguous),
+ * the array entry will be zeroed.
  *
  * Note that since this function operates on multiple objects, the
  * underlying database will not be asked to be reloaded if an object is
@@ -366,6 +400,13 @@ int git_odb_stream_finalize_write(libgit2.oid.git_oid* out_, libgit2.types.git_o
  * Read from an odb stream
  *
  * Most backends don't implement streaming reads
+ *
+ * Params:
+ *      stream = the stream
+ *      buffer = a user-allocated buffer to store the data in.
+ *      len = the buffer's length
+ *
+ * Returns: 0 if the read succeeded, error code otherwise
  */
 @GIT_EXTERN
 int git_odb_stream_read(libgit2.types.git_odb_stream* stream, char* buffer, size_t len);
@@ -426,6 +467,8 @@ int git_odb_open_rstream(libgit2.types.git_odb_stream** out_, size_t* len, libgi
  *      db = object database where the stream will read from
  *      progress_cb = function to call with progress information. Be aware that this is called inline with network and indexing operations, so performance may be affected.
  *      progress_payload = payload for the progress callback
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_odb_write_pack(libgit2.types.git_odb_writepack** out_, libgit2.types.git_odb* db, libgit2.indexer.git_indexer_progress_cb progress_cb, void* progress_payload);
@@ -441,6 +484,8 @@ int git_odb_write_pack(libgit2.types.git_odb_writepack** out_, libgit2.types.git
  *
  * Params:
  *      db = object database where the `multi-pack-index` file will be written.
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_odb_write_multi_pack_index(libgit2.types.git_odb* db);
@@ -632,7 +677,7 @@ int git_odb_get_backend(libgit2.types.git_odb_backend** out_, libgit2.types.git_
 /**
  * Set the git commit-graph for the ODB.
  *
- * After a successfull call, the ownership of the cgraph parameter will be
+ * After a successful call, the ownership of the cgraph parameter will be
  * transferred to libgit2, and the caller should not free it.
  *
  * The commit-graph can also be unset by explicitly passing null as the cgraph

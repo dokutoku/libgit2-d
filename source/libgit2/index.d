@@ -416,6 +416,23 @@ int git_index_write(libgit2.types.git_index* index);
 @GIT_EXTERN
 const (char)* git_index_path(const (libgit2.types.git_index)* index);
 
+version (GIT_DEPRECATE_HARD) {
+} else {
+	/**
+	* Get the checksum of the index
+	*
+	* This checksum is the SHA-1 hash over the index file (except the
+	* last 20 bytes which are the checksum itself). In cases where the
+	* index does not exist on-disk, it will be zeroed out.
+	*
+	* @deprecated this function is deprecated with no replacement
+	* @param index an existing index object
+	* @return a pointer to the checksum of the index
+	*/
+	@GIT_EXTERN
+	const (libgit2.oid.git_oid)* git_index_checksum(libgit2.types.git_index* index);
+}
+
 /**
  * Get the checksum of the index
  *
@@ -647,6 +664,8 @@ int git_index_entry_is_conflict(const (.git_index_entry)* entry);
  * Params:
  *      iterator_out = The newly created iterator
  *      index = The index to iterate
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_index_iterator_new(libgit2.types.git_index_iterator** iterator_out, libgit2.types.git_index* index);
@@ -952,6 +971,9 @@ int git_index_conflict_cleanup(libgit2.types.git_index* index);
 /**
  * Determine if the index contains entries representing file conflicts.
  *
+ * Params:
+ *      index = An existing index object.
+ *
  * Returns: 1 if at least one conflict is found, 0 otherwise.
  */
 @GIT_EXTERN
@@ -979,7 +1001,7 @@ int git_index_conflict_iterator_new(libgit2.types.git_index_conflict_iterator** 
  *      ancestor_out = Pointer to store the ancestor side of the conflict
  *      our_out = Pointer to store our side of the conflict
  *      their_out = Pointer to store their side of the conflict
- *      iterator = ?
+ *      iterator = The conflict iterator.
  *
  * Returns: 0 (no error), git_error_code.GIT_ITEROVER (iteration is done) or an error code (negative value)
  */

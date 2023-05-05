@@ -345,12 +345,28 @@ int git_blob_create_from_buffer(libgit2.oid.git_oid* id, libgit2.types.git_repos
 int git_blob_is_binary(const (libgit2.types.git_blob)* blob);
 
 /**
+ * Determine if the given content is most certainly binary or not;
+ * this is the same mechanism used by `git_blob_is_binary` but only
+ * looking at raw data.
+ *
+ * Params:
+ *      data = The blob data which content should be analyzed
+ *      len = The length of the data
+ *
+ * Returns: 1 if the content of the blob is detected as binary; 0 otherwise.
+ */
+@GIT_EXTERN
+int git_blob_data_is_binary(const (char)* data, size_t len);
+
+/**
  * Create an in-memory copy of a blob. The copy must be explicitly
  * free'd or it will leak.
  *
  * Params:
  *      out_ = Pointer to store the copy of the object
  *      source = Original object to copy
+ *
+ * Returns: 0.
  */
 @GIT_EXTERN
 int git_blob_dup(libgit2.types.git_blob** out_, libgit2.types.git_blob* source);

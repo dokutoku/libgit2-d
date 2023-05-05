@@ -37,7 +37,7 @@ public:
  *
  * Params:
  *      out_ = pointer to reflog
- *      repo = the repostiory
+ *      repo = the repository
  *      name = reference to look up
  *
  * Returns: 0 or an error code

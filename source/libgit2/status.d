@@ -305,6 +305,12 @@ struct git_status_options
 	 * working directory and index; defaults to HEAD.
 	 */
 	libgit2.types.git_tree* baseline;
+
+	/**
+	 * Threshold above which similar files will be considered renames.
+	 * This is equivalent to the -M option. Defaults to 50.
+	 */
+	ushort rename_threshold;
 }
 
 enum GIT_STATUS_OPTIONS_VERSION = 1;

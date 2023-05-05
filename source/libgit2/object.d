@@ -243,8 +243,30 @@ int git_object_peel(libgit2.types.git_object** peeled, const (libgit2.types.git_
  * Params:
  *      dest = Pointer to store the copy of the object
  *      source = Original object to copy
+ *
+ * Returns: 0 or an error code
  */
 @GIT_EXTERN
 int git_object_dup(libgit2.types.git_object** dest, libgit2.types.git_object* source);
+
+/**
+ * Analyzes a buffer of raw object content and determines its validity.
+ * Tree, commit, and tag objects will be parsed and ensured that they
+ * are valid, parseable content.  (Blobs are always valid by definition.)
+ * An error message will be set with an informative message if the object
+ * is not valid.
+ *
+ * @warning This function is experimental and its signature may change in the future.
+ *
+ * Params:
+ *      valid = Output pointer to set with validity of the object content
+ *      buf = The contents to validate
+ *      len = The length of the buffer
+ *      type = The type of the object in the buffer
+ *
+ * Returns: 0 on success or an error code
+ */
+@GIT_EXTERN
+int git_object_rawcontent_is_valid(int* valid, const (char)* buf, size_t len, libgit2.types.git_object_t type);
 
 /* @} */

@@ -154,30 +154,8 @@ public int print_matched_cb(const (char)* path, const (char)* matched_pathspec, 
 		return ret;
 	}
 
-extern (C)
 nothrow @nogc
-public void init_array(libgit2.strarray.git_strarray* array, int argc, char** argv)
-
-	in
-	{
-	}
-
-	do
-	{
-		array.count = argc;
-		array.strings = cast(char**)(core.stdc.stdlib.calloc(array.count, (char*).sizeof));
-		assert(array.strings != null);
-
-		for (uint i = 0; i < array.count; i++) {
-			array.strings[i] = argv[i];
-		}
-
-		return;
-	}
-
-extern (C)
-nothrow @nogc
-public void print_usage()
+private void print_usage()
 
 	in
 	{

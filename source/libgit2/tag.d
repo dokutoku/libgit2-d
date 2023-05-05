@@ -347,6 +347,8 @@ int git_tag_peel(libgit2.types.git_object** tag_target_out, const (libgit2.types
  * Params:
  *      out_ = Pointer to store the copy of the tag
  *      source = Original tag to copy
+ *
+ * Returns: 0
  */
 @GIT_EXTERN
 int git_tag_dup(libgit2.types.git_tag** out_, libgit2.types.git_tag* source);

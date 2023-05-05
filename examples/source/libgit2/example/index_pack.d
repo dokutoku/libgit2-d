@@ -102,9 +102,7 @@ public int lg2_index_pack(libgit2.types.git_repository* repo, int argc, char** a
 
 		core.stdc.stdio.printf("\rIndexing %u of %u\n", stats.indexed_objects, stats.total_objects);
 
-		char[libgit2.oid.GIT_OID_HEXSZ + 1] hash  = '\0';
-		libgit2.oid.git_oid_fmt(&(hash[0]), libgit2.indexer.git_indexer_hash(idx));
-		core.stdc.stdio.puts(&(hash[0]));
+		core.stdc.stdio.puts(libgit2.indexer.git_indexer_name(idx));
 
 		return error;
 	}

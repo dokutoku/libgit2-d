@@ -255,7 +255,7 @@ int git_submodule_update_options_init(.git_submodule_update_options* opts, uint 
  *
  * Params:
  *      submodule = Submodule object
- *      init = If the submodule is not initialized, setting this flag to true will initialize the submodule before updating. Otherwise, this will return an error if attempting to update an uninitialzed repository. but setting this to true forces them to be updated.
+ *      init = If the submodule is not initialized, setting this flag to true will initialize the submodule before updating. Otherwise, this will return an error if attempting to update an uninitialized repository. but setting this to true forces them to be updated.
  *      options = configuration options for the update.  If null, the function works as though GIT_SUBMODULE_UPDATE_OPTIONS_INIT was passed.
  *
  * Returns: 0 on success, any non-zero return value from a callback function, or a negative value to indicate an error (use `git_error_last` for a detailed error message).
@@ -300,6 +300,8 @@ int git_submodule_lookup(libgit2.types.git_submodule** out_, libgit2.types.git_r
  * Params:
  *      out_ = Pointer to store the copy of the submodule.
  *      source = Original submodule to copy.
+ *
+ * Returns: 0
  */
 @GIT_EXTERN
 int git_submodule_dup(libgit2.types.git_submodule** out_, libgit2.types.git_submodule* source);
@@ -389,6 +391,8 @@ int git_submodule_clone(libgit2.types.git_repository** out_, libgit2.types.git_s
  *
  * Params:
  *      submodule = The submodule to finish adding.
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_submodule_add_finalize(libgit2.types.git_submodule* submodule);
@@ -693,6 +697,11 @@ int git_submodule_repo_init(libgit2.types.git_repository** out_, const (libgit2.
  * submodule config, acting like "git submodule sync".  This is useful if
  * you have altered the URL for the submodule (or it has been altered by a
  * fetch of upstream changes) and you need to update your local repo.
+ *
+ * Params:
+ *      submodule = The submodule to copy.
+ *
+ * Returns: 0 or an error code.
  */
 @GIT_EXTERN
 int git_submodule_sync(libgit2.types.git_submodule* submodule);

@@ -148,6 +148,9 @@ enum
  * - git_feature_t.GIT_FEATURE_SSH
  *   Libgit2 supports the SSH protocol for network operations. This requires
  *   the libssh2 library to be found when compiling libgit2
+ *
+ * - GIT_FEATURE_NSEC
+ *   Libgit2 supports the sub-second resolution in file modification times.
  */
 @GIT_EXTERN
 int git_libgit2_features();
