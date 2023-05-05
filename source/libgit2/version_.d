@@ -16,7 +16,7 @@ public:
  * The version string for libgit2.  This string follows semantic
  * versioning (v2) guidelines.
  */
-enum LIBGIT2_VERSION = "1.5.2";
+enum LIBGIT2_VERSION = "1.6.4";
 
 /**
  * The major version number for this version of libgit2.
@@ -26,12 +26,12 @@ enum LIBGIT2_VER_MAJOR = 1;
 /**
  * The minor version number for this version of libgit2.
  */
-enum LIBGIT2_VER_MINOR = 5;
+enum LIBGIT2_VER_MINOR = 6;
 
 /**
  * The revision ("teeny") version number for this version of libgit2.
  */
-enum LIBGIT2_VER_REVISION = 2;
+enum LIBGIT2_VER_REVISION = 4;
 
 /**
  * The Windows DLL patch number for this version of libgit2.
@@ -49,4 +49,4 @@ enum LIBGIT2_VER_PRERELEASE = null;
 /**
  * The library ABI soversion for this version of libgit2.
  */
-enum LIBGIT2_SOVERSION = "1.5";
+enum LIBGIT2_SOVERSION = "1.6";

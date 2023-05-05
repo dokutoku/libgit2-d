@@ -833,6 +833,13 @@ version (GIT_DEPRECATE_HARD) {
 	 */
 	/*@{*/
 
+	version (GIT_EXPERIMENTAL_SHA256) {
+	} else {
+		enum GIT_OID_RAWSZ = libgit2.oid.GIT_OID_SHA1_SIZE;
+		enum GIT_OID_HEXSZ = libgit2.oid.GIT_OID_SHA1_HEXSIZE;
+		enum GIT_OID_HEX_ZERO = libgit2.oid.GIT_OID_SHA1_HEXZERO;
+	}
+
 	@GIT_EXTERN
 	int git_oid_iszero(const (libgit2.oid.git_oid)* id);
 

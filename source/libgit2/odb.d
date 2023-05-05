@@ -51,38 +51,118 @@ enum
 alias git_odb_foreach_cb = int function(const (libgit2.oid.git_oid)* id, void* payload);
 
 /**
- * Create a new object database with no backends.
- *
- * Before the ODB can be used for read/writing, a custom database
- * backend must be manually added using `git_odb_add_backend()`
- *
- * Params:
- *      out_ = location to store the database pointer, if opened. Set to null if the open failed.
- *
- * Returns: 0 or an error code
+ * Options for configuring a loose object backend.
  */
-@GIT_EXTERN
-int git_odb_new(libgit2.types.git_odb** out_);
+struct git_odb_options
+{
+	/**
+	 * version for the struct
+	 */
+	uint version_;
+
+	/**
+	 * Type of object IDs to use for this object database, or
+	 * 0 for default (currently SHA1).
+	 */
+	libgit2.oid.git_oid_t oid_type;
+}
 
 /**
- * Create a new object database and automatically add
- * the two default backends:
- *
- *	- git_odb_backend_loose: read and write loose object files
- *		from disk, assuming `objects_dir` as the Objects folder
- *
- *	- git_odb_backend_pack: read objects from packfiles,
- *		assuming `objects_dir` as the Objects folder which
- *		contains a 'pack/' folder with the corresponding data
- *
- * Params:
- *      out_ = location to store the database pointer, if opened. Set to null if the open failed.
- *      objects_dir = path of the backends' "objects" directory.
- *
- * Returns: 0 or an error code
+ * The current version of the diff options structure
  */
-@GIT_EXTERN
-int git_odb_open(libgit2.types.git_odb** out_, const (char)* objects_dir);
+enum GIT_ODB_OPTIONS_VERSION = 1;
+
+/**
+ * Stack initializer for odb options.  Alternatively use
+ * `git_odb_options_init` programmatic initialization.
+ */
+pragma(inline, true)
+pure nothrow @safe @nogc @live
+.git_odb_options GIT_ODB_OPTIONS_INIT()
+
+	do
+	{
+		.git_odb_options OUTPUT =
+		{
+			version_: .GIT_ODB_OPTIONS_VERSION,
+		};
+
+		return OUTPUT;
+	}
+
+version (GIT_EXPERIMENTAL_SHA256) {
+	/**
+	 * Create a new object database with no backends.
+	 *
+	 * Before the ODB can be used for read/writing, a custom database
+	 * backend must be manually added using `git_odb_add_backend()`
+	 *
+	 * Params:
+	 *      out_ = location to store the database pointer, if opened. Set to null if the open failed.
+	 *      opts = the options for this object database or NULL for defaults
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_odb_new(libgit2.types.git_odb** out_, const (.git_odb_options)* opts);
+} else {
+	/**
+	 * Create a new object database with no backends.
+	 *
+	 * Before the ODB can be used for read/writing, a custom database
+	 * backend must be manually added using `git_odb_add_backend()`
+	 *
+	 * Params:
+	 *      out_ = location to store the database pointer, if opened. Set to null if the open failed.
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_odb_new(libgit2.types.git_odb** out_);
+}
+
+version (GIT_EXPERIMENTAL_SHA256) {
+	/**
+	 * Create a new object database and automatically add
+	 * the two default backends:
+	 *
+	 *	- git_odb_backend_loose: read and write loose object files
+	 *		from disk, assuming `objects_dir` as the Objects folder
+	 *
+	 *	- git_odb_backend_pack: read objects from packfiles,
+	 *		assuming `objects_dir` as the Objects folder which
+	 *		contains a 'pack/' folder with the corresponding data
+	 *
+	 * Params:
+	 *      out_ = location to store the database pointer, if opened. Set to null if the open failed.
+	 *      objects_dir = path of the backends' "objects" directory.
+	 *      opts = the options for this object database or NULL for defaults
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_odb_open(libgit2.types.git_odb** out_, const (char)* objects_dir, const (.git_odb_options)* opts);
+} else {
+	/**
+	 * Create a new object database and automatically add
+	 * the two default backends:
+	 *
+	 *	- git_odb_backend_loose: read and write loose object files
+	 *		from disk, assuming `objects_dir` as the Objects folder
+	 *
+	 *	- git_odb_backend_pack: read objects from packfiles,
+	 *		assuming `objects_dir` as the Objects folder which
+	 *		contains a 'pack/' folder with the corresponding data
+	 *
+	 * Params:
+	 *      out_ = location to store the database pointer, if opened. Set to null if the open failed.
+	 *      objects_dir = path of the backends' "objects" directory.
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_odb_open(libgit2.types.git_odb** out_, const (char)* objects_dir);
+}
 
 /**
  * Add an on-disk alternate to an existing Object DB.
@@ -140,7 +220,7 @@ int git_odb_read(libgit2.types.git_odb_object** out_, libgit2.types.git_odb* db,
  * This method queries all available ODB backends
  * trying to match the 'len' first hexadecimal
  * characters of the 'short_id'.
- * The remaining (GIT_OID_HEXSZ-len)*4 bits of
+ * The remaining (GIT_OID_SHA1_HEXSIZE-len)*4 bits of
  * 'short_id' must be 0s.
  * 'len' must be at least GIT_OID_MINPREFIXLEN,
  * and the prefix must be long enough to identify
@@ -254,7 +334,7 @@ struct git_odb_expand_id
  *
  * The given array will be updated in place: for each abbreviated ID that is
  * unique in the database, and of the given type (if specified),
- * the full object ID, object ID length (`GIT_OID_HEXSZ`) and type will be
+ * the full object ID, object ID length (`GIT_OID_SHA1_HEXSIZE`) and type will be
  * written back to the array. For IDs that are not found (or are ambiguous),
  * the array entry will be zeroed.
  *
@@ -490,40 +570,81 @@ int git_odb_write_pack(libgit2.types.git_odb_writepack** out_, libgit2.types.git
 @GIT_EXTERN
 int git_odb_write_multi_pack_index(libgit2.types.git_odb* db);
 
-/**
- * Determine the object-ID (sha1 hash) of a data buffer
- *
- * The resulting SHA-1 OID will be the identifier for the data
- * buffer as if the data buffer it were to written to the ODB.
- *
- * Params:
- *      out_ = the resulting object-ID.
- *      data = data to hash
- *      len = size of the data
- *      type = of the data to hash
- *
- * Returns: 0 or an error code
- */
-@GIT_EXTERN
-int git_odb_hash(libgit2.oid.git_oid* out_, const (void)* data, size_t len, libgit2.types.git_object_t type);
+version (GIT_EXPERIMENTAL_SHA256) {
+	/**
+	 * Determine the object-ID (sha1 or sha256 hash) of a data buffer
+	 *
+	 * The resulting OID will be the identifier for the data buffer as if
+	 * the data buffer it were to written to the ODB.
+	 *
+	 * Params:
+	 *      out_ = the resulting object-ID.
+	 *      data = data to hash
+	 *      len = size of the data
+	 *      object_type = of the data to hash
+	 *      oid_type = the oid type to hash to
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_odb_hash(libgit2.oid.git_oid* out_, const (void)* data, size_t len, libgit2.types.git_object_t object_type, libgit2.oid.git_oid_t oid_type);
+} else {
+	/**
+	 * Determine the object-ID (sha1 or sha256 hash) of a data buffer
+	 *
+	 * The resulting OID will be the identifier for the data buffer as if
+	 * the data buffer it were to written to the ODB.
+	 *
+	 * Params:
+	 *      out_ = the resulting object-ID.
+	 *      data = data to hash
+	 *      len = size of the data
+	 *      type = of the data to hash
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_odb_hash(libgit2.oid.git_oid* out_, const (void)* data, size_t len, libgit2.types.git_object_t type);
+}
 
-/**
- * Read a file from disk and fill a git_oid with the object id
- * that the file would have if it were written to the Object
- * Database as an object of the given type (w/o applying filters).
- * Similar functionality to git.git's `git hash-object` without
- * the `-w` flag, however, with the --no-filters flag.
- * If you need filters, see git_repository_hashfile.
- *
- * Params:
- *      out_ = oid structure the result is written into.
- *      path = file to read and determine object id for
- *      type = the type of the object that will be hashed
- *
- * Returns: 0 or an error code
- */
-@GIT_EXTERN
-int git_odb_hashfile(libgit2.oid.git_oid* out_, const (char)* path, libgit2.types.git_object_t type);
+version (GIT_EXPERIMENTAL_SHA256) {
+	/**
+	 * Read a file from disk and fill a git_oid with the object id
+	 * that the file would have if it were written to the Object
+	 * Database as an object of the given type (w/o applying filters).
+	 * Similar functionality to git.git's `git hash-object` without
+	 * the `-w` flag, however, with the --no-filters flag.
+	 * If you need filters, see git_repository_hashfile.
+	 *
+	 * Params:
+	 *      out_ = oid structure the result is written into.
+	 *      path = file to read and determine object id for
+	 *      object_type = of the data to hash
+	 *      oid_type = the oid type to hash to
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_odb_hashfile(libgit2.oid.git_oid* out_, const (char)* path, libgit2.types.git_object_t object_type, libgit2.oid.git_oid_t oid_type);
+} else {
+	/**
+	 * Read a file from disk and fill a git_oid with the object id
+	 * that the file would have if it were written to the Object
+	 * Database as an object of the given type (w/o applying filters).
+	 * Similar functionality to git.git's `git hash-object` without
+	 * the `-w` flag, however, with the --no-filters flag.
+	 * If you need filters, see git_repository_hashfile.
+	 *
+	 * Params:
+	 *      out_ = oid structure the result is written into.
+	 *      path = file to read and determine object id for
+	 *      type = the type of the object that will be hashed
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_odb_hashfile(libgit2.oid.git_oid* out_, const (char)* path, libgit2.types.git_object_t type);
+}
 
 /**
  * Create a copy of an odb_object

@@ -44,7 +44,7 @@ struct git_odb_backend
 
 	/*
 	 * To find a unique object given a prefix of its oid.  The oid given
-	 * must be so that the remaining (GIT_OID_HEXSZ - len)*4 bits are 0s.
+	 * must be so that the remaining (GIT_OID_SHA1_HEXSIZE - len)*4 bits are 0s.
 	 */
 	int function(libgit2.oid.git_oid*, void**, size_t*, libgit2.types.git_object_t*, .git_odb_backend*, const (libgit2.oid.git_oid)*, size_t) read_prefix;
 

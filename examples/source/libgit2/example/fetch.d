@@ -45,16 +45,16 @@ private int update_cb(const (char)* refname, const (libgit2.oid.git_oid)* a, con
 	{
 		//cast(void)(data);
 
-		char[libgit2.oid.GIT_OID_HEXSZ + 1] b_str;
+		char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] b_str;
 		libgit2.oid.git_oid_fmt(&(b_str[0]), b);
-		b_str[libgit2.oid.GIT_OID_HEXSZ] = '\0';
+		b_str[libgit2.oid.GIT_OID_SHA1_HEXSIZE] = '\0';
 
 		if (libgit2.oid.git_oid_is_zero(a)) {
 			core.stdc.stdio.printf("[new]     %.20s %s\n", &(b_str[0]), refname);
 		} else {
-			char[libgit2.oid.GIT_OID_HEXSZ + 1] a_str;
+			char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] a_str;
 			libgit2.oid.git_oid_fmt(&(a_str[0]), a);
-			a_str[libgit2.oid.GIT_OID_HEXSZ] = '\0';
+			a_str[libgit2.oid.GIT_OID_SHA1_HEXSIZE] = '\0';
 			core.stdc.stdio.printf("[updated] %.10s..%.10s %s\n", &(a_str[0]), &(b_str[0]), refname);
 		}
 

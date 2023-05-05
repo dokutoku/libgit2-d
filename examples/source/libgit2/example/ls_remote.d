@@ -62,7 +62,7 @@ private int use_remote(libgit2.types.git_repository* repo, char* name)
 		}
 
 		for (size_t i = 0; i < refs_len; i++) {
-			char[libgit2.oid.GIT_OID_HEXSZ + 1] oid  = '\0';
+			char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] oid  = '\0';
 			libgit2.oid.git_oid_fmt((&oid[0]), &refs[i].oid);
 			core.stdc.stdio.printf("%s\t%s\n", (&oid[0]), refs[i].name);
 		}

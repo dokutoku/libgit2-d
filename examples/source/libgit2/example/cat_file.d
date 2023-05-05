@@ -92,7 +92,7 @@ private void show_tree(const (libgit2.types.git_tree)* tree)
 	do
 	{
 		size_t max_i = cast(int)(libgit2.tree.git_tree_entrycount(tree));
-		char[libgit2.oid.GIT_OID_HEXSZ + 1] oidstr;
+		char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] oidstr;
 
 		for (size_t i = 0; i < max_i; ++i) {
 			const (libgit2.types.git_tree_entry)* te = libgit2.tree.git_tree_entry_byindex(tree, i);
@@ -115,7 +115,7 @@ private void show_commit(const (libgit2.types.git_commit)* commit)
 
 	do
 	{
-		char[libgit2.oid.GIT_OID_HEXSZ + 1] oidstr;
+		char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] oidstr;
 		libgit2.oid.git_oid_tostr(&(oidstr[0]), oidstr.length, libgit2.commit.git_commit_tree_id(commit));
 		core.stdc.stdio.printf("tree %s\n", &(oidstr[0]));
 
@@ -143,7 +143,7 @@ private void show_tag(const (libgit2.types.git_tag)* tag)
 
 	do
 	{
-		char[libgit2.oid.GIT_OID_HEXSZ + 1] oidstr;
+		char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] oidstr;
 		libgit2.oid.git_oid_tostr(&(oidstr[0]), oidstr.length, libgit2.tag.git_tag_target_id(tag));
 
 		core.stdc.stdio.printf("object %s\n", &(oidstr[0]));
@@ -205,7 +205,7 @@ public int lg2_cat_file(libgit2.types.git_repository* repo, int argc, char** arg
 		libgit2.types.git_object* obj = null;
 		libgit2.example.common.check_lg2(libgit2.revparse.git_revparse_single(&obj, repo, o.rev), "Could not resolve", o.rev);
 
-		char[libgit2.oid.GIT_OID_HEXSZ + 1] oidstr;
+		char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] oidstr;
 
 		if (o.verbose) {
 			libgit2.oid.git_oid_tostr(&(oidstr[0]), oidstr.length, libgit2.object.git_object_id(obj));

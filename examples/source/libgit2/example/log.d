@@ -452,7 +452,7 @@ private void print_commit(libgit2.types.git_commit* commit, .log_options* opts)
 
 	do
 	{
-		char[libgit2.oid.GIT_OID_HEXSZ + 1] buf;
+		char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] buf;
 		libgit2.oid.git_oid_tostr(&(buf[0]), buf.length, libgit2.commit.git_commit_id(commit));
 		core.stdc.stdio.printf("commit %s\n", &(buf[0]));
 

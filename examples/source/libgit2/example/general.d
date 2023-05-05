@@ -162,6 +162,8 @@ private void oid_parsing(libgit2.oid.git_oid* oid)
 	{
 		core.stdc.stdio.printf("*Hex to Raw*\n");
 
+		const char* hex = "4a202b346bb0fb0db7eff3cffeb3c70babbd2045";
+
 		/**
 		 * For our first example, we will convert a 40 character hex value to the
 		 * 20 byte raw SHA1 value.
@@ -170,8 +172,11 @@ private void oid_parsing(libgit2.oid.git_oid* oid)
 		 * this throughout the example for storing the value of the current SHA
 		 * key we're working with.
 		 */
-		const char* hex = "4a202b346bb0fb0db7eff3cffeb3c70babbd2045";
-		libgit2.oid.git_oid_fromstr(oid, hex);
+		version (GIT_EXPERIMENTAL_SHA256) {
+			libgit2.oid.git_oid_fromstr(oid, hex, libgit2.oid.git_oid_t.GIT_OID_SHA1);
+		} else {
+			libgit2.oid.git_oid_fromstr(oid, hex);
+		}
 
 		/*
 		 * Once we've converted the string into the oid value, we can get the raw
@@ -181,7 +186,7 @@ private void oid_parsing(libgit2.oid.git_oid* oid)
 		 * char hex value.
 		 */
 		core.stdc.stdio.printf("\n*Raw to Hex*\n");
-		char[libgit2.oid.GIT_OID_HEXSZ + 1] out_ = '\0';
+		char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] out_ = '\0';
 
 		/**
 		 * If you have a oid, you can easily get the hex value of the SHA as well.
@@ -271,7 +276,7 @@ private void object_database(libgit2.types.git_repository* repo, libgit2.oid.git
 		 * Now that we've written the object, we can check out what SHA1 was
 		 * generated when the object was written to our database.
 		 */
-		char[libgit2.oid.GIT_OID_HEXSZ + 1] oid_hex  = '\0';
+		char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] oid_hex  = '\0';
 		libgit2.oid.git_oid_fmt(&(oid_hex[0]), oid);
 		core.stdc.stdio.printf("Written Object: %s\n", &(oid_hex[0]));
 
@@ -314,17 +319,24 @@ private void commit_writing(libgit2.types.git_repository* repo)
 		libgit2.types.git_signature* committer;
 		libgit2.signature.git_signature_new(&committer, "Scott A Chacon", "scott@github.com", 987654321, 90);
 
+		libgit2.oid.git_oid tree_id;
+		libgit2.oid.git_oid parent_id;
+
 		/**
 		 * Commit objects need a tree to point to and optionally one or more
 		 * parents.  Here we're creating oid objects to create the commit with,
 		 * but you can also use
 		 */
-		libgit2.oid.git_oid tree_id;
-		libgit2.oid.git_oid_fromstr(&tree_id, "f60079018b664e4e79329a7ef9559c8d9e0378d1");
+		version (GIT_EXPERIMENTAL_SHA256) {
+			libgit2.oid.git_oid_fromstr(&tree_id, "f60079018b664e4e79329a7ef9559c8d9e0378d1", libgit2.oid.git_oid_t.GIT_OID_SHA1);
+			libgit2.oid.git_oid_fromstr(&parent_id, "5b5b025afb0b4c913b4c338a42934a3863bf3644", libgit2.oid.git_oid_t.GIT_OID_SHA1);
+		} else {
+			libgit2.oid.git_oid_fromstr(&tree_id, "f60079018b664e4e79329a7ef9559c8d9e0378d1");
+			libgit2.oid.git_oid_fromstr(&parent_id, "5b5b025afb0b4c913b4c338a42934a3863bf3644");
+		}
+
 		libgit2.types.git_tree* tree;
 		libgit2.tree.git_tree_lookup(&tree, repo, &tree_id);
-		libgit2.oid.git_oid parent_id;
-		libgit2.oid.git_oid_fromstr(&parent_id, "5b5b025afb0b4c913b4c338a42934a3863bf3644");
 		libgit2.types.git_commit* parent;
 		libgit2.commit.git_commit_lookup(&parent, repo, &parent_id);
 
@@ -342,7 +354,7 @@ private void commit_writing(libgit2.types.git_repository* repo)
 		/**
 		 * Now we can take a look at the commit SHA we've generated.
 		 */
-		char[libgit2.oid.GIT_OID_HEXSZ + 1] oid_hex  = '\0';
+		char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] oid_hex  = '\0';
 		libgit2.oid.git_oid_fmt(&(oid_hex[0]), &commit_id);
 		core.stdc.stdio.printf("New Commit: %s\n", &(oid_hex[0]));
 
@@ -384,7 +396,12 @@ private void commit_parsing(libgit2.types.git_repository* repo)
 		core.stdc.stdio.printf("\n*Commit Parsing*\n");
 
 		libgit2.oid.git_oid oid;
-		libgit2.oid.git_oid_fromstr(&oid, "8496071c1b46c854b31185ea97743be6a8774479");
+
+		version (GIT_EXPERIMENTAL_SHA256) {
+			libgit2.oid.git_oid_fromstr(&oid, "8496071c1b46c854b31185ea97743be6a8774479", libgit2.oid.git_oid_t.GIT_OID_SHA1);
+		} else {
+			libgit2.oid.git_oid_fromstr(&oid, "8496071c1b46c854b31185ea97743be6a8774479");
+		}
 
 		libgit2.types.git_commit* commit;
 		int error = libgit2.commit.git_commit_lookup(&commit, repo, &oid);
@@ -417,7 +434,7 @@ private void commit_parsing(libgit2.types.git_repository* repo)
 		 */
 		uint parents = libgit2.commit.git_commit_parentcount(commit);
 
-		char[libgit2.oid.GIT_OID_HEXSZ + 1] oid_hex;
+		char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] oid_hex;
 		libgit2.types.git_commit* parent;
 
 		for (uint p = 0; p < parents; p++) {
@@ -452,12 +469,17 @@ private void tag_parsing(libgit2.types.git_repository* repo)
 	{
 		core.stdc.stdio.printf("\n*Tag Parsing*\n");
 
+		libgit2.oid.git_oid oid;
+
 		/**
 		 * We create an oid for the tag object if we know the SHA and look it up
 		 * the same way that we would a commit (or any other object).
 		 */
-		libgit2.oid.git_oid oid;
-		libgit2.oid.git_oid_fromstr(&oid, "b25fa35b38051e4ae45d4222e795f9df2e43f1d1");
+		version (GIT_EXPERIMENTAL_SHA256) {
+			libgit2.oid.git_oid_fromstr(&oid, "b25fa35b38051e4ae45d4222e795f9df2e43f1d1", libgit2.oid.git_oid_t.GIT_OID_SHA1);
+		} else {
+			libgit2.oid.git_oid_fromstr(&oid, "b25fa35b38051e4ae45d4222e795f9df2e43f1d1");
+		}
 
 		libgit2.types.git_tag* tag;
 		int error = libgit2.tag.git_tag_lookup(&tag, repo, &oid);
@@ -511,11 +533,17 @@ private void tree_parsing(libgit2.types.git_repository* repo)
 	{
 		core.stdc.stdio.printf("\n*Tree Parsing*\n");
 
+		libgit2.oid.git_oid oid;
+
 		/**
 		 * Create the oid and lookup the tree object just like the other objects.
 		 */
-		libgit2.oid.git_oid oid;
-		libgit2.oid.git_oid_fromstr(&oid, "f60079018b664e4e79329a7ef9559c8d9e0378d1");
+		version (GIT_EXPERIMENTAL_SHA256) {
+			libgit2.oid.git_oid_fromstr(&oid, "f60079018b664e4e79329a7ef9559c8d9e0378d1", libgit2.oid.git_oid_t.GIT_OID_SHA1);
+		} else {
+			libgit2.oid.git_oid_fromstr(&oid, "f60079018b664e4e79329a7ef9559c8d9e0378d1");
+		}
+
 		libgit2.types.git_tree* tree;
 		libgit2.tree.git_tree_lookup(&tree, repo, &oid);
 
@@ -584,7 +612,13 @@ private void blob_parsing(libgit2.types.git_repository* repo)
 		core.stdc.stdio.printf("\n*Blob Parsing*\n");
 
 		libgit2.oid.git_oid oid;
-		libgit2.oid.git_oid_fromstr(&oid, "1385f264afb75a56a5bec74243be9b367ba4ca08");
+
+		version (GIT_EXPERIMENTAL_SHA256) {
+			libgit2.oid.git_oid_fromstr(&oid, "1385f264afb75a56a5bec74243be9b367ba4ca08", libgit2.oid.git_oid_t.GIT_OID_SHA1);
+		} else {
+			libgit2.oid.git_oid_fromstr(&oid, "1385f264afb75a56a5bec74243be9b367ba4ca08");
+		}
+
 		libgit2.types.git_blob* blob;
 		libgit2.blob.git_blob_lookup(&blob, repo, &oid);
 
@@ -631,7 +665,12 @@ private void revwalking(libgit2.types.git_repository* repo)
 		core.stdc.stdio.printf("\n*Revwalking*\n");
 
 		libgit2.oid.git_oid oid;
-		libgit2.oid.git_oid_fromstr(&oid, "5b5b025afb0b4c913b4c338a42934a3863bf3644");
+
+		version (GIT_EXPERIMENTAL_SHA256) {
+			libgit2.oid.git_oid_fromstr(&oid, "5b5b025afb0b4c913b4c338a42934a3863bf3644", libgit2.oid.git_oid_t.GIT_OID_SHA1);
+		} else {
+			libgit2.oid.git_oid_fromstr(&oid, "5b5b025afb0b4c913b4c338a42934a3863bf3644");
+		}
 
 		/**
 		 * To use the revwalker, create a new walker, tell it how you want to sort
@@ -759,7 +798,7 @@ private void reference_listing(libgit2.types.git_repository* repo)
 		libgit2.types.git_reference* ref_;
 
 		for (uint i = 0; i < ref_list.count; ++i) {
-			char[libgit2.oid.GIT_OID_HEXSZ + 1] oid_hex = libgit2.common.GIT_OID_HEX_ZERO;
+			char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] oid_hex = libgit2.oid.GIT_OID_SHA1_HEXZERO;
 			const (char)* refname = ref_list.strings[i];
 			libgit2.refs.git_reference_lookup(&ref_, repo, refname);
 

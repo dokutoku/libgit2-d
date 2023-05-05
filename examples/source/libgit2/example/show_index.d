@@ -35,7 +35,7 @@ public int lg2_show_index(libgit2.types.git_repository* repo, int argc, char** a
 
 	do
 	{
-		char[libgit2.oid.GIT_OID_HEXSZ + 1] out_ = '\0';
+		char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] out_ = '\0';
 
 		if (argc > 2) {
 			libgit2.example.common.fatal("usage: showindex [<repo-dir>]", null);

@@ -71,11 +71,6 @@ static if (.GIT_WIN32) {
 enum GIT_PATH_MAX = 4096;
 
 /**
- * The string representation of the null object ID.
- */
-enum GIT_OID_HEX_ZERO = "0000000000000000000000000000000000000000";
-
-/**
  * Return the version of the libgit2 library
  * being currently used.
  *
@@ -212,6 +207,8 @@ enum git_libgit2_opt_t
 	GIT_OPT_SET_EXTENSIONS,
 	GIT_OPT_GET_OWNER_VALIDATION,
 	GIT_OPT_SET_OWNER_VALIDATION,
+	GIT_OPT_GET_HOMEDIR,
+	GIT_OPT_SET_HOMEDIR,
 }
 
 //Declaration name in C language
@@ -254,6 +251,8 @@ enum
 	GIT_OPT_SET_EXTENSIONS = .git_libgit2_opt_t.GIT_OPT_SET_EXTENSIONS,
 	GIT_OPT_GET_OWNER_VALIDATION = .git_libgit2_opt_t.GIT_OPT_GET_OWNER_VALIDATION,
 	GIT_OPT_SET_OWNER_VALIDATION = .git_libgit2_opt_t.GIT_OPT_SET_OWNER_VALIDATION,
+	GIT_OPT_GET_HOMEDIR = .git_libgit2_opt_t.GIT_OPT_GET_HOMEDIR,
+	GIT_OPT_SET_HOMEDIR = .git_libgit2_opt_t.GIT_OPT_SET_HOMEDIR,
 }
 
 /**
@@ -498,6 +497,16 @@ enum
  *   opts(GIT_OPT_SET_OWNER_VALIDATION, int enabled)
  *      > Set that repository directories should be owned by the current
  *      > user. The default is to validate ownership.
+ *
+ *   opts(GIT_OPT_GET_HOMEDIR, git_buf* out)
+ *      > Gets the current user's home directory, as it will be used
+ *      > for file lookups. The path is written to the `out` buffer.
+ *
+ *   opts(GIT_OPT_SET_HOMEDIR, const (char)* path)
+ *      > Sets the directory used as the current user's home directory,
+ *      > for file lookups.
+ *      >
+ *      > - `path` directory of home directory.
  *
  * Params:
  *      option = Option key

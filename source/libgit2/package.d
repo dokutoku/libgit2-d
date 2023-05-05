@@ -32,6 +32,7 @@ public import libgit2.describe;
 public import libgit2.diff;
 public import libgit2.email;
 public import libgit2.errors;
+public import libgit2.experimental;
 public import libgit2.filter;
 public import libgit2.global;
 public import libgit2.graph;

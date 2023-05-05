@@ -46,19 +46,4 @@ struct git_strarray
 @GIT_EXTERN
 void git_strarray_dispose(.git_strarray* array);
 
-/**
- * Copy a string array object from source to target.
- *
- * Note: target is overwritten and hence should be empty, otherwise its
- * contents are leaked.  Call git_strarray_free() if necessary.
- *
- * Params:
- *      tgt = target
- *      src = source
- *
- * Returns: 0 on success, < 0 on allocation failure
- */
-@GIT_EXTERN
-int git_strarray_copy(.git_strarray* tgt, const (.git_strarray)* src);
-
 /* @} */

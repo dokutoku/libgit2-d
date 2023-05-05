@@ -25,9 +25,9 @@ private int show_ref(libgit2.types.git_reference* ref_, void* data)
 		}
 
 		const (libgit2.oid.git_oid)* oid = libgit2.refs.git_reference_target((resolved) ? (resolved) : (ref_));
-		char[libgit2.oid.GIT_OID_HEXSZ + 1] hex;
+		char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] hex;
 		libgit2.oid.git_oid_fmt(&(hex[0]), oid);
-		hex[libgit2.oid.GIT_OID_HEXSZ] = 0;
+		hex[libgit2.oid.GIT_OID_SHA1_HEXSIZE] = 0;
 		libgit2.types.git_object* obj;
 		libgit2.types.git_repository* repo = cast(libgit2.types.git_repository*)(data);
 		libgit2.example.common.check_lg2(libgit2.object.git_object_lookup(&obj, repo, oid, libgit2.types.git_object_t.GIT_OBJECT_ANY), "Unable to lookup object", &(hex[0]));

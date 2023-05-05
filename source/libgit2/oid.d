@@ -23,90 +23,268 @@ extern (C):
 nothrow @nogc:
 public:
 
-/**
- * Size (in bytes) of a raw/binary oid
+version (GIT_EXPERIMENTAL_SHA256) {
+	/**
+	 * The type of object id.
+	 */
+	enum git_oid_t
+	{
+		/**
+		 * SHA1
+		 */
+		GIT_OID_SHA1 = 1,
+
+		/**
+		 * SHA256
+		 */
+		GIT_OID_SHA256 = 2,
+	}
+
+	//Declaration name in C language
+	enum
+	{
+		GIT_OID_SHA1 = .git_oid_t.GIT_OID_SHA1,
+		GIT_OID_SHA256 = .git_oid_t.GIT_OID_SHA256,
+	}
+} else {
+	/**
+	 * The type of object id.
+	 */
+	enum git_oid_t
+	{
+		/**
+		 * SHA1
+		 */
+		GIT_OID_SHA1 = 1,
+	}
+
+	//Declaration name in C language
+	enum
+	{
+		GIT_OID_SHA1 = .git_oid_t.GIT_OID_SHA1,
+	}
+}
+
+/*
+ * SHA1 is currently the only supported object ID type.
  */
-enum GIT_OID_RAWSZ = 20;
 
 /**
- * Size (in bytes) of a hex formatted oid
+ * SHA1 is currently libgit2's default oid type.
  */
-enum GIT_OID_HEXSZ = .GIT_OID_RAWSZ * 2;
+enum GIT_OID_DEFAULT = .git_oid_t.GIT_OID_SHA1;
 
 /**
- * Minimum length (in number of hex characters,
- * i.e. packets of 4 bits) of an oid prefix
+ * Size (in bytes) of a raw/binary sha1 oid
  */
-enum GIT_OID_MINPREFIXLEN = 4;
+enum GIT_OID_SHA1_SIZE = 20;
+
+/**
+ * Size (in bytes) of a hex formatted sha1 oid
+ */
+enum GIT_OID_SHA1_HEXSIZE = .GIT_OID_SHA1_SIZE * 2;
+
+/*
+ * The binary representation of the null sha1 object ID.
+ */
+/+
+#ifndef GIT_EXPERIMENTAL_SHA256
+	#define GIT_OID_SHA1_ZERO   { { 0 } }
+#else
+	#define GIT_OID_SHA1_ZERO   { .git_oid_t.GIT_OID_SHA1, { 0 } }
+#endif
++/
+
+/**
+ * The string representation of the null sha1 object ID.
+ */
+enum GIT_OID_SHA1_HEXZERO = "0000000000000000000000000000000000000000";
+
+/*
+ * Experimental SHA256 support is a breaking change to the API.
+ * This exists for application compatibility testing.
+ */
+
+version (GIT_EXPERIMENTAL_SHA256) {
+	/**
+	 * Size (in bytes) of a raw/binary sha256 oid
+	 */
+	enum GIT_OID_SHA256_SIZE = 32;
+
+	/**
+	 * Size (in bytes) of a hex formatted sha256 oid
+	 */
+	enum GIT_OID_SHA256_HEXSIZE = GIT_OID_SHA256_SIZE * 2;
+
+	/*
+	 * The binary representation of the null sha256 object ID.
+	 */
+	/+
+	#define GIT_OID_SHA256_ZERO { GIT_OID_SHA256, { 0 } }
+	+/
+
+	/**
+	 * The string representation of the null sha256 object ID.
+	 */
+	enum GIT_OID_SHA256_HEXZERO = "0000000000000000000000000000000000000000000000000000000000000000";
+}
+
+/* Maximum possible object ID size in raw / hex string format. */
+version (GIT_EXPERIMENTAL_SHA256) {
+	enum GIT_OID_MAX_SIZE = .GIT_OID_SHA256_SIZE;
+	enum GIT_OID_MAX_HEXSIZE = .GIT_OID_SHA256_HEXSIZE;
+} else {
+	enum GIT_OID_MAX_SIZE = .GIT_OID_SHA1_SIZE;
+	enum GIT_OID_MAX_HEXSIZE = .GIT_OID_SHA1_HEXSIZE;
+}
 
 /**
  * Unique identity of any object (commit, tree, blob, tag).
  */
 struct git_oid
 {
+	version (GIT_EXPERIMENTAL_SHA256) {
+		/**
+		 * type of object id
+		 */
+		ubyte type;
+	}
+
 	/**
 	 * raw binary formatted id
 	 */
-	ubyte[.GIT_OID_RAWSZ] id;
+	ubyte[.GIT_OID_MAX_SIZE] id;
 }
 
-/**
- * Parse a hex formatted object id into a git_oid.
- *
- * Params:
- *      out_ = oid structure the result is written into.
- *      str = input hex string; must be pointing at the start of the hex sequence and have at least the number of bytes needed for an oid encoded in hex (40 bytes).
- *
- * Returns: 0 or an error code
- */
-@GIT_EXTERN
-int git_oid_fromstr(.git_oid* out_, const (char)* str);
+version (GIT_EXPERIMENTAL_SHA256) {
+	/**
+	 * Parse a hex formatted object id into a git_oid.
+	 *
+	 * The appropriate number of bytes for the given object ID type will
+	 * be read from the string - 40 bytes for SHA1, 64 bytes for SHA256.
+	 * The given string need not be null terminated.
+	 *
+	 * Params:
+	 *      out_ = oid structure the result is written into.
+	 *      str = input hex string; must be pointing at the start of the hex sequence and have at least the number of bytes needed for an oid encoded in hex (40 bytes for sha1, 256 bytes for sha256).
+	 *      type = the type of object id
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_oid_fromstr(.git_oid* out_, const (char)* str, .git_oid_t type);
+} else {
+	/**
+	 * Parse a hex formatted object id into a git_oid.
+	 *
+	 * The appropriate number of bytes for the given object ID type will
+	 * be read from the string - 40 bytes for SHA1, 64 bytes for SHA256.
+	 * The given string need not be null terminated.
+	 *
+	 * Params:
+	 *      out_ = oid structure the result is written into.
+	 *      str = input hex string; must be pointing at the start of the hex sequence and have at least the number of bytes needed for an oid encoded in hex (40 bytes for sha1, 256 bytes for sha256).
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_oid_fromstr(.git_oid* out_, const (char)* str);
+}
 
-/**
- * Parse a hex formatted null-terminated string into a git_oid.
- *
- * Params:
- *      out_ = oid structure the result is written into.
- *      str = input hex string; must be null-terminated.
- *
- * Returns: 0 or an error code
- */
-@GIT_EXTERN
-int git_oid_fromstrp(.git_oid* out_, const (char)* str);
+version (GIT_EXPERIMENTAL_SHA256) {
+	/**
+	 * Parse a hex formatted null-terminated string into a git_oid.
+	 *
+	 * Params:
+	 *      out_ = oid structure the result is written into.
+	 *      str = input hex string; must be null-terminated.
+	 *      type = the type of object id
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_oid_fromstrp(.git_oid* out_, const (char)* str, .git_oid_t type);
+} else {
+	/**
+	 * Parse a hex formatted null-terminated string into a git_oid.
+	 *
+	 * Params:
+	 *      out_ = oid structure the result is written into.
+	 *      str = input hex string; must be null-terminated.
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_oid_fromstrp(.git_oid* out_, const (char)* str);
+}
 
-/**
- * Parse N characters of a hex formatted object id into a git_oid.
- *
- * If N is odd, the last byte's high nibble will be read in and the
- * low nibble set to zero.
- *
- * Params:
- *      out_ = oid structure the result is written into.
- *      str = input hex string of at least size `length`
- *      length = length of the input string
- *
- * Returns: 0 or an error code
- */
-@GIT_EXTERN
-int git_oid_fromstrn(.git_oid* out_, const (char)* str, size_t length);
+version (GIT_EXPERIMENTAL_SHA256) {
+	/**
+	 * Parse N characters of a hex formatted object id into a git_oid.
+	 *
+	 * If N is odd, the last byte's high nibble will be read in and the
+	 * low nibble set to zero.
+	 *
+	 * Params:
+	 *      out_ = oid structure the result is written into.
+	 *      str = input hex string of at least size `length`
+	 *      length = length of the input string
+	 *      type = the type of object id
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_oid_fromstrn(.git_oid* out_, const (char)* str, size_t length, .git_oid_t type);
+} else {
+	/**
+	 * Parse N characters of a hex formatted object id into a git_oid.
+	 *
+	 * If N is odd, the last byte's high nibble will be read in and the
+	 * low nibble set to zero.
+	 *
+	 * Params:
+	 *      out_ = oid structure the result is written into.
+	 *      str = input hex string of at least size `length`
+	 *      length = length of the input string
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_oid_fromstrn(.git_oid* out_, const (char)* str, size_t length);
+}
 
-/**
- * Copy an already raw oid into a git_oid structure.
- *
- * Params:
- *      out_ = oid structure the result is written into.
- *      raw = the raw input bytes to be copied.
- *
- * Returns: 0 on success or error code
- */
-@GIT_EXTERN
-int git_oid_fromraw(.git_oid* out_, const (ubyte)* raw);
+version (GIT_EXPERIMENTAL_SHA256) {
+	/**
+	 * Copy an already raw oid into a git_oid structure.
+	 *
+	 * Params:
+	 *      out_ = oid structure the result is written into.
+	 *      raw = the raw input bytes to be copied.
+	 *      type = ?
+	 *
+	 * Returns: 0 on success or error code
+	 */
+	@GIT_EXTERN
+	int git_oid_fromraw(.git_oid* out_, const (ubyte)* raw, .git_oid_t type);
+} else {
+	/**
+	 * Copy an already raw oid into a git_oid structure.
+	 *
+	 * Params:
+	 *      out_ = oid structure the result is written into.
+	 *      raw = the raw input bytes to be copied.
+	 *
+	 * Returns: 0 on success or error code
+	 */
+	@GIT_EXTERN
+	int git_oid_fromraw(.git_oid* out_, const (ubyte)* raw);
+}
 
 /**
  * Format a git_oid into a hex string.
  *
  * Params:
- *      out_ = output hex string; must be pointing at the start of the hex sequence and have at least the number of bytes needed for an oid encoded in hex (40 bytes). Only the oid digits are written; a '\\0' terminator must be added by the caller if it is required.
+ *      out_ = output hex string; must be pointing at the start of the hex sequence and have at least the number of bytes needed for an oid encoded in hex (40 bytes for SHA1, 64 bytes for SHA256). Only the oid digits are written; a '\\0' terminator must be added by the caller if it is required.
  *      id = oid structure to format.
  *
  * Returns: 0 on success or error code
@@ -118,7 +296,7 @@ int git_oid_fmt(char* out_, const (.git_oid)* id);
  * Format a git_oid into a partial hex string.
  *
  * Params:
- *      out_ = output hex string; you say how many bytes to write. If the number of bytes is > GIT_OID_HEXSZ, extra bytes will be zeroed; if not, a '\0' terminator is NOT added.
+ *      out_ = output hex string; you say how many bytes to write. If the number of bytes is > GIT_OID_SHA1_HEXSIZE, extra bytes will be zeroed; if not, a '\0' terminator is NOT added.
  *      n = number of characters to write into out string
  *      id = oid structure to format.
  *
@@ -134,7 +312,7 @@ int git_oid_nfmt(char* out_, size_t n, const (.git_oid)* id);
  * hex digits of the oid and "..." is the remaining 38 digits.
  *
  * Params:
- *      out_ = output hex string; must be pointing at the start of the hex sequence and have at least the number of bytes needed for an oid encoded in hex (41 bytes). Only the oid digits are written; a '\\0' terminator must be added by the caller if it is required.
+ *      out_ = output hex string; must be pointing at the start of the hex sequence and have at least the number of bytes needed for an oid encoded in hex (41 bytes for SHA1, 65 bytes for SHA256). Only the oid digits are written; a '\\0' terminator must be added by the caller if it is required.
  *      id = oid structure to format.
  *
  * Returns: 0 on success, non-zero callback return value, or error code
@@ -161,7 +339,9 @@ char* git_oid_tostr_s(const (.git_oid)* oid);
 /**
  * Format a git_oid into a buffer as a hex format c-string.
  *
- * If the buffer is smaller than GIT_OID_HEXSZ+1, then the resulting
+ * If the buffer is smaller than the size of a hex-formatted oid string
+ * plus an additional byte (GIT_OID_SHA_HEXSIZE + 1 for SHA1 or
+ * GIT_OID_SHA256_HEXSIZE + 1 for SHA256), then the resulting
  * oid c-string will be truncated to n-1 characters (but will still be
  * null-byte terminated).
  *

@@ -6,6 +6,7 @@ private static import core.stdc.stdlib;
 private static import libgit2.example.common;
 private static import libgit2.indexer;
 private static import libgit2.oid;
+private static import libgit2.repository;
 private static import libgit2.types;
 
 /**
@@ -46,8 +47,15 @@ public int lg2_index_pack(libgit2.types.git_repository* repo, int argc, char** a
 		}
 
 		libgit2.indexer.git_indexer* idx = null;
+		int error;
 
-		if (libgit2.indexer.git_indexer_new(&idx, ".", 0, null, null) < 0) {
+		version (GIT_EXPERIMENTAL_SHA256) {
+			error = libgit2.indexer.git_indexer_new(&idx, ".", libgit2.repository.git_repository_oid_type(repo), null);
+		} else {
+			error = libgit2.indexer.git_indexer_new(&idx, ".", 0, null, null);
+		}
+
+		if (error < 0) {
 			core.stdc.stdio.puts("bad idx");
 
 			return -1;
@@ -62,7 +70,6 @@ public int lg2_index_pack(libgit2.types.git_repository* repo, int argc, char** a
 		}
 
 		libgit2.indexer.git_indexer_progress stats = {0, 0};
-		int error;
 		libgit2.example.common.ssize_t read_bytes;
 		char[512] buf;
 

@@ -12,6 +12,7 @@ module libgit2.stash;
 
 private static import libgit2.checkout;
 private static import libgit2.oid;
+private static import libgit2.strarray;
 private static import libgit2.types;
 private import libgit2.common: GIT_EXTERN;
 
@@ -52,6 +53,11 @@ enum git_stash_flags
 	 * the working directory
 	 */
 	GIT_STASH_INCLUDE_IGNORED = 1 << 2,
+
+	/**
+	 * All changes in the index and working directory are left intact
+	 */
+	GIT_STASH_KEEP_ALL = 1 << 3,
 }
 
 //Declaration name in C language
@@ -61,6 +67,7 @@ enum
 	GIT_STASH_KEEP_INDEX = .git_stash_flags.GIT_STASH_KEEP_INDEX,
 	GIT_STASH_INCLUDE_UNTRACKED = .git_stash_flags.GIT_STASH_INCLUDE_UNTRACKED,
 	GIT_STASH_INCLUDE_IGNORED = .git_stash_flags.GIT_STASH_INCLUDE_IGNORED,
+	GIT_STASH_KEEP_ALL = .git_stash_flags.GIT_STASH_KEEP_ALL,
 }
 
 /**
@@ -77,6 +84,78 @@ enum
  */
 @GIT_EXTERN
 int git_stash_save(libgit2.oid.git_oid* out_, libgit2.types.git_repository* repo, const (libgit2.types.git_signature)* stasher, const (char)* message, uint flags);
+
+/**
+ * Stash save options structure
+ *
+ * Initialize with `GIT_STASH_SAVE_OPTIONS_INIT`. Alternatively, you can
+ * use `git_stash_save_options_init`.
+ *
+ */
+struct git_stash_save_options
+{
+	uint version_;
+
+	/**
+	 * Flags to control the stashing process. (see GIT_STASH_* above)
+	 */
+	uint flags;
+
+	/**
+	 * The identity of the person performing the stashing.
+	 */
+	const (libgit2.types.git_signature)* stasher;
+
+	/**
+	 * Optional description along with the stashed state.
+	 */
+	const (char)* message;
+
+	/**
+	 * Optional paths that control which files are stashed.
+	 */
+	libgit2.strarray.git_strarray paths;
+}
+
+enum GIT_STASH_SAVE_OPTIONS_VERSION = 1;
+
+pragma(inline, true)
+pure nothrow @safe @nogc @live
+.git_stash_save_options GIT_STASH_SAVE_OPTIONS_INIT()
+
+	do
+	{
+		.git_stash_save_options OUTPUT =
+		{
+			version_: .GIT_STASH_SAVE_OPTIONS_VERSION,
+		};
+
+		return OUTPUT;
+	}
+
+/**
+ * Initialize git_stash_save_options structure
+ *
+ * Initializes a `git_stash_save_options` with default values. Equivalent to
+ * creating an instance with `GIT_STASH_SAVE_OPTIONS_INIT`.
+ *
+ * @param opts The `git_stash_save_options` struct to initialize.
+ * @param version_ The struct version; pass `GIT_STASH_SAVE_OPTIONS_VERSION`.
+ * @return Zero on success; -1 on failure.
+ */
+@GIT_EXTERN
+int git_stash_save_options_init(.git_stash_save_options* opts, uint version_);
+
+/**
+ * Save the local modifications to a new stash, with options.
+ *
+ * @param out_ Object id of the commit containing the stashed state. This commit is also the target of the direct reference refs/stash.
+ * @param repo The owning repository.
+ * @param opts The stash options.
+ * @return 0 on success, GIT_ENOTFOUND where there's nothing to stash, or error code.
+ */
+@GIT_EXTERN
+int git_stash_save_with_opts(libgit2.oid.git_oid* out_, libgit2.types.git_repository* repo, const (.git_stash_save_options)* opts);
 
 /**
  * Stash application flags.

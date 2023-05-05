@@ -31,47 +31,208 @@ public:
  */
 
 /**
- * Create a backend for the packfiles.
- *
- * Params:
- *      out_ = location to store the odb backend pointer
- *      objects_dir = the Git repository's objects directory
- *
- * Returns: 0 or an error code
+ * Options for configuring a packfile object backend.
  */
-@GIT_EXTERN
-int git_odb_backend_pack(libgit2.types.git_odb_backend** out_, const (char)* objects_dir);
+struct git_odb_backend_pack_options
+{
+	/**
+	 * version for the struct
+	 */
+	uint version_;
+
+	/**
+	 * Type of object IDs to use for this object database, or
+	 * 0 for default (currently SHA1).
+	 */
+	libgit2.oid.git_oid_t oid_type;
+}
 
 /**
- * Create a backend for loose objects
- *
- * Params:
- *      out_ = location to store the odb backend pointer
- *      objects_dir = the Git repository's objects directory
- *      compression_level = zlib compression level to use
- *      do_fsync = whether to do an fsync() after writing
- *      dir_mode = permissions to use creating a directory or 0 for defaults
- *      file_mode = permissions to use creating a file or 0 for defaults
- *
- * Returns: 0 or an error code
+ * The current version of the diff options structure
  */
-@GIT_EXTERN
-int git_odb_backend_loose(libgit2.types.git_odb_backend** out_, const (char)* objects_dir, int compression_level, int do_fsync, uint dir_mode, uint file_mode);
+enum GIT_ODB_BACKEND_PACK_OPTIONS_VERSION = 1;
 
 /**
- * Create a backend out of a single packfile
- *
- * This can be useful for inspecting the contents of a single
- * packfile.
- *
- * Params:
- *      out_ = location to store the odb backend pointer
- *      index_file = path to the packfile's .idx file
- *
- * Returns: 0 or an error code
+ * Stack initializer for odb pack backend options.  Alternatively use
+ * `git_odb_backend_pack_options_init` programmatic initialization.
  */
-@GIT_EXTERN
-int git_odb_backend_one_pack(libgit2.types.git_odb_backend** out_, const (char)* index_file);
+pragma(inline, true)
+pure nothrow @safe @nogc @live
+.git_odb_backend_pack_options GIT_ODB_BACKEND_PACK_OPTIONS_INIT()
+
+	do
+	{
+		.git_odb_backend_pack_options OUTPUT =
+		{
+			version_: .GIT_ODB_BACKEND_PACK_OPTIONS_VERSION,
+		};
+
+		return OUTPUT;
+	}
+
+version (GIT_EXPERIMENTAL_SHA256) {
+	/**
+	 * Create a backend for the packfiles.
+	 *
+	 * Params:
+	 *      out_ = location to store the odb backend pointer
+	 *      objects_dir = the Git repository's objects directory
+	 *      opts = ?
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_odb_backend_pack(libgit2.types.git_odb_backend** out_, const (char)* objects_dir, const (.git_odb_backend_pack_options)* opts);
+} else {
+	/**
+	 * Create a backend for the packfiles.
+	 *
+	 * Params:
+	 *      out_ = location to store the odb backend pointer
+	 *      objects_dir = the Git repository's objects directory
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_odb_backend_pack(libgit2.types.git_odb_backend** out_, const (char)* objects_dir);
+}
+
+version (GIT_EXPERIMENTAL_SHA256) {
+	/**
+	 * Create a backend out of a single packfile
+	 *
+	 * This can be useful for inspecting the contents of a single
+	 * packfile.
+	 *
+	 * @param out_ location to store the odb backend pointer
+	 * @param index_file path to the packfile's .idx file
+	 *      opts = ?
+	 *
+	 * @return 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_odb_backend_one_pack(libgit2.types.git_odb_backend** out_, const (char)* index_file, const (git_odb_backend_pack_options)* opts);
+} else {
+	/**
+	 * Create a backend out of a single packfile
+	 *
+	 * This can be useful for inspecting the contents of a single
+	 * packfile.
+	 *
+	 * @param out_ location to store the odb backend pointer
+	 * @param index_file path to the packfile's .idx file
+	 *
+	 * @return 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_odb_backend_one_pack(libgit2.types.git_odb_backend** out_, const (char)* index_file);
+}
+
+enum git_odb_backend_loose_flag_t
+{
+	GIT_ODB_BACKEND_LOOSE_FSYNC = 1 << 0,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_ODB_BACKEND_LOOSE_FSYNC = .git_odb_backend_loose_flag_t.GIT_ODB_BACKEND_LOOSE_FSYNC,
+}
+
+/**
+ * Options for configuring a loose object backend.
+ */
+struct git_odb_backend_loose_options
+{
+	/**
+	 * version for the struct
+	 */
+	uint version_;
+
+	/**
+	 * A combination of the `git_odb_backend_loose_flag_t` types.
+	 */
+	uint flags;
+
+	/**
+	 * zlib compression level to use (0-9), where 1 is the fastest
+	 * at the expense of larger files, and 9 produces the best
+	 * compression at the expense of speed.  0 indicates that no
+	 * compression should be performed.  -1 is the default (currently
+	 * optimizing for speed).
+	 */
+	int compression_level;
+
+	/**
+	 * Permissions to use creating a directory or 0 for defaults
+	 */
+	uint dir_mode;
+
+	/**
+	 * Permissions to use creating a file or 0 for defaults
+	 */
+	uint file_mode;
+
+	/**
+	 * Type of object IDs to use for this object database, or
+	 * 0 for default (currently SHA1).
+	 */
+	libgit2.oid.git_oid_t oid_type;
+}
+
+/**
+ * The current version of the diff options structure
+ */
+enum GIT_ODB_BACKEND_LOOSE_OPTIONS_VERSION = 1;
+
+/**
+ * Stack initializer for odb loose backend options.  Alternatively use
+ * `git_odb_backend_loose_options_init` programmatic initialization.
+ */
+pragma(inline, true)
+pure nothrow @safe @nogc @live
+.git_odb_backend_loose_options GIT_ODB_BACKEND_LOOSE_OPTIONS_INIT()
+
+	do
+	{
+		.git_odb_backend_loose_options OUTPUT =
+		{
+			version_: .GIT_ODB_BACKEND_LOOSE_OPTIONS_VERSION,
+		};
+
+		return OUTPUT;
+	}
+
+version (GIT_EXPERIMENTAL_SHA256) {
+	/**
+	 * Create a backend for loose objects
+	 *
+	 * Params:
+	 *      out_ = location to store the odb backend pointer
+	 *      objects_dir = the Git repository's objects directory
+	 *      opts = options for the loose object backend or NULL
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_odb_backend_loose(libgit2.types.git_odb_backend** out_, const (char)* objects_dir, .git_odb_backend_loose_options* opts);
+} else {
+	/**
+	 * Create a backend for loose objects
+	 *
+	 * Params:
+	 *      out_ = location to store the odb backend pointer
+	 *      objects_dir = the Git repository's objects directory
+	 *      compression_level = zlib compression level to use
+	 *      do_fsync = whether to do an fsync() after writing
+	 *      dir_mode = permissions to use creating a directory or 0 for defaults
+	 *      file_mode = permissions to use creating a file or 0 for defaults
+	 *
+	 * Returns: 0 or an error code
+	 */
+	@GIT_EXTERN
+	int git_odb_backend_loose(libgit2.types.git_odb_backend** out_, const (char)* objects_dir, int compression_level, int do_fsync, uint dir_mode, uint file_mode);
+}
 
 /**
  * Streaming mode
@@ -104,6 +265,10 @@ struct git_odb_stream
 	libgit2.types.git_odb_backend* backend;
 	uint mode;
 	void* hash_ctx;
+
+	version (GIT_EXPERIMENTAL_SHA256) {
+		libgit2.oid.git_oid_t oid_type;
+	}
 
 	libgit2.types.git_object_size_t declared_size;
 	libgit2.types.git_object_size_t received_bytes;

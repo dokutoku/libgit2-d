@@ -59,6 +59,16 @@ struct git_transport
 	 */
 	int function(uint* capabilities, .git_transport* transport) capabilities;
 
+	version (GIT_EXPERIMENTAL_SHA256) {
+		/**
+		 * Gets the object type for the remote repository.
+		 *
+		 * This function may be called after a successful call to
+		 * `connect()`.
+		 */
+		int function(libgit2.oid.git_oid_t* object_type, .git_transport* transport) oid_type;
+	}
+
 	/**
 	 * Get the list of available references in the remote repository.
 	 *

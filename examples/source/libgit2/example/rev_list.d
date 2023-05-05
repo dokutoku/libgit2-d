@@ -51,11 +51,11 @@ public int lg2_rev_list(libgit2.types.git_repository* repo, int argc, char** arg
 		libgit2.example.common.check_lg2(.revwalk_parse_revs(repo, walk, &args), "parsing revs", null);
 
 		libgit2.oid.git_oid oid;
-		char[libgit2.oid.GIT_OID_HEXSZ + 1] buf;
+		char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] buf;
 
 		while (!libgit2.revwalk.git_revwalk_next(&oid, walk)) {
 			libgit2.oid.git_oid_fmt(&(buf[0]), &oid);
-			buf[libgit2.oid.GIT_OID_HEXSZ] = '\0';
+			buf[libgit2.oid.GIT_OID_SHA1_HEXSIZE] = '\0';
 			core.stdc.stdio.printf("%s\n", &(buf[0]));
 		}
 
@@ -216,10 +216,18 @@ private int revwalk_parse_revs(libgit2.types.git_repository* repo, libgit2.types
 					continue;
 				}
 
-				error = libgit2.oid.git_oid_fromstr(&oid, curr);
+				version (GIT_EXPERIMENTAL_SHA256) {
+					error = libgit2.oid.git_oid_fromstr(&oid, curr, libgit2.oid.git_oid_t.GIT_OID_SHA1);
 
-				if (error) {
-					return error;
+					if (error) {
+						return error;
+					}
+				} else {
+					error = libgit2.oid.git_oid_fromstr(&oid, curr);
+
+					if (error) {
+						return error;
+					}
 				}
 
 				error = .push_commit(walk, &oid, hide);

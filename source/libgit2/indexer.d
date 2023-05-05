@@ -85,6 +85,21 @@ struct git_indexer_options
 {
 	uint version_;
 
+	version (GIT_EXPERIMENTAL_SHA256) {
+		/**
+		 * permissions to use creating packfile or 0 for defaults
+		 */
+		uint mode;
+
+		/**
+		 * object database from which to read base objects when
+		 * fixing thin packs. This can be NULL if there are no thin
+		 * packs; if a thin pack is encountered, an error will be
+		 * returned if there are bases missing.
+		 */
+		git_odb* odb;
+	}
+
 	/**
 	 * progress_cb function to call with progress information
 	 */
@@ -131,20 +146,33 @@ pure nothrow @safe @nogc @live
 @GIT_EXTERN
 int git_indexer_options_init(.git_indexer_options* opts, uint version_);
 
-/**
- * Create a new indexer instance
- *
- * Params:
- *      out_ = where to store the indexer instance
- *      path = to the directory where the packfile should be stored
- *      mode = permissions to use creating packfile or 0 for defaults
- *      odb = object database from which to read base objects when fixing thin packs. Pass null if no thin pack is expected (an error will be returned if there are bases missing)
- *      opts = Optional structure containing additional options. See `git_indexer_options` above.
- *
- * Returns: 0 or an error code.
- */
-@GIT_EXTERN
-int git_indexer_new(.git_indexer** out_, const (char)* path, uint mode, libgit2.types.git_odb* odb, .git_indexer_options* opts);
+version (GIT_EXPERIMENTAL_SHA256) {
+	/**
+	 * Create a new indexer instance
+	 *
+	 * @param out_ where to store the indexer instance
+	 * @param path to the directory where the packfile should be stored
+	 * @param oid_type the oid type to use for objects
+	 * @return 0 or an error code.
+	 */
+	@GIT_EXTERN
+	int git_indexer_new(.git_indexer** out_, const (char)* path, libgit2.oid.git_oid_t oid_type, .git_indexer_options* opts);
+} else {
+	/**
+	 * Create a new indexer instance
+	 *
+	 * Params:
+	 *      out_ = where to store the indexer instance
+	 *      path = to the directory where the packfile should be stored
+	 *      mode = permissions to use creating packfile or 0 for defaults
+	 *      odb = object database from which to read base objects when fixing thin packs. Pass null if no thin pack is expected (an error will be returned if there are bases missing)
+	 *      opts = Optional structure containing additional options. See `git_indexer_options` above.
+	 *
+	 * Returns: 0 or an error code.
+	 */
+	@GIT_EXTERN
+	int git_indexer_new(.git_indexer** out_, const (char)* path, uint mode, libgit2.types.git_odb* odb, .git_indexer_options* opts);
+}
 
 /**
  * Add data to the indexer

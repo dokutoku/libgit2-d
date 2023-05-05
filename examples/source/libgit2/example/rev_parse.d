@@ -117,7 +117,7 @@ private int parse_revision(libgit2.types.git_repository* repo, .parse_state* ps)
 		libgit2.revparse.git_revspec rs;
 		libgit2.example.common.check_lg2(libgit2.revparse.git_revparse(&rs, repo, ps.spec), "Could not parse", ps.spec);
 
-		char[libgit2.oid.GIT_OID_HEXSZ + 1] str;
+		char[libgit2.oid.GIT_OID_SHA1_HEXSIZE + 1] str;
 
 		if ((rs.flags & libgit2.revparse.git_revspec_t.GIT_REVSPEC_SINGLE) != 0) {
 			libgit2.oid.git_oid_tostr(&(str[0]), str.length, libgit2.object.git_object_id(rs.from));
