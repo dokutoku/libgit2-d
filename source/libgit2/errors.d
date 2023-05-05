@@ -271,7 +271,7 @@ enum git_error_t
 	GIT_ERROR_FILESYSTEM,
 	GIT_ERROR_PATCH,
 	GIT_ERROR_WORKTREE,
-	GIT_ERROR_SHA1,
+	GIT_ERROR_SHA,
 	GIT_ERROR_HTTP,
 	GIT_ERROR_INTERNAL,
 }
@@ -312,7 +312,7 @@ enum
 	GIT_ERROR_FILESYSTEM = .git_error_t.GIT_ERROR_FILESYSTEM,
 	GIT_ERROR_PATCH = .git_error_t.GIT_ERROR_PATCH,
 	GIT_ERROR_WORKTREE = .git_error_t.GIT_ERROR_WORKTREE,
-	GIT_ERROR_SHA1 = .git_error_t.GIT_ERROR_SHA1,
+	GIT_ERROR_SHA = .git_error_t.GIT_ERROR_SHA,
 	GIT_ERROR_HTTP = .git_error_t.GIT_ERROR_HTTP,
 	GIT_ERROR_INTERNAL = .git_error_t.GIT_ERROR_INTERNAL,
 }
@@ -338,7 +338,8 @@ const (.git_error)* git_error_last();
 void git_error_clear();
 
 /**
- * Set the error message string for this thread.
+ * Set the error message string for this thread, using `printf`-style
+ * formatting.
  *
  * This function is public so that custom ODB backends and the like can
  * relay an error message through libgit2.  Most regular users of libgit2
@@ -351,7 +352,24 @@ void git_error_clear();
  *
  * Params:
  *      error_class = One of the `git_error_t` enum above describing the general subsystem that is responsible for the error.
- *      string_ = The formatted error message to keep
+ *      fmt = The `printf`-style format string; subsequent arguments must be the arguments for the format string.
+ *      ... = ?
+ *
+ * Returns: 0 on success or -1 on failure
+ */
+//GIT_FORMAT_PRINTF(2, 3);
+pragma(printf)
+@GIT_EXTERN
+void git_error_set(int error_class, const (char)* fmt, ...);
+
+/**
+ * Set the error message string for this thread.  This function is like
+ * `git_error_set` but takes a static string instead of a `printf`-style
+ * format.
+ *
+ * Params:
+ *      error_class = One of the `git_error_t` enum above describing the general subsystem that is responsible for the error.
+ *      string_ = The error message to keep
  *
  * Returns: 0 on success or -1 on failure
  */

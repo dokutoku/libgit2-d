@@ -11,6 +11,9 @@
 module libgit2.sys.remote;
 
 
+private static import libgit2.remote;
+private import libgit2.common: GIT_EXTERN;
+
 /*
  * @file git2/sys/remote.h
  * @brief Low-level remote functionality for custom transports
@@ -40,5 +43,19 @@ enum
 	GIT_REMOTE_CAPABILITY_TIP_OID = .git_remote_capability_t.GIT_REMOTE_CAPABILITY_TIP_OID,
 	GIT_REMOTE_CAPABILITY_REACHABLE_OID = .git_remote_capability_t.GIT_REMOTE_CAPABILITY_REACHABLE_OID,
 }
+
+/**
+ * Disposes libgit2-initialized fields from a git_remote_connect_options.
+ * This should only be used for git_remote_connect_options returned by
+ * git_transport_remote_connect_options.
+ *
+ * Note that this does not free the `git_remote_connect_options` itself, just
+ * the memory pointed to by it.
+ *
+ * Params:
+ *      opts = The `git_remote_connect_options` struct to dispose.
+ */
+@GIT_EXTERN
+void git_remote_connect_options_dispose(libgit2.remote.git_remote_connect_options* opts);
 
 /* @} */

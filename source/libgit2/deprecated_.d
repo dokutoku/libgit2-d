@@ -488,7 +488,9 @@ version (GIT_DEPRECATE_HARD) {
 	enum GITERR_FILESYSTEM = libgit2.errors.git_error_t.GIT_ERROR_FILESYSTEM;
 	enum GITERR_PATCH = libgit2.errors.git_error_t.GIT_ERROR_PATCH;
 	enum GITERR_WORKTREE = libgit2.errors.git_error_t.GIT_ERROR_WORKTREE;
-	enum GITERR_SHA1 = libgit2.errors.git_error_t.GIT_ERROR_SHA1;
+	enum GITERR_SHA1 = .GIT_ERROR_SHA1;
+
+	enum GIT_ERROR_SHA1 = libgit2.errors.git_error_t.GIT_ERROR_SHA;
 
 	/**
 	 * Return the last `git_error` object that was generated for the

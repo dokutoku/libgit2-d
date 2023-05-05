@@ -12,10 +12,41 @@ module libgit2.version_;
 
 public:
 
-enum LIBGIT2_VERSION = "1.4.6";
+/**
+ * The version string for libgit2.  This string follows semantic
+ * versioning (v2) guidelines.
+ */
+enum LIBGIT2_VERSION = "1.5.2";
+
+/**
+ * The major version number for this version of libgit2.
+ */
 enum LIBGIT2_VER_MAJOR = 1;
-enum LIBGIT2_VER_MINOR = 4;
-enum LIBGIT2_VER_REVISION = 6;
+
+/**
+ * The minor version number for this version of libgit2.
+ */
+enum LIBGIT2_VER_MINOR = 5;
+
+/**
+ * The revision ("teeny") version number for this version of libgit2.
+ */
+enum LIBGIT2_VER_REVISION = 2;
+
+/**
+ * The Windows DLL patch number for this version of libgit2.
+ */
 enum LIBGIT2_VER_PATCH = 0;
 
-enum LIBGIT2_SOVERSION = "1.4";
+/**
+ * The prerelease string for this version of libgit2.  For development
+ * (nightly) builds, this will be "alpha".  For prereleases, this will be
+ * a prerelease name like "beta" or "rc1".  For final releases, this will
+ * be `null`.
+ */
+enum LIBGIT2_VER_PRERELEASE = null;
+
+/**
+ * The library ABI soversion for this version of libgit2.
+ */
+enum LIBGIT2_SOVERSION = "1.5";

@@ -13,7 +13,6 @@ module libgit2.sys.transport;
 private static import libgit2.cert;
 private static import libgit2.credential;
 private static import libgit2.indexer;
-private static import libgit2.proxy;
 private static import libgit2.remote;
 private static import libgit2.strarray;
 private static import libgit2.sys.credential;
@@ -285,16 +284,17 @@ int git_transport_smart_certificate_check(.git_transport* transport, libgit2.typ
 int git_transport_smart_credentials(libgit2.sys.credential.git_credential** out_, .git_transport* transport, const (char)* user, int methods);
 
 /**
- * Get a copy of the proxy options
+ * Get a copy of the remote connect options
  *
- * The url is copied and must be freed by the caller.
+ * All data is copied and must be freed by the caller by calling
+ * `git_remote_connect_options_dispose`.
  *
  * Params:
  *      out_ = options struct to fill
  *      transport = the transport to extract the data from.
  */
 @GIT_EXTERN
-int git_transport_smart_proxy_options(libgit2.proxy.git_proxy_options* out_, .git_transport* transport);
+int git_transport_remote_connect_options(libgit2.remote.git_remote_connect_options* out_, .git_transport* transport);
 
 /*
  *** End of base transport interface ***
