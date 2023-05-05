@@ -39,6 +39,13 @@
 module libgit2.example.general;
 
 
+/*
+ * ### Includes
+ *
+ * Including the `git2.h` header will include all the other libgit2 headers
+ * that you need.  It should be the only thing you need to include in order
+ * to compile properly and get all the libgit2 API.
+ */
 private static import core.stdc.config;
 private static import core.stdc.stdio;
 private static import core.stdc.stdlib;
@@ -62,25 +69,6 @@ private static import libgit2.strarray;
 private static import libgit2.tag;
 private static import libgit2.tree;
 private static import libgit2.types;
-
-/*
- * ### Includes
- *
- * Including the `git2.h` header will include all the other libgit2 headers
- * that you need.  It should be the only thing you need to include in order
- * to compile properly and get all the libgit2 API.
- */
-//private void oid_parsing(libgit2.oid.git_oid* out_);
-//private void object_database(libgit2.types.git_repository* repo, libgit2.oid.git_oid* oid);
-//private void commit_writing(libgit2.types.git_repository* repo);
-//private void commit_parsing(libgit2.types.git_repository* repo);
-//private void tag_parsing(libgit2.types.git_repository* repo);
-//private void tree_parsing(libgit2.types.git_repository* repo);
-//private void blob_parsing(libgit2.types.git_repository* repo);
-//private void revwalking(libgit2.types.git_repository* repo);
-//private void index_walking(libgit2.types.git_repository* repo);
-//private void reference_listing(libgit2.types.git_repository* repo);
-//private void config_files(const (char)* repo_path, libgit2.types.git_repository* repo);
 
 /**
  * Almost all libgit2 functions return 0 on success or negative on error.
@@ -416,8 +404,6 @@ private void commit_parsing(libgit2.types.git_repository* repo)
 		const (libgit2.types.git_signature)* author = libgit2.commit.git_commit_author(commit);
 		const (libgit2.types.git_signature)* cmtter = libgit2.commit.git_commit_committer(commit);
 
-		//ToDo:
-		//core.stdc.time.time_t time = libgit2.commit.git_commit_time(commit);
 		core.stdc.time.time_t time = cast(core.stdc.time.time_t)(libgit2.commit.git_commit_time(commit));
 
 		/**

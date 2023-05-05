@@ -210,7 +210,6 @@ private int cmd_pop(libgit2.types.git_repository* repo, .opts* opts)
 
 extern (C)
 nothrow @nogc
-//int lg2_stash(libgit2.types.git_repository* repo, int argc, char*[] argv)
 public int lg2_stash(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in

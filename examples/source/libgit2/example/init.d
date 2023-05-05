@@ -59,7 +59,6 @@ public struct init_opts
 
 extern (C)
 nothrow @nogc
-//int lg2_init(libgit2.types.git_repository* repo, int argc, char*[] argv)
 public int lg2_init(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in

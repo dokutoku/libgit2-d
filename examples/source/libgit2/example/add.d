@@ -61,10 +61,12 @@ public struct index_options
 	int add_update;
 }
 
-/* Forward declarations for helpers */
-//private void parse_opts(int* options, int* count, int argc, char*[] argv);
-//void init_array(libgit2.strarray.git_strarray* array, int argc, char** argv);
-//int print_matched_cb(const (char)* path, const (char)* matched_pathspec, void* payload);
+/*
+ * Forward declarations for helpers
+ *
+ * - parse_opts()
+ * - print_matched_cb()
+ */
 
 extern (C)
 nothrow @nogc

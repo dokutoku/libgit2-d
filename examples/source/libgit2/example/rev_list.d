@@ -30,8 +30,6 @@ private static import libgit2.revparse;
 private static import libgit2.revwalk;
 private static import libgit2.types;
 
-//private int revwalk_parseopts(libgit2.types.git_repository* repo, libgit2.types.git_revwalk* walk, int nopts, char** opts);
-
 extern (C)
 nothrow @nogc
 public int lg2_rev_list(libgit2.types.git_repository* repo, int argc, char** argv)

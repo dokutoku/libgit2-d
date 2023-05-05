@@ -190,7 +190,6 @@ public struct catfile_options
  */
 extern (C)
 nothrow @nogc
-//int lg2_cat_file(libgit2.types.git_repository* repo, int argc, char*[] argv)
 public int lg2_cat_file(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in

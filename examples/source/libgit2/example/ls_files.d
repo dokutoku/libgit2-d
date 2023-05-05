@@ -149,7 +149,6 @@ private int print_paths(.ls_options* opts, libgit2.types.git_index* index)
 
 extern (C)
 nothrow @nogc
-//int lg2_ls_files(libgit2.types.git_repository* repo, int argc, char*[] argv)
 public int lg2_ls_files(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in

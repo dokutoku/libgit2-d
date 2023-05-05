@@ -80,16 +80,18 @@ public struct diff_options
 	const (char)* dir;
 }
 
-/* These functions are implemented at the end */
-//private void usage(const (char)* message, const (char)* arg);
-//private void parse_opts(.diff_options* o, int argc, char*[] argv);
-//private int color_printer(const (libgit2.diff.git_diff_delta)*, const (libgit2.diff.git_diff_hunk)*, const (libgit2.diff.git_diff_line)*, void*);
-//private void diff_print_stats(libgit2.diff.git_diff* diff, .diff_options* o);
-//private void compute_diff_no_index(libgit2.diff.git_diff** diff, .diff_options* o);
+/*
+ * These functions are implemented at the end
+ *
+ * - usage()
+ * - parse_opts()
+ * - color_printer()
+ * - diff_print_stats()
+ * - compute_diff_no_index()
+ */
 
 extern (C)
 nothrow @nogc
-//int lg2_diff(libgit2.types.git_repository* repo, int argc, char*[] argv)
 public int lg2_diff(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in

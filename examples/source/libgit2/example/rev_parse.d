@@ -41,7 +41,6 @@ public struct parse_state
 
 extern (C)
 nothrow @nogc
-//int lg2_rev_parse(libgit2.types.git_repository* repo, int argc, char*[] argv)
 public int lg2_rev_parse(libgit2.types.git_repository* repo, int argc, char** argv)
 
 	in
