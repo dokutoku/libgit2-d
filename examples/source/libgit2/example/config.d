@@ -45,6 +45,9 @@ private int config_get(libgit2.types.git_config* cfg, const (char)* key)
 
 		core.stdc.stdio.puts(entry.value);
 
+		/* Free the git_config_entry after use with `git_config_entry_free()`. */
+		libgit2.config.git_config_entry_free(entry);
+
 		return 0;
 	}
 
@@ -93,6 +96,12 @@ public int lg2_config(libgit2.types.git_repository* repo, int argc, char** argv)
 			core.stdc.stdio.printf("USAGE: %s config <KEY> [<VALUE>]\n", argv[0]);
 			error = 1;
 		}
+
+		/*
+		 * The configuration file must be freed once it's no longer
+		 * being used by the user.
+		 */
+		libgit2.config.git_config_free(cfg);
 
 		return error;
 	}

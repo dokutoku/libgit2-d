@@ -178,6 +178,11 @@ enum git_error_code
 	 * Patch application failed
 	 */
 	GIT_EAPPLYFAIL = -35,
+
+	/**
+	 * The object is not owned by the current user
+	 */
+	GIT_EOWNER = -36,
 }
 
 //Declaration name in C language
@@ -213,6 +218,7 @@ enum
 	GIT_EMISMATCH = .git_error_code.GIT_EMISMATCH,
 	GIT_EINDEXDIRTY = .git_error_code.GIT_EINDEXDIRTY,
 	GIT_EAPPLYFAIL = .git_error_code.GIT_EAPPLYFAIL,
+	GIT_EOWNER = .git_error_code.GIT_EOWNER,
 }
 
 /**

@@ -28,6 +28,7 @@ private static import libgit2.index;
 private static import libgit2.indexer;
 private static import libgit2.merge;
 private static import libgit2.oid;
+private static import libgit2.oidarray;
 private static import libgit2.proxy;
 private static import libgit2.rebase;
 private static import libgit2.refs;
@@ -307,6 +308,141 @@ version (GIT_DEPRECATE_HARD) {
 	alias git_cvar_map = libgit2.config.git_configmap;
 
 	/*@}*/
+
+	/* @name Deprecated Diff Functions and Constants
+	 *
+	 * These functions and enumeration values are retained for backward
+	 * compatibility.  The newer versions of these functions and values
+	 * should be preferred in all new code.
+	 *
+	 * There is no plan to remove these backward compatibility values at
+	 * this time.
+	 */
+	/*@{*/
+
+	/**
+	 * Formatting options for diff e-mail generation
+	 */
+	enum git_diff_format_email_flags_t
+	{
+		/**
+		 * Normal patch, the default
+		 */
+		GIT_DIFF_FORMAT_EMAIL_NONE = 0,
+
+		/**
+		 * Don't insert "[PATCH]" in the subject header
+		 */
+		GIT_DIFF_FORMAT_EMAIL_EXCLUDE_SUBJECT_PATCH_MARKER = 1 << 0,
+	}
+
+	//Declaration name in C language
+	enum
+	{
+		GIT_DIFF_FORMAT_EMAIL_NONE = .git_diff_format_email_flags_t.GIT_DIFF_FORMAT_EMAIL_NONE,
+		GIT_DIFF_FORMAT_EMAIL_EXCLUDE_SUBJECT_PATCH_MARKER = .git_diff_format_email_flags_t.GIT_DIFF_FORMAT_EMAIL_EXCLUDE_SUBJECT_PATCH_MARKER,
+	}
+
+	/**
+	 * Options for controlling the formatting of the generated e-mail.
+	 */
+	struct git_diff_format_email_options
+	{
+		uint version_;
+
+		/**
+		 * see `git_diff_format_email_flags_t` above
+		 */
+		uint flags;
+
+		/**
+		 * This patch number
+		 */
+		size_t patch_no;
+
+		/**
+		 * Total number of patches in this series
+		 */
+		size_t total_patches;
+
+		/**
+		 * id to use for the commit
+		 */
+		const (libgit2.oid.git_oid)* id;
+
+		/**
+		 * Summary of the change
+		 */
+		const (char)* summary;
+
+		/**
+		 * Commit message's body
+		 */
+		const (char)* body_;
+
+		/**
+		 * Author of the change
+		 */
+		const (libgit2.types.git_signature)* author;
+	}
+
+	enum GIT_DIFF_FORMAT_EMAIL_OPTIONS_VERSION = 1;
+
+	pragma(inline, true)
+	pure nothrow @safe @nogc @live
+	.git_diff_format_email_options GIT_DIFF_FORMAT_EMAIL_OPTIONS_INIT()
+
+		do
+		{
+			.git_diff_format_email_options OUTPUT =
+			{
+				version_: .GIT_DIFF_FORMAT_EMAIL_OPTIONS_VERSION,
+				flags: 0,
+				patch_no: 1,
+				total_patches: 1,
+				id: null,
+				summary: null,
+				body_: null,
+				author: null,
+			};
+
+			return OUTPUT;
+		}
+
+	/**
+	 * Create an e-mail ready patch from a diff.
+	 *
+	 * @deprecated git_email_create_from_diff
+	 * @see git_email_create_from_diff
+	 */
+	@GIT_EXTERN
+	int git_diff_format_email(libgit2.buffer.git_buf* out_, libgit2.diff.git_diff* diff, const (.git_diff_format_email_options)* opts);
+
+	/**
+	 * Create an e-mail ready patch for a commit.
+	 *
+	 * @deprecated git_email_create_from_commit
+	 * @see git_email_create_from_commit
+	 */
+	@GIT_EXTERN
+	int git_diff_commit_as_email(libgit2.buffer.git_buf* out_, libgit2.types.git_repository* repo, libgit2.types.git_commit* commit, size_t patch_no, size_t total_patches, uint flags, const (libgit2.diff.git_diff_options)* diff_opts);
+
+	/**
+	 * Initialize git_diff_format_email_options structure
+	 *
+	 * Initializes a `git_diff_format_email_options` with default values. Equivalent
+	 * to creating an instance with GIT_DIFF_FORMAT_EMAIL_OPTIONS_INIT.
+	 *
+	 * Params:
+	 *      opts = The `git_blame_options` struct to initialize.
+	 *      version_ = The struct version; pass `GIT_DIFF_FORMAT_EMAIL_OPTIONS_VERSION`.
+	 *
+	 * Returns: Zero on success; -1 on failure.
+	 */
+	@GIT_EXTERN
+	int git_diff_format_email_options_init(.git_diff_format_email_options* opts, uint version_);
+
+	/**@}*/
 
 	/* @name Deprecated Error Functions and Constants
 	 *
@@ -700,6 +836,31 @@ version (GIT_DEPRECATE_HARD) {
 
 	/*@}*/
 
+	/** @name Deprecated OID Array Functions
+	 *
+	 * These types are retained for backward compatibility.  The newer
+	 * versions of these values should be preferred in all new code.
+	 *
+	 * There is no plan to remove these backward compatibility values at
+	 * this time.
+	 */
+	/*@{*/
+
+	/**
+	 * Free the memory referred to by the git_oidarray.  This is an alias of
+	 * `git_oidarray_dispose` and is preserved for backward compatibility.
+	 *
+	 * This function is deprecated, but there is no plan to remove this
+	 * function at this time.
+	 *
+	 * @deprecated Use git_oidarray_dispose
+	 * @see git_oidarray_dispose
+	 */
+	@GIT_EXTERN
+	void git_oidarray_free(libgit2.oidarray.git_oidarray* array);
+
+	/*@}*/
+
 	/* @name Deprecated Transfer Progress Types
 	 *
 	 * These types are retained for backward compatibility.  The newer
@@ -822,7 +983,7 @@ version (GIT_DEPRECATE_HARD) {
 	int git_diff_find_init_options(libgit2.diff.git_diff_find_options* opts, uint version_);
 
 	@GIT_EXTERN
-	int git_diff_format_email_init_options(libgit2.diff.git_diff_format_email_options* opts, uint version_);
+	int git_diff_format_email_init_options(.git_diff_format_email_options* opts, uint version_);
 
 	@GIT_EXTERN
 	int git_diff_patchid_init_options(libgit2.diff.git_diff_patchid_options* opts, uint version_);

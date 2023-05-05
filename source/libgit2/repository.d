@@ -878,9 +878,9 @@ int git_repository_mergehead_foreach(libgit2.types.git_repository* repo, .git_re
  * Params:
  *      out_ = Output value of calculated SHA
  *      repo = Repository pointer
- *      path = Path to file on disk whose contents should be hashed. If the repository is not null, this can be a relative path.
+ *      path = Path to file on disk whose contents should be hashed.  This may be an absolute path or a relative path, in which case it will be treated as a path within the working directory.
  *      type = The object type to hash as (e.g. git_object_t.GIT_OBJECT_BLOB)
- *      as_path = The path to use to look up filtering rules. If this is null, then the `path` parameter will be used instead. If this is passed as the empty string, then no filters will be applied when calculating the hash.
+ *      as_path = The path to use to look up filtering rules. If this is an empty string then no filters will be applied when calculating the hash. If this is `null` and the `path` parameter is a file within the repository's working directory, then the `path` will be used.
  *
  * Returns: 0 on success, or an error code
  */

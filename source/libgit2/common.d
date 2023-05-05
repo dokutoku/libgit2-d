@@ -193,6 +193,10 @@ enum git_libgit2_opt_t
 	GIT_OPT_SET_MWINDOW_FILE_LIMIT,
 	GIT_OPT_SET_ODB_PACKED_PRIORITY,
 	GIT_OPT_SET_ODB_LOOSE_PRIORITY,
+	GIT_OPT_GET_EXTENSIONS,
+	GIT_OPT_SET_EXTENSIONS,
+	GIT_OPT_GET_OWNER_VALIDATION,
+	GIT_OPT_SET_OWNER_VALIDATION,
 }
 
 //Declaration name in C language
@@ -231,6 +235,10 @@ enum
 	GIT_OPT_SET_MWINDOW_FILE_LIMIT = .git_libgit2_opt_t.GIT_OPT_SET_MWINDOW_FILE_LIMIT,
 	GIT_OPT_SET_ODB_PACKED_PRIORITY = .git_libgit2_opt_t.GIT_OPT_SET_ODB_PACKED_PRIORITY,
 	GIT_OPT_SET_ODB_LOOSE_PRIORITY = .git_libgit2_opt_t.GIT_OPT_SET_ODB_LOOSE_PRIORITY,
+	GIT_OPT_GET_EXTENSIONS = .git_libgit2_opt_t.GIT_OPT_GET_EXTENSIONS,
+	GIT_OPT_SET_EXTENSIONS = .git_libgit2_opt_t.GIT_OPT_SET_EXTENSIONS,
+	GIT_OPT_GET_OWNER_VALIDATION = .git_libgit2_opt_t.GIT_OPT_GET_OWNER_VALIDATION,
+	GIT_OPT_SET_OWNER_VALIDATION = .git_libgit2_opt_t.GIT_OPT_SET_OWNER_VALIDATION,
 }
 
 /**
@@ -451,6 +459,30 @@ enum
  *   opts(GIT_OPT_SET_ODB_LOOSE_PRIORITY, int priority)
  *      > Override the default priority of the loose ODB backend which
  *      > is added when default backends are assigned to a repository
+ *
+ *   opts(GIT_OPT_GET_EXTENSIONS, git_strarray* out)
+ *      > Returns the list of git extensions that are supported.  This
+ *      > is the list of built-in extensions supported by libgit2 and
+ *      > custom extensions that have been added with
+ *      > `GIT_OPT_SET_EXTENSIONS`.  Extensions that have been negated
+ *      > will not be returned.  The returned list should be released
+ *      > with `git_strarray_dispose`.
+ *
+ *   opts(GIT_OPT_SET_EXTENSIONS, const (char)** extensions, size_t len)
+ *      > Set that the given git extensions are supported by the caller.
+ *      > Extensions supported by libgit2 may be negated by prefixing
+ *      > them with a `!`.  For example: setting extensions to
+ *      > { "!noop", "newext" } indicates that the caller does not want
+ *      > to support repositories with the `noop` extension but does want
+ *      > to support repositories with the `newext` extension.
+ *
+ *   opts(GIT_OPT_GET_OWNER_VALIDATION, int* enabled)
+ *      > Gets the owner validation setting for repository
+ *      > directories.
+ *
+ *   opts(GIT_OPT_SET_OWNER_VALIDATION, int enabled)
+ *      > Set that repository directories should be owned by the current
+ *      > user. The default is to validate ownership.
  *
  * Params:
  *      option = Option key

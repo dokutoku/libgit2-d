@@ -212,11 +212,17 @@ struct git_attr_options
 	 */
 	uint flags;
 
+	version (GIT_DEPRECATE_HARD) {
+		void* reserved;
+	} else {
+		libgit2.oid.git_oid* commit_id;
+	}
+
 	/**
 	 * The commit to load attributes from, when
 	 * `GIT_ATTR_CHECK_INCLUDE_COMMIT` is specified.
 	 */
-	libgit2.oid.git_oid* commit_id;
+	libgit2.oid.git_oid attr_commit_id;
 }
 
 enum GIT_ATTR_OPTIONS_VERSION = 1;
