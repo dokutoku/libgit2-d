@@ -294,6 +294,17 @@ int git_submodule_update(libgit2.types.git_submodule* submodule, int init, .git_
 int git_submodule_lookup(libgit2.types.git_submodule** out_, libgit2.types.git_repository* repo, const (char)* name);
 
 /**
+ * Create an in-memory copy of a submodule. The copy must be explicitly
+ * free'd or it will leak.
+ *
+ * Params:
+ *      out_ = Pointer to store the copy of the submodule.
+ *      source = Original submodule to copy.
+ */
+@GIT_EXTERN
+int git_submodule_dup(libgit2.types.git_submodule** out_, libgit2.types.git_submodule* source);
+
+/**
  * Release a submodule
  *
  * Params:

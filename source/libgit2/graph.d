@@ -50,13 +50,28 @@ int git_graph_ahead_behind(size_t* ahead, size_t* behind, libgit2.types.git_repo
  * to `git merge-base --is-ancestor`.
  *
  * Params:
- *      repo = ?
- *      commit = a previously loaded commit.
- *      ancestor = a potential ancestor commit.
+ *      repo = the repository where the commits exist
+ *      commit = a previously loaded commit
+ *      ancestor = a potential ancestor commit
  *
  * Returns: 1 if the given commit is a descendant of the potential ancestor, 0 if not, error code otherwise.
  */
 @GIT_EXTERN
 int git_graph_descendant_of(libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* commit, const (libgit2.oid.git_oid)* ancestor);
+
+/**
+ * Determine if a commit is reachable from any of a list of commits by
+ * following parent edges.
+ *
+ * Params:
+ *      repo = the repository where the commits exist
+ *      commit = a previously loaded commit
+ *      length = the number of commits in the provided `descendant_array`
+ *      descendant_array = oids of the commits
+ *
+ * Returns: 1 if the given commit is an ancestor of any of the given potential descendants, 0 if not, error code otherwise.
+ */
+@GIT_EXTERN
+int git_graph_reachable_from_any(libgit2.types.git_repository* repo, const (libgit2.oid.git_oid)* commit, const (libgit2.oid.git_oid)* descendant_array, size_t length);
 
 /* @} */

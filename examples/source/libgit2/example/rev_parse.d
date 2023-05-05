@@ -119,16 +119,16 @@ private int parse_revision(libgit2.types.git_repository* repo, .parse_state* ps)
 
 		char[libgit2.oid.GIT_OID_HEXSZ + 1] str;
 
-		if ((rs.flags & libgit2.revparse.git_revparse_mode_t.GIT_REVPARSE_SINGLE) != 0) {
+		if ((rs.flags & libgit2.revparse.git_revspec_t.GIT_REVSPEC_SINGLE) != 0) {
 			libgit2.oid.git_oid_tostr(&(str[0]), str.length, libgit2.object.git_object_id(rs.from));
 			core.stdc.stdio.printf("%s\n", &(str[0]));
 			libgit2.object.git_object_free(rs.from);
-		} else if ((rs.flags & libgit2.revparse.git_revparse_mode_t.GIT_REVPARSE_RANGE) != 0) {
+		} else if ((rs.flags & libgit2.revparse.git_revspec_t.GIT_REVSPEC_RANGE) != 0) {
 			libgit2.oid.git_oid_tostr(&(str[0]), str.length, libgit2.object.git_object_id(rs.to));
 			core.stdc.stdio.printf("%s\n", &(str[0]));
 			libgit2.object.git_object_free(rs.to);
 
-			if ((rs.flags & libgit2.revparse.git_revparse_mode_t.GIT_REVPARSE_MERGE_BASE) != 0) {
+			if ((rs.flags & libgit2.revparse.git_revspec_t.GIT_REVSPEC_MERGE_BASE) != 0) {
 				libgit2.oid.git_oid base;
 				libgit2.example.common.check_lg2(libgit2.merge.git_merge_base(&base, repo, libgit2.object.git_object_id(rs.from), libgit2.object.git_object_id(rs.to)), "Could not find merge base", ps.spec);
 

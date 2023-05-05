@@ -859,7 +859,7 @@ int git_index_update_all(libgit2.types.git_index* index, const (libgit2.strarray
  *      index = an existing index object
  *      path = path to search
  *
- * Returns: 0 with valid value in at_pos; an error code otherwise
+ * Returns: 0 or an error code
  */
 @GIT_EXTERN
 int git_index_find(size_t* at_pos, libgit2.types.git_index* index, const (char)* path);
@@ -873,7 +873,7 @@ int git_index_find(size_t* at_pos, libgit2.types.git_index* index, const (char)*
  *      index = an existing index object
  *      prefix = the prefix to search for
  *
- * Returns: 0 with valid value in at_pos; an error code otherwise
+ * Returns: 0 or an error code
  */
 @GIT_EXTERN
 int git_index_find_prefix(size_t* at_pos, libgit2.types.git_index* index, const (char)* prefix);

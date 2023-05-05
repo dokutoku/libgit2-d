@@ -285,4 +285,35 @@ int git_branch_remote_name(libgit2.buffer.git_buf* out_, libgit2.types.git_repos
 @GIT_EXTERN
 int git_branch_upstream_remote(libgit2.buffer.git_buf* buf, libgit2.types.git_repository* repo, const (char)* refname);
 
+/**
+ * Retrieve the upstream merge of a local branch
+ *
+ * This will return the currently configured "branch.*.merge" for a given
+ * branch. This branch must be local.
+ *
+ * Params:
+ *      buf = the buffer into which to write the name
+ *      repo = the repository in which to look
+ *      refname = the full name of the branch
+ *
+ * Returns: 0 or an error code
+ */
+@GIT_EXTERN
+int git_branch_upstream_merge(libgit2.buffer.git_buf* buf, libgit2.types.git_repository* repo, const (char)* refname);
+
+/**
+ * Determine whether a branch name is valid, meaning that (when prefixed
+ * with `refs/heads/`) that it is a valid reference name, and that any
+ * additional branch name restrictions are imposed (eg, it cannot start
+ * with a `-`).
+ *
+ * Params:
+ *      valid = output pointer to set with validity of given branch name
+ *      name = a branch name to test
+ *
+ * Returns: 0 on success or an error code
+ */
+@GIT_EXTERN
+int git_branch_name_is_valid(int* valid, const (char)* name);
+
 /* @} */

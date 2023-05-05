@@ -104,7 +104,7 @@ libgit2.types.git_repository* git_blob_owner(const (libgit2.types.git_blob)* blo
  * Params:
  *      blob = pointer to the blob
  *
- * Returns: the pointer
+ * Returns: the pointer, or null on error
  */
 @GIT_EXTERN
 const (void)* git_blob_rawcontent(const (libgit2.types.git_blob)* blob);
@@ -140,7 +140,13 @@ enum git_blob_filter_flag_t
 	 * When set, filters will be loaded from a `.gitattributes` file
 	 * in the HEAD commit.
 	 */
-	GIT_BLOB_FILTER_ATTTRIBUTES_FROM_HEAD = 1 << 2,
+	GIT_BLOB_FILTER_ATTRIBUTES_FROM_HEAD = 1 << 2,
+
+	/**
+	 * When set, filters will be loaded from a `.gitattributes` file
+	 * in the specified commit.
+	 */
+	GIT_BLOB_FILTER_ATTRIBUTES_FROM_COMMIT = 1 << 3,
 }
 
 //Declaration name in C language
@@ -148,7 +154,8 @@ enum
 {
 	GIT_BLOB_FILTER_CHECK_FOR_BINARY = .git_blob_filter_flag_t.GIT_BLOB_FILTER_CHECK_FOR_BINARY,
 	GIT_BLOB_FILTER_NO_SYSTEM_ATTRIBUTES = .git_blob_filter_flag_t.GIT_BLOB_FILTER_NO_SYSTEM_ATTRIBUTES,
-	GIT_BLOB_FILTER_ATTTRIBUTES_FROM_HEAD = .git_blob_filter_flag_t.GIT_BLOB_FILTER_ATTTRIBUTES_FROM_HEAD,
+	GIT_BLOB_FILTER_ATTRIBUTES_FROM_HEAD = .git_blob_filter_flag_t.GIT_BLOB_FILTER_ATTRIBUTES_FROM_HEAD,
+	GIT_BLOB_FILTER_ATTRIBUTES_FROM_COMMIT = .git_blob_filter_flag_t.GIT_BLOB_FILTER_ATTRIBUTES_FROM_COMMIT,
 }
 
 /**
@@ -165,6 +172,12 @@ struct git_blob_filter_options
 	 * Flags to control the filtering process, see `git_blob_filter_flag_t` above
 	 */
 	uint flags;
+
+	/**
+	 * The commit to load attributes from, when
+	 * `GIT_BLOB_FILTER_ATTRIBUTES_FROM_COMMIT` is specified.
+	 */
+	libgit2.oid.git_oid* commit_id;
 }
 
 enum GIT_BLOB_FILTER_OPTIONS_VERSION = 1;

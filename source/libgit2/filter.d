@@ -11,6 +11,7 @@ module libgit2.filter;
 
 
 private static import libgit2.buffer;
+private static import libgit2.oid;
 private static import libgit2.sys.filter;
 private static import libgit2.types;
 private import libgit2.common: GIT_EXTERN;
@@ -71,6 +72,12 @@ enum git_filter_flag_t
 	 * Load attributes from `.gitattributes` in the root of HEAD
 	 */
 	GIT_FILTER_ATTRIBUTES_FROM_HEAD = 1u << 2,
+
+	/**
+	 * Load attributes from `.gitattributes` in a given commit.
+	 * This can only be specified in a `git_filter_options`.
+	 */
+	GIT_FILTER_ATTRIBUTES_FROM_COMMIT = 1u << 3,
 }
 
 //Declaration name in C language
@@ -80,7 +87,43 @@ enum
 	GIT_FILTER_ALLOW_UNSAFE = .git_filter_flag_t.GIT_FILTER_ALLOW_UNSAFE,
 	GIT_FILTER_NO_SYSTEM_ATTRIBUTES = .git_filter_flag_t.GIT_FILTER_NO_SYSTEM_ATTRIBUTES,
 	GIT_FILTER_ATTRIBUTES_FROM_HEAD = .git_filter_flag_t.GIT_FILTER_ATTRIBUTES_FROM_HEAD,
+	GIT_FILTER_ATTRIBUTES_FROM_COMMIT = .git_filter_flag_t.GIT_FILTER_ATTRIBUTES_FROM_COMMIT,
 }
+
+/**
+ * Filtering options
+ */
+struct git_filter_options
+{
+	uint version_;
+
+	/**
+	 * See `git_filter_flag_t` above
+	 */
+	uint flags;
+
+	/**
+	 * The commit to load attributes from, when
+	 * `GIT_FILTER_ATTRIBUTES_FROM_COMMIT` is specified.
+	 */
+	libgit2.oid.git_oid* commit_id;
+}
+
+enum GIT_FILTER_OPTIONS_VERSION = 1;
+
+pragma(inline, true)
+pure nothrow @safe @nogc @live
+.git_filter_options GIT_FILTER_OPTIONS_INIT()
+
+	do
+	{
+		.git_filter_options OUTPUT =
+		{
+			version_: .GIT_FILTER_OPTIONS_VERSION,
+		};
+
+		return OUTPUT;
+	}
 
 /**
  * A filter that can transform file data
@@ -132,6 +175,25 @@ int git_filter_list_load(.git_filter_list** filters, libgit2.types.git_repositor
                      const (char)* path, .git_filter_mode_t mode, uint flags);
 
 /**
+ * Load the filter list for a given path.
+ *
+ * This will return 0 (success) but set the output git_filter_list to null
+ * if no filters are requested for the given file.
+ *
+ * Params:
+ *      filters = Output newly created git_filter_list (or null)
+ *      repo = Repository object that contains `path`
+ *      blob = The blob to which the filter will be applied (if known)
+ *      path = Relative path of the file to be filtered
+ *      mode = Filtering direction (WT->ODB or ODB->WT)
+ *      opts = The `git_filter_options` to use when loading filters
+ *
+ * Returns: 0 on success (which could still return null if no filters are needed for the requested file), <0 on error
+ */
+@GIT_EXTERN
+int git_filter_list_load_ext(.git_filter_list** filters, libgit2.types.git_repository* repo, libgit2.types.git_blob* blob, const (char)* path, .git_filter_mode_t mode, .git_filter_options* opts);
+
+/**
  * Query the filter list to see if a given filter (by name) will run.
  * The built-in filters "crlf" and "ident" can be queried, otherwise this
  * is the name of the filter specified by the filter attribute.
@@ -151,27 +213,16 @@ int git_filter_list_contains(.git_filter_list* filters, const (char)* name);
 /**
  * Apply filter list to a data buffer.
  *
- * See `git2/buffer.h` for background on `git_buf` objects.
- *
- * If the `in` buffer holds data allocated by libgit2 (i.e. `in_->asize` is
- * not zero), then it will be overwritten when applying the filters.  If
- * not, then it will be left untouched.
- *
- * If there are no filters to apply (or `filters` is null), then the `out`
- * buffer will reference the `in` buffer data (with `asize` set to zero)
- * instead of allocating data.  This keeps allocations to a minimum, but
- * it means you have to be careful about freeing the `in` data since `out`
- * may be pointing to it!
- *
  * Params:
  *      out_ = Buffer to store the result of the filtering
  *      filters = A loaded git_filter_list (or null)
  *      in_ = Buffer containing the data to filter
+ *      in_len = The length of the input buffer
  *
  * Returns: 0 on success, an error code otherwise
  */
 @GIT_EXTERN
-int git_filter_list_apply_to_data(libgit2.buffer.git_buf* out_, .git_filter_list* filters, libgit2.buffer.git_buf* in_);
+int git_filter_list_apply_to_buffer(libgit2.buffer.git_buf* out_, .git_filter_list* filters, const (char)* in_, size_t in_len);
 
 /**
  * Apply a filter list to the contents of a file on disk
@@ -202,10 +253,11 @@ int git_filter_list_apply_to_blob(libgit2.buffer.git_buf* out_, .git_filter_list
  * Params:
  *      filters = the list of filters to apply
  *      data = the buffer to filter
+ *      len = the size of the buffer
  *      target = the stream into which the data will be written
  */
 @GIT_EXTERN
-int git_filter_list_stream_data(.git_filter_list* filters, libgit2.buffer.git_buf* data, libgit2.types.git_writestream* target);
+int git_filter_list_stream_buffer(.git_filter_list* filters, const (char)* data, size_t len, libgit2.types.git_writestream* target);
 
 /**
  * Apply a filter list to a file as a stream

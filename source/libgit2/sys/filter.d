@@ -184,38 +184,53 @@ alias git_filter_shutdown_fn = void function(.git_filter* self);
  *
  * The `payload` will be a pointer to a reference payload for the filter.
  * This will start as null, but `check` can assign to this pointer for
- * later use by the `apply` callback.  Note that the value should be heap
- * allocated (not stack), so that it doesn't go away before the `apply`
+ * later use by the `stream` callback.  Note that the value should be heap
+ * allocated (not stack), so that it doesn't go away before the `stream`
  * callback can use it.  If a filter allocates and assigns a value to the
  * `payload`, it will need a `cleanup` callback to free the payload.
  */
-alias git_filter_check_fn = int function(.git_filter* self, void** payload, /* points to null ptr on entry, may be set */
+alias git_filter_check_fn = int function(.git_filter* self, void** payload, /* null on entry, may be set */
     const (.git_filter_source)* src, const (char)** attr_values);
 
-/**
- * Callback to actually perform the data filtering
- *
- * Specified as `filter.apply`, this is the callback that actually filters
- * data.  If it successfully writes the output, it should return 0.  Like
- * `check`, it can return git_error_code.GIT_PASSTHROUGH to indicate that the filter
- * doesn't want to run.  Other error codes will stop filter processing and
- * return to the caller.
- *
- * The `payload` value will refer to any payload that was set by the
- * `check` callback.  It may be read from or written to as needed.
- */
-alias git_filter_apply_fn = int function(.git_filter* self, void** payload, /* may be read and/or set */
-                                   libgit2.buffer.git_buf* to, const (libgit2.buffer.git_buf)* from, const (.git_filter_source)* src);
+version (GIT_DEPRECATE_HARD) {
+} else {
+	/**
+	 * Callback to actually perform the data filtering
+	 *
+	 * Specified as `filter.apply`, this is the callback that actually filters
+	 * data.  If it successfully writes the output, it should return 0.  Like
+	 * `check`, it can return git_error_code.GIT_PASSTHROUGH to indicate that the filter
+	 * doesn't want to run.  Other error codes will stop filter processing and
+	 * return to the caller.
+	 *
+	 * The `payload` value will refer to any payload that was set by the
+	 * `check` callback.  It may be read from or written to as needed.
+	 *
+	 * @deprecated use git_filter_stream_fn
+	 */
+	alias git_filter_apply_fn = int function(.git_filter* self, void** payload, /* may be read and/or set */
+									   libgit2.buffer.git_buf* to, const (libgit2.buffer.git_buf)* from, const (.git_filter_source)* src);
+}
 
+/**
+ * Callback to perform the data filtering.
+ *
+ * Specified as `filter.stream`, this is a callback that filters data
+ * in a streaming manner.  This function will provide a
+ * `git_writestream` that will the original data will be written to;
+ * with that data, the `git_writestream` will then perform the filter
+ * translation and stream the filtered data out to the `next` location.
+ */
 alias git_filter_stream_fn = int function(libgit2.types.git_writestream** out_, .git_filter* self, void** payload, const (.git_filter_source)* src, libgit2.types.git_writestream* next);
 
 /**
  * Callback to clean up after filtering has been applied
  *
  * Specified as `filter.cleanup`, this is an optional callback invoked
- * after the filter has been applied.  If the `check` or `apply` callbacks
- * allocated a `payload` to keep per-source filter state, use this
- * callback to free that payload and release resources as required.
+ * after the filter has been applied.  If the `check`, `apply`, or
+ * `stream` callbacks allocated a `payload` to keep per-source filter
+ * state, use this callback to free that payload and release resources
+ * as required.
  */
 alias git_filter_cleanup_fn = void function(.git_filter* self, void* payload);
 
@@ -258,21 +273,28 @@ struct git_filter
 	/**
 	 * Called to determine whether the filter should be invoked for a
 	 * given file.  If this function returns `git_error_code.GIT_PASSTHROUGH` then the
-	 * `apply` function will not be invoked and the contents will be passed
-	 * through unmodified.
+	 * `stream` or `apply` functions will not be invoked and the
+	 * contents will be passed through unmodified.
 	 */
 	.git_filter_check_fn check;
 
-	/**
-	 * Called to actually apply the filter to file contents.  If this
-	 * function returns `git_error_code.GIT_PASSTHROUGH` then the contents will be passed
-	 * through unmodified.
-	 */
-	.git_filter_apply_fn apply;
+	version (GIT_DEPRECATE_HARD) {
+		void* reserved;
+	} else {
+		/**
+		 * Provided for backward compatibility; this will apply the
+		 * filter to the given contents in a `git_buf`.  Callers should
+		 * provide a `stream` function instead.
+		 */
+		.git_filter_apply_fn apply;
+	}
 
 	/**
-	 * Called to apply the filter in a streaming manner.  If this is not
-	 * specified then the system will call `apply` with the whole buffer.
+	 * Called to apply the filter, this function will provide a
+	 * `git_writestream` that will the original data will be
+	 * written to; with that data, the `git_writestream` will then
+	 * perform the filter translation and stream the filtered data
+	 * out to the `next` location.
 	 */
 	.git_filter_stream_fn stream;
 
@@ -317,9 +339,9 @@ int git_filter_init(.git_filter* filter, uint version_);
  * As mentioned elsewhere, the initialize callback will not be invoked
  * immediately.  It is deferred until the filter is used in some way.
  *
- * A filter's attribute checks and `check` and `apply` callbacks will be
- * issued in order of `priority` on smudge (to workdir), and in reverse
- * order of `priority` on clean (to odb).
+ * A filter's attribute checks and `check` and `stream` (or `apply`)
+ * callbacks will be issued in order of `priority` on smudge (to
+ * workdir), and in reverse order of `priority` on clean (to odb).
  *
  * Two filters are preregistered with libgit2:
  * - GIT_FILTER_CRLF with priority 0

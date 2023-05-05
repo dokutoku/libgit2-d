@@ -262,7 +262,8 @@ const (char)* git_remote_name(const (libgit2.types.git_remote)* remote);
  * Get the remote's url
  *
  * If url.*.insteadOf has been configured for this URL, it will
- * return the modified URL.
+ * return the modified URL.  If `git_remote_set_instance_pushurl`
+ * has been called for this remote, then that URL will be returned.
  *
  * Params:
  *      remote = the remote
@@ -273,10 +274,11 @@ const (char)* git_remote_name(const (libgit2.types.git_remote)* remote);
 const (char)* git_remote_url(const (libgit2.types.git_remote)* remote);
 
 /**
- * Get the remote's url for pushing
+ * Get the remote's url for pushing.
  *
  * If url.*.pushInsteadOf has been configured for this URL, it
- * will return the modified URL.
+ * will return the modified URL.  If `git_remote_set_instance_pushurl`
+ * has been called for this remote, then that URL will be returned.
  *
  * Params:
  *      remote = the remote
@@ -313,9 +315,37 @@ int git_remote_set_url(libgit2.types.git_repository* repo, const (char)* remote,
  *      repo = the repository in which to perform the change
  *      remote = the remote's name
  *      url = the url to set
+ *
+ * Returns: 0, or an error code
  */
 @GIT_EXTERN
 int git_remote_set_pushurl(libgit2.types.git_repository* repo, const (char)* remote, const (char)* url);
+
+/**
+ * Set the url for this particular url instance.  The URL in the
+ * configuration will be ignored, and will not be changed.
+ *
+ * Params:
+ *      remote = the remote's name
+ *      url = the url to set
+ *
+ * Returns: 0 or an error value
+ */
+@GIT_EXTERN
+int git_remote_set_instance_url(libgit2.types.git_remote* remote, const (char)* url);
+
+/**
+ * Set the push url for this particular url instance.  The URL in the
+ * configuration will be ignored, and will not be changed.
+ *
+ * Params:
+ *      remote = the remote's name
+ *      url = the url to set
+ *
+ * Returns: 0 or an error value
+ */
+@GIT_EXTERN
+int git_remote_set_instance_pushurl(libgit2.types.git_remote* remote, const (char)* url);
 
 /**
  * Add a fetch refspec to the remote's configuration
@@ -587,22 +617,38 @@ alias git_push_negotiation = int function(const (.git_push_update)** updates, si
  */
 alias git_push_update_reference_cb = int function(const (char)* refname, const (char)* status, void* data);
 
+version (GIT_DEPRECATE_HARD) {
+} else {
+	/**
+	* Callback to resolve URLs before connecting to remote
+	*
+	* If you return GIT_PASSTHROUGH, you don't need to write anything to
+	* url_resolved.
+	*
+	* @param url_resolved The buffer to write the resolved URL to
+	* @param url The URL to resolve
+	* @param direction GIT_DIRECTION_FETCH or GIT_DIRECTION_PUSH
+	* @param payload Payload provided by the caller
+	* @return 0 on success, GIT_PASSTHROUGH or an error
+	* @deprecated Use `git_remote_set_instance_url`
+	*/
+	alias git_url_resolve_cb = int function(libgit2.buffer.git_buf* url_resolved, const (char)* url, int direction, void* payload);
+}
+
 /**
- * Callback to resolve URLs before connecting to remote
+ * Callback invoked immediately before we attempt to connect to the
+ * given url.  Callers may change the URL before the connection by
+ * calling `git_remote_set_instance_url` in the callback.
  *
- * If you return git_error_code.GIT_PASSTHROUGH, you don't need to write anything to
- * url_resolved.
- *
- * Returns: 0 on success, git_error_code.GIT_PASSTHROUGH or an error
+ * Returns: 0 on success, or an error
  */
 /*
  * Params:
- *      url_resolved = The buffer to write the resolved URL to
- *      url = The URL to resolve
+ *      remote = The remote to be connected
  *      direction = git_direction.GIT_DIRECTION_FETCH or git_direction.GIT_DIRECTION_PUSH
  *      payload = Payload provided by the caller
  */
-alias git_url_resolve_cb = int function(libgit2.buffer.git_buf* url_resolved, const (char)* url, int direction, void* payload);
+alias git_remote_ready_cb = int function(libgit2.types.git_remote* remote, int direction, void* payload);
 
 /**
  * The callback settings structure
@@ -693,16 +739,28 @@ struct git_remote_callbacks
 	libgit2.transport.git_transport_cb transport;
 
 	/**
+	 * Callback when the remote is ready to connect.
+	 */
+	.git_remote_ready_cb remote_ready;
+
+	/**
 	 * This will be passed to each of the callbacks in this struct
 	 * as the last parameter.
 	 */
 	void* payload;
 
-	/**
-	 * Resolve URL before connecting to remote.
-	 * The returned URL will be used to connect to the remote instead.
-	 */
-	.git_url_resolve_cb resolve_url;
+	version (GIT_DEPRECATE_HARD) {
+		void* reserved;
+	} else {
+		/**
+		 * Resolve URL before connecting to remote.
+		 * The returned URL will be used to connect to the remote instead.
+		 *
+		 * This callback is deprecated; users should use
+		 * git_remote_ready_cb and configure the instance URL instead.
+		 */
+		.git_url_resolve_cb resolve_url;
+	}
 }
 
 enum GIT_REMOTE_CALLBACKS_VERSION = 1;
@@ -1073,6 +1131,8 @@ const (libgit2.indexer.git_indexer_progress)* git_remote_stats(libgit2.types.git
  *      repo = the repository in which to make the change
  *      remote = the name of the remote
  *      value = the new value to take.
+ *
+ * Returns: 0, or an error code.
  */
 @GIT_EXTERN
 int git_remote_set_autotag(libgit2.types.git_repository* repo, const (char)* remote, .git_remote_autotag_option_t value);
@@ -1115,12 +1175,13 @@ int git_remote_rename(libgit2.strarray.git_strarray* problems, libgit2.types.git
  * Ensure the remote name is well-formed.
  *
  * Params:
+ *      valid = output pointer to set with validity of given remote name
  *      remote_name = name to be checked.
  *
- * Returns: 1 if the reference name is acceptable; 0 if it isn't
+ * Returns: 0 on success or an error code
  */
 @GIT_EXTERN
-int git_remote_is_valid_name(const (char)* remote_name);
+int git_remote_name_is_valid(int* valid, const (char)* remote_name);
 
 /**
  * Delete an existing persisted remote.
@@ -1149,7 +1210,7 @@ int git_remote_delete(libgit2.types.git_repository* repo, const (char)* name);
  * This function must only be called after connecting.
  *
  * Params:
- *      out_ = the buffern in which to store the reference name
+ *      out_ = the buffer in which to store the reference name
  *      remote = the remote
  *
  * Returns: 0, git_error_code.GIT_ENOTFOUND if the remote does not have any references or none of them point to HEAD's commit, or an error message.

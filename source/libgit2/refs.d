@@ -110,6 +110,9 @@ int git_reference_dwim(libgit2.types.git_reference** out_, libgit2.types.git_rep
  * of updating does not match the one passed through `current_value`
  * (i.e. if the ref has changed since the user read it).
  *
+ * If `current_value` is all zeros, this function will return GIT_EMODIFIED
+ * if the ref already exists.
+ *
  * Params:
  *      out_ = Pointer to the newly created reference
  *      repo = Repository where that reference will live
@@ -829,12 +832,13 @@ int git_reference_peel(libgit2.types.git_object** out_, const (libgit2.types.git
  *    sequences ".." and "@{" which have special meaning to revparse.
  *
  * Params:
+ *      valid = output pointer to set with validity of given reference name
  *      refname = name to be checked.
  *
- * Returns: 1 if the reference name is acceptable; 0 if it isn't
+ * Returns: 0 on success or an error code
  */
 @GIT_EXTERN
-int git_reference_is_valid_name(const (char)* refname);
+int git_reference_name_is_valid(int* valid, const (char)* refname);
 
 /**
  * Get the reference's short name

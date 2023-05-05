@@ -73,30 +73,30 @@ int git_revparse_ext(libgit2.types.git_object** object_out, libgit2.types.git_re
  * Revparse flags.  These indicate the intended behavior of the spec passed to
  * git_revparse.
  */
-enum git_revparse_mode_t
+enum git_revspec_t
 {
 	/**
 	 * The spec targeted a single object.
 	 */
-	GIT_REVPARSE_SINGLE = 1 << 0,
+	GIT_REVSPEC_SINGLE = 1 << 0,
 
 	/**
 	 * The spec targeted a range of commits.
 	 */
-	GIT_REVPARSE_RANGE = 1 << 1,
+	GIT_REVSPEC_RANGE = 1 << 1,
 
 	/**
 	 * The spec used the '...' operator, which invokes special semantics.
 	 */
-	GIT_REVPARSE_MERGE_BASE = 1 << 2,
+	GIT_REVSPEC_MERGE_BASE = 1 << 2,
 }
 
 //Declaration name in C language
 enum
 {
-	GIT_REVPARSE_SINGLE = .git_revparse_mode_t.GIT_REVPARSE_SINGLE,
-	GIT_REVPARSE_RANGE = .git_revparse_mode_t.GIT_REVPARSE_RANGE,
-	GIT_REVPARSE_MERGE_BASE = .git_revparse_mode_t.GIT_REVPARSE_MERGE_BASE,
+	GIT_REVSPEC_SINGLE = .git_revspec_t.GIT_REVSPEC_SINGLE,
+	GIT_REVSPEC_RANGE = .git_revspec_t.GIT_REVSPEC_RANGE,
+	GIT_REVSPEC_MERGE_BASE = .git_revspec_t.GIT_REVSPEC_MERGE_BASE,
 }
 
 /**
@@ -115,7 +115,7 @@ struct git_revspec
 	libgit2.types.git_object* to;
 
 	/**
-	 * The intent of the revspec (i.e. `git_revparse_mode_t` flags)
+	 * The intent of the revspec (i.e. `git_revspec_mode_t` flags)
 	 */
 	uint flags;
 }

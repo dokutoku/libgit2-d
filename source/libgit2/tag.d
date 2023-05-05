@@ -351,4 +351,19 @@ int git_tag_peel(libgit2.types.git_object** tag_target_out, const (libgit2.types
 @GIT_EXTERN
 int git_tag_dup(libgit2.types.git_tag** out_, libgit2.types.git_tag* source);
 
+/**
+ * Determine whether a tag name is valid, meaning that (when prefixed
+ * with `refs/tags/`) that it is a valid reference name, and that any
+ * additional tag name restrictions are imposed (eg, it cannot start
+ * with a `-`).
+ *
+ * Params:
+ *      valid = output pointer to set with validity of given tag name
+ *      name = a tag name to test
+ *
+ * Returns: 0 on success or an error code
+ */
+@GIT_EXTERN
+int git_tag_name_is_valid(int* valid, const (char)* name);
+
 /* @} */

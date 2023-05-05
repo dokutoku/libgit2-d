@@ -342,7 +342,7 @@ private int add_revision(.log_state* s, const (char)* revstr)
 		}
 
 		if (*revstr == '^') {
-			revs.flags = libgit2.revparse.git_revparse_mode_t.GIT_REVPARSE_SINGLE;
+			revs.flags = libgit2.revparse.git_revspec_t.GIT_REVSPEC_SINGLE;
 			hide = !hide;
 
 			if (libgit2.revparse.git_revparse_single(&revs.from, s.repo, revstr + 1) < 0) {
@@ -352,12 +352,12 @@ private int add_revision(.log_state* s, const (char)* revstr)
 			return -1;
 		}
 
-		if ((revs.flags & libgit2.revparse.git_revparse_mode_t.GIT_REVPARSE_SINGLE) != 0) {
+		if ((revs.flags & libgit2.revparse.git_revspec_t.GIT_REVSPEC_SINGLE) != 0) {
 			.push_rev(s, revs.from, hide);
 		} else {
 			.push_rev(s, revs.to, hide);
 
-			if ((revs.flags & libgit2.revparse.git_revparse_mode_t.GIT_REVPARSE_MERGE_BASE) != 0) {
+			if ((revs.flags & libgit2.revparse.git_revspec_t.GIT_REVSPEC_MERGE_BASE) != 0) {
 				libgit2.oid.git_oid base;
 				libgit2.example.common.check_lg2(libgit2.merge.git_merge_base(&base, s.repo, libgit2.object.git_object_id(revs.from), libgit2.object.git_object_id(revs.to)), "Could not find merge base", revstr);
 				libgit2.example.common.check_lg2(libgit2.object.git_object_lookup(&revs.to, s.repo, &base, libgit2.types.git_object_t.GIT_OBJECT_COMMIT), "Could not find merge base commit", null);

@@ -438,22 +438,6 @@ int git_treebuilder_filter(libgit2.types.git_treebuilder* bld, .git_treebuilder_
 int git_treebuilder_write(libgit2.oid.git_oid* id, libgit2.types.git_treebuilder* bld);
 
 /**
- * Write the contents of the tree builder as a tree object
- * using a shared git_buf.
- *
- * @see git_treebuilder_write
- *
- * Params:
- *      oid = Pointer to store the OID of the newly written tree
- *      bld = Tree builder to write
- *      tree = Shared buffer for writing the tree. Will be grown as necessary.
- *
- * Returns: 0 or an error code
- */
-@GIT_EXTERN
-int git_treebuilder_write_with_buffer(libgit2.oid.git_oid* oid, libgit2.types.git_treebuilder* bld, libgit2.buffer.git_buf* tree);
-
-/**
  * Callback for the tree traversal method
  */
 alias git_treewalk_cb = int function(const (char)* root, const (libgit2.types.git_tree_entry)* entry, void* payload);

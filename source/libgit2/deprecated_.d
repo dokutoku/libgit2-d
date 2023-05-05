@@ -12,6 +12,7 @@ module libgit2.deprecated_;
 
 private static import libgit2.attr;
 private static import libgit2.blame;
+private static import libgit2.blob;
 private static import libgit2.buffer;
 private static import libgit2.checkout;
 private static import libgit2.cherrypick;
@@ -22,6 +23,7 @@ private static import libgit2.credential_helpers;
 private static import libgit2.describe;
 private static import libgit2.diff;
 private static import libgit2.errors;
+private static import libgit2.filter;
 private static import libgit2.index;
 private static import libgit2.indexer;
 private static import libgit2.merge;
@@ -32,6 +34,7 @@ private static import libgit2.refs;
 private static import libgit2.remote;
 private static import libgit2.repository;
 private static import libgit2.revert;
+private static import libgit2.revparse;
 private static import libgit2.stash;
 private static import libgit2.status;
 private static import libgit2.strarray;
@@ -91,15 +94,18 @@ version (GIT_DEPRECATE_HARD) {
 
 	/*@}*/
 
-	/* @name Deprecated Blob Functions
+	/* @name Deprecated Blob Functions and Constants
 	 *
-	 * These functions are retained for backward compatibility.  The newer
-	 * versions of these functions should be preferred in all new code.
+	 * These functions and enumeration values are retained for backward
+	 * compatibility.  The newer versions of these functions and values
+	 * should be preferred in all new code.
 	 *
 	 * There is no plan to remove these backward compatibility values at
 	 * this time.
 	 */
 	/*@{*/
+
+	enum GIT_BLOB_FILTER_ATTTRIBUTES_FROM_HEAD = libgit2.blob.git_blob_filter_flag_t.GIT_BLOB_FILTER_ATTRIBUTES_FROM_HEAD;
 
 	@GIT_EXTERN
 	int git_blob_create_fromworkdir(libgit2.oid.git_oid* id, libgit2.types.git_repository* repo, const (char)* relative_path);
@@ -126,6 +132,64 @@ version (GIT_DEPRECATE_HARD) {
 
 	/*@}*/
 
+	/* @name Deprecated Filter Functions
+	 *
+	 * These functions are retained for backward compatibility.  The
+	 * newer versions of these functions should be preferred in all
+	 * new code.
+	 *
+	 * There is no plan to remove these backward compatibility values at
+	 * this time.
+	 */
+	/*@{*/
+
+	/**
+	 * Deprecated in favor of `git_filter_list_stream_buffer`.
+	 *
+	 * @deprecated Use git_filter_list_stream_buffer
+	 * @see Use git_filter_list_stream_buffer
+	 */
+	@GIT_EXTERN
+	int git_filter_list_stream_data(libgit2.filter.git_filter_list* filters, libgit2.buffer.git_buf* data, libgit2.types.git_writestream* target);
+
+	/**
+	 * Deprecated in favor of `git_filter_list_apply_to_buffer`.
+	 *
+	 * @deprecated Use git_filter_list_apply_to_buffer
+	 * @see Use git_filter_list_apply_to_buffer
+	 */
+	@GIT_EXTERN
+	int git_filter_list_apply_to_data(libgit2.buffer.git_buf* out_, libgit2.filter.git_filter_list* filters, libgit2.buffer.git_buf* in_);
+
+	/*@}*/
+
+	/* @name Deprecated Tree Functions
+	 *
+	 * These functions are retained for backward compatibility.  The
+	 * newer versions of these functions and values should be preferred
+	 * in all new code.
+	 *
+	 * There is no plan to remove these backward compatibility values at
+	 * this time.
+	 */
+	/**@{*/
+
+	/**
+	 * Write the contents of the tree builder as a tree object.
+	 * This is an alias of `git_treebuilder_write` and is preserved
+	 * for backward compatibility.
+	 *
+	 * This function is deprecated, but there is no plan to remove this
+	 * function at this time.
+	 *
+	 * @deprecated Use git_treebuilder_write
+	 * @see git_treebuilder_write
+	 */
+	@GIT_EXTERN
+	int git_treebuilder_write_with_buffer(libgit2.oid.git_oid* oid, libgit2.types.git_treebuilder* bld, libgit2.buffer.git_buf* tree);
+
+	/*@}*/
+
 	/* @name Deprecated Buffer Functions
 	 *
 	 * These functions and enumeration values are retained for backward
@@ -136,6 +200,68 @@ version (GIT_DEPRECATE_HARD) {
 	 * this time.
 	 */
 	/*@{*/
+
+	/*
+	 * Static initializer for git_buf from static buffer
+	 */
+	//#define GIT_BUF_INIT_CONST(STR,LEN) { cast(char*)(STR), 0, cast(size_t)(LEN) }
+
+	/**
+	 * Resize the buffer allocation to make more space.
+	 *
+	 * This will attempt to grow the buffer to accommodate the target size.
+	 *
+	 * If the buffer refers to memory that was not allocated by libgit2 (i.e.
+	 * the `asize` field is zero), then `ptr` will be replaced with a newly
+	 * allocated block of data.  Be careful so that memory allocated by the
+	 * caller is not lost.  As a special variant, if you pass `target_size` as
+	 * 0 and the memory is not allocated by libgit2, this will allocate a new
+	 * buffer of size `size` and copy the external data into it.
+	 *
+	 * Currently, this will never shrink a buffer, only expand it.
+	 *
+	 * If the allocation fails, this will return an error and the buffer will be
+	 * marked as invalid for future operations, invaliding the contents.
+	 *
+	 * Params:
+	 *      buffer = The buffer to be resized; may or may not be allocated yet
+	 *      target_size = The desired available size
+	 *
+	 * Returns: 0 on success, -1 on allocation failure
+	 */
+	@GIT_EXTERN
+	int git_buf_grow(libgit2.buffer.git_buf* buffer, size_t target_size);
+
+	/**
+	 * Set buffer to a copy of some raw data.
+	 *
+	 * Params:
+	 *      buffer = The buffer to set
+	 *      data = The data to copy into the buffer
+	 *      datalen = The length of the data to copy into the buffer
+	 *
+	 * Returns: 0 on success, -1 on allocation failure
+	 */
+	@GIT_EXTERN
+	int git_buf_set(libgit2.buffer.git_buf* buffer, const (void)* data, size_t datalen);
+
+	/**
+	* Check quickly if buffer looks like it contains binary data
+	*
+	* @param buf Buffer to check
+	* @return 1 if buffer looks like non-text data
+	*/
+	@GIT_EXTERN
+	int git_buf_is_binary(const (libgit2.buffer.git_buf)* buf);
+
+	/**
+	* Check quickly if buffer contains a null byte
+	*
+	* @param buf Buffer to check
+	* @return 1 if buffer contains a null byte
+	*/
+	@GIT_EXTERN
+	int git_buf_contains_nul(const (libgit2.buffer.git_buf)* buf);
 
 	/**
 	 * Free the memory referred to by the git_buf.  This is an alias of
@@ -149,6 +275,23 @@ version (GIT_DEPRECATE_HARD) {
 	 */
 	@GIT_EXTERN
 	void git_buf_free(libgit2.buffer.git_buf* buffer);
+
+	/*@}*/
+
+	/* @name Deprecated Commit Definitions
+	 */
+	/*@{*/
+
+	/**
+	 * Provide a commit signature during commit creation.
+	 *
+	 * Callers should instead define a `git_commit_create_cb` that
+	 * generates a commit buffer using `git_commit_create_buffer`, sign
+	 * that buffer and call `git_commit_create_with_signature`.
+	 *
+	 * @deprecated use a `git_commit_create_cb` instead
+	 */
+	alias git_commit_signing_cb = int function(libgit2.buffer.git_buf* signature, libgit2.buffer.git_buf* signature_field, const (char)* commit_content, void* payload);
 
 	/*@}*/
 
@@ -357,10 +500,36 @@ version (GIT_DEPRECATE_HARD) {
 
 	/*@}*/
 
-	/* @name Deprecated Reference Constants
+	/* @name Deprecated Remote Functions
 	 *
-	 * These enumeration values are retained for backward compatibility.  The
-	 * newer versions of these values should be preferred in all new code.
+	 * These functions are retained for backward compatibility.  The newer
+	 * versions of these functions should be preferred in all new code.
+	 *
+	 * There is no plan to remove these backward compatibility functions at
+	 * this time.
+	 */
+	/*@{*/
+
+	/**
+	 * Ensure the remote name is well-formed.
+	 *
+	 * @deprecated Use git_remote_name_is_valid
+	 *
+	 * Params:
+	 *      remote_name = name to be checked.
+	 *
+	 * Returns: 1 if the reference name is acceptable; 0 if it isn't
+	 */
+	@GIT_EXTERN
+	int git_remote_is_valid_name(const (char)* remote_name);
+
+	/*@}*/
+
+	/* @name Deprecated Reference Functions and Constants
+	 *
+	 * These functions and enumeration values are retained for backward
+	 * compatibility.  The newer versions of these values should be
+	 * preferred in all new code.
 	 *
 	 * There is no plan to remove these backward compatibility values at
 	 * this time.
@@ -381,8 +550,48 @@ version (GIT_DEPRECATE_HARD) {
 	enum GIT_REF_FORMAT_REFSPEC_PATTERN = libgit2.refs.git_reference_format_t.GIT_REFERENCE_FORMAT_REFSPEC_PATTERN;
 	enum GIT_REF_FORMAT_REFSPEC_SHORTHAND = libgit2.refs.git_reference_format_t.GIT_REFERENCE_FORMAT_REFSPEC_SHORTHAND;
 
+	/**
+	 * Ensure the reference name is well-formed.
+	 *
+	 * Valid reference names must follow one of two patterns:
+	 *
+	 * 1. Top-level names must contain only capital letters and underscores,
+	 *    and must begin and end with a letter. (e.g. "HEAD", "ORIG_HEAD").
+	 * 2. Names prefixed with "refs/" can be almost anything.  You must avoid
+	 *    the characters '~', '^', ':', '\\', '?', '[', and '*', and the
+	 *    sequences ".." and "@{" which have special meaning to revparse.
+	 *
+	 * @deprecated Use git_reference_name_is_valid
+	 *
+	 * Params:
+	 *      refname = name to be checked.
+	 *
+	 * Returns: 1 if the reference name is acceptable; 0 if it isn't
+	 */
+	@GIT_EXTERN
+	int git_reference_is_valid_name(const (char)* refname);
+
 	@GIT_EXTERN
 	int git_tag_create_frombuffer(libgit2.oid.git_oid* oid, libgit2.types.git_repository* repo, const (char)* buffer, int force);
+
+	/*@}*/
+
+	/* @name Deprecated Revspec Constants
+	 *
+	 * These enumeration values are retained for backward compatibility.
+	 * The newer versions of these values should be preferred in all new
+	 * code.
+	 *
+	 * There is no plan to remove these backward compatibility values at
+	 * this time.
+	 */
+	/*@{*/
+
+	alias git_revparse_mode_t = libgit2.revparse.git_revspec_t;
+
+	enum GIT_REVPARSE_SINGLE = libgit2.revparse.git_revspec_t.GIT_REVSPEC_SINGLE;
+	enum GIT_REVPARSE_RANGE = libgit2.revparse.git_revspec_t.GIT_REVSPEC_RANGE;
+	enum GIT_REVPARSE_MERGE_BASE = libgit2.revparse.git_revspec_t.GIT_REVSPEC_MERGE_BASE;
 
 	/*@}*/
 
@@ -394,6 +603,7 @@ version (GIT_DEPRECATE_HARD) {
 	 * There is no plan to remove these backward compatibility values at
 	 * this time.
 	 */
+	/*@{*/
 
 	alias git_cred = libgit2.credential.git_credential;
 	alias git_cred_userpass_plaintext = libgit2.credential.git_credential_userpass_plaintext;

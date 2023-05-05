@@ -106,6 +106,11 @@ enum git_cert_ssh_t
 	 * SHA-256 is available
 	 */
 	GIT_CERT_SSH_SHA256 = 1 << 2,
+
+	/**
+	 * Raw hostkey is available
+	 */
+	GIT_CERT_SSH_RAW = 1 << 3,
 }
 
 //Declaration name in C language
@@ -114,6 +119,57 @@ enum
 	GIT_CERT_SSH_MD5 = .git_cert_ssh_t.GIT_CERT_SSH_MD5,
 	GIT_CERT_SSH_SHA1 = .git_cert_ssh_t.GIT_CERT_SSH_SHA1,
 	GIT_CERT_SSH_SHA256 = .git_cert_ssh_t.GIT_CERT_SSH_SHA256,
+	GIT_CERT_SSH_RAW = .git_cert_ssh_t.GIT_CERT_SSH_RAW,
+}
+
+enum git_cert_ssh_raw_type_t
+{
+	/**
+	 * The raw key is of an unknown type.
+	 */
+	GIT_CERT_SSH_RAW_TYPE_UNKNOWN = 0,
+
+	/**
+	 * The raw key is an RSA key.
+	 */
+	GIT_CERT_SSH_RAW_TYPE_RSA = 1,
+
+	/**
+	 * The raw key is a DSS key.
+	 */
+	GIT_CERT_SSH_RAW_TYPE_DSS = 2,
+
+	/**
+	 * The raw key is a ECDSA 256 key.
+	 */
+	GIT_CERT_SSH_RAW_TYPE_KEY_ECDSA_256 = 3,
+
+	/**
+	 * The raw key is a ECDSA 384 key.
+	 */
+	GIT_CERT_SSH_RAW_TYPE_KEY_ECDSA_384 = 4,
+
+	/**
+	 * The raw key is a ECDSA 521 key.
+	 */
+	GIT_CERT_SSH_RAW_TYPE_KEY_ECDSA_521 = 5,
+
+	/**
+	 * The raw key is a ED25519 key.
+	 */
+	GIT_CERT_SSH_RAW_TYPE_KEY_ED25519 = 6,
+}
+
+//Declaration name in C language
+enum
+{
+	GIT_CERT_SSH_RAW_TYPE_UNKNOWN = .git_cert_ssh_raw_type_t.GIT_CERT_SSH_RAW_TYPE_UNKNOWN,
+	GIT_CERT_SSH_RAW_TYPE_RSA = .git_cert_ssh_raw_type_t.GIT_CERT_SSH_RAW_TYPE_RSA,
+	GIT_CERT_SSH_RAW_TYPE_DSS = .git_cert_ssh_raw_type_t.GIT_CERT_SSH_RAW_TYPE_DSS,
+	GIT_CERT_SSH_RAW_TYPE_KEY_ECDSA_256 = .git_cert_ssh_raw_type_t.GIT_CERT_SSH_RAW_TYPE_KEY_ECDSA_256,
+	GIT_CERT_SSH_RAW_TYPE_KEY_ECDSA_384 = .git_cert_ssh_raw_type_t.GIT_CERT_SSH_RAW_TYPE_KEY_ECDSA_384,
+	GIT_CERT_SSH_RAW_TYPE_KEY_ECDSA_521 = .git_cert_ssh_raw_type_t.GIT_CERT_SSH_RAW_TYPE_KEY_ECDSA_521,
+	GIT_CERT_SSH_RAW_TYPE_KEY_ED25519 = .git_cert_ssh_raw_type_t.GIT_CERT_SSH_RAW_TYPE_KEY_ED25519,
 }
 
 /**
@@ -127,28 +183,45 @@ struct git_cert_hostkey
 	.git_cert parent;
 
 	/**
-	 * A hostkey type from libssh2, either
-	 * `git_cert_ssh_t.GIT_CERT_SSH_MD5` or `git_cert_ssh_t.GIT_CERT_SSH_SHA1`
+	 * A bitmask containing the available fields.
 	 */
 	.git_cert_ssh_t type = cast(.git_cert_ssh_t)(0);
 
 	/**
-	 * Hostkey hash. If type has `git_cert_ssh_t.GIT_CERT_SSH_MD5` set, this will
+	 * Hostkey hash. If `type` has `GIT_CERT_SSH_MD5` set, this will
 	 * have the MD5 hash of the hostkey.
 	 */
 	ubyte[16] hash_md5;
 
 	/**
-	 * Hostkey hash. If type has `git_cert_ssh_t.GIT_CERT_SSH_SHA1` set, this will
+	 * Hostkey hash. If `type` has `GIT_CERT_SSH_SHA1` set, this will
 	 * have the SHA-1 hash of the hostkey.
 	 */
 	ubyte[20] hash_sha1;
 
 	/**
-	 * Hostkey hash. If type has `GIT_CERT_SSH_SHA256` set, this will
+	 * Hostkey hash. If `type` has `GIT_CERT_SSH_SHA256` set, this will
 	 * have the SHA-256 hash of the hostkey.
 	 */
 	ubyte[32] hash_sha256;
+
+	/**
+	 * Raw hostkey type. If `type` has `GIT_CERT_SSH_RAW` set, this will
+	 * have the type of the raw hostkey.
+	 */
+	.git_cert_ssh_raw_type_t raw_type;
+
+	/**
+	 * Pointer to the raw hostkey. If `type` has `GIT_CERT_SSH_RAW` set,
+	 * this will have the raw contents of the hostkey.
+	 */
+	const (char)* hostkey;
+
+	/**
+	 * Raw hostkey length. If `type` has `GIT_CERT_SSH_RAW` set, this will
+	 * have the length of the raw contents of the hostkey.
+	 */
+	size_t hostkey_len;
 }
 
 /**

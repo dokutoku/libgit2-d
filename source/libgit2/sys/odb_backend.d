@@ -81,6 +81,13 @@ struct git_odb_backend
 	int function(libgit2.types.git_odb_writepack**, .git_odb_backend*, libgit2.types.git_odb* odb, libgit2.indexer.git_indexer_progress_cb progress_cb, void* progress_payload) writepack;
 
 	/**
+	 * If the backend supports pack files, this will create a
+	 * `multi-pack-index` file which will contain an index of all objects
+	 * across all the `.pack` files.
+	 */
+	int function(.git_odb_backend*) writemidx;
+
+	/**
 	 * "Freshens" an already existing object, updating its last-used
 	 * time.  This occurs when `git_odb_write` was called, but the
 	 * object already existed (and will not be re-written).  The

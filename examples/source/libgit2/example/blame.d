@@ -80,7 +80,7 @@ public int lg2_blame(libgit2.types.git_repository* repo, int argc, char** argv)
 		if (o.commitspec != null) {
 			libgit2.example.common.check_lg2(libgit2.revparse.git_revparse(&revspec, repo, o.commitspec), "Couldn't parse commit spec", null);
 
-			if (revspec.flags & libgit2.revparse.git_revparse_mode_t.GIT_REVPARSE_SINGLE) {
+			if (revspec.flags & libgit2.revparse.git_revspec_t.GIT_REVSPEC_SINGLE) {
 				libgit2.oid.git_oid_cpy(&blameopts.newest_commit, libgit2.object.git_object_id(revspec.from));
 				libgit2.object.git_object_free(revspec.from);
 			} else {

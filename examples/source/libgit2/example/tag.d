@@ -298,7 +298,7 @@ private void action_delete_tag(.tag_state* state)
 	}
 
 nothrow @nogc
-private void action_create_lighweight_tag(.tag_state* state)
+private void action_create_lightweight_tag(.tag_state* state)
 
 	in
 	{
@@ -399,7 +399,7 @@ private void parse_options(.tag_action* action, .tag_options* opts, int argc, ch
 				}
 
 				if (*action != &.action_create_tag) {
-					*action = &.action_create_lighweight_tag;
+					*action = &.action_create_lightweight_tag;
 				}
 			} else if (!core.stdc.string.strcmp(curr, "-n")) {
 				opts.num_lines = 1;

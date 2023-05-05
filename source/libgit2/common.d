@@ -55,9 +55,10 @@ public:
 
 /**
  * The separator used in path list strings (ie like in the PATH
- * environment variable). A semi-colon ";" is used on Windows, and
- * a colon ":" for all other systems.
+ * environment variable). A semi-colon ";" is used on Windows and
+ * AmigaOS, and a colon ":" for all other systems.
  */
+//#if defined(GIT_WIN32) || defined(AMIGA)
 static if (.GIT_WIN32) {
 	enum GIT_PATH_LIST_SEPARATOR = ';';
 } else {
@@ -190,6 +191,8 @@ enum git_libgit2_opt_t
 	GIT_OPT_ENABLE_HTTP_EXPECT_CONTINUE,
 	GIT_OPT_GET_MWINDOW_FILE_LIMIT,
 	GIT_OPT_SET_MWINDOW_FILE_LIMIT,
+	GIT_OPT_SET_ODB_PACKED_PRIORITY,
+	GIT_OPT_SET_ODB_LOOSE_PRIORITY,
 }
 
 //Declaration name in C language
@@ -226,6 +229,8 @@ enum
 	GIT_OPT_ENABLE_HTTP_EXPECT_CONTINUE = .git_libgit2_opt_t.GIT_OPT_ENABLE_HTTP_EXPECT_CONTINUE,
 	GIT_OPT_GET_MWINDOW_FILE_LIMIT = .git_libgit2_opt_t.GIT_OPT_GET_MWINDOW_FILE_LIMIT,
 	GIT_OPT_SET_MWINDOW_FILE_LIMIT = .git_libgit2_opt_t.GIT_OPT_SET_MWINDOW_FILE_LIMIT,
+	GIT_OPT_SET_ODB_PACKED_PRIORITY = .git_libgit2_opt_t.GIT_OPT_SET_ODB_PACKED_PRIORITY,
+	GIT_OPT_SET_ODB_LOOSE_PRIORITY = .git_libgit2_opt_t.GIT_OPT_SET_ODB_LOOSE_PRIORITY,
 }
 
 /**
@@ -438,6 +443,14 @@ enum
  *		> When connecting to a server using NTLM or Negotiate
  *		> authentication, use expect/continue when POSTing data.
  *		> This option is not available on Windows.
+ *
+ *   opts(GIT_OPT_SET_ODB_PACKED_PRIORITY, int priority)
+ *      > Override the default priority of the packed ODB backend which
+ *      > is added when default backends are assigned to a repository
+ *
+ *   opts(GIT_OPT_SET_ODB_LOOSE_PRIORITY, int priority)
+ *      > Override the default priority of the loose ODB backend which
+ *      > is added when default backends are assigned to a repository
  *
  * Params:
  *      option = Option key

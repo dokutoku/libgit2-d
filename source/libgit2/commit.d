@@ -488,23 +488,28 @@ int git_commit_create_with_signature(libgit2.oid.git_oid* out_, libgit2.types.gi
 int git_commit_dup(libgit2.types.git_commit** out_, libgit2.types.git_commit* source);
 
 /**
- * Commit signing callback.
+ * Commit creation callback: used when a function is going to create
+ * commits (for example, in `git_rebase_commit`) to allow callers to
+ * override the commit creation behavior.  For example, users may
+ * wish to sign commits by providing this information to
+ * `git_commit_create_buffer`, signing that buffer, then calling
+ * `git_commit_create_with_signature`.  The resultant commit id
+ * should be set in the `out` object id parameter.
  *
- * The callback will be called with the commit content, giving a user an
- * opportunity to sign the commit content. The signature_field
- * buf may be left empty to specify the default field "gpgsig".
- *
- * Signatures can take the form of any string, and can be created on an arbitrary
- * header field. Signatures are most commonly used for verifying authorship of a
- * commit using GPG or a similar cryptographically secure signing algorithm.
- * See https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work for more
- * details.
- *
- * When the callback:
- * - returns git_error_code.GIT_PASSTHROUGH, no signature will be added to the commit.
- * - returns < 0, commit creation will be aborted.
- * - returns git_error_code.GIT_OK, the signature parameter is expected to be filled.
+ * Returns: 0 if this callback has created the commit and populated the out parameter, GIT_PASSTHROUGH if the callback has not created a commit and wants the calling function to create the commit as if no callback had been specified, any other value to stop and return a failure
  */
-alias git_commit_signing_cb = int function(libgit2.buffer.git_buf* signature, libgit2.buffer.git_buf* signature_field, const (char)* commit_content, void* payload);
+/*
+ * Params:
+ *      out_ = pointer that this callback will populate with the object id of the commit that is created
+ *      author = the author name and time of the commit
+ *      committer = the committer name and time of the commit
+ *      message_encoding = the encoding of the given message, or null to assume UTF8
+ *      message = the commit message
+ *      tree = the tree to be committed
+ *      parent_count = the number of parents for this commit
+ *      parents = the commit parents
+ *      payload = the payload pointer in the rebase options
+ */
+alias git_commit_create_cb = int function(libgit2.oid.git_oid* out_, const (libgit2.types.git_signature)* author, const (libgit2.types.git_signature)* committer, const (char)* message_encoding, const (char)* message, const (libgit2.types.git_tree)* tree, size_t parent_count, const (libgit2.types.git_commit)** parents, void* payload);
 
 /* @} */

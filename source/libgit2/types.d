@@ -165,6 +165,11 @@ alias git_odb_stream = libgit2.odb_backend.git_odb_stream;
 alias git_odb_writepack = libgit2.odb_backend.git_odb_writepack;
 
 /**
+ * a writer for multi-pack-index files.
+ */
+struct git_midx_writer;
+
+/**
  * An open refs database handle.
  */
 struct git_refdb;
@@ -173,6 +178,16 @@ struct git_refdb;
  * A custom backend for refs
  */
 alias git_refdb_backend = libgit2.sys.refdb_backend.git_refdb_backend;
+
+/**
+ * A git commit-graph
+ */
+struct git_commit_graph;
+
+/**
+ * a writer for commit-graph files.
+ */
+struct git_commit_graph_writer;
 
 /**
  * Representation of an existing git repository,

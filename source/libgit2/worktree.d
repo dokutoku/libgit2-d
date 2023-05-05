@@ -268,6 +268,9 @@ struct git_worktree_prune_options
 {
 	uint version_;
 
+	/**
+	 * A combination of `git_worktree_prune_t`
+	 */
 	uint flags;
 }
 

@@ -12,10 +12,10 @@ module libgit2.version_;
 
 public:
 
-enum LIBGIT2_VERSION = "1.1.1";
+enum LIBGIT2_VERSION = "1.2.0";
 enum LIBGIT2_VER_MAJOR = 1;
-enum LIBGIT2_VER_MINOR = 1;
-enum LIBGIT2_VER_REVISION = 1;
+enum LIBGIT2_VER_MINOR = 2;
+enum LIBGIT2_VER_REVISION = 0;
 enum LIBGIT2_VER_PATCH = 0;
 
-enum LIBGIT2_SOVERSION = "1.1";
+enum LIBGIT2_SOVERSION = "1.2";

@@ -188,10 +188,6 @@ private void oid_parsing(libgit2.oid.git_oid* oid)
 		 */
 		libgit2.oid.git_oid_fmt(&(out_[0]), oid);
 
-		/**
-		 * If you have a oid, you can easily get the hex value of the SHA as well.
-		 */
-		libgit2.oid.git_oid_fmt(&(out_[0]), oid);
 		core.stdc.stdio.printf("SHA hex string: %s\n", &(out_[0]));
 	}
 
@@ -793,7 +789,7 @@ private void reference_listing(libgit2.types.git_repository* repo)
 /**
  * ### Config Files
  *
- * The [config API][config] allows you to list and updatee config values
+ * The [config API][config] allows you to list and update config values
  * in any of the accessible config file locations (system, global, local).
  *
  * [config]: http://libgit2.github.com/libgit2/#HEAD/group/config

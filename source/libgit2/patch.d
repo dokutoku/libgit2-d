@@ -34,6 +34,17 @@ public:
 struct git_patch;
 
 /**
+ * Get the repository associated with this patch. May be null.
+ *
+ * Params:
+ *      patch = the patch
+ *
+ * Returns: a pointer to the repository
+ */
+@GIT_EXTERN
+libgit2.types.git_repository* git_patch_owner(const (.git_patch)* patch);
+
+/**
  * Return a patch for an entry in the diff list.
  *
  * The `git_patch` is a newly created object contains the text diffs

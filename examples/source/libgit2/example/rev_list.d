@@ -123,7 +123,7 @@ private int push_range(libgit2.types.git_repository* repo, libgit2.types.git_rev
 			libgit2.object.git_object_free(revspec.to);
 		}
 
-		if (revspec.flags & libgit2.revparse.git_revparse_mode_t.GIT_REVPARSE_MERGE_BASE) {
+		if (revspec.flags & libgit2.revparse.git_revspec_t.GIT_REVSPEC_MERGE_BASE) {
 			/* TODO: support "<commit>...<commit>" */
 			return libgit2.errors.git_error_code.GIT_EINVALIDSPEC;
 		}
